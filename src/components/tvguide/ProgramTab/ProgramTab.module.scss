@@ -1,0 +1,12 @@
+@import '@/_var.scss';
+
+.title_wrapper {
+  padding: 0px 15px;
+  cursor: pointer;
+  p {
+    @include ellipse
+  }
+  &.no_program{
+    cursor:not-allowed;
+  }
+}

@@ -1,0 +1,51 @@
+module.exports = {
+  reactStrictMode: true,
+  basePath: '',
+  async rewrites() {
+    return [
+      {
+        source: '/signin',
+        destination: '/auth/signin',
+      },
+      {
+        source: '/profiles/manage-user-profile',
+        destination: '/auth/profiles/profile',
+      },
+      {
+        source: '/profiles/select-user-profile',
+        destination: '/auth/profiles/profile',
+      },
+      {
+        source: '/profiles/create-user-profile',
+        destination: '/auth/profiles/profile',
+      },
+      {
+        source: '/profiles/update-user-profile/:userId',
+        destination: '/auth/profiles/profile',
+      },
+      {
+        source: '/add-profile-name',
+        destination: '/auth/profiles/add-profile-name',
+      },
+      {
+        source: '/profiles/view-restrictions/:userId',
+        destination: '/auth/profiles/view-restrictions'
+      },
+      {
+        source: '/settings',
+        destination: '/misc/misc',
+      },
+      {
+        source: '/',
+        destination: '/home',
+      },
+    ];
+  },
+  // typescript: {
+  //   // !! WARN !!
+  //   // Dangerously allow production builds to successfully complete even if
+  //   // your project has type errors.
+  //   // !! WARN !!
+  //   // ignoreBuildErrors: true,
+  // },
+};

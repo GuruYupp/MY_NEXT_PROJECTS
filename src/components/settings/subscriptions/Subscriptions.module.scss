@@ -1,0 +1,56 @@
+@import '@/_var.scss';
+
+.subscription_details_container {
+  .plans_container {
+    .no_plans_row {
+      border-bottom: 1px solid #333;
+      padding: 30px 25px;
+      @include breakpoint(mobile) {
+        padding: 20px;
+      }
+      .heading1 {
+        font-size: 18px;
+        font-weight: 500;
+        color: hsla(0, 0%, 100%, 0.7);
+        @include breakpoint(mac) {
+          font-size: 17;
+        }
+        @include breakpoint(laptop) {
+          font-size: 16;
+        }
+        @include breakpoint(tablet) {
+          font-size: 15px;
+        }
+      }
+      .heading2 {
+        font-size: 16px;
+        font-style: italic;
+        font-weight: 400;
+        color: #999;
+        @include breakpoint(mac) {
+          font-size: 15;
+        }
+        @include breakpoint(laptop) {
+          font-size: 14;
+        }
+        @include breakpoint(tablet) {
+          font-size: 13px;
+        }
+      }
+    }
+    .plans_transaction {
+      padding: 25px 20px;
+      position: relative;
+      .label {
+        position: absolute;
+        right: 3%;
+        display: inline-block;
+        color: #bbb;
+        font-size: 14px;
+        cursor: pointer;
+        top: 50%;
+        transform: translate(-3%, -50%);
+      }
+    }
+  }
+}

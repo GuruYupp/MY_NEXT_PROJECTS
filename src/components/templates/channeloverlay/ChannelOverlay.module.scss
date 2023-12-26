@@ -1,0 +1,81 @@
+@import '@/_var.scss';
+.channel_overlay{
+  padding: 20px 58px;
+  background-color: $secondary-color;
+  position: absolute;
+  bottom: 0;
+  width:100%;
+  .channel_overlay_inner{
+    display: flex;
+    .channel_overlay_left_inner{
+      width: 40%;
+      padding-right: 25px;
+    }
+    .channel_overlay_right_inner{
+        letter-spacing: .2px;
+        padding-bottom: 10px;
+        margin: 0;
+        font-weight: 400;
+        width: calc(100% - 30px);
+        color:#fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      .meta{
+        .title{
+          font-size: 24px;
+        }
+      }
+            .buttons {
+              .btn {
+                display: inline-block;
+                height: 40px;
+                line-height: 26px;
+                cursor: pointer;
+                border-radius: 2px;
+                vertical-align: middle;
+                padding: 7px 20px;
+                font-size: 18px;
+                
+                img {
+                  margin: 0px 5px;
+                  width: 14px;
+                }
+      
+                &.favorite_btn,
+                &.share_btn {
+                  color: #fefefe;
+                  background: #555;
+                  // padding: 0 10px;
+                  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+                  // font-size: 16px;
+                  margin-right: 15px;
+                }
+      
+                // &.share_btn {
+                //   border: 1px solid #c5c5c5;
+                //   background-color: transparent;
+                //   height: 40px;
+                //   padding: 5px;
+                //   width: 40px;
+      
+                //   img {
+                //     width: 100%;
+                //     margin: auto;
+                //   }
+                // }
+      
+                &.signin_btn{
+                  color: #fefefe;
+                  background: $primary-color;
+                  // padding: 0 10px;
+                  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+                  // font-size: 16px;
+                  margin-right: 15px;
+                }
+            
+              }
+            }
+    }
+  }
+}

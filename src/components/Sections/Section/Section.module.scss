@@ -1,0 +1,136 @@
+@import '@/_var.scss';
+
+.section {
+  margin-bottom: 10px;
+  padding: 15px 0px;
+  width: 100%;
+  position: relative;
+  clear: both;
+  .section_info{
+    padding-left: 48px;
+    color: #e5e5e5;
+   display: flex;
+   align-items: center;
+    .title {
+      margin: 0;
+      font-size: 18px;
+      margin-left: 7px;
+      text-transform:capitalize;
+      font-family: Poppins, sans-serif;
+      font-weight: 400;
+    }
+         a {
+           text-decoration: none;
+           color: inherit;
+         }
+    .view_all{
+      display: flex;
+      align-items: center;
+      position: relative;
+      color: #e5e5e5;
+      left: 0px;
+        .text {
+            font-size: 14px;
+            display: none;
+          }
+      .arrow {
+          margin-left: 7px;
+          font-size: 24px;
+        }
+      
+    }
+  }
+
+  .cards_wrapper{
+    width: 100%;
+    position: relative;
+    @include cardsPadding;
+    .arrow_container {
+        position: absolute;
+        top: 7px;
+        bottom: 7px;
+        background-color: rgba(0, 0, 0, .3);
+        width: 42px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        @include breakpoint(tablet){
+          display: none !important;
+        }
+    
+        .arrowbox {
+          height: 18px;
+          width: 18px;
+          transform: rotate(45deg);
+          border-width: 3px;
+          border-style: solid;
+          border-color: transparent;
+        }
+    
+        &.left_arrow_container {
+          left: 0px;
+    
+          .arrowbox {
+            border-bottom-color: #fff;
+            border-left-color: #fff;
+          }
+        }
+    
+        &.right_arrow_container {
+          right: 0px;
+    
+          .arrowbox {
+            border-top-color: #fff;
+            border-right-color: #fff;
+          }
+        }
+      }
+    .cards {
+        transition: margin-left .6s ease-in-out;
+        position: relative;
+        display: flex;
+        a{
+          text-decoration: none;
+        }
+    }
+    .enableScroll{
+      // overflow-x: initial;
+      // overflow-y: hidden;
+      // @include breakpoint(tablet){
+      //   overflow-x: auto;
+      //   overflow-y: hidden;
+       
+      // }
+      //        &::-webkit-scrollbar {
+      //          display: none;
+      //        }
+      overflow: initial;
+    }
+  }
+
+  &:hover{
+    .section_info{
+      .view_all{
+        left: 0px;
+        color: $primary-color;
+        cursor: pointer;
+        .text{
+          margin: 0px 10px;
+          display: inline;
+        }
+        .arrow{
+          margin-left: 0px;
+        }
+      }
+    }
+    .cards_wrapper{
+      .arrow_container {
+        display: flex;
+      }
+    }
+  }
+}
+
+
+

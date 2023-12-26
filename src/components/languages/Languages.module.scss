@@ -1,0 +1,149 @@
+@import '@/_var.scss';
+
+.languages_container {
+  position: absolute;
+  left: 50%;
+  top: 0%;
+  transform: translate(-50%, 0%);
+  text-align: center;
+  color: #fff;
+  background-color: $secondary-color;
+  padding: 34px 40px 50px;
+  max-width: 1000px;
+  margin-top: 20px;
+  width: 100%;
+  @include breakpoint(mac) {
+    width: 900px;
+    padding: 30px 40px;
+  }
+
+  @include breakpoint(laptop) {
+    padding: 30px;
+    width: 800px;
+  }
+
+  .languages {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .languages_top {
+    .languages_text {
+      .heading1 {
+        color: #fff;
+        font-size: 32px;
+        font-weight: 400;
+        margin: 16px 0 10px;
+
+        @include breakpoint(mac) {
+          font-size: 22px;
+          margin: 16px 0 10px;
+        }
+
+        @include breakpoint(laptop) {
+          font-size: 20px;
+          margin: 16px 0 8px;
+        }
+
+        @include breakpoint(tablet) {
+          font-size: 18px;
+        }
+      }
+      .heading2 {
+        font-size: 14px;
+        margin: 0 0 40px;
+        color: #fff;
+        opacity: 0.65;
+        font-weight: 400;
+
+        @include breakpoint(mac) {
+          margin: 0 0 30px;
+          font-size: 14px;
+        }
+
+        @include breakpoint(laptop) {
+          font-size: 15px;
+          margin: 0 0 25px;
+        }
+
+        @include breakpoint(tablet) {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .languages_buttons {
+      border-bottom: 1px solid #333;
+      font-size: 14px;
+      text-align: right;
+      padding: 0 0 12px;
+      margin: 0 0 14px;
+      @include breakpoint(mac) {
+        margin: 0 0 14px;
+      }
+      display: flex;
+      justify-content: flex-end;
+      .btn {
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #fff;
+        opacity: 0.65;
+        font-size: 14px;
+      }
+      .divider {
+        margin-left: 16px;
+        margin-right: 16px;
+        color: #3a3543;
+        border-left: 1px solid;
+        border-right: 1px solid;
+      }
+    }
+  }
+  .languages_close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    img {
+      transition: all 0.2s ease;
+    }
+  }
+  .languages_footer {
+    .languages_footer_btns {
+      margin: 50px auto auto;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .btn {
+        border-radius: 2px;
+        height: 44px;
+        width: 160px;
+        font-size: 16px;
+        text-align: center;
+        color: #fff;
+        border: none;
+        background: hsla(0, 0%, 100%, 0.15);
+        outline: none;
+        margin: 0px 8px;
+        &:nth-child(2) {
+          background: #e7195a;
+          color: #fff;
+          &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+          }
+        }
+        @include breakpoint(mac) {
+          font-size: 14px;
+        }
+      }
+    }
+    .languages_error_text {
+      color: red;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+  }
+}

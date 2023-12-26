@@ -1,0 +1,121 @@
+ @import "@/_var.scss";
+
+ .lang_container {
+   position: relative;
+   flex: 0 0 25%;
+   max-width: 25%;
+   padding: 7px;
+
+   @include breakpoint(mobile-common-land){
+       flex: 0 0 50%;
+      max-width: 50%;
+      padding: 10px;
+   }
+
+   .lang {
+     background-color: #454545;
+     color: #9ea2ac;
+     border-radius: 4px;
+     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.35);
+     text-align: left;
+     cursor: pointer;
+     display: flex;
+     justify-content: flex-start;
+     align-items: flex-start;
+     flex-direction: column;
+     padding: 25px 15px 10px;
+     position: relative;
+
+     @include breakpoint(mac) {
+       padding: 25px 12px 9px;
+     }
+
+     @include breakpoint(laptop) {
+       padding: 25px 10px 8px;
+     }
+
+     .lang_text {
+       color: #fff;
+       font-size: 18px;
+       display: inline-block;
+       overflow: hidden;
+       @include ellipse;
+
+       @include breakpoint(mac) {
+         font-size: 17px;
+       }
+
+       @include breakpoint(laptop) {
+         font-size: 16px;
+       }
+     }
+
+     .lang_native_text {
+       color: hsla(0, 0%, 100%, 0.65);
+       font-size: 16px;
+
+       @include breakpoint(mac) {
+         font-size: 15px;
+       }
+
+       @include breakpoint(laptop) {
+         font-size: 14px;
+       }
+     }
+
+     .select_lang_icon {
+       border: 2px solid #767676;
+       position: absolute;
+       top: 10px;
+       right: 10px;
+       height: 22px;
+       width: 22px;
+       border-radius: 50px;
+
+       @include breakpoint(mac) {
+         top: 8px;
+         right: 8px;
+         height: 20px;
+         width: 20px;
+       }
+
+       @include breakpoint(laptop) {
+         top: 6px;
+         right: 6px;
+         height: 18px;
+         width: 18px;
+       }
+
+
+       &::after {
+         content: "";
+         left: 6px;
+         top: 3px;
+         width: 6px;
+         height: 10px;
+         border: solid #fff;
+         border-width: 0 2px 2px 0;
+         transform: rotate(45deg);
+         -webkit-transform: rotate(45deg);
+         position: absolute;
+         display: block;
+         box-sizing: border-box;
+
+         @include breakpoint(mac) {
+           left: 5px;
+           top: 2px;
+         }
+
+         @include breakpoint(laptop) {
+           width: 5px;
+           height: 9px;
+         }
+       }
+
+       &.active {
+         background: #e61959;
+         border: 2px solid #e61959 !important;
+       }
+     }
+   }
+ }

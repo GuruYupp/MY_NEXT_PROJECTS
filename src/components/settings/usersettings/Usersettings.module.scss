@@ -1,0 +1,61 @@
+@import '@/_var.scss';
+.user_settings_container {
+  padding: 30px 25px;
+  @include breakpoint(mobile) {
+    padding: 20px;
+  }
+  .settings_inner{
+    .label{
+      //  display: inline-block;
+        vertical-align: top;
+        min-width: 180px;
+        font-size: 16px;
+        opacity: .8;
+        color: #fff;
+        padding-right: 30px;
+        font-weight: 400;
+        margin-bottom: 0;
+        padding-bottom: 5px;
+        @include breakpoint(mobile){
+            width: 100%;
+            padding: 0;
+            font-size: 14px;
+        }
+    }
+    .quality_info{
+        font-size: 14px;
+        color: #fff;
+        // opacity: .6;
+        @include breakpoint(mobile) {
+            font-size: 12px;
+            width: calc(100% - 70px);
+        }
+        .quality_info_label{
+            margin-right: 10px;
+            height: 30px;
+            width: 254px;
+            margin-top: 3px;
+            border-radius: 3px;
+            color: #9ea1aa;
+            border: 1px solid hsla(0, 0%, 44%, .64);
+            padding: 2px 10px 4px 14px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            background-color: red;
+            .quality_drop_down{
+                  height: auto;
+                  max-height: 250px;
+                  overflow-x: hidden;
+                  top: 30px;
+                  display: block;
+                  width: 100%;
+                  border: none;
+                  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .55);
+                  background-color: #fff;
+            }
+        }
+    }
+  }
+}

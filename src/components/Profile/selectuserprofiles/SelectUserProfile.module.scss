@@ -1,0 +1,190 @@
+@import "@/_var.scss";
+
+.ProfilePage {
+  height: 100vh;
+  min-height: 550px;
+
+  .profileContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+
+    .heading {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 30px;
+      color: #fff;
+      font-weight: 400;
+
+      @include breakpoint(tablet) {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      @include breakpoint(mobile) {
+        font-size: 20px;
+      }
+    }
+
+    .profiles {
+      display: flex;
+
+      .profile {
+
+        margin: 0px 10px;
+        position: relative;
+
+        @include breakpoint(mobile-big-land) {
+          margin: 0px 5px;
+        }
+
+        @include breakpoint(mobile-common-land) {
+          margin: 0px;
+        }
+
+        .profile_inner {
+          width: 150px;
+          height: 150px;
+          border-radius: 8px;
+          background: #343434;
+
+          @include breakpoint(tablet) {
+            width: 130px;
+            height: 130px;
+          }
+
+          @include breakpoint(mobile) {
+            width: 110px;
+            height: 110px;
+          }
+
+          @include breakpoint(mobile-big-land) {
+            width: 110px;
+            height: 110px;
+            margin: 0px 5px;
+          }
+
+          @include breakpoint(mobile-common-land) {
+            height: 90px;
+            width: 90px;
+          }
+
+          img {
+            width: 100%;
+            border-radius: 8px;
+          }
+
+
+
+          .lock_icon {
+            position: absolute;
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            width: 20px;
+            height: 20px;
+
+            @include breakpoint(mobile) {
+              width: 16px;
+              height: 16px;
+            }
+          }
+        }
+
+        span {
+          display: inline-block;
+          font-size: 14px;
+          margin-top: 10px;
+          color: #fff;
+          text-align: center;
+          width: 100%;
+          @include ellipse;
+
+          @include breakpoint(tablet) {
+            margin-top: 4px;
+          }
+
+          @include breakpoint(mobile-common-land) {
+            font-size: 12px;
+          }
+
+        }
+
+        &.add_profile {
+          .profile_inner {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            @include breakpoint(mobile-common-land) {
+              font-size: 12px;
+            }
+
+            @include breakpoint(mobile-small) {
+              // margin-top: 50px;
+            }
+
+            a {
+              display: inline-block;
+              margin-top: 0px;
+
+              img {
+                height: 42px;
+                width: 42px;
+
+                @include breakpoint(tablet) {
+                  height: 35px;
+                  width: 35px;
+                }
+
+                @include breakpoint(mobile-common-land) {
+                  height: 28px;
+                  width: 28px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      @include breakpoint(mobile-small) {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 100px;
+
+      @include breakpoint(tablet) {
+        margin-top: 50px;
+      }
+
+      .profiles_btn {
+        padding: 10px 0;
+        border: none;
+        background-color: $primary-color;
+        width: 220px;
+        text-align: center;
+        font-size: 16px;
+        color: #fff;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        cursor: pointer;
+
+        @include breakpoint(mobile) {
+          font-size: 14px;
+        }
+
+        @include breakpoint(mobile-common-land) {
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

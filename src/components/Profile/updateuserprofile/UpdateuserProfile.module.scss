@@ -1,0 +1,348 @@
+@import "@/_var.scss";
+.profileUpdate_container {
+  width: 680px;
+  margin: 120px auto 30px;
+  @include breakpoint(desktop-small) {
+    width: 600px;
+  }
+  @include breakpoint(tablet) {
+    width: 100%;
+    padding: 0 20px;
+    margin-top: 75px;
+  }
+  .profileUpdate_header {
+    font-size: 36px;
+    color: #e5e5e5;
+    font-weight: 400;
+    @include breakpoint(mac) {
+      font-size: 32px;
+    }
+    @include breakpoint(laptop) {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+    @include breakpoint(tablet) {
+      display: none;
+    }
+  }
+  .profileUpdate_mobile_header{
+      height: 56px;
+      line-height: 56px;
+      background: #222;
+      padding: 0;
+      display: none;
+      font-weight: 400;
+      position: fixed;
+      width: 100%;
+      z-index: 9;
+      top: 0;
+      left: 0;
+      @include breakpoint(tablet) {
+          display: block;
+            padding: 0 25px;
+        }
+      .text{
+        font-size: 21px;
+          margin: 0;
+          padding-left: 30px;
+          color: #fff;
+          font-weight: 400;
+          img{
+            width: 28px;
+              height: 28px;
+              margin-bottom: 3px;
+              vertical-align: middle;
+              margin-right: 3px;
+          }
+      }
+  }
+
+  .profileUpdate_body {
+    display: flex;
+    border-top: 1px solid #555;
+    border-bottom: 1px solid #555;
+    padding: 40px 0 16px;
+
+    @include breakpoint(mac) {
+      padding-top: 30px;
+    }
+
+    @include breakpoint(desktop-small) {
+      padding-top: 25px;
+    }
+
+    @include breakpoint(tablet) {
+      flex-direction: column;
+      align-items: center;
+      border: none;
+    }
+
+    .profile_img_container {
+      width: 160px;
+      height: 160px;
+      background: #7a7a80;
+      border-radius: 6px;
+      position: relative;
+
+      img {
+        height: 100%;
+        width: 100%;
+        border-radius: 6px;
+      }
+
+      @include breakpoint(tablet) {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 30px;
+      }
+      
+      .edit_icon {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 34px;
+        height: 34px;
+        cursor: pointer;
+        z-index: 1;
+        border: none;
+        
+        @include breakpoint(laptop) {
+          width: 28px;
+          height: 28px;
+        }
+      }
+
+    }
+
+    .profile_edit_container {
+      width: calc(100% - 220px);
+      margin: 0 0 0 40px;
+
+      @include breakpoint(tablet) {
+        width: 100%;
+        margin: auto 0
+      }
+
+      .profile_edit_container_inputs {
+        label {
+          border: 1px solid #555;
+          position: relative;
+          border-radius: 4px;
+          margin-bottom: 38px;
+          height: 50px;
+          width: 100%;
+          display: inline-block;
+          @include breakpoint(mac) {
+            margin-bottom: 30px;
+          }
+
+          .lable_title {
+            color: #888;
+            font-size: 12px;
+            position: absolute;
+            top: -8px;
+            left: 10px;
+            background: #141414;
+            padding: 0 5px;
+          }
+
+          .more_langs{
+            font-size: 14px;
+              color: #666;
+              position: absolute;
+              left: 110px;
+              top: 14px;
+              cursor: pointer;
+              .text{
+                font-style: italic;
+                  margin-left: 5px;
+                  color: #e7195a;
+                  cursor: pointer;
+              }
+          }
+
+          input {
+            background: none;
+            border: none;
+            color: #fff;
+            padding: 0 100px 0 16px;
+            width: 100%;
+            opacity: 0.65;
+            font-size: 15px !important;
+            height: 48px;
+            line-height: 48px;
+            outline: none;
+          }
+        }
+      }
+
+      .profile_edit_container_btns {
+        padding: 20px 0;
+        border-top: 1px solid #555;
+
+        .heading {
+          font-size: 20px;
+          margin-bottom: 14px;
+          font-weight: 400;
+          color: #e5e5e5;
+
+          @include breakpoint(mac) {
+            font-size: 18px;
+          }
+
+          @include breakpoint(desktop-small) {
+            font-size: 17px;
+          }
+        }
+
+        .subtitle {
+          font-size: 14px;
+          color: #999;
+          margin-top: 10px;
+          display: block;
+        }
+
+        .btns {
+          display: block;
+          .btn {
+            padding: 10px 25px;
+            border: none;
+            background: hsla(0, 0%, 100%, 0.15);
+            color: #fff;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+            display: inline-block;
+
+            &.adult_btn {
+              margin-right: 16px;
+            }
+          }
+        }
+
+        .profile_locK_container{
+              padding: 20px 0;
+              border-top: 1px solid #555;
+              .lock_icon{
+                margin-right: 8px;
+                  margin-bottom: 3px;
+                  opacity: .65;
+                  vertical-align: middle;
+              }
+              .text{
+                font-size: 16px;
+                color: #fff;
+                font-weight: 700;
+                cursor: pointer;
+                &.lock_enable{
+                  color: #e7195a;
+                }
+              }
+              
+        }
+      }
+    }
+  }
+
+  .profileUpdate_footer {
+    padding: 20px 0 20px 200px;
+    @include breakpoint(tablet) {
+      display: none;
+    }
+    .btns {
+      display: block;
+
+      .btn {
+        padding: 10px 0;
+        display: inline-block;
+        border: none;
+        background: hsla(0, 0%, 100%, 0.15);
+        text-align: center;
+        color: #fff;
+        margin-right: 16px;
+        font-size: 16px;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        width: 140px;
+        @include breakpoint(desktop-small) {
+          padding: 10px 20px;
+        }
+        &.save_btn {
+          margin-right: 16px;
+          background: #e7195a;
+          @include breakpoint(desktop-small) {
+            margin-right: 0;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+
+  .profileUpdate_mobile_footer {
+    display: none;
+    @include breakpoint(tablet) {
+      display: block;
+    }
+    .delete {
+      .btn {
+        @include breakpoint(tablet) {
+          display: flex;
+          font-size: 14px;
+          color: #e5e5e5;
+          align-items: center;
+          background: none;
+          border: none;
+          padding: 0;
+          margin: 0 auto;
+          img {
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+    .btns {
+      padding: 30px 0 0;
+      text-align: center;
+      font-size: 14px;
+      @include breakpoint(tablet) {
+        font-size: 14px;
+      }
+      .btn {
+        padding: 10px 0;
+        display: inline-block;
+        border: none;
+        background: hsla(0, 0%, 100%, 0.15);
+        text-align: center;
+        color: #fff;
+        margin-right: 16px;
+        font-size: 16px;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+       
+        @include breakpoint(desktop-small) {
+          padding: 10px 20px;
+        }
+
+        @include breakpoint(tablet) {
+          font-size: 14px;
+        }
+
+        &.save_btn {
+          margin-right: 16px;
+
+          @include breakpoint(desktop-small) {
+            background: #e7195a;
+            margin-right: 0;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

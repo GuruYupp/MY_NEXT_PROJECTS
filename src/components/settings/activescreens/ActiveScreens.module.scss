@@ -1,0 +1,43 @@
+@import '@/_var.scss';
+.actvie_screens_container {
+  padding: 30px 25px;
+  @include breakpoint(mobile) {
+    padding: 20px;
+  }
+  .active_btn_wrapper {
+    .btn {
+      color: #fff;
+      cursor: default;
+      background-color: $primary-color;
+      padding: 3px 10px;
+      border: 1px solid $primary-color;
+      font-size: 14px;
+      border-radius: 4px;
+      outline: none;
+    }
+  }
+
+  .active_screens {
+    max-height: 200px;
+    margin-top: 30px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #232323;
+      border-radius: 25px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #3c3c3c;
+      border-radius: 25px;
+      // &:hover {
+      //   background: #000;
+      // }
+    }
+    @include breakpoint(mobile-common-land) {
+      margin-top: 20px;
+    }
+  }
+}

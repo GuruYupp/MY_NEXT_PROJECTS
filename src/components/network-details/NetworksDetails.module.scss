@@ -1,0 +1,12 @@
+.networkdetails_container {
+  padding-top: 97px;
+  .partner_banner_Image{
+    position: relative;
+    img{
+      width: 100%;
+    }
+  }
+  &.noBanners {
+    margin-bottom: 156px;
+  }
+}

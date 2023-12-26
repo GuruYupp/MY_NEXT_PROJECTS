@@ -1,0 +1,50 @@
+@import '@/_var.scss';
+.account_details_container {
+  padding: 30px 25px;
+  @include breakpoint(mobile) {
+    padding: 20px;
+  }
+  .data_row {
+    position: relative;
+    margin-bottom: 32px;
+    @include breakpoint(mobile) {
+      margin: 0px;
+      padding: 10px;
+      border-bottom: 1px solid hsla(0, 0%, 100%, 0.1);
+    }
+    .heading {
+      opacity: 0.8;
+      color: #fff;
+      font-weight: 400;
+      margin: 2.5px 0px;
+    }
+    .heading1 {
+      font-size: 18px;
+      @include breakpoint(mac) {
+        font-size: 16px;
+      }
+      @include breakpoint(mobile) {
+        font-size: 14px;
+      }
+    }
+    .heading2 {
+      font-size: 14px;
+      opacity: 0.6;
+      @include breakpoint(mobile) {
+        font-size: 12px;
+      }
+    }
+    .action_btn {
+      position: absolute;
+      display: inline-block;
+      right: 0;
+      color: $primary-color;
+      top: 50%;
+      transform: translate(0%, -50%);
+      @include breakpoint(mobile) {
+        font-size: 12px;
+      }
+      font-size: 14px;
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@import '@/_var.scss';
+
+.filter_container{
+  width:600px;
+  position: absolute;
+  left: 50%;
+  top:50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  color: #fff;
+  background-color: $secondary-color;
+  padding: 30px;
+  .partners{
+    display: flex;
+    flex-wrap: wrap;
+    .partner{
+      max-width: 20%;
+      padding: 7px;
+      img{
+        border-radius: 7px;
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}

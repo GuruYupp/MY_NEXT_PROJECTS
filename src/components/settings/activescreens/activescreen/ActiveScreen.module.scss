@@ -1,0 +1,56 @@
+@import '@/_var.scss';
+.active_screen_container {
+  border-bottom: 1px solid rgba(var(--setting-details-bg), 0.7);
+  padding: 0 20px 30px 0;
+  position: relative;
+  @include breakpoint(mobile) {
+    padding: 20px 15px;
+  }
+  .active_screen {
+    display: flex;
+    align-items: center;
+    .active_screen_left {
+      width: 60%;
+      display: flex;
+      .device_img_container {
+        width: 50px;
+        img {
+          height: 36px;
+          width: 36px;
+          vertical-align: middle;
+          margin: auto;
+          color: #999;
+          filter: grayscale(50%);
+        }
+      }
+      .device_info {
+        .device_type {
+          font-size: 16px;
+          font-weight: 500;
+          color: #fff;
+        }
+        .device_subtype {
+          font-size: 14px;
+          color: #ccc;
+        }
+      }
+    }
+    .active_screen_right {
+      width: calc(100% - 60%);
+      .action_btn {
+        font-size: 16px;
+        display: inline-block;
+        width: 100%;
+        color: $primary-color;
+        padding: 0;
+        cursor: pointer;
+        text-align: right;
+        font-weight: 500;
+        &.disable {
+          cursor: auto;
+          color: #999;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+// @import '@/_var.scss';
+// .ProfilePage{
+//   height: 100vh;
+//   min-height: 550px;
+//   .profileContainer{
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     flex-direction: column;
+//     height: 100%;
+//     .heading{
+//       text-align: center;
+//       font-size: 26px;
+//       margin-bottom: 30px;
+//       color: #fff;
+//     }
+//     .profiles{
+//       display: flex;
+//       .profile{
+//         width: 150px;
+//         height: 150px;
+//         margin: 0px 10px;
+//         position: relative;
+//         background: #343434;
+//         border-radius: 8px;
+//         img{
+//           width: 100%;
+//         }
+//         span{
+//           display: inline-block;
+//           font-size: 14px;
+//           margin-top: 10px;
+//           color: #fff;
+//           text-align: center;
+//           width: 100%;
+//           @include ellipse;
+//         }
+//         .lock_icon{
+//           position: absolute;
+//           position: absolute;
+//             right: 6px;
+//             top: 6px;
+//             width: 20px;
+//             height: 20px;
+//         }
+//         &.add_profile{
+//           display: flex;
+//           flex-direction: column;
+//           justify-content: center;
+//           align-items: center;
+//           img{
+//             height: 42px;
+//             width: 42px;
+//           }
+//         }
+//       }
+//     }
+//     .profiles_btn{
+//       padding: 10px 0;
+//       border: none;
+//       background-color: $primary-color;
+//       width: 220px;
+//       text-align: center;
+//       margin-top: 100px;
+//       font-size: 16px;
+//       color: #fff;
+//       border-radius: 3px;
+//       -moz-border-radius: 3px;
+//       -webkit-border-radius: 3px;
+//     }
+//   }
+// }
