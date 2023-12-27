@@ -8,6 +8,10 @@ module.exports = {
         destination: '/auth/signin',
       },
       {
+        source: '/signup',
+        destination: '/auth/signup',
+      },
+      {
         source: '/profiles/manage-user-profile',
         destination: '/auth/profiles/profile',
       },

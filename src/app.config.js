@@ -18,7 +18,7 @@ const appConfig={
     "partners":false,
     "languages":true,
     "topheader":false,
-  }
+  },
 }
 
 export default appConfig
