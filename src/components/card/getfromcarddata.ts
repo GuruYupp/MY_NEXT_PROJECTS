@@ -14,3 +14,15 @@ export default function getfromcarddata(
   })
   return res;
 }
+
+export type markerType = "seek" | "leftOverTime" | ""
+
+export function getcardMarker(content: cardInterface,marker: markerType):cardInterface["display"]["markers"][0] | undefined{
+  let res;
+  content.display.markers.map((element)=>{
+    if(element.markerType === marker){
+      res = element
+    } 
+  })
+  return res;
+}

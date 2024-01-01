@@ -334,7 +334,7 @@
 
       &::after {
         content: "";
-        background-color: linear-gradient(to bottom,
+        background-image: linear-gradient(to bottom,
             #141414,
             rgba(20, 20, 20, 0.35) 59%,
             rgba(20, 20, 20, 0));

@@ -109,6 +109,7 @@ export function getCardRatio(cardType: string) {
     case 'expand_poster':
     case 'expands_poster':
     case 'content_poster':
+    case 'promo_poster':
       //0.5625 is the heigth / width value eg(9:16)
       return 0.5625;
     case 'circle_poster':
@@ -378,7 +379,15 @@ export function cardDimentionsForResponsive(cardType: string): {
     } else {
       return { cardCount: 8, gridCound: 8, cardRatio: 1.5 };
     }
-  } else {
+  }
+  else if (cardType === 'promo_poster'){
+    return {
+      cardCount: 1,
+      gridCound: 1,
+      cardRatio: 0.5625,
+    };
+  }
+  else {
     if (windowWidth <= 425) {
       return { cardCount: 2.14, gridCound: 2, cardRatio: 0.5625 };
     } else if (windowWidth <= 576) {

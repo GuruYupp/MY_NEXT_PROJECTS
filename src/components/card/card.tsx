@@ -18,7 +18,7 @@ import Link from "next/link";
 import { cardInterface, templateType, typeofcardType } from "@/shared";
 import Modal from "../modals/Modal";
 import { createPortal } from "react-dom";
-import getfromcarddata from "./getfromcarddata";
+import getfromcarddata, { getcardMarker } from "./getfromcarddata";
 import { useAppDispatch } from "@/redux/hooks";
 import { toogleLike } from "@/redux/feature/pageSlice/pageSlice";
 import { ModalType } from "../modals/modaltypes";
@@ -76,6 +76,10 @@ const Card = (props: cardprops): JSX.Element => {
 
   const showShareButton = getfromcarddata(props.cardDetails, "showShareButton");
 
+  const seekMarker = getcardMarker(props.cardDetails,"seek")
+
+  const leftOverTimeMarker = getcardMarker(props.cardDetails,"leftOverTime");
+
   const [showModal, setShowModal] = useState<ModalType>("");
   const [templateCode,setTemplateCode] = useState<templateType>("")
   
@@ -115,6 +119,7 @@ const Card = (props: cardprops): JSX.Element => {
 
   const setImageHeight = () => {
     if (imageRef.current) {
+      if(cardType === "promo_poster") return;
       const cardConfigs = cardDimentionsForResponsive(cardType);
       // console.log(imageRef.current.offsetWidth)
       imageRef.current.style.height = `${imageRef.current.offsetWidth * cardConfigs.cardRatio
@@ -601,6 +606,19 @@ const Card = (props: cardprops): JSX.Element => {
               </div>
             {/* </div> */}
           </CardLinkWrapper>
+          </div>
+        );
+      case "promo_poster":
+        return (
+          <div className={`${styles.overlay_poster}`} ref={cardRef}>
+            <div className={`${styles.img_container}`} ref={imageRef}>
+              <img
+                src={src}
+                alt="Picture of the author"
+                loading="lazy"
+                onError={handleImageonError}
+              />
+            </div>
           </div>
         );
       default:

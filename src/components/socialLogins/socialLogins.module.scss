@@ -1,0 +1,51 @@
+@import '@/_var.scss';
+.sociallogins_div {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+
+  .sociallogin_btn {
+    border: 0;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 13px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+    box-sizing: border-box;
+    flex: 48% 1;
+    outline: none;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+
+    @include breakpoint(mobile-common-land) {
+      flex: 100% 1;
+    }
+
+    &.facebook_login {
+      background-color: #3b5998;
+      justify-content: center;
+
+      img {
+        height: 21px;
+        width: 21px;
+        margin: 10px;
+
+      }
+    }
+
+    &.google_login {
+      background-color: #4184f3;
+
+      img {
+        background-color: #fff;
+        padding: 7px;
+        margin-right: 10px;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
+      }
+    }
+  }
+}

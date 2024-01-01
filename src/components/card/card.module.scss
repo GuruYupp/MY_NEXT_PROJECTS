@@ -645,6 +645,11 @@
     flex-direction: column;
     justify-content: flex-end;
 
+    .seek{
+      position: absolute;
+
+    }
+
     .card_info {
       padding: 10px;
       display: flex;

@@ -1,13 +1,13 @@
-import { SignIn } from "@/components/Auth/signin/signin";
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
+import GenericSignIn from "@/components/Auth/genericsignin/GenericSignin";
 
 export default function SigninPage(): JSX.Element {
   return (
     <>
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
         {/* <Layout> */}
-          <SignIn />
+          <GenericSignIn />
         {/* </Layout> */}
       </ErrorBoundary>
     </>

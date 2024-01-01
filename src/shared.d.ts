@@ -71,6 +71,7 @@ export type typeofcardType =
   | 'expand_roller_poster'
   | 'roller_poster'
   | 'square_poster'
+  | 'promo_poster'
   | 'overlayIcon_poster';
 
 export type templateType = 'channel_overlay' | 'tvguide_overlay' | "";
@@ -126,7 +127,7 @@ export interface cardInterface {
       markerType?: string;
       textColor?: string;
       value?: string;
-    };
+    }[];
     partnerIcon?: string;
     parentName?: string;
     subtitle1?: string;
