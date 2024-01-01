@@ -15,6 +15,15 @@
 # production
 /build
 
+#public
+/public 
+
+#var scss
+/src/_var.scss
+
+#appconfig
+/src/app.config.js
+
 # misc
 .DS_Store
 *.pem
