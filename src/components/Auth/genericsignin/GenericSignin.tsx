@@ -1,8 +1,8 @@
-import { FC, FormEvent, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import styles from "./Genericsignin.module.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import ConutryCode from "@/components/countrycode/countrycode";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import appConfig from "@/app.config";
 import { SingnInFormType } from "./genericsignintypes";
@@ -14,16 +14,17 @@ import { setActivepackages, setLoggedin } from "@/redux/feature/userSlice/userSl
 import { useRouter } from "next/router";
 
 const GenericSignIn: FC = () => {
-  const { globalsettings, sociallogin } = useAppSelector(
+  const { globalsettings, sociallogin, userprofiles } = useAppSelector(
     (state) => state.configs.systemFeatures
   );
 
   const { systemConfigs } = useAppSelector((state)=>state.configs)
+  const { isLoggedin } = useAppSelector((state) => state.user)
   let showPackages = systemConfigs?.configs?.showPackages || ""
   const dispatch = useAppDispatch()
   const router = useRouter()
 
-  const { trigger, control, formState,getValues } = useForm<SingnInFormType>({
+  const {  control, formState,handleSubmit } = useForm<SingnInFormType>({
     mode: "onChange",
   });
 
@@ -31,17 +32,21 @@ const GenericSignIn: FC = () => {
   const errormsgToken = useRef<ReturnType<typeof setTimeout>>()
 
   useEffect(()=>{
+    if (isLoggedin){
+      router.back();
+      return;
+    }
     return ()=>{
       clearTimeout(errormsgToken.current)
     }
   },[])
 
   const getInitialLoginType = () => {
-    if (globalsettings?.fields?.isEmailSupported === "true") {
-      return "mobile";
-      // return "email"
+    if (globalsettings?.fields?.isEmailSupported === "true" && globalsettings?.fields?.isMobileSupported === "true") {
+      // return "mobile";
+      return "email"
     }
-    if (globalsettings?.fields?.isMobileSupported === "true") {
+    if (globalsettings?.fields?.isMobileSupported === "true" && appConfig.signin.primary == "mobile") {
       return "mobile";
     }
     return "email";
@@ -55,11 +60,13 @@ const GenericSignIn: FC = () => {
     setLogintype(loginType === "email" ? "mobile" : "email");
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleclickSignup = (e:React.MouseEvent<HTMLAnchorElement>):void=>{
     e.preventDefault();
-    trigger()
-    if(formState.isValid){
-      const {email,number,password} = getValues()
+    router.replace('/signup')
+  }
+
+  const onSubmit:SubmitHandler<SingnInFormType> = async (formData) => {
+    const {email,number,password} = formData
       let payload={
         login_key: password,
         login_mode:1,
@@ -73,10 +80,6 @@ const GenericSignIn: FC = () => {
         payload.login_id = number
       }
       signIn(payload)
-    }
-    else{
-     
-    }
   };
 
   const signIn = async (post_data:any)=>{
@@ -111,7 +114,12 @@ const GenericSignIn: FC = () => {
           JSON.stringify(userInfo.response)
         );
         dispatch(setLoggedin())
-        router.push('/profiles/select-user-profile');
+        if (userprofiles?.fields?.is_userprofiles_supported === "true"){
+          router.replace('/profiles/select-user-profile');
+        }
+        else{
+          router.replace('/')
+        }
       }
     }
   }
@@ -125,7 +133,7 @@ const GenericSignIn: FC = () => {
             <p className={`${styles.title}`}>Sign in to your Account</p>
           </div>
           <div className={`${styles.inner_middle}`}>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               {loginType === "mobile" && (
                 <label>
                   <div className={`${styles.input_container}`}>
@@ -241,7 +249,7 @@ const GenericSignIn: FC = () => {
 
             <p className={`${styles.signup_text}`}>
               Don't have an account ?
-              <Link className={`${styles.signup}`} href="#">Sign Up</Link>
+              <Link className={`${styles.signup}`} href="/signup" onClick={handleclickSignup}>Sign Up</Link>
             </p>
 
             <p className={`${styles.terms_policy}`}>

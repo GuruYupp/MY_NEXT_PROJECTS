@@ -24,7 +24,18 @@ const appConfig={
   },
   "signin": {
     "primary": 'mobile',  //email (or) mobile
-    "emailPhoneToggle": true,
+    "emailPhoneToggle": false,
+  },
+  "signup":{
+    "firstName":true,
+    "lastName":true,
+    "confirmPassword":true,
+    "age":false,
+    "gender":false,
+  },
+  "profile": {
+    "type": 'password',
+    "languages": false,
   }
 }
 

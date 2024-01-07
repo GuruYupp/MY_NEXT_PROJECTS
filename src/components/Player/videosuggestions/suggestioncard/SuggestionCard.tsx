@@ -2,9 +2,8 @@ import { cardInterface, typeofcardType } from '@/shared';
 import styles from './SuggestionCard.module.scss';
 import { SyntheticEvent } from 'react';
 import { getAbsolutPath } from '@/utils';
-import getConfig from 'next/config';
+import appConfig from '@/app.config';
 
-let appConfig = getConfig().publicRuntimeConfig.appconfig;
 
 interface SuggestionCardprops {
   cardDetails: cardInterface;

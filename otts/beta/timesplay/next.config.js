@@ -1,11 +1,15 @@
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   basePath: '',
   async rewrites() {
     return [
       {
         source: '/signin',
         destination: '/auth/signin',
+      },
+      {
+        source: '/signup',
+        destination: '/auth/signup',
       },
       {
         source: '/profiles/manage-user-profile',

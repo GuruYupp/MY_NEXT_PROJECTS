@@ -5,8 +5,12 @@ import Panel from '@/components/settings/panel/Panel';
 import Subscriptions from '@/components/settings/subscriptions/Subscriptions';
 import ProfileParentalControls from '@/components/settings/profileparentalcontrols/ProfileParentalcontrols';
 import UserSettings from './usersettings/UserSettings';
+import { useAppSelector } from '@/redux/hooks';
 
 function Settings() {
+  const {systemFeatures} = useAppSelector(state=>state.configs)
+
+  const isProfileSettingsEnabled = () => (systemFeatures?.userprofiles && systemFeatures?.userprofiles?.fields.is_userprofiles_supported == 'true')
   return (
     <div className={`${styles.settings_page}`}>
       <div className={`${styles.settings_container}`}>
@@ -30,11 +34,12 @@ function Settings() {
                 header_right_button={{ text: 'Explore Plans' }}
               />
               <Panel title="User Settings" render={() => <UserSettings />} />
-              <Panel
+              {isProfileSettingsEnabled() && <Panel
                 title="Profile & Parental Controls"
                 render={() => <ProfileParentalControls />}
                 toggle={false}
-              />
+              />}
+             
             </div>
           </div>
         </div>

@@ -11,11 +11,12 @@ import { getAbsolutPath } from '@/utils';
 import Emojis from '@/components/emojis/Emojis';
 import { ModalType } from '@/components/modals/modaltypes';
 import { emojiInterface } from '@/components/emojis/emojitypes';
+import appConfig from '@/app.config';
 
 interface UpdateuserProfileForm {
   profileName: string;
-  languages_visible: string;
-  languages_hidden: string;
+  languages_visible?: string;
+  languages_hidden?: string;
 }
 
 export default function UpdateuserProfile() {
@@ -91,12 +92,9 @@ export default function UpdateuserProfile() {
     setShowModal('emojis');
   }
 
-  // function modalProps(){
-  //   switch(showModal){
-  //     case "getotp":
-  //       return Profile
-  //   }
-  // }
+  const getLanguages = ()=>{
+    return getValues().languages_hidden || ""
+  }
 
   return (
     <div className={`${styles.profileUpdate_container}`}>
@@ -132,28 +130,31 @@ export default function UpdateuserProfile() {
                 <input {...register('profileName')} />
                 <span className={`${styles.lable_title}`}>Profile Name</span>
               </label>
-              <label>
-                <input
-                  {...register('languages_visible')}
-                  readOnly
-                  onClick={editLanguage}
-                />
-                <input
-                  {...register('languages_hidden')}
-                  readOnly
-                  onClick={editLanguage}
-                  style={{ display: 'none' }}
-                />
-                <span className={`${styles.lable_title}`}>Language</span>
-                {getValues().languages_hidden.split(',').length > 3 && (
-                  <span className={`${styles.more_langs}`}>
-                    <span className={`${styles.text}`}>
-                      +{getValues().languages_hidden.split(',').length - 3}{' '}
-                      more...
+              {
+                appConfig.profile.languages === true && (<label>
+                  <input
+                    {...register('languages_visible')}
+                    readOnly
+                    onClick={editLanguage}
+                  />
+                  <input
+                    {...register('languages_hidden')}
+                    readOnly
+                    onClick={editLanguage}
+                    style={{ display: 'none' }}
+                  />
+                  <span className={`${styles.lable_title}`}>Language</span>
+                  {(getLanguages().split(',')?.length > 3) && (
+                    <span className={`${styles.more_langs}`}>
+                      <span className={`${styles.text}`}>
+                        +{getLanguages().split(',').length - 3}{' '}
+                        more...
+                      </span>
                     </span>
-                  </span>
-                )}
-              </label>
+                  )}
+                </label>)
+              }
+            
             </div>
             <div className={`${styles.profile_edit_container_btns}`}>
               <div className={`${styles.heading}`}>Maturity Settings:</div>
@@ -162,7 +163,7 @@ export default function UpdateuserProfile() {
                   className={`${styles.btn} ${styles.adult_btn}`}
                   disabled
                 >
-                  {Profile && Profile.profileRating}
+                  {Profile && Profile.profileRating || "All maturity Ratings"}
                 </button>
                 <button
                   className={`${styles.btn}`}

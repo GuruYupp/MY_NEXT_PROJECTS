@@ -16,6 +16,7 @@ export const initialemojisState: initialStateInteface ={
 
 export const selectEmoji = createAction<emoji>('emoji/select')
 export const addEmojis = createAction<emoji[]>('emoji/add')
+export const resetEmojis = createAction('emoji/reset')
 
 export const emojisReducer = createReducer(initialemojisState,(builder)=>{
   builder
@@ -32,8 +33,11 @@ export const emojisReducer = createReducer(initialemojisState,(builder)=>{
   })
   .addCase(addEmojis,(state,{payload})=>{
     state.emojis = payload
-    state.emojis.map((emoji)=>{
-      emoji.selected = false
+    payload.map((emoji)=>{
+      state.emojis.push({...emoji,selected:false})
     })
+  })
+  .addCase(resetEmojis,()=>{
+    return initialemojisState;
   })
 })

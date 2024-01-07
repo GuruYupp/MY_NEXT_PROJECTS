@@ -12,6 +12,7 @@ import Getotp from "@/components/Getotp/Getotp";
 import { getotpModalType } from "@/components/Getotp/getotptypes"
 import { updateProfile } from "@/redux/feature/userSlice/userSlice";
 import { ModalType } from "@/components/modals/modaltypes";
+import appConfig from "@/app.config";
 interface ProfileParentalControlPanelProps {
   toggle?: boolean;
   default_open?: boolean;
@@ -36,6 +37,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
   const dispatch = useAppDispatch();
   const {userDetails} = useAppSelector(state=>state.user)
   const profile = userDetails?.profileParentalDetails?.filter((profile) => profile.profileId === profileId)[0]
+  const showLanguagesPanel = appConfig.profile.languages
   
   useMemo(() => {
     if (panelRef.current) {
@@ -162,12 +164,12 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
           </div>
         </div>
         <div className={`${styles.pannel_data_container} `} ref={panelRef}>
-          <ProfileParentalControlData
+          {showLanguagesPanel && <ProfileParentalControlData
             controlType="Language"
             contentData={getLanguagesData()}
             actionText={getLanguagesActionText()}
             clickHandler={actionHandler}
-          />
+          />}
           <ProfileParentalControlData
             controlType="Viewing Restrictions"
             contentData={profile?.profileRating || ""}

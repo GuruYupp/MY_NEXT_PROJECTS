@@ -1,6 +1,5 @@
 import { subprofileInterface } from "@/shared";
 import styles from "./Getotp.module.scss";
-import getConfig from "next/config";
 import { FormEvent, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { postData, postFormData } from "@/services/data.manager";
@@ -10,9 +9,9 @@ import { getAbsolutPath } from "@/utils";
 import { useRouter } from "next/router";
 import { enableRestrictionpage } from "@/redux/feature/restrictionSlice/restrictionSlice";
 import { getotpModalType } from './getotptypes'
+import appConfig from "@/app.config";
 // import { default as clientCookie } from "js-cookie";
 
-let appConfig = getConfig().publicRuntimeConfig.appconfig;
 
 interface getotpModalpropsInterface {
   closeModal: () => void;

@@ -11,7 +11,6 @@ function useGetPage() {
   const { asPath } = useRouter();
   const dispatch = useAppDispatch();
   const { activeProfile } = useAppSelector((state) => state.user);
-  console.log(asPath,activeProfile)
   useEffect(
     function () {
       // console.log('hello....')

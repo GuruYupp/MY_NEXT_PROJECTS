@@ -26,6 +26,17 @@ const appConfig={
     "primary": 'mobile',  //email (or) mobile
     "emailPhoneToggle": true,
   },
+  "signup": {
+    "firstName": true,
+    "lastName": true,
+    "confirmPassword": false,
+    "age": true,
+    "gender": true,
+  },
+  "profile": {
+    "type": 'password',
+    "languages": true,
+  }
 }
 
 export default appConfig

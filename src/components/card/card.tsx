@@ -20,7 +20,7 @@ import Modal from "../modals/Modal";
 import { createPortal } from "react-dom";
 import getfromcarddata, { getcardMarker } from "./getfromcarddata";
 import { useAppDispatch } from "@/redux/hooks";
-import { toogleLike } from "@/redux/feature/pageSlice/pageSlice";
+import { removeContinueWatching, toogleLike } from "@/redux/feature/pageSlice/pageSlice";
 import { ModalType } from "../modals/modaltypes";
 import Template from "../templates/Template";
 
@@ -142,6 +142,11 @@ const Card = (props: cardprops): JSX.Element => {
     }
   }
 
+  const handleRemoveContinueWatching = (e:MouseEvent)=>{
+    e.preventDefault();
+    dispatch(removeContinueWatching(target.path))
+  }
+
   const renderCard = (cardType: typeofcardType) => {
     switch (cardType) {
       case "roller_poster":
@@ -243,10 +248,18 @@ const Card = (props: cardprops): JSX.Element => {
               <div className={`${styles.img_container}`} ref={imageRef}>
                 <img
                   src={src}
-                  alt="Picture of the author"
+                  alt="partner icon"
                   loading="lazy"
                   onError={handleImageonError}
                 />
+                <div className={`${styles.close_icon}`} onClick={handleRemoveContinueWatching}>
+                  <img
+                    src={`${appConfig.staticImagesPath}close-icon.svg`}
+                    alt="close icon"
+                    loading="lazy"
+                  />
+                </div>
+                
                 {partnerIcon && (
                   <img
                     src={partnerIcon}
@@ -256,6 +269,15 @@ const Card = (props: cardprops): JSX.Element => {
                     onError={handleImageonError}
                   />
                 )}
+                {leftOverTimeMarker && (<span className={`${styles.leftover_duration}`}>{leftOverTimeMarker.value}</span>)}
+                {seekMarker && (
+                  <div className={`${styles.seek}`}>
+                    <div className={`${styles.seek_inner_relative}`}>
+                      <div className={`${styles.seek_status_bar}`} style={{width:`${Number(seekMarker.value) * 100}%`}}></div>
+                    </div>
+                  </div>
+                )}
+                <div className={`${styles.gradient}`}></div>
               </div>
               <div className={`${styles.bottom}`}>
                 <div className={`${styles.card_info}`}>

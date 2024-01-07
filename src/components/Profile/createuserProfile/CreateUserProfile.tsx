@@ -4,17 +4,18 @@ import { createPortal } from 'react-dom';
 import Modal from '@/components/modals/Modal';
 import { useRouter } from 'next/router';
 import Emojis from '@/components/emojis/Emojis';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { getAbsolutPath } from '@/utils';
 import Languages from '@/components/languages/Languages';
 import { postData } from '@/services/data.manager';
 import Toast from '@/components/toasts/Toast';
 import { ModalType } from '@/components/modals/modaltypes';
 import { emojiInterface } from '@/components/emojis/emojitypes';
+import appConfig from '@/app.config';
 interface CreateUserProfileForm {
   name: string;
   isChildren: boolean;
-  languages: string;
+  languages?: string;
 }
 let default_profile_img = `https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg`;
 export default function CreateUserProfile() {
@@ -26,7 +27,7 @@ export default function CreateUserProfile() {
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { register, getValues, watch, setValue } =
+  const { register, getValues, watch, setValue ,handleSubmit} =
     useForm<CreateUserProfileForm>({
       mode: 'onChange',
       defaultValues: {
@@ -42,11 +43,11 @@ export default function CreateUserProfile() {
 
   useEffect(() => {
     if (formRef.current)
-      formRef.current.addEventListener('submit', handleSubmit);
+      // formRef.current.addEventListener('submit', handleSubmit());
     return () => {
       if (toast_timer.current) clearTimeout(toast_timer.current);
-      if (formRef.current)
-        formRef.current.removeEventListener('submit', handleSubmit);
+      // if (formRef.current)
+        // formRef.current.removeEventListener('submit', handleSubmit);
     };
   }, []);
 
@@ -65,11 +66,14 @@ export default function CreateUserProfile() {
   }
 
   function handleContinue() {
-    if (getValues().languages.length === 0) {
+    if (getValues().languages?.length === 0 && appConfig.profile.languages === true) {
       setShowModal('languages');
       document.body.style.overflowY = 'hidden';
     } else {
+      console.log('hhh')
       formRef.current?.dispatchEvent(new Event('submit'));
+      // triggerformSubmit()
+      // trigger()
     }
   }
 
@@ -137,8 +141,7 @@ export default function CreateUserProfile() {
     }
   };
 
-  const handleSubmit = (e: SubmitEvent) => {
-    e.preventDefault();
+  const onSubmit:SubmitHandler<CreateUserProfileForm> =async () => {
     createProfile();
   };
 
@@ -154,7 +157,7 @@ export default function CreateUserProfile() {
           Add Profile
         </h3>
       </div>
-      <form ref={formRef}>
+      <form ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className={`${styles.profileCreate_body}`}>
           <div className={`${styles.profile_img_container}`}>
             <img src={getAbsolutPath(profileImg)} alt="" />
@@ -176,12 +179,14 @@ export default function CreateUserProfile() {
                     placeholder="profile name"
                     {...register('name', { required: true })}
                   />
-                  <input
+
+                  {appConfig.profile.languages === true && <input
                     placeholder="profile name"
                     {...register('languages', { required: true })}
                     readOnly
                     style={{ display: 'none' }}
-                  />
+                  />}
+                  
                 </div>
                 <div className={`${styles.check_input}`}>
                   <div className={`${styles.check_input_inner}`}>

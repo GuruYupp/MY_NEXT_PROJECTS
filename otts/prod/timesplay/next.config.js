@@ -1,11 +1,15 @@
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   basePath: '',
   async rewrites() {
     return [
       {
         source: '/signin',
         destination: '/auth/signin',
+      },
+      {
+        source: '/signup',
+        destination: '/auth/signup',
       },
       {
         source: '/profiles/manage-user-profile',
@@ -41,4 +45,11 @@ module.exports = {
       },
     ];
   },
+  // typescript: {
+  //   // !! WARN !!
+  //   // Dangerously allow production builds to successfully complete even if
+  //   // your project has type errors.
+  //   // !! WARN !!
+  //   // ignoreBuildErrors: true,
+  // },
 };

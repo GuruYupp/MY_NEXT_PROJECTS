@@ -104,3 +104,12 @@ body {
     }
   }
 }
+
+.react-datepicker-wrapper{
+  width: 100%;
+}
+
+.react-datepicker__close-icon::after {
+  background-color: $primary-color !important;
+}
+

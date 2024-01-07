@@ -3,7 +3,7 @@ import { useCallback, useEffect, useReducer } from "react";
 import { getData } from "@/services/data.manager";
 import { useRouter } from "next/router";
 import Emoji from "./Emoji";
-import { addEmojis, emojisReducer, initialemojisState, selectEmoji } from "./emojisSlice";
+import { addEmojis, emojisReducer, selectEmoji } from "./emojisSlice";
 import { emojiInterface } from './emojitypes'
 import { ModalType } from "../modals/modaltypes";
 
@@ -15,23 +15,28 @@ interface EmojisProps {
 function Emojis(props: EmojisProps) {
   const { sendDatatoComponent,closeModal } = props
   const {reload} = useRouter()
-  const [state,dispatch] = useReducer(emojisReducer,initialemojisState)
+  const [state, dispatch] = useReducer(emojisReducer, emojisReducer.getInitialState())
   useEffect(()=>{
     getEmojis()
   },[])
 
   const getEmojis = async ()=>{
-    let res = await getData("/service/api/auth/get/user/emojis")
-    if(res.status === true){
-      // setuserEmojis(res.response.userEmojis)
-      dispatch(addEmojis(res.response.userEmojis))
-    }
-    else{
-      if (res.error?.message === "RES_ERROR_INVALID_SESSION"){
-        localStorage.clear();
-        reload();
+    try{
+      let res = await getData("/service/api/auth/get/user/emojis")
+      if (res.status === true) {
+          dispatch(addEmojis(res.response.userEmojis))    
+      }
+      else {
+        if (res.error?.message === "RES_ERROR_INVALID_SESSION") {
+          localStorage.clear();
+          reload();
+        }
       }
     }
+    catch(err){
+      console.log(err)
+    }
+    
   }
 
   const handleSelectEmoji = useCallback((emoji:emojiInterface)=>{

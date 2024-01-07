@@ -37,7 +37,7 @@ export default function Player() {
       if (streamStatus.trailerStreamStatus) {
         params.stream_type = "trailer"
       } 
-      dispatch(resetstreamSlice)
+      dispatch(resetstreamSlice())
       dispatch(fetchStreamData({params}))
     },
     [asPath]

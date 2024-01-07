@@ -1,5 +1,5 @@
 import style from "./Modal.module.scss";
-import { ModalPropsInterface } from "./modaltypes";
+import { ModalPropsInterface, ModalType } from "./modaltypes";
 
 
 
@@ -20,7 +20,7 @@ import { ModalPropsInterface } from "./modaltypes";
 
 function Modal(props: ModalPropsInterface) {
 	const {render,modalType} = props;
-	const renderModal = (modelType: string) => {
+	const renderModal = (modelType: ModalType) => {
 		switch (modelType) {
 			case "network_filter":
 				return (
@@ -58,6 +58,13 @@ function Modal(props: ModalPropsInterface) {
 						{render(modalType)}
 					</div>
 				);
+			case "otpverify":
+				return (
+					<div className={`${style.otpverify_modal}`}>
+						{render(modalType)}
+					</div>
+				);
+				return 
 			default:
 				return <></>;
 		}

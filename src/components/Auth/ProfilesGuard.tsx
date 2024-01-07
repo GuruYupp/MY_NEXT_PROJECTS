@@ -8,8 +8,6 @@ function ProfileGuard({ children }: { children: ReactNode }) {
   const { asPath, replace ,back} = useRouter()
 
   useEffect(() => {
-
-    console.log(userDetails?.name,'---')
     
     if ((asPath.includes("/profiles/") || asPath.includes("add-profile-name")) && isLoggedin === false) {
       replace('/signin')

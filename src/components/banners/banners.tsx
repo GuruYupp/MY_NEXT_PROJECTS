@@ -64,7 +64,7 @@ export default function Banners() {
     slidesToShow: 1,
     slidesToScroll: 1,
     customPaging: Dot,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
     fade: true,
     easing: 'linear',

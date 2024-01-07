@@ -1,6 +1,6 @@
-import { getData } from '@/services/data.manager';
+import { getData, postData } from '@/services/data.manager';
 import { pageState, responseInterface } from '@/shared';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 interface fetchPagedataParams {
   path: string;
@@ -66,6 +66,13 @@ export const toogleLike = createAsyncThunk<
   });
   return { result, path: args.path };
 });
+
+
+
+export const removeContinueWatching = createAsyncThunk<string,string>('removeContinueWatching',async (args)=>{
+ await postData('/service/api/v1/delete/view/archive', { "viewType": "continue_watching", "pagePath":args })
+  return args
+})
 
 const initialState: pageState = {
   loading: 'idle',
@@ -208,7 +215,21 @@ const pageSlice = createSlice({
         }
       })
       .addCase(toogleLike.pending, () => {})
-      .addCase(toogleLike.rejected, () => {});
+      .addCase(toogleLike.rejected, () => {})
+      .addCase(removeContinueWatching.pending,()=>{})
+      .addCase(removeContinueWatching.fulfilled,(state,action:PayloadAction<string>)=>{
+        let sections = state.response.sections
+        console.log(action)
+        for(let i=0;i<sections.length;i++){
+          console.log(action)
+          if (sections[i].contentCode === "continue_watching") {
+            let cards = sections[i].section.sectionData.data
+            sections[i].section.sectionData.data = cards.filter((card)=>card.target.path !== action.payload)
+            break;
+          }
+        }
+      })
+      .addCase(removeContinueWatching.rejected,()=>{})
   },
 });
 
