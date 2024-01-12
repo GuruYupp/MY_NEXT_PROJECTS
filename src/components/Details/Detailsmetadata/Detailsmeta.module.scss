@@ -72,6 +72,7 @@
           vertical-align: middle;
         }
 
+        &.rent_btn,
         &.favorite_btn,
         &.resume_btn {
           color: #fefefe;
@@ -92,12 +93,16 @@
           border: 1px solid #c5c5c5;
           background-color: transparent;
           height: 40px;
-          padding: 5px;
           width: 40px;
-
+          position: relative;
           img {
             width: 100%;
             margin: auto;
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            padding: 5px;
           }
         }
 

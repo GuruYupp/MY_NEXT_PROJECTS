@@ -9,6 +9,7 @@ export type ModalType =
   | "signout"
   | "getotp"
   | "otpverify"
+  | "updatedetails"
   | "";
 
 

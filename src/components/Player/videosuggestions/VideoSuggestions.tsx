@@ -14,6 +14,16 @@ export default function VideoSuggestions(props: VideoSuggestionsProps){
   const {suggestionHeight} = props
   let {tabsInfo,sections} = useAppSelector(state=>state.pageData.response)
 
+  const getInitialSlideIndex = ()=>{
+    for(let i=0;i<tabsInfo.tabs.length;i++){
+      if(tabsInfo.tabs[i].title === "Today"){
+        return i;
+      }
+    }
+    // console.log('xxxxx')
+    return 0;
+  }
+
   // tabsInfo = mockdata
 
   const tabs_settings:Settings = {
@@ -23,6 +33,8 @@ export default function VideoSuggestions(props: VideoSuggestionsProps){
     slidesToScroll: 1,
     slidesToShow:1,
     variableWidth:true,
+    initialSlide:getInitialSlideIndex(),
+    centerMode:true,
   }
 
   return (

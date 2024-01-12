@@ -17,7 +17,7 @@ const Panel: FC<PanelPropsInterface> = ({
   default_open = false,
   header_right_button = undefined,
 }) => {
-  const expand_default = () => {
+  const expandDefault = () => {
     if (toggle === true) {
       if (default_open === true) return true;
       else return false;
@@ -27,7 +27,7 @@ const Panel: FC<PanelPropsInterface> = ({
     return false;
   };
 
-  const [expand, setExpand] = useState<boolean>(expand_default());
+  const [expand, setExpand] = useState<boolean>(expandDefault());
 
   const handlePanelClick = () => {
     if (!toggle) return;

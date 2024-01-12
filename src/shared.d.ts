@@ -17,7 +17,8 @@ export interface responseInterface {
     code: number;
     type: string;
     message: string;
-    details: {};
+    details: any;
+    actionCode?:number
   };
 }
 
@@ -397,7 +398,7 @@ export interface userDetailsInterface {
   dob?: number;
   profileParentalDetails?: subprofileInterface[];
   credits?: 0;
-  age?: 25;
+  age?: number;
   attributes?: {
     networks?: string;
   };

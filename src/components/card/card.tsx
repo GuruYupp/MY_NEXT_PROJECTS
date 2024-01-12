@@ -632,7 +632,7 @@ const Card = (props: cardprops): JSX.Element => {
         );
       case "promo_poster":
         return (
-          <div className={`${styles.overlay_poster}`} ref={cardRef}>
+          <div className={`${styles.promo_poster}`} ref={cardRef}>
             <div className={`${styles.img_container}`} ref={imageRef}>
               <img
                 src={src}

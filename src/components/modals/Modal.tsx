@@ -64,7 +64,12 @@ function Modal(props: ModalPropsInterface) {
 						{render(modalType)}
 					</div>
 				);
-				return 
+			case "updatedetails":
+				return (
+					<div className={`${style.updatedetails_modal}`}>
+						{render(modalType)}
+					</div>
+				);
 			default:
 				return <></>;
 		}

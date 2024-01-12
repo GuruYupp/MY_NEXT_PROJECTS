@@ -1,0 +1,35 @@
+@import '@/_var.scss';
+.player_overlay {
+  margin-right: 20px;
+  position: relative;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  .message{
+    color: #fff;
+  }
+  .buttons{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .button{
+      background-color: $secondary-color;
+      color: #fff;
+      opacity: 0.8;
+      width: 160px;
+      height: 44px;
+      line-height: 44px;
+      text-align: center;
+      border-radius: 4px;
+      padding: 0px 20px;
+      font-size: 16px;
+      @include breakpoint(mac){
+        font-size: 14px;
+        width: 112px;
+      }
+    }
+  }
+}

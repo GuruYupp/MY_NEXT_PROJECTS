@@ -12,6 +12,12 @@ import Link from "next/link";
 import { getData, postData } from "@/services/data.manager";
 import { setActivepackages, setLoggedin } from "@/redux/feature/userSlice/userSlice";
 import { useRouter } from "next/router";
+import { ModalType } from "@/components/modals/modaltypes";
+import { OtpVerifydataType } from "@/components/otpverify/otpverifytypes";
+import { createPortal } from "react-dom";
+import Modal from "@/components/modals/Modal";
+import OtpVerify from "@/components/otpverify/OtpVerify";
+import { responseInterface } from "@/shared";
 
 const GenericSignIn: FC = () => {
   const { globalsettings, sociallogin, userprofiles } = useAppSelector(
@@ -30,6 +36,8 @@ const GenericSignIn: FC = () => {
 
   const [errormsg,setErrormsg] = useState<string>('')
   const errormsgToken = useRef<ReturnType<typeof setTimeout>>()
+  const [showModal, setShowModal] = useState<ModalType>('');
+  const [otpprops, setOtpprops] = useState<OtpVerifydataType>({ verification: "" });
 
   useEffect(()=>{
     if (isLoggedin){
@@ -77,7 +85,7 @@ const GenericSignIn: FC = () => {
         payload.login_id = email
       }
       else{
-        payload.login_id = number
+        payload.login_id = `91-${number}`
       }
       signIn(payload)
   };
@@ -86,7 +94,19 @@ const GenericSignIn: FC = () => {
     let signInresponse = await postData('/service/api/auth/v1/signin', post_data)
     console.log(signInresponse)
     if(signInresponse.status === false){
-     if(signInresponse.error &&signInresponse.error.message){
+      if(signInresponse.error?.code === -6 && signInresponse.error.actionCode === 1){
+        // user will register but OTP is not verified for email
+        document.body.style.overflowY = "hidden";
+        let identifier = signInresponse.error.details.identifier || ""
+        setShowModal('otpverify')
+        setOtpprops({
+          context: "signin",
+          message: `One Time Passcode (OTP) has been sent to your mobile ******${identifier.substring(7)}`,
+          verification: "mobile",
+          number:identifier
+        });
+      }
+     else if(signInresponse.error &&signInresponse.error.message){
       setErrormsg(signInresponse.error.message)
       errormsgToken.current = setTimeout(()=>{
         setErrormsg('')
@@ -94,35 +114,87 @@ const GenericSignIn: FC = () => {
      }
     }
     else if(signInresponse.status === true){
-      localStorage.setItem('isLoggedin', 'true');
-      if(showPackages === "true"){
-        const userPackages = await getData(
-          'service/api/auth/user/activepackages'
-        );
-        if (userPackages.status === true) {
-          localStorage.setItem(
-            'activePackages',
-            JSON.stringify(userPackages.response)
-          );
-          dispatch(setActivepackages());
-        }
-      }
-      const userInfo = await getData('/service/api/auth/user/info');
-      if (userInfo.status === true) {
+      // localStorage.setItem('isLoggedin', 'true');
+      // if(showPackages === "true"){
+      //   const userPackages = await getData(
+      //     'service/api/auth/user/activepackages'
+      //   );
+      //   if (userPackages.status === true) {
+      //     localStorage.setItem(
+      //       'activePackages',
+      //       JSON.stringify(userPackages.response)
+      //     );
+      //     dispatch(setActivepackages());
+      //   }
+      // }
+      // const userInfo = await getData('/service/api/auth/user/info');
+      // if (userInfo.status === true) {
+      //   localStorage.setItem(
+      //     'userDetails',
+      //     JSON.stringify(userInfo.response)
+      //   );
+      //   dispatch(setLoggedin())
+      //   if (userprofiles?.fields?.is_userprofiles_supported === "true"){
+      //     router.replace('/profiles/select-user-profile');
+      //   }
+      //   else{
+      //     router.replace('/')
+      //   }
+      // }
+      setuserLoggedin();
+    }
+  }
+
+  const setuserLoggedin = async ()=>{
+    console.log('---dddd')
+    localStorage.setItem('isLoggedin', 'true');
+    if (showPackages === "true") {
+      const userPackages = await getData(
+        'service/api/auth/user/activepackages'
+      );
+      if (userPackages.status === true) {
         localStorage.setItem(
-          'userDetails',
-          JSON.stringify(userInfo.response)
+          'activePackages',
+          JSON.stringify(userPackages.response)
         );
-        dispatch(setLoggedin())
-        if (userprofiles?.fields?.is_userprofiles_supported === "true"){
-          router.replace('/profiles/select-user-profile');
-        }
-        else{
-          router.replace('/')
-        }
+        dispatch(setActivepackages());
+      }
+    }
+    const userInfo = await getData('/service/api/auth/user/info');
+    if (userInfo.status === true) {
+      localStorage.setItem(
+        'userDetails',
+        JSON.stringify(userInfo.response)
+      );
+      dispatch(setLoggedin())
+      if (userprofiles?.fields?.is_userprofiles_supported === "true") {
+        router.replace('/profiles/select-user-profile');
+      }
+      else {
+        router.replace('/')
       }
     }
   }
+
+  function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
+    let { from, data } = Modaldata;
+    console.log(data,'-----',from)
+    switch (from) {
+      case 'otpverify':
+        if(data.status == true){
+          console.log('ffjhfhjfjfj')
+          setuserLoggedin();
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  const handlecloseModal = () => {
+    document.body.style.overflowY = 'scroll';
+    setShowModal('');
+  };
 
 
   return (
@@ -262,6 +334,25 @@ const GenericSignIn: FC = () => {
           </div>
         </div>
       </div>
+      {showModal &&
+        createPortal(
+          <Modal
+            modalType={showModal}
+            render={(modal: ModalType) => {
+              function getModal() {
+                console.log(modal);
+                switch (modal) {
+                  case 'otpverify':
+                    return <OtpVerify closeModal={handlecloseModal} sendDatatoComponent={getDataFromModal} verifydata={otpprops} />
+                  default:
+                    return <></>;
+                }
+              }
+              return getModal();
+            }}
+          />,
+          document.body
+        )}
       <DevTool control={control} />
     </>
   );

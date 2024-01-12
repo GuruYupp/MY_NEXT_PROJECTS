@@ -30,6 +30,9 @@ const OtpVerify:FC<OtpVerifyPropsInterface> = (props) => {
     if (verifydata.context === "signup"){
       verifyOtp({ context: verifydata.context, otp: Number(otp), reference_key: verifydata.reference_key})
     }
+    if (verifydata.context === "signin") {
+      verifyOtp({ context: verifydata.context, otp: Number(otp),mobile:verifydata.number })
+    }
   }
 
   const timerMs = (time: number) => {
@@ -60,9 +63,15 @@ const OtpVerify:FC<OtpVerifyPropsInterface> = (props) => {
   };
 
   const verifyOtp = async (post_data:unknown)=>{
-    const verifyotpresponse = await postData("/service/api/auth/signup/complete",post_data)
+    let verifyotpresponse;
+    if(verifydata.context === "signup"){
+      verifyotpresponse = await postData("/service/api/auth/signup/complete", post_data)
+    }
+    else if(verifydata.context === "signin"){
+      verifyotpresponse = await postData("/service/api/auth/verify/otp", post_data)
+    }
     console.log(verifyotpresponse)
-    if(verifyotpresponse.status === false){
+    if(verifyotpresponse?.status === false){
       if (verifyotpresponse.error && verifyotpresponse.error.message) {
         setErrormsg(verifyotpresponse.error.message)
         msgToken.current = setTimeout(() => {
@@ -71,14 +80,8 @@ const OtpVerify:FC<OtpVerifyPropsInterface> = (props) => {
       }
     }
     else{
-      // if (verifydata.sendData){
-      //   if(props.context === "signup"){
-      //     handlegoBack()
-      //     props.sendData({ context: "signup", apiresponse:verifyotpresponse })
-      //   }
-      // }
       if (sendDatatoComponent){
-        if (verifydata.context === "signup"){
+        if (verifydata.context === "signup" || verifydata.context === "signin"){
           sendDatatoComponent({from:"otpverify",data:verifyotpresponse})
         }
       }
@@ -102,6 +105,12 @@ const OtpVerify:FC<OtpVerifyPropsInterface> = (props) => {
         post_data = {
           context: verifydata.context,
           email: verifydata.email
+        }
+      }
+      if (verifydata.verification === "mobile") {
+        post_data = {
+          context: verifydata.context,
+          mobile: verifydata.number
         }
       }
     }
@@ -175,7 +184,7 @@ const OtpVerify:FC<OtpVerifyPropsInterface> = (props) => {
               </div>
             </label>
 
-            <p className={`${styles.change_text}`} onClick={handlechangeEmail}>Change Email Id</p>
+            {verifydata.email && <p className={`${styles.change_text}`} onClick={handlechangeEmail}>Change Email Id</p>}
 
           </form>
         </div>

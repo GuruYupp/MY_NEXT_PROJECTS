@@ -377,7 +377,7 @@ const GenericSignup: FC = () => {
             )}
 
             <p className={`${styles.terms_policy}`}>
-              By Signing Up, you agree to Herogo TV
+              By Signing Up, you agree to {appConfig.endPoints.product}
               <Link className={`${styles.terms}`} href="#">
                 {" "}
                 Terms and Conditions

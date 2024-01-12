@@ -6,9 +6,9 @@ function AuthGuard({ children }: { children: ReactNode }) {
   const { isLoggedin, activeProfile } = useAppSelector((state) => state.user);
   const { asPath, replace } = useRouter();
   const [loadchildren, setLoadChildren] = useState<boolean>(false);
-
+  const protectedpaths = ['/settings','/settings/edit-profile']
   useEffect(() => {
-    if (asPath === '/settings' && isLoggedin === false) {
+    if (protectedpaths.indexOf(asPath) > -1 && isLoggedin === false) {
       replace('/signin');
     } else if (activeProfile === '' && isLoggedin === true) {
       replace('/profiles/select-user-profile');

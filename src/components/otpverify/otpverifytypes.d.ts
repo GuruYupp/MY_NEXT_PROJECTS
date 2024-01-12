@@ -6,8 +6,8 @@ export type OtpVerifyFormType = {
 
 export type OtpVerifydataType={
   reference_key?:string
-  context?: "signup"
-  verification: "" | "email" | "number"
+  context?: "signup" | "signin"
+  verification: "" | "email" | "mobile"
   message?: string
   email?: string
   number?: string

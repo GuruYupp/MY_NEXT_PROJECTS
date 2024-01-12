@@ -1,6 +1,5 @@
 import styles from "./Searchinput.module.scss";
 import { ChangeEvent, FC, FormEvent, useCallback } from "react";
-import getConfig from "next/config";
 import { useRouter } from "next/router";
 import {
   emptysearchSuggestions,
@@ -11,7 +10,7 @@ import {
 } from "@/redux/feature/searchv3Slice/searchv3Slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { debunceFunction } from "@/utils";
-let appConfig = getConfig().publicRuntimeConfig.appconfig;
+import appConfig from "@/app.config";
 
 const SearchInput: FC = () => {
   const { asPath, replace } = useRouter();

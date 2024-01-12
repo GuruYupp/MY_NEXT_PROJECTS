@@ -1,4 +1,5 @@
 import AuthGuard from '@/components/Auth/AuthGuard';
+import EditProfile from '@/components/editprofile/EditProfile';
 import Footer from '@/components/footer/footer';
 import Header from '@/components/header/header';
 import Settings from '@/components/settings/Settings';
@@ -12,6 +13,11 @@ function MiscLayout(): JSX.Element {
       {asPath === '/settings' && (
         <div style={{ minHeight: '80vh' }}>
           <Settings />
+        </div>
+      )}
+      {asPath === '/settings/edit-profile' && (
+        <div style={{ minHeight: '80vh' }}>
+          <EditProfile/>
         </div>
       )}
       <Footer />

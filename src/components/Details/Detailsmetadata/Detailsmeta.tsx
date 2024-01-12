@@ -25,7 +25,8 @@ function DetailsMetaContainer(){
     cast = cast.split('|').join(',');
 
     let description = getfrompagedata(content, "description")?.data || "";
-    let imdbrating = getfrompagedata(content,"imdb")?.data || ""
+    let imdbrating = getfrompagedata(content,"imdb")?.data || "";
+    let rentbtn = getfrompagedata(content,"rent")?.data || "";
 
     buttonTypes.map((button) => {
         let btn = getfrompagedata(content, button)
@@ -114,6 +115,9 @@ function DetailsMetaContainer(){
                                 
                             </Fragment>
                         ))}
+                    {rentbtn && (<span className={`${styles.btn} ${styles.rent_btn}`}>
+                        {rentbtn}
+                    </span>)}
                     {pageButtons.showFavouriteButton && (
                         <span className={`${styles.btn} ${styles.favorite_btn}`}>
                             <img src={`${appConfig.cloudpath + "/images/heart.svg"}`} alt='heart'/>
