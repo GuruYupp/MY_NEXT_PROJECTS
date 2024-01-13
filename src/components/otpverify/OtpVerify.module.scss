@@ -3,12 +3,15 @@
 .otpverify_wrapper {
   width: 100%;
   min-height: 100vh;
-  background: url(https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sign-in-bg.jpg) no-repeat 50% fixed;
-  background-size: cover;
-  -webkit-background-size: cover;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &.showbackground {
+    background: url(https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sign-in-bg.jpg) no-repeat 50% fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+  }
 
   @include breakpoint(tablet) {
   }
@@ -26,6 +29,7 @@
     .otp_container_inner {
       padding: 65px 40px;
       background-color: #262626;
+      position: relative;
 
       .title {
         color: #fff;
@@ -74,6 +78,17 @@
 
         @include breakpoint(mobile) {
           margin: 0 0 20px;
+        }
+      }
+
+      .otpverify_close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        cursor: pointer;
+
+        img {
+          transition: all 0.2s ease;
         }
       }
 

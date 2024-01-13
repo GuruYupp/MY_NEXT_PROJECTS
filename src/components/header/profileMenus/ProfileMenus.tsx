@@ -123,7 +123,7 @@ export default function ProfileMenus() {
                           alt="profile"
                         />
                       </span>
-                      <span>{profile && profile?.name}</span>
+                      <span className={`${styles.menu_profile_name}`}>{profile && profile?.name}</span>
                       {profile?.isProfileLockActive && (
                         <img
                           src={`https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/lock-icon.svg`}

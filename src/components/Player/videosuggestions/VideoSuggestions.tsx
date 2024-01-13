@@ -34,13 +34,14 @@ export default function VideoSuggestions(props: VideoSuggestionsProps){
     slidesToShow:1,
     variableWidth:true,
     initialSlide:getInitialSlideIndex(),
-    centerMode:true,
+    centerMode: tabsInfo.tabs.length > 2,
+    className:"custom_slide"
   }
 
   return (
     <div className={`${styles.Videosuggestions}`}>
       <div className={`${styles.tabs}`}>
-     <Slider {...tabs_settings}>
+        <Slider {...tabs_settings}>
         {tabsInfo.tabs.map((tab, index) => {
           return (
             <div className={`${styles.tab}`} key={index}>

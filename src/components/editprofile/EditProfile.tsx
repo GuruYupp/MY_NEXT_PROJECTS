@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 
 const EditProfile = () => {
   const { userDetails } = useAppSelector((state) => state.user)
-  const { formState, control,handleSubmit } = useForm<EditProfileFormType>({defaultValues:{gender:userDetails?.gender || ''}});
+  const { formState, control,handleSubmit} = useForm<EditProfileFormType>({defaultValues:{gender:userDetails?.gender || ''}});
 
   const router = useRouter();
 
@@ -20,11 +20,14 @@ const EditProfile = () => {
   //   });
   // }, []);
 
+  const isAtLeastOneFieldTouched = ()=> Object.keys(formState.touchedFields).length > 0
+  
+
   const onSubmit: SubmitHandler<EditProfileFormType> = async (formData)=>{
+    if(!isAtLeastOneFieldTouched()) return;
     const {age,name,gender} = formData
-    console.log(formData)
     let postData = {
-      age,
+      age:age.toString(),
       first_name: name,
       last_name: '',
       gender: gender

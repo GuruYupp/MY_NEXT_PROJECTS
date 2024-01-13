@@ -47,8 +47,9 @@ function Layout({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const isheaderShown =()=> (!asPath.includes("sign") && !asPath.includes("profiles"))
-  const isfooterShown =() => (!asPath.includes("sign") && !asPath.includes("profiles"))
+
+  const isheaderShown = () => (!asPath.includes("sign") && !asPath.includes("profiles") && !asPath.includes("change-password"))
+  const isfooterShown = () => (!asPath.includes("sign") && !asPath.includes("profiles") && !asPath.includes("change-password"))
 
   return (
     <Loading showLoading={isLoading}>

@@ -309,6 +309,10 @@
                     }
                   }
 
+                  .menu_profile_name{
+                    @include ellipse;
+                  }
+
                   .lock_icon {
                     position: absolute;
                     right: 10px;

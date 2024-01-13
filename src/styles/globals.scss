@@ -113,3 +113,6 @@ body {
   background-color: $primary-color !important;
 }
 
+.custom_slide.slick-slider .slick-list .slick-track .slick-slide.slick-active{
+  background-color: #333;
+}

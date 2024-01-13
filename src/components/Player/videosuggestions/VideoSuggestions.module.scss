@@ -6,17 +6,18 @@
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, .15);
     margin-bottom: 15px;
     padding: 0px 28px;
-  .tab {
-      background-color: hsla(0, 0%, 100%, .06);
-      line-height: 50px;
-      p {
-        padding: 0px 10px;
-        font-size: 14px;
-        font-weight: 400;
-        color: #fff;
-        text-transform: uppercase;
+    .tab {
+        background-color: hsla(0, 0%, 100%, .06);
+        line-height: 50px;
+    
+        p {
+          padding: 0px 10px;
+          font-size: 14px;
+          font-weight: 400;
+          color: #fff;
+          text-transform: uppercase;
+        }
       }
-    }
   }
   
     .suggestions {

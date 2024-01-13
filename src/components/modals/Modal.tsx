@@ -74,8 +74,11 @@ function Modal(props: ModalPropsInterface) {
 				return <></>;
 		}
 	};
+	const handlePropogation = (e:React.MouseEvent<HTMLDivElement>)=>{
+		e.stopPropagation();
+	}
 	return (
-		<div className={`${style.modal_container}`}>{renderModal(props.modalType)}</div>
+		<div className={`${style.modal_container}`} onClick={handlePropogation}>{renderModal(props.modalType)}</div>
 	);
 }
 

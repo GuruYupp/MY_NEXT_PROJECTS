@@ -1,4 +1,5 @@
 import AuthGuard from '@/components/Auth/AuthGuard';
+import ChangePassword from '@/components/changepassword/ChangePassword';
 import EditProfile from '@/components/editprofile/EditProfile';
 import Footer from '@/components/footer/footer';
 import Header from '@/components/header/header';
@@ -6,10 +7,9 @@ import Settings from '@/components/settings/Settings';
 import { useRouter } from 'next/router';
 
 function MiscLayout(): JSX.Element {
-  const { asPath } = useRouter();
+  const { asPath } = useRouter(); 
   return (
     <AuthGuard>
-      <Header />
       {asPath === '/settings' && (
         <div style={{ minHeight: '80vh' }}>
           <Settings />
@@ -20,7 +20,13 @@ function MiscLayout(): JSX.Element {
           <EditProfile/>
         </div>
       )}
-      <Footer />
+      {
+        asPath == '/change-password' && (
+          <div style={{ minHeight: '80vh' }}>
+            <ChangePassword />
+          </div>
+        )
+      }
     </AuthGuard>
   );
 }

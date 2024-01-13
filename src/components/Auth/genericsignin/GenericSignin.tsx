@@ -17,7 +17,6 @@ import { OtpVerifydataType } from "@/components/otpverify/otpverifytypes";
 import { createPortal } from "react-dom";
 import Modal from "@/components/modals/Modal";
 import OtpVerify from "@/components/otpverify/OtpVerify";
-import { responseInterface } from "@/shared";
 
 const GenericSignIn: FC = () => {
   const { globalsettings, sociallogin, userprofiles } = useAppSelector(
