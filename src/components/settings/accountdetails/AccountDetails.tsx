@@ -45,15 +45,15 @@ const AccountDetails: FC = () => {
     setShowModal("");
   };
 
-  function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
-    const { from, data } = Modaldata;
-    switch (from) {
-      case "languages":
-        break;
-      default:
-        break;
-    }
-  }
+  // function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
+  //   const { from, data } = Modaldata;
+  //   switch (from) {
+  //     case "languages":
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  // }
   return (
     <Fragment>
       <div className={`${styles.account_details_container}`}>

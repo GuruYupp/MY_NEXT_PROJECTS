@@ -1,8 +1,6 @@
 import AuthGuard from '@/components/Auth/AuthGuard';
 import ChangePassword from '@/components/changepassword/ChangePassword';
 import EditProfile from '@/components/editprofile/EditProfile';
-import Footer from '@/components/footer/footer';
-import Header from '@/components/header/header';
 import Settings from '@/components/settings/Settings';
 import { useRouter } from 'next/router';
 

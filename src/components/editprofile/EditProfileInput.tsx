@@ -85,7 +85,7 @@ export const EditProfileDateInput: FC<
 export const EditProfileRadioInput: FC<
   UseControllerProps<EditProfileFormType>
 > = (props) => {
-  const { defaultValue, name } = props;
+  const { defaultValue } = props;
   const { field } = useController(props);
   
   const getRadioLabel = ()=>{

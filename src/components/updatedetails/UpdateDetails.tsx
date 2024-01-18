@@ -4,7 +4,7 @@ import {
   UpdatedetailsFormType,
   UpdatedetailsPropsType,
 } from "./updatedetailstypes";
-import { FC, Fragment, useRef, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import UpdateDetailsInput from "./UpdateDetailsInput";
 import { useAppSelector } from "@/redux/hooks";
 import appConfig from "@/app.config";
@@ -23,8 +23,8 @@ const UpdateDetails: FC<UpdatedetailsPropsType> = (props) => {
 
   const { userDetails } = useAppSelector((state) => state.user);
 
-  const [errormsg, setErrormsg] = useState<string>("");
-  const errormsgToken = useRef<ReturnType<typeof setTimeout>>();
+  const [errormsg, _setErrormsg] = useState<string>("");
+  // const errormsgToken = useRef<ReturnType<typeof setTimeout>>();
   const [showModal, setShowModal] = useState<ModalType>('');
   const [otpprops, setOtpprops] = useState<OtpVerifydataType>({ verification: "" });
 

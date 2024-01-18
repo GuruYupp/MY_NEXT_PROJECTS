@@ -181,7 +181,6 @@ const GenericSignIn: FC = () => {
     switch (from) {
       case 'otpverify':
         if(data.status == true){
-          console.log('ffjhfhjfjfj')
           setuserLoggedin();
         }
         break;
