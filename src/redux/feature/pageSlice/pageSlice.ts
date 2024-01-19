@@ -145,7 +145,8 @@ const pageSlice = createSlice({
         state.response.pageButtons = payload.response?.pageButtons;
         state.response.shareInfo = payload.response?.shareInfo;
         state.response.tabsInfo = payload.response?.tabsInfo;
-        state.response.tabsInfo.tabs = state.response.tabsInfo.tabs.filter(
+        let tabs = state.response.tabsInfo.tabs
+        tabs = tabs.filter(
           (tab) => remove_tabs.indexOf(tab.code) <= -1
         );
         if (payload.response?.streamStatus) {

@@ -3,7 +3,7 @@ import styles from "./Grid.module.scss";
 import  Card  from "../card/card";
 import { cardDimentionsForResponsive } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { cardInterface, searchInterface, sectionInterface } from "@/shared";
+import { cardInterface, searchv1Interface, searchv3Interface, sectionInterface } from "@/shared";
 import { default as clientCookie } from "js-cookie";
 import { useRouter } from "next/router";
 import { fetchSections } from "@/redux/feature/pageSlice/pageSlice";
@@ -128,13 +128,12 @@ export default function Grid() {
 interface SearchGridProps {
   cards: cardInterface[];
   searchPaginationHandler?: () => void;
-  pagination?:searchInterface["tabsdata"][0]["searchResults"]["pagination"]
+  pagination?:searchv3Interface["tabsdata"][0]["searchResults"]["pagination"] | searchv1Interface["pagination"]
 }
 export function SearchGrid(props:SearchGridProps){
   const { cards, pagination ,searchPaginationHandler} = props
  
   const cardType = cards.length > 0 ? cards[0].cardType : "overlay_poster";
-  console.log(pagination,'---GGg')
   // const { asPath } = useRouter();
   const elementRef = useRef<HTMLDivElement>(null);
   const [cardWidth, setCardWidth] = useState<string>("0px");

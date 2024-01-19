@@ -21,7 +21,6 @@ function Layout({ children }: { children: ReactNode }) {
 
   const dispatch = useAppDispatch();
   useEffect(function () {
-    console.log('kkkk')
     let isrenderd = false;
     Init().then(({ systemConfigs, systemfeature }) => {
       if (

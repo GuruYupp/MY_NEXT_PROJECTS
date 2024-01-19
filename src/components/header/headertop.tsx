@@ -120,7 +120,6 @@ function HeaderTop(): JSX.Element {
             modalType={showModal}
             render={(modal) => {
               function getModal() {
-                console.log(modal);
                 switch (modal) {
                   case 'languages':
                     return (

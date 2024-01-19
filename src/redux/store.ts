@@ -6,6 +6,7 @@ import streamSlice from "./feature/streamSlice/streamSlice";
 import tvguideSlice from "./feature/tvguideSlice/tvguideSlice";
 import restrictionSlice from "./feature/restrictionSlice/restrictionSlice";
 import searchv3Slice from "./feature/searchv3Slice/searchv3Slice";
+import searchv1Slice from "./feature/searchv1Slice/searchv1Slice";
 const Store = configureStore({
   reducer:{
     configs:configSlice,
@@ -14,8 +15,10 @@ const Store = configureStore({
     streamData:streamSlice,
     tvguideData:tvguideSlice,
     pagerestrictions: restrictionSlice,
-    searchv3:searchv3Slice
-  }
+    searchv3:searchv3Slice,
+    searchv1:searchv1Slice
+  },
+  devTools:process.env.NODE_ENV === "development"
 })
 
 export type RootState = ReturnType<typeof Store.getState>;

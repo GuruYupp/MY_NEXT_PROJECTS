@@ -7,39 +7,44 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { SearchGrid } from "../grid/Grid";
 import styles from "./search.module.scss";
 import {
-  fetchSearchBucket,
+  fetchSearchv1Bucket,
   resetSearchSlice,
-  searchBucketPagiation,
+  searchv1BucketPagiation,
   searchparamsInterface,
   setsearchText,
   togglesearchSections,
   togglesearchSuggestions,
-} from "@/redux/feature/searchv3Slice/searchv3Slice";
+} from "@/redux/feature/searchv1Slice/searchv1Slice";
+
 
 const Search: FC = () => {
   const { showSections, activeTab, tabsdata ,searchtext} = useAppSelector(
-    (state) => state.searchv3
+    (state) => state.searchv1
   );
   const dispatch = useAppDispatch();
   const { query } = useRouter();
 
   useEffect(() => {
+    let searchrequest: ReturnType<typeof search>;
     if (!!query.q && typeof query.q === "string") {
       dispatch(resetSearchSlice());
       dispatch(togglesearchSections(false));
       dispatch(togglesearchSuggestions(false));
       dispatch(setsearchText(query.q));
-      search({
+      searchrequest = search({
         query: query.q,
-        last_search_order: "typesense",
-        page_size: 30,
-        bucket: "all",
+        page_size: 36,
+        page:0
       });
+    }
+    return ()=>{
+     searchrequest?.abort()
+      dispatch(resetSearchSlice());
     }
   }, [query.q]);
 
   const search = (params: searchparamsInterface) => {
-    dispatch(fetchSearchBucket(params));
+    return dispatch(fetchSearchv1Bucket(params));
   };
 
   const getCards = () => {
@@ -57,23 +62,22 @@ const Search: FC = () => {
   }
 
   const searchPagination = ()=>{
-    let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
-    if(active_tab && active_tab.last_search_order === "typesense"){
-      let params={
-        query: searchtext,
-        last_search_order: active_tab.last_search_order,
-        page_size: 30,
-        bucket: active_tab.searchResults.sourceType,
-        last_doc: active_tab.last_doc
-      }
-      dispatch(searchBucketPagiation(params))
-    }
+    // let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
+    // if(active_tab && active_tab.last_search_order === "typesense"){
+    //   let params={
+    //     query: searchtext,
+    //     page_size: 36,
+    //     page:0
+    //   }
+    //   dispatch(searchv1BucketPagiation(params))
+    // }
   }
 
   const getPaginationStatus = ()=>{
-    let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
-    console.log(active_tab)
-    return active_tab?.searchResults?.pagination
+    // let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
+    // console.log(active_tab)
+    // return active_tab?.searchResults?.pagination
+    return undefined
   }
 
   return (

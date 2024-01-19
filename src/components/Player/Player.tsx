@@ -83,9 +83,10 @@ export default function Player() {
                         <img
                           src={`${appConfig.cloudpath + "/images/heart.svg"}`} alt="heart"
                         />
-                        Favorite
+                        Add To Favorite
                       </span>
                     )}
+                    <span className={`${styles.line}`}></span>
                     {shareInfo.isSharingAllowed && (
                       <span className={`${styles.btn} ${styles.share_btn}`}>
                         <img

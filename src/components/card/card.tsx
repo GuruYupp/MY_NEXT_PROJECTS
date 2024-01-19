@@ -681,7 +681,6 @@ const Card = (props: cardprops): JSX.Element => {
             modalType={showModal}
             render={(modal) => {
               function getModal() {
-                console.log(modal);
                 switch (modal) {
                   case "template":
                     return <Template closeModal={closeTemplateModal} template_code={templateCode} target_path={target.path}/>

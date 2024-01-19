@@ -91,7 +91,6 @@ const GenericSignIn: FC = () => {
 
   const signIn = async (post_data:any)=>{
     let signInresponse = await postData('/service/api/auth/v1/signin', post_data)
-    console.log(signInresponse)
     if(signInresponse.status === false){
       if(signInresponse.error?.code === -6 && signInresponse.error.actionCode === 1){
         // user will register but OTP is not verified for email
@@ -113,39 +112,11 @@ const GenericSignIn: FC = () => {
      }
     }
     else if(signInresponse.status === true){
-      // localStorage.setItem('isLoggedin', 'true');
-      // if(showPackages === "true"){
-      //   const userPackages = await getData(
-      //     'service/api/auth/user/activepackages'
-      //   );
-      //   if (userPackages.status === true) {
-      //     localStorage.setItem(
-      //       'activePackages',
-      //       JSON.stringify(userPackages.response)
-      //     );
-      //     dispatch(setActivepackages());
-      //   }
-      // }
-      // const userInfo = await getData('/service/api/auth/user/info');
-      // if (userInfo.status === true) {
-      //   localStorage.setItem(
-      //     'userDetails',
-      //     JSON.stringify(userInfo.response)
-      //   );
-      //   dispatch(setLoggedin())
-      //   if (userprofiles?.fields?.is_userprofiles_supported === "true"){
-      //     router.replace('/profiles/select-user-profile');
-      //   }
-      //   else{
-      //     router.replace('/')
-      //   }
-      // }
       setuserLoggedin();
     }
   }
 
   const setuserLoggedin = async ()=>{
-    console.log('---dddd')
     localStorage.setItem('isLoggedin', 'true');
     if (showPackages === "true") {
       const userPackages = await getData(
@@ -177,7 +148,6 @@ const GenericSignIn: FC = () => {
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
     let { from, data } = Modaldata;
-    console.log(data,'-----',from)
     switch (from) {
       case 'otpverify':
         if(data.status == true){
@@ -338,7 +308,6 @@ const GenericSignIn: FC = () => {
             modalType={showModal}
             render={(modal: ModalType) => {
               function getModal() {
-                console.log(modal);
                 switch (modal) {
                   case 'otpverify':
                     return <OtpVerify closeModal={handlecloseModal} sendDatatoComponent={getDataFromModal} verifydata={otpprops} />

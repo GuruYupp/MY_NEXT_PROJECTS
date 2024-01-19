@@ -1,13 +1,13 @@
 import { getData } from "@/services/data.manager";
 import {
-  bucketsInterface,
+  v3bucketsInterface,
   responseInterface,
-  searchInterface,
+  searchv3Interface,
   searchtabInterface,
 } from "@/shared";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const initialState: searchInterface = {
+export const initialState: searchv3Interface = {
   searchtext: "",
   suggestions: {
     isloading: "idle",
@@ -64,7 +64,7 @@ export const searchBucketPagiation = createAsyncThunk<
 });
 
 const searchV3Slice = createSlice({
-  name: "searcv3",
+  name: "searchv3",
   initialState,
   reducers: {
     setsearchText: (state, action: PayloadAction<string>) => {
@@ -119,11 +119,11 @@ const searchV3Slice = createSlice({
         const { payload } = action;
         state.searchResultstate = "fulfilled";
         if (payload.status === true) {
-          let response = payload.response as bucketsInterface & {
+          let response = payload.response as v3bucketsInterface & {
             lastDoc: string;
             lastSearchOrder: "typesense" | "done";
           }
-          let tab_data: bucketsInterface = {
+          let tab_data: v3bucketsInterface = {
             last_doc: response.lastDoc,
             last_search_order: response.lastSearchOrder,
             searchResults: {
@@ -136,7 +136,7 @@ const searchV3Slice = createSlice({
           };
           state.tabsdata.push(tab_data);
         }else{
-          let tab_data: bucketsInterface = {
+          let tab_data: v3bucketsInterface = {
             last_doc: "1",
             last_search_order: "done",
             searchResults: {
@@ -171,7 +171,7 @@ const searchV3Slice = createSlice({
         const { payload } = action;
         if (payload.status !== true) return;
 
-        let response = payload.response as bucketsInterface & {
+        let response = payload.response as v3bucketsInterface & {
           lastDoc: string;
           lastSearchOrder: "typesense" | "done";
         };

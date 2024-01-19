@@ -399,7 +399,6 @@ const GenericSignup: FC = () => {
             modalType={showModal}
             render={(modal:ModalType) => {
               function getModal() {
-                console.log(modal);
                 switch (modal) {
                   case 'otpverify':
                     return <OtpVerify closeModal={handlecloseModal} sendDatatoComponent={getDataFromModal} verifydata={otpprops}/>

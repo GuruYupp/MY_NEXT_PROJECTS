@@ -49,6 +49,9 @@ const appConfig={
     "showDeleteButtonAndroid": true,
     "changePasswordSupport":true
   },
+  "search":{
+    "apiversion":"v1"
+  }
 }
 
 export default appConfig

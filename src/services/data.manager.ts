@@ -98,7 +98,7 @@ export async function getpageData(
       cache:{
         interpretHeader:false,
         cacheTakeover:false,
-        ttl:1000
+        // ttl:1000
       }
     });
   return response.data;

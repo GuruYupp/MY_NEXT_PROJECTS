@@ -6,7 +6,6 @@ import appConfig from '@/app.config';
 import { useAppSelector } from '@/redux/hooks';
 
 export function ShimmerSection() {
-  console.log('banners....')
   return (
     <div className={`${styles.shimmer_row}`}>
       <div

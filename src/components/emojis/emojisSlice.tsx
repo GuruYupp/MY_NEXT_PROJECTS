@@ -32,7 +32,7 @@ export const emojisReducer = createReducer(initialemojisState,(builder)=>{
     })
   })
   .addCase(addEmojis,(state,{payload})=>{
-    state.emojis = payload
+    state.emojis = []
     payload.map((emoji)=>{
       state.emojis.push({...emoji,selected:false})
     })

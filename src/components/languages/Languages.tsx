@@ -41,7 +41,6 @@ function Languages(props: LanguageProps) {
 
   const handleApply = ()=>{
     if(sendDatatoComponent){
-      console.log('heheheh')
        sendDatatoComponent({from:"languages",data:languageState.languages})
     }
     closeModal()

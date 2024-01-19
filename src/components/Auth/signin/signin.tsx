@@ -33,7 +33,6 @@ type otptimerType = {
 };
 
 export const SignIn = (): JSX.Element => {
-  // console.log('Hello')
   const router = useRouter();
   const { register, formState, getValues } = useForm<IFormInput>({
     mode: 'onChange',
@@ -82,7 +81,6 @@ export const SignIn = (): JSX.Element => {
   };
 
   const startResendTimer = () => {
-    console.log('hello');
     if (otpTimer.current?.timerId) {
       setOtpText('Resend OTP');
       clearInterval(otpTimer.current.timerId);
@@ -267,14 +265,14 @@ export const SignIn = (): JSX.Element => {
       apicall('/service/api/v1/get/country', headers, {}).then((data) => {
         if (data.status === true && data.response.length > 0) {
           setCountryCodes([...data.response]);
-          console.log(countryCodes);
+         
         } else if (data?.status == false && data?.error?.code == 401) {
           clientCookie.remove('boxId');
           clientCookie.remove('tenantCode');
           clientCookie.remove('sessionId');
           window.location.reload();
         } else {
-          console.log(data);
+          
           console.log('failed....');
         }
       });

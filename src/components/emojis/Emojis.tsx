@@ -34,7 +34,7 @@ function Emojis(props: EmojisProps) {
       }
     }
     catch(err){
-      console.log(err)
+      // console.log(err)
     }
     
   }

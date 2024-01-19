@@ -10,7 +10,7 @@ import DetailsPage from '@/components/Details/Details';
 import { useAppSelector } from '@/redux/hooks';
 import Player from '@/components/Player/Player';
 import AuthGuard from '@/components/Auth/AuthGuard';
-import Search from '@/components/Search/search';
+// import Search from '@/components/Searchv3/search';
 
 export function ContentPageWrapper(props: { children: ReactNode }) {
   const { children } = props;
@@ -31,12 +31,12 @@ function DynamicLayout(): JSX.Element {
             <TvGuide />
           </>
         );
-      case 'search':
-        return (
-            <ContentPageWrapper>
-             <Search/>
-            </ContentPageWrapper>
-        );
+      // case 'search':
+      //   return (
+      //       <ContentPageWrapper>
+      //        <Search/>
+      //       </ContentPageWrapper>
+      //   );
       case 'tvguide':
         return <TvGuide />;
       default:

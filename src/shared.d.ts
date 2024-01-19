@@ -219,6 +219,13 @@ export interface contentInterface {
   };
 }
 
+export interface pageTabInterface{
+  code: string;
+  infiniteScroll: boolean;
+  sectionCodes: string | string[];
+  title: string;
+}
+
 export interface pageState {
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
   pagination: 'idle' | 'pending' | 'succeeded' | 'failed';
@@ -244,12 +251,7 @@ export interface pageState {
       hints: string;
       selectTab: string;
       showTabs: boolean;
-      tabs: {
-        code: string;
-        infiniteScroll: boolean;
-        sectionCodes: string | string[];
-        title: string;
-      }[];
+      tabs:pageTabInterface[];
     };
     streamStatus: streamStatusInterface;
   };
@@ -621,7 +623,7 @@ export interface plansInterface {
 
 
 //search page interfaces
-export interface bucketsInterface {
+export interface v3bucketsInterface {
   last_doc: string
   last_search_order: "typesense" | "done"
   searchResults: {
@@ -639,12 +641,27 @@ export interface bucketsInterface {
   }
 }
 
+export interface v1bucketsInterface {
+  searchResults: {
+    sourceType: string
+    displayName: string
+    count: number
+    data: cardInterface[]
+  }
+  error?: {
+    code?: number;
+    message?: string;
+    details?: {};
+    type?: string;
+  }
+}
+
 export interface searchtabInterface {
   displayName: string
   code: string
 }
 
-export interface searchInterface{
+export interface searchv3Interface{
   searchtext: string
   suggestions: {
     isloading: "pending" | "idle" | "fulfilled" | "rejected"
@@ -654,6 +671,22 @@ export interface searchInterface{
   }
   showSections: boolean
   activeTab: searchtabInterface
-  tabsdata: bucketsInterface[]
+  tabsdata: v3bucketsInterface[]
   searchResultstate: "pending" | "idle" | "fulfilled" | "rejected"
+}
+
+export interface searchv1Interface {
+  searchtext: string
+  suggestions: {
+    isloading: "pending" | "idle" | "fulfilled" | "rejected"
+    data: string[]
+    error: any
+    show: boolean
+  }
+  showSections: boolean
+  activeTab: searchtabInterface
+  tabsdata: v1bucketsInterface[]
+  searchResultstate: "pending" | "idle" | "fulfilled" | "rejected"
+  pagination: 'idle' | 'pending' | 'succeeded' | 'failed';
+  pagesize: number,
 }

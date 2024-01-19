@@ -7,7 +7,6 @@ export default function NetworkDetails(){
   const {content} = useAppSelector(state=>state.pageData.response)
   
   let partner_bgImage;
-  console.log(content)
   content.map((content) => {
     if (content.contentCode === "patner_info") {
       content?.content?.dataRows?.map((data: any) => {

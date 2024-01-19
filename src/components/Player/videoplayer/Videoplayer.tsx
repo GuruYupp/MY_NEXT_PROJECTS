@@ -78,7 +78,6 @@ function VideoPlayer(props:VideoPlayerPropsInterface){
     streams && streams.map((stream) => {
       if (stream?.streamType !== "fairplay" && stream?.streamType) {
         let obj: any = {};
-        console.log("Stream: ", stream);
         obj["file"] = stream.url;
 
         if(stream?.streamType === "widevine" ||stream?.streamType === "playready"){

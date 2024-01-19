@@ -24,7 +24,6 @@ const ChangePassword = ()=>{
   }, [])
 
   const onSubmit:SubmitHandler<ChangePasswordFormType>=async (formData)=>{
-    console.log(formData)
     handleChangePassword({
       oldPassword:formData.currentpassword,
       newPassword: formData.confirmnewpassword

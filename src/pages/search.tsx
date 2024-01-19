@@ -3,8 +3,10 @@ import { seoInterface } from "@/shared";
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
 import GenericLayout from "@/layouts/GenericLayout";
-import Search from "@/components/Search/search";
+import Searchv3 from "@/components/Searchv3/search";
+import Searchv1 from "@/components/Searchv1/search";
 import { ContentPageWrapper } from "@/layouts/DynamicLayout";
+import appConfig from "@/app.config";
 // import Layout from "@/layouts/Layout";
 
 
@@ -17,7 +19,7 @@ export default function SearchPage({ seodata }: { seodata: seoInterface }) {
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
         <GenericLayout>
           <ContentPageWrapper>
-            <Search/>
+            {appConfig.search.apiversion === "v3" ? <Searchv3/> : <Searchv1/>}
           </ContentPageWrapper>
         </GenericLayout>
       </ErrorBoundary>
