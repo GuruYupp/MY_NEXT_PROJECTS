@@ -29,7 +29,7 @@ export const initialState: searchv1Interface = {
 
 export interface searchparamsInterface {
   query: string;
-  page_size: number;
+  pageSize: number;
   page:number;
 }
 

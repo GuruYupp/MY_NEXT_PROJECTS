@@ -37,6 +37,21 @@ const appConfig={
   "profile": {
     "type": 'password',
     "languages": false,
+  },
+  "settings": {
+    "personal": true,
+    "email": true,
+    "mobile": true,
+    "password": true,
+    "logout": true,
+    "unSubscribe": false,
+    "resubscribe": false,
+    "showDeleteButtonIos": true,
+    "showDeleteButtonAndroid": true,
+    "changePasswordSupport":true
+  },
+  "search":{
+    "apiversion":"v1"
   }
 }
 

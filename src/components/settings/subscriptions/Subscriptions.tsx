@@ -2,6 +2,7 @@ import styles from './Subscriptions.module.scss';
 import { setActivepackages } from '@/redux/feature/userSlice/userSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { getData } from '@/services/data.manager';
+import { plansInterface } from '@/shared';
 import { FC, useEffect } from 'react';
 
 const NoPlansRow: FC = () => (
@@ -12,6 +13,17 @@ const NoPlansRow: FC = () => (
     <h6 className={`${styles.heading2}`}>Explore Subscription plans</h6>
   </div>
 );
+
+const PlansRow:FC<{plan:plansInterface}> = (props)=>{
+  const {plan} = props
+  return <div className={`${styles.no_plans_row}`}>
+    <h6 className={`${styles.heading1}`}>
+      {plan.name}  {plan.packageType} {plan.isCurrentlyActivePlan && '(Current Plan)'}
+    </h6>
+    <h6 className={`${styles.heading2}`}>{plan.currencySymbol}{plan.saleAmount} / {plan.packageType}</h6>
+    <h6 className={`${styles.heading2}`}>{plan.message}</h6>
+  </div>
+}
 
 const Subscriptions: FC = () => {
   const { activePackages } = useAppSelector((state) => state.user);
@@ -38,10 +50,9 @@ const Subscriptions: FC = () => {
     <div className={`${styles.subscription_details_container}`}>
       <div className={`${styles.plans_container}`}>
         {activePackages.length === 0 && <NoPlansRow />}
-        {activePackages.length > 0 && (
-          <div>
-            <h3>coming soon ... </h3>
-          </div>
+        {activePackages.length > 0 && (activePackages.map((plan:plansInterface,index)=>{
+          return <PlansRow key={index} plan={plan}/>
+        })
         )}
         <div className={`${styles.plans_transaction}`}>
           <span className={`${styles.label}`}>Transaction History</span>

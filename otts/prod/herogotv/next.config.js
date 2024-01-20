@@ -40,6 +40,14 @@ module.exports = {
         destination: '/misc/misc',
       },
       {
+        source: '/settings/edit-profile',
+        destination: '/misc/misc',
+      },
+      {
+        source:'/change-password',
+        destination: '/misc/misc',
+      },
+      {
         source: '/',
         destination: '/home',
       },

@@ -86,7 +86,7 @@ export default function Player() {
                         Add To Favorite
                       </span>
                     )}
-                    <span className={`${styles.line}`}></span>
+                    {(pageButtons.showFavouriteButton && shareInfo.isSharingAllowed) && <span className={`${styles.line}`}></span>}
                     {shareInfo.isSharingAllowed && (
                       <span className={`${styles.btn} ${styles.share_btn}`}>
                         <img

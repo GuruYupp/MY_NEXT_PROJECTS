@@ -97,6 +97,7 @@
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                flex-direction: row-reverse;
 
                 .btn {
                   border: 1px solid #444;
@@ -120,6 +121,8 @@
                     border-color 0.15s ease-in-out,
                     box-shadow 0.15s ease-in-out;
                     font-size: 16px;
+                    display: flex;
+                    align-items: center;
 
                     img {
                       margin: 0px 5px;

@@ -33,12 +33,12 @@ const Search: FC = () => {
       dispatch(setsearchText(query.q));
       searchrequest = search({
         query: query.q,
-        page_size: 36,
+        pageSize: 36,
         page:0
       });
     }
     return ()=>{
-     searchrequest?.abort()
+      searchrequest?.abort()
       dispatch(resetSearchSlice());
     }
   }, [query.q]);
