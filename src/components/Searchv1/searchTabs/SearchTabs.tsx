@@ -8,10 +8,10 @@ interface searchtabsprops{
   handelbucketSearch:(arg:searchparamsInterface)=>void
 }
 
-const SearchTabs: FC<searchtabsprops> = (props) => {
-  const { handelbucketSearch } = props;
+const SearchTabs: FC<searchtabsprops> = () => {
+  // const { handelbucketSearch } = props;
  
-  const { activeTab, searchtext, tabsdata } = useAppSelector(state=>state.searchv1)
+  const { activeTab, } = useAppSelector(state=>state.searchv1)
   const { configs } = useAppSelector((state => state.configs.systemConfigs))
   const dispatch = useAppDispatch()
   // const [activetab, setActivetab] = useState<searchtabInterface>(activeTab);

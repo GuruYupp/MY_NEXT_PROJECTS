@@ -645,6 +645,11 @@ const Card = (props: cardprops): JSX.Element => {
         );
       default:
         return (
+          <CardLinkWrapper
+            targetPath={target.path}
+            template={template}
+            templateHandler={templateHandler}
+          >
           <div className={`${styles.overlay_poster}`} ref={cardRef}>
             <div className={`${styles.img_container}`} ref={imageRef}>
               <img
@@ -667,6 +672,7 @@ const Card = (props: cardprops): JSX.Element => {
               </div>
             </div>
           </div>
+          </CardLinkWrapper>
         );
     }
   };

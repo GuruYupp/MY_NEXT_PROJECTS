@@ -9,7 +9,6 @@ import styles from "./search.module.scss";
 import {
   fetchSearchv1Bucket,
   resetSearchSlice,
-  searchv1BucketPagiation,
   searchparamsInterface,
   setsearchText,
   togglesearchSections,
@@ -18,7 +17,7 @@ import {
 
 
 const Search: FC = () => {
-  const { showSections, activeTab, tabsdata ,searchtext} = useAppSelector(
+  const { showSections, activeTab, tabsdata } = useAppSelector(
     (state) => state.searchv1
   );
   const dispatch = useAppDispatch();
@@ -58,7 +57,7 @@ const Search: FC = () => {
   const getbucketErrormsg = ()=>{
     let error_msg = tabsdata.filter(
       (tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]?.error?.message
-    return error_msg;
+    return error_msg || "No Results Found";
   }
 
   const searchPagination = ()=>{

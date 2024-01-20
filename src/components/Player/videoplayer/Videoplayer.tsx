@@ -1,5 +1,4 @@
 import { useAppSelector } from "@/redux/hooks";
-import { StreamInteface } from "@/shared"
 import { useEffect, useRef } from "react"
 import styles from './Videoplayer.module.scss'
 
@@ -74,7 +73,7 @@ function VideoPlayer(props:VideoPlayerPropsInterface){
   }, [])
 
   function getPlayList() {
-    let Playlist:StreamInteface[] = [];
+    let Playlist:any[] = [];
     streams && streams.map((stream) => {
       if (stream?.streamType !== "fairplay" && stream?.streamType) {
         let obj: any = {};

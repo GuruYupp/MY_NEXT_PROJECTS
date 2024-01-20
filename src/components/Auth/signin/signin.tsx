@@ -20,12 +20,12 @@ type IFormInput = {
   mobileNumber: string;
 };
 
-interface countryCodesInterface {
-  code: string;
-  iconUrl: string;
-  isdCode: string;
-  name: string;
-}
+// interface countryCodesInterface {
+//   code: string;
+//   iconUrl: string;
+//   isdCode: string;
+//   name: string;
+// }
 
 type otptimerType = {
   resendTime: number;
@@ -48,7 +48,7 @@ export const SignIn = (): JSX.Element => {
   const dispatch = useAppDispatch()
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [countryCodes, setCountryCodes] = useState<countryCodesInterface[]>([]);
+  // const [countryCodes, setCountryCodes] = useState<countryCodesInterface[]>([]);
   const [referenceId, setReferenceId] = useState<string>('');
   const [referenceKey, setReferenceKey] = useState<string>('');
   const [logincontext, setLogincontext] = useState<string>('');
@@ -264,7 +264,7 @@ export const SignIn = (): JSX.Element => {
       };
       apicall('/service/api/v1/get/country', headers, {}).then((data) => {
         if (data.status === true && data.response.length > 0) {
-          setCountryCodes([...data.response]);
+          // setCountryCodes([...data.response]);
          
         } else if (data?.status == false && data?.error?.code == 401) {
           clientCookie.remove('boxId');
