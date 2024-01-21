@@ -93,8 +93,8 @@ export function getplatform() {
 }
 
 export function getDeviceId() {
-  if (window.innerWidth < 950) {
-    return '61';
+  if (navigator.userAgent.indexOf('tablet') !== -1 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    return '61'
   }
   return '5';
 }

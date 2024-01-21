@@ -70,10 +70,7 @@ export default function CreateUserProfile() {
       setShowModal('languages');
       document.body.style.overflowY = 'hidden';
     } else {
-      console.log('hhh')
-      formRef.current?.dispatchEvent(new Event('submit'));
-      // triggerformSubmit()
-      // trigger()
+     handleSubmit(onSubmit)()
     }
   }
 
@@ -127,10 +124,9 @@ export default function CreateUserProfile() {
     } else if (create_profile_response.status === false) {
       if (create_profile_response.error?.code === -4) {
         if (
-          create_profile_response.error?.message ===
-          'RES_S_ERROR_PROFILE_NAME_ALREADY_EXIST'
+          create_profile_response.error?.message
         ) {
-          setToastMsg('RES_S_ERROR_PROFILE_NAME_ALREADY_EXIST');
+          setToastMsg(create_profile_response.error?.message);
           setShowToast(true);
           toast_timer.current = setTimeout(() => {
             setToastMsg('');

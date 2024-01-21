@@ -3,8 +3,9 @@ import { getFromlocalStorage, getplatform, getBoxId, getDeviceId } from "./utils
 import { default as clientCookie } from "js-cookie";
 import appConfig from "./app.config";
 import { fetchdata } from "./fetchapi";
-import { configsandfeaturesInterface } from "./shared";
+import { SSOParamsType, configsandfeaturesInterface } from "./shared";
 import { getDeviceSubTypeInfo } from "./services/user.manager";
+import { getData } from "./services/data.manager";
 
 export const isThere = (key: string) => {
   if (!getFromlocalStorage(key) || !clientCookie.get(key)) {
@@ -110,8 +111,46 @@ export const checkTokens = async function () {
   }
 };
 
-export const Init = async () => {
-  await checkTokens();
+export const setSSO = async function (ssoparams: SSOParamsType | undefined){
+  if(!ssoparams) return;
+  console.log(ssoparams)
+  let ut = ssoparams.ut as string
+  let decodedParamsstring = decodeURI(atob(ut))
+  let decodedParams = JSON.parse(
+    '{"' +
+    decodedParamsstring
+      .replace(/"/g, '\\"')
+      .replace(/&&&/g, '","')
+      .replace(/===/g, '":"') +
+    '"}'
+  );
+  let tenantCode = appConfig.endPoints.tenantCode;
+
+  localStorage.clear();
+  localStorage.setItem("sessionId", decodedParams.si);
+  localStorage.setItem("boxId", decodedParams.bi);
+  localStorage.setItem("isutuser",'true')
+  localStorage.setItem("tenantCode", tenantCode);
+  localStorage.setItem('isLoggedin', 'true');
+
+  clientCookie.set("sessionId", decodedParams.si);
+  clientCookie.set("boxId", decodedParams.bi);
+  clientCookie.set("tenantCode", tenantCode);
+
+  const userInfo = await getData('/service/api/auth/user/info');
+  if (userInfo.status === true) {
+    localStorage.setItem(
+      'userDetails',
+      JSON.stringify(userInfo.response)
+    );
+  }
+
+  console.log(decodedParams)
+}
+
+export const Init = async (ssoparams: SSOParamsType | undefined) => {
+  if(!ssoparams) await checkTokens();
+  else await setSSO(ssoparams)
   let systemConfigs = await getsystemConfigs();
   let systemfeature = await getsystemFeature();
   return { systemConfigs, systemfeature };

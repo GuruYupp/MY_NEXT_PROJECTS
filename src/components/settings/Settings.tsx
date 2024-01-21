@@ -8,7 +8,7 @@ import UserSettings from './usersettings/UserSettings';
 import { useAppSelector } from '@/redux/hooks';
 
 function Settings() {
-  const {systemFeatures} = useAppSelector(state=>state.configs)
+  const {systemFeatures,systemConfigs} = useAppSelector(state=>state.configs)
 
   const isProfileSettingsEnabled = () => (systemFeatures?.userprofiles && systemFeatures?.userprofiles?.fields.is_userprofiles_supported == 'true')
   return (
@@ -27,12 +27,13 @@ function Settings() {
                 render={() => <ActiveScreens />}
                 header_right_button={{ text: 'Activate Tv' }}
               />
-              <Panel
+              {systemConfigs?.configs?.showPackages === 'true' && (<Panel
                 title="Subscription"
                 toggle={false}
                 render={() => <Subscriptions />}
                 header_right_button={{ text: 'Explore Plans' }}
-              />
+              />)}
+              
               <Panel title="User Settings" render={() => <UserSettings />} />
               {isProfileSettingsEnabled() && <Panel
                 title="Profile & Parental Controls"

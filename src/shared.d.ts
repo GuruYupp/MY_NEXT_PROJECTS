@@ -690,3 +690,7 @@ export interface searchv1Interface {
   pagination: 'idle' | 'pending' | 'succeeded' | 'failed';
   pagesize: number,
 }
+
+export type SSOParamsType = {
+  ut:ReturnType<typeof encodeURI>
+}

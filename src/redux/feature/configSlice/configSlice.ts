@@ -1,14 +1,17 @@
 import { menuInterface, systemconfigsInterface } from '@/shared';
-import {createSlice} from '@reduxjs/toolkit'
+import { getFromlocalStorage } from '@/utils';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit'
 
 const initialState:{
   menus:menuInterface[];
   systemConfigs:systemconfigsInterface;
   systemFeatures:any;
+  isutUser:boolean;
 }={
   systemConfigs: {},
   systemFeatures: {},
-  menus: []
+  menus: [],
+  isutUser:false
 }
 
 const configsSlice = createSlice({
@@ -21,9 +24,15 @@ const configsSlice = createSlice({
     },
     addSystemFeatures : (state,action)=>{
       state.systemFeatures = action.payload;
+    },
+    setutUser:(state)=>{
+      let isutuser = getFromlocalStorage('isutuser')
+      if (isutuser === 'true'){
+        state.isutUser = true
+      }
     }
   },
 })
 
 export default configsSlice.reducer;
-export const { addSystemConfigs, addSystemFeatures } = configsSlice.actions;
+export const { addSystemConfigs, addSystemFeatures ,setutUser} = configsSlice.actions;
