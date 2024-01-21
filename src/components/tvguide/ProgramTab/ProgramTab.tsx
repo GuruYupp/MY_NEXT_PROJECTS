@@ -8,18 +8,18 @@ import Template from "@/components/templates/Template";
 
 interface programTabProps {
   program: tvguidestateInterface["channelsData"][0]["programs"][0];
-  channel_left?: number;
+  channelLeft?: number;
   setPaddingfromGuide?: (arg: () => void) => void;
 }
 
 function ProgramTab({
   program,
-  channel_left,
+  channelLeft,
   setPaddingfromGuide,
 }: PropsWithChildren<programTabProps>): JSX.Element {
   const { template, target } = program;
   const programRef = useRef<HTMLDivElement>(null);
-  const program_text_Ref = useRef<HTMLParagraphElement>(null);
+  const programtextRef = useRef<HTMLParagraphElement>(null);
 
   const [showModal, setShowModal] = useState<ModalType>("");
   const [templateCode, setTemplateCode] = useState<templateType>("")
@@ -46,22 +46,22 @@ function ProgramTab({
   console.log('hello')
   
   useEffect(() => {
-    if (programRef.current && program_text_Ref.current) {
+    if (programRef.current && programtextRef.current) {
       if (setPaddingfromGuide) {
         setPaddingfromGuide(setPaading);
       }
     }
-  }, [channel_left])
+  }, [channelLeft])
 
   function setPaading() {
-    if (programRef.current && channel_left) {
-      if (programRef.current.getBoundingClientRect().left < channel_left) {
-        if (program_text_Ref.current) {
-          program_text_Ref.current.style.paddingLeft = `${channel_left - programRef.current.getBoundingClientRect().left}px`
+    if (programRef.current && channelLeft) {
+      if (programRef.current.getBoundingClientRect().left < channelLeft) {
+        if (programtextRef.current) {
+          programtextRef.current.style.paddingLeft = `${channelLeft - programRef.current.getBoundingClientRect().left}px`
         }
       } else {
-        if (program_text_Ref.current) {
-          program_text_Ref.current.style.paddingLeft = `0px`
+        if (programtextRef.current) {
+          programtextRef.current.style.paddingLeft = `0px`
         }
       }
     }
@@ -77,7 +77,7 @@ function ProgramTab({
         onClick={handleProgramClick}
       >
         {" "}
-        <p ref={program_text_Ref}>
+        <p ref={programtextRef}>
           {program.display.title}
         </p>{" "}
       </div>

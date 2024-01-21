@@ -29,7 +29,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
   panelIndex,
   profileId,
 }) => {
-  const default_profile_img =
+  const defaultprofileimg =
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
   const panelRef = useRef<HTMLDivElement>(null);
   const [showModal, setShowModal] = useState<ModalType>("");
@@ -56,7 +56,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
 
   const getProfileImage = () => {
     if (profile?.imageUrl) return getAbsolutPath(profile.imageUrl);
-    return default_profile_img;
+    return defaultprofileimg;
   };
 
   const getLanguagesData = () => {

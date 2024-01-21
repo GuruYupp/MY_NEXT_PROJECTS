@@ -49,15 +49,15 @@ const Search: FC = () => {
   const getCards = () => {
     return (
       tabsdata.filter(
-        (tab_data) => tab_data.searchResults.sourceType === activeTab.code
+        (tabdata) => tabdata.searchResults.sourceType === activeTab.code
       )[0]?.searchResults?.data || []
     );
   };
 
   const getbucketErrormsg = ()=>{
-    let error_msg = tabsdata.filter(
-      (tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]?.error?.message
-    return error_msg || "No Results Found";
+    let errormsg = tabsdata.filter(
+      (tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]?.error?.message
+    return errormsg || "No Results Found";
   }
 
   const searchPagination = ()=>{

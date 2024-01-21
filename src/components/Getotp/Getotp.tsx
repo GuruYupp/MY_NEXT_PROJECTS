@@ -51,7 +51,7 @@ interface otpForm{
 
 function Getotp(props: getotpModalpropsInterface) {
   const { closeModal, profileData, type } = props;
-  const default_profile_img =
+  const defaultprofileimg =
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
 
   const [toggleInput, setToggleInput] = useState<boolean>(false);
@@ -60,7 +60,7 @@ function Getotp(props: getotpModalpropsInterface) {
   const [successText, setSuccessText] = useState<string>("");
   const [errorText,setErrorText] = useState<string>("")
   const otpRef = useRef<HTMLInputElement | null>(null)
-  const error_text_timer = useRef<ReturnType<typeof setTimeout>>()
+  const errortexttimer = useRef<ReturnType<typeof setTimeout>>()
   const { register, formState ,getValues} = useForm<otpForm>({
     mode: "onChange",
     defaultValues: {
@@ -91,18 +91,18 @@ function Getotp(props: getotpModalpropsInterface) {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     //context=user_profiles&otp=4441&mobile=91-7780715079
-    let form_data = new FormData()
-    form_data.append("context","user_profiles")
-    form_data.append("otp",getValues().otp)
-    form_data.append("mobile", userDetails?.phoneNumber || "")
+    let formdata = new FormData()
+    formdata.append("context","user_profiles")
+    formdata.append("otp",getValues().otp)
+    formdata.append("mobile", userDetails?.phoneNumber || "")
 
-    let otp_valid_response = await postFormData("/service/api/auth/user/authentication",form_data)
+    let otpvalidresponse = await postFormData("/service/api/auth/user/authentication",formdata)
 
-    if(otp_valid_response.status === false){
-      if(otp_valid_response.error?.code === -41){
+    if (otpvalidresponse.status === false){
+      if (otpvalidresponse.error?.code === -41){
         setSuccessText("")
-        setErrorText(otp_valid_response.error?.message || "")
-        error_text_timer.current = setTimeout(()=>{
+        setErrorText(otpvalidresponse.error?.message || "")
+        errortexttimer.current = setTimeout(()=>{
           setErrorText("")
         },1000)
       }
@@ -132,7 +132,7 @@ function Getotp(props: getotpModalpropsInterface) {
               src={`${
                 profileData?.imageUrl
                   ? getAbsolutPath(profileData.imageUrl)
-                  : default_profile_img
+                  : defaultprofileimg
               }`}
               alt=""
             />

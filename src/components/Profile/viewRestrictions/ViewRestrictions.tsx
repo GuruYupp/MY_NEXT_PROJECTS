@@ -7,7 +7,7 @@ function ViewRestrictions(){
   const {query,back} = useRouter()
   const { enableRestrictionpage } = useAppSelector((state)=>state.pagerestrictions)
   const { userDetails } = useAppSelector((state) => state.user);
-  const default_profile_img =
+  const defaultprofileimg =
     'https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg';
   let Profile = userDetails?.profileParentalDetails?.filter(
     (profile) => profile.profileId?.toString() === query.userId
@@ -22,7 +22,7 @@ function ViewRestrictions(){
         <div className={`${styles.left}`}>
           <div className={`${styles.profile_icon}`}>
             <img
-              src={`${Profile?.imageUrl? getAbsolutPath(Profile.imageUrl): default_profile_img}`}
+              src={`${Profile?.imageUrl ? getAbsolutPath(Profile.imageUrl) : defaultprofileimg}`}
               alt=""
             />
           </div>

@@ -43,9 +43,9 @@ const userSlice = createSlice({
       let Loggedin = getFromlocalStorage('isLoggedin');
       if (!!Loggedin && Loggedin === 'true') {
         state.isLoggedin = true;
-        let userdetail_str = getFromlocalStorage('userDetails');
-        let userdetail = userdetail_str && JSON.parse(userdetail_str);
-        if (userdetail_str) {
+        let userdetailstr = getFromlocalStorage('userDetails');
+        let userdetail = userdetailstr && JSON.parse(userdetailstr);
+        if (userdetailstr) {
           state.userDetails = userdetail;
         } else {
           state.userDetails = initialState.userDetails;
@@ -56,11 +56,11 @@ const userSlice = createSlice({
     },
     setActiveprofile: (state) => {
       if (state.isLoggedin === true) {
-        let active_profile_str = getFromlocalStorage('activeProfile');
-        let active_profile =
-          active_profile_str && JSON.parse(active_profile_str);
-        if (active_profile_str) {
-          state.activeProfile = active_profile;
+        let activeprofilestr = getFromlocalStorage('activeProfile');
+        let activeprofile =
+          activeprofilestr && JSON.parse(activeprofilestr);
+        if (activeprofilestr) {
+          state.activeProfile = activeprofile;
         } else {
           state.activeProfile = initialState.activeProfile;
         }
@@ -68,10 +68,10 @@ const userSlice = createSlice({
     },
     setActivepackages: (state) => {
       if (state.isLoggedin === true) {
-        let activePackages_str = getFromlocalStorage('activePackages');
+        let activePackagesstr = getFromlocalStorage('activePackages');
         let activePackages =
-          activePackages_str && JSON.parse(activePackages_str);
-        if (activePackages_str) {
+          activePackagesstr && JSON.parse(activePackagesstr);
+        if (activePackagesstr) {
           state.activePackages = activePackages;
         } else {
           state.activePackages = initialState.activePackages;
@@ -110,15 +110,15 @@ const userSlice = createSlice({
       }>
     ) => {
       const { payload } = action;
-      let profile_index = 0;
+      let profileindex = 0;
       state.userDetails?.profileParentalDetails?.map((profile, index) => {
         if (profile.profileId === payload.profileId) {
-          profile_index = index;
+          profileindex = index;
         }
       });
       if (state.userDetails?.profileParentalDetails) {
-        state.userDetails.profileParentalDetails[profile_index] = {
-          ...state.userDetails.profileParentalDetails[profile_index],
+        state.userDetails.profileParentalDetails[profileindex] = {
+          ...state.userDetails.profileParentalDetails[profileindex],
           ...payload.properties,
         };
       }

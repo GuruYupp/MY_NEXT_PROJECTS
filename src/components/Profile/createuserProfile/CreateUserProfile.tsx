@@ -17,13 +17,13 @@ interface CreateUserProfileForm {
   isChildren: boolean;
   languages?: string;
 }
-let default_profile_img = `https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg`;
+let defaultprofileimg = `https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg`;
 export default function CreateUserProfile() {
   const [showModal, setShowModal] = useState<ModalType>('');
-  const [profileImg, setprofileImg] = useState<string>(default_profile_img);
+  const [profileImg, setprofileImg] = useState<string>(defaultprofileimg);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastmsg, setToastMsg] = useState<string>('');
-  const toast_timer = useRef<ReturnType<typeof setTimeout>>();
+  const toastTimer = useRef<ReturnType<typeof setTimeout>>();
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -37,15 +37,15 @@ export default function CreateUserProfile() {
       },
     });
 
-  const watch_isChildren = watch('isChildren');
-  const watch_profilename = watch('name');
+  const watchisChildren = watch('isChildren');
+  const watchprofilename = watch('name');
   const { replace } = useRouter();
 
   useEffect(() => {
     if (formRef.current)
       // formRef.current.addEventListener('submit', handleSubmit());
     return () => {
-      if (toast_timer.current) clearTimeout(toast_timer.current);
+      if (toastTimer.current) clearTimeout(toastTimer.current);
       // if (formRef.current)
         // formRef.current.removeEventListener('submit', handleSubmit);
     };
@@ -100,7 +100,7 @@ export default function CreateUserProfile() {
   }
 
   const createProfile = async () => {
-    let post_data = {
+    let payload = {
       profiles: [
         {
           image: profileImg,
@@ -110,25 +110,25 @@ export default function CreateUserProfile() {
         },
       ],
     };
-    const create_profile_response = await postData(
+    const createprofileresponse = await postData(
       '/service/api/auth/create/user/profile',
-      post_data
+      payload
     );
-    if (create_profile_response.status === true) {
+    if (createprofileresponse.status === true) {
       if (
-        create_profile_response.response.message ===
+        createprofileresponse.response.message ===
         'RES_S_PROFILE_INSERTION_SUCCESS'
       ) {
         replace('/profiles/manage-user-profile');
       }
-    } else if (create_profile_response.status === false) {
-      if (create_profile_response.error?.code === -4) {
+    } else if (createprofileresponse.status === false) {
+      if (createprofileresponse.error?.code === -4) {
         if (
-          create_profile_response.error?.message
+          createprofileresponse.error?.message
         ) {
-          setToastMsg(create_profile_response.error?.message);
+          setToastMsg(createprofileresponse.error?.message);
           setShowToast(true);
-          toast_timer.current = setTimeout(() => {
+          toastTimer.current = setTimeout(() => {
             setToastMsg('');
             setShowToast(false);
           }, 5000);
@@ -163,7 +163,7 @@ export default function CreateUserProfile() {
               className={`${styles.edit_icon}`}
               onClick={handleProfileImage}
             />
-            {watch_isChildren && (
+            {watchisChildren && (
               <span className={`${styles.children_label}`}>Children</span>
             )}
           </div>
@@ -189,13 +189,13 @@ export default function CreateUserProfile() {
                     <input type="checkbox" {...register('isChildren')} />
                     <div
                       className={`${styles.check_box} ${
-                        watch_isChildren ? styles.checked : ''
+                        watchisChildren ? styles.checked : ''
                       }`}
                       onClick={handleChidrencheck}
                     ></div>
                     <span
                       className={`${styles.label} ${
-                        watch_isChildren ? styles.checked : ''
+                        watchisChildren ? styles.checked : ''
                       }`}
                     >
                       children
@@ -217,10 +217,10 @@ export default function CreateUserProfile() {
             </button>
             <button
               className={`${styles.btn} ${styles.continue} ${
-                watch_profilename ? styles.enable : styles.disable
+                watchprofilename ? styles.enable : styles.disable
               }`}
               onClick={handleContinue}
-              disabled={!watch_profilename}
+              disabled={!watchprofilename}
               type="button"
             >
               Continue

@@ -28,15 +28,17 @@ const EditProfile = () => {
     const {age,name,gender} = formData
     let postData = {
       age:age.toString(),
+      // eslint-disable-next-line camelcase
       first_name: name,
+      // eslint-disable-next-line camelcase
       last_name: '',
       gender: gender
     }
     updateUserDetails(postData)
   }
 
-  const updateUserDetails = async (post_data:unknown)=>{
-    let updateresponse = await postData("/service/api/auth/update/preference",post_data)
+  const updateUserDetails = async (payload:unknown)=>{
+    let updateresponse = await postData("/service/api/auth/update/preference", payload)
     if(updateresponse.status === true){
       router.replace('/settings')
     }

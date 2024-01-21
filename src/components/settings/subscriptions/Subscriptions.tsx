@@ -30,13 +30,13 @@ const Subscriptions: FC = () => {
   const dispatch = useAppDispatch();
 
   const fetchPackages = async () => {
-    let packages_response = await getData(
+    let packagesresponse = await getData(
       '/service/api/auth/user/activepackages'
     );
-    if (packages_response.status === true) {
+    if (packagesresponse.status === true) {
       localStorage.setItem(
         'activePackages',
-        JSON.stringify(packages_response.response)
+        JSON.stringify(packagesresponse.response)
       );
       dispatch(setActivepackages());
     }

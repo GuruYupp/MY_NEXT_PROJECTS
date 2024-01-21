@@ -14,12 +14,12 @@ export default function SelectUserProfiles() {
   const {profiles} = useAppSelector(state=>state.user)
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const default_profile_img = 'https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg'
+  const defaultprofileimg = 'https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg'
   useEffect(() => {
    dispatch(fetchProfiles());
   }, [])
   const handleImageonError = (e: SyntheticEvent<HTMLImageElement, ErrorEvent>) => {
-    e.currentTarget.setAttribute('src', default_profile_img)
+    e.currentTarget.setAttribute('src', defaultprofileimg)
   }
 
   const handleImageonClick = (profile: subprofileInterface) => {
@@ -48,7 +48,7 @@ export default function SelectUserProfiles() {
               return (<div className={`${styles.profile}`} key={index}>
                 <div className={`${styles.profile_inner}`}>
                   <img
-                    src={!!profile.imageUrl ? getAbsolutPath(profile.imageUrl) : default_profile_img}
+                    src={!!profile.imageUrl ? getAbsolutPath(profile.imageUrl) : defaultprofileimg}
                     onError={handleImageonError} alt={profile.name} onClick={() => handleImageonClick(profile)} />
                   {profile.isPinAvailable && <img
                     src={`https://d2ivesio5kogrp.cloudfront.net/static/reeldrama/images/profile-lock.svg`} alt="" className={`${styles.lock_icon}`} />

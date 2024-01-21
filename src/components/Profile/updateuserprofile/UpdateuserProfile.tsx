@@ -15,14 +15,14 @@ import appConfig from '@/app.config';
 
 interface UpdateuserProfileForm {
   profileName: string;
-  languages_visible?: string;
-  languages_hidden?: string;
+  languagesVisible?: string;
+  languagesHidden?: string;
 }
 
 export default function UpdateuserProfile() {
   const { query } = useRouter();
   const { userDetails } = useAppSelector((state) => state.user);
-  const default_profile_img =
+  const defaultprofileimg =
     'https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg';
   let Profile = userDetails?.profileParentalDetails?.filter(
     (profile) => profile.profileId?.toString() === query.userId
@@ -44,11 +44,11 @@ export default function UpdateuserProfile() {
     mode: 'onChange',
     defaultValues: {
       profileName: Profile?.name || '',
-      languages_visible: getDefaultProfileLangs()
+      languagesVisible: getDefaultProfileLangs()
         .split(',')
         .slice(0, 3)
         .join(','),
-      languages_hidden: getDefaultProfileLangs(),
+      languagesHidden: getDefaultProfileLangs(),
     },
   });
 
@@ -64,8 +64,8 @@ export default function UpdateuserProfile() {
         let codes = data
           .filter((data: any) => data.isSelected)
           .map((data: any) => data.code);
-        setValue('languages_visible', codes.slice(0, 3).join(','));
-        setValue('languages_hidden', codes.join(','));
+        setValue('languagesVisible', codes.slice(0, 3).join(','));
+        setValue('languagesHidden', codes.join(','));
         break;
       case 'emojis':
         data.map((emoji: emojiInterface) => {
@@ -93,7 +93,7 @@ export default function UpdateuserProfile() {
   }
 
   const getLanguages = ()=>{
-    return getValues().languages_hidden || ""
+    return getValues().languagesHidden || ""
   }
 
   return (
@@ -113,7 +113,7 @@ export default function UpdateuserProfile() {
           <div className={`${styles.profile_img_container}`}>
             <img
               src={`${
-                profileImg ? getAbsolutPath(profileImg) : default_profile_img
+                profileImg ? getAbsolutPath(profileImg) : defaultprofileimg
               }`}
               alt=""
             />
@@ -133,12 +133,12 @@ export default function UpdateuserProfile() {
               {
                 appConfig.profile.languages === true && (<label>
                   <input
-                    {...register('languages_visible')}
+                    {...register('languagesVisible')}
                     readOnly
                     onClick={editLanguage}
                   />
                   <input
-                    {...register('languages_hidden')}
+                    {...register('languagesHidden')}
                     readOnly
                     onClick={editLanguage}
                     style={{ display: 'none' }}

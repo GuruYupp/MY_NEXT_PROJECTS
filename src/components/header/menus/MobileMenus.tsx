@@ -5,7 +5,7 @@ import Link from "next/link";
 import getConfig from "next/config";
 let appConfig = getConfig().publicRuntimeConfig.appconfig
 
-const  mobile_menu_Images:{[key:string] : any} = {
+const  mobilemenuImages:{[key:string] : any} = {
   'home_mobile__v2':{
     selectedImg:'bottom-menu-home-active.svg',
     defaultImg:'bottom-menu-home-default.svg'
@@ -54,8 +54,8 @@ export default function MobileMenus({ menus }: props): JSX.Element {
     : false);
 
   const getmenuIcon = (menu:menuInterface)=>{
-    let menu_icon = isActive(menu) ? mobile_menu_Images[menu.code].selectedImg : mobile_menu_Images[menu.code].defaultImg
-    return menu_icon
+    let menuIcon = isActive(menu) ? mobilemenuImages[menu.code].selectedImg : mobilemenuImages[menu.code].defaultImg
+    return menuIcon
   }
 
   return (

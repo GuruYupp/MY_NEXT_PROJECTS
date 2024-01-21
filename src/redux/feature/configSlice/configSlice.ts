@@ -1,6 +1,6 @@
 import { menuInterface, systemconfigsInterface } from '@/shared';
 import { getFromlocalStorage } from '@/utils';
-import {PayloadAction, createSlice} from '@reduxjs/toolkit'
+import { createSlice} from '@reduxjs/toolkit'
 
 const initialState:{
   menus:menuInterface[];

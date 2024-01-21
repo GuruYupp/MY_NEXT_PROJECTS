@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { default as clientCookie } from "js-cookie";
 import { apicall } from "@/services/data.manager";
-import { templateType, template_responseInterface } from "@/shared";
+import { templateType, templateresponseInterface } from "@/shared";
 import ChannelOverlayTemplate from "./channeloverlay/ChannelOverlay";
 import TemplateSkeleton from "../shared/template_skeleton/TemplateSkeleton";
 
@@ -15,7 +15,7 @@ interface TemplateProps{
 export default function Template(props:TemplateProps){
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [templateResponse,setTemplateResponse] = useState<template_responseInterface>({});
+  const [templateResponse,setTemplateResponse] = useState<templateresponseInterface>({});
 
   useEffect(()=>{
     let mounted = false;
@@ -27,6 +27,7 @@ export default function Template(props:TemplateProps){
     };
     let params = {
       path: props.target_path,
+      // eslint-disable-next-line camelcase
       template_code:props.template_code,
     };
     apicall("service/api/v1/template/data", headers, params)

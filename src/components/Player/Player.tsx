@@ -25,16 +25,19 @@ export default function Player() {
     SetsuggestionHeight(height)
   }
   
+  // eslint-disable-next-line camelcase
   const { title, subtitle, description, content_img, tvguide, tvguide_target, pgrating, cast } = getPlayerpageMeta(content) 
 
   useEffect(
     function () {
       let params = {
         path: info.path || '',
+        // eslint-disable-next-line camelcase
         stream_type:''
       };
 
       if (streamStatus.trailerStreamStatus) {
+        // eslint-disable-next-line camelcase
         params.stream_type = "trailer"
       } 
       dispatch(resetstreamSlice())
@@ -55,8 +58,10 @@ export default function Player() {
             <div className={`${styles.player_footer_inner}`}>
               <div className={`${styles.player_footer_inner_top}`}>
                 <div className={`${styles.player_footer_inner_top_left}`}>
+                  {/* eslint-disable-next-line camelcase*/}
                   {content_img && (
                     <div className={`${styles.image_container}`}>
+                      {/* eslint-disable-next-line camelcase*/}
                       <img src={content_img} alt={title} />
                     </div>
                   )}
@@ -108,6 +113,7 @@ export default function Player() {
                 )}
                 {tvguide && (
                   <div className={`${styles.tvguide_Box}`}>
+                    {/* eslint-disable-next-line camelcase*/}
                     <Link href={`/${tvguide_target}`}>
                       <div className={`${styles.tvguide_btn}`}>{tvguide}</div>
                     </Link>

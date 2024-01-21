@@ -5,15 +5,15 @@ import styles from './GenericAccountDetailsRow.module.scss';
 interface GenericAccountDetailsRowprops {
   heading1?: string;
   heading2?: string;
-  action_btn_text?: string;
+  actionbtntext?: string;
   details?: { label: string; value: string };
-  action_btn_handle?: (...args: any) => void;
+  actionbtnhandle?: (...args: any) => void;
 }
 const GenericAccountDetailsRow: FC<GenericAccountDetailsRowprops> = ({
   heading1,
   heading2,
-  action_btn_text,
-  action_btn_handle,
+  actionbtntext,
+  actionbtnhandle,
   details,
 }) => {
   return (
@@ -30,9 +30,9 @@ const GenericAccountDetailsRow: FC<GenericAccountDetailsRowprops> = ({
           <p className={`${styles.value}`}>{details.value}</p>
         </div>
       )}
-      {(action_btn_text) && (
-        <span className={`${styles.action_btn}`} onClick={action_btn_handle}>
-          {action_btn_text}
+      {(actionbtntext) && (
+        <span className={`${styles.action_btn}`} onClick={actionbtnhandle}>
+          {actionbtntext}
         </span>
       )}
     </div>

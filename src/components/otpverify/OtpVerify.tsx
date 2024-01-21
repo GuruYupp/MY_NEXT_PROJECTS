@@ -38,6 +38,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
       verifyOtp({
         context: verifydata.context,
         otp: Number(otp),
+        // eslint-disable-next-line camelcase
         reference_key: verifydata.reference_key,
       });
     } else if (verifydata.context === "signin") {
@@ -51,6 +52,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
         context: verifydata.context,
         otp: Number(otp),
         email: verifydata.email,
+        // eslint-disable-next-line camelcase
         new_identifier: verifydata.new_identifier,
       });
     }
@@ -83,17 +85,17 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
     }, 1000);
   };
 
-  const verifyOtp = async (post_data: unknown) => {
+  const verifyOtp = async (payload: unknown) => {
     let verifyotpresponse;
     if (verifydata.context === "signup") {
       verifyotpresponse = await postData(
         "/service/api/auth/signup/complete",
-        post_data
+        payload
       );
     } else if (verifydata.context === "signin" || verifydata.context === "update_email" || verifydata.context === "update_mobile") {
       verifyotpresponse = await postData(
         "/service/api/auth/verify/otp",
-        post_data
+        payload
       );
     }
     console.log(verifyotpresponse);
@@ -118,35 +120,36 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
   };
 
   const sendOtp = async (type: "send" | "resend") => {
-    let post_data;
+    let payload;
     let url;
 
 
     if (type === "resend") {
       url = "/service/api/auth/resend/otp";
-      post_data = {
+      payload = {
+        // eslint-disable-next-line camelcase
         reference_id: referenceId,
       };
     } else {
       if (verifydata.context === "signin" || verifydata.context === "signup") {
-        post_data = {
+        payload = {
           context: verifydata.context,
         };
         if (verifydata.verification === "email") {
-          post_data = { ...post_data, email: verifydata.email };
+          payload = { ...payload, email: verifydata.email };
         } else if (verifydata.verification === "mobile") {
-          post_data = { ...post_data, mobile: verifydata.number };
+          payload = { ...payload, mobile: verifydata.number };
         }
         url = "/service/api/auth/get/otp";
       }
       if (verifydata.context === "update_email") {
-        post_data = {
+        payload = {
           email: verifydata.email,
         };
         url = "service/api/auth/update/email";
       }
       if(verifydata.context === "update_mobile"){
-        post_data={
+        payload ={
           mobile:verifydata.number
         }
         url = "service/api/auth/update/mobile"
@@ -156,7 +159,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
 
 
 
-    const otpresponse = await postData(url, post_data);
+    const otpresponse = await postData(url,payload);
     if (otpresponse.status === true) {
       otpTimer.current.resendTime = otpresponse.response.resendTime;
       setSuccessmsg(otpresponse.response.message);

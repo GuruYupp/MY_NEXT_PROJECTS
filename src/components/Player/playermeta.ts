@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import getfrompagedata from "../Details/getfrompagedata";
 import { pageState } from "@/shared";
 import { getAbsolutPath } from "@/utils";

@@ -32,7 +32,9 @@ const Search: FC = () => {
       dispatch(setsearchText(query.q));
       search({
         query: query.q,
+        // eslint-disable-next-line camelcase
         last_search_order: "typesense",
+        // eslint-disable-next-line camelcase
         page_size: 30,
         bucket: "all",
       });
@@ -46,26 +48,29 @@ const Search: FC = () => {
   const getCards = () => {
     return (
       tabsdata.filter(
-        (tab_data) => tab_data.searchResults.sourceType === activeTab.code
+        (tabdata) => tabdata.searchResults.sourceType === activeTab.code
       )[0]?.searchResults?.data || []
     );
   };
 
   const getbucketErrormsg = ()=>{
-    let error_msg = tabsdata.filter(
-      (tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]?.error?.message
-    return error_msg;
+    let errormsg = tabsdata.filter(
+      (tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]?.error?.message
+    return errormsg;
   }
 
   const searchPagination = ()=>{
-    let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
-    if(active_tab && active_tab.last_search_order === "typesense"){
+    let activetab = tabsdata.filter((tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]
+    if(activetab && activetab.lastSearchOrder === "typesense"){
       let params={
         query: searchtext,
-        last_search_order: active_tab.last_search_order,
+        // eslint-disable-next-line camelcase
+        last_search_order: activetab.lastSearchOrder,
+        // eslint-disable-next-line camelcase
         page_size: 30,
-        bucket: active_tab.searchResults.sourceType,
-        last_doc: active_tab.last_doc
+        bucket: activetab.searchResults.sourceType,
+        // eslint-disable-next-line camelcase
+        last_doc: activetab.lastDoc
       }
       dispatch(searchBucketPagiation(params))
     }
@@ -73,8 +78,8 @@ const Search: FC = () => {
 
   const getPaginationStatus = ()=>{
     
-    let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
-    return active_tab?.searchResults?.pagination
+    let activetab = tabsdata.filter((tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]
+    return activetab?.searchResults?.pagination
     
   }
 

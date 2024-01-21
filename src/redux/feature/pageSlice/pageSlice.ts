@@ -116,7 +116,7 @@ const pageSlice = createSlice({
         }
         state.response.banners = payload.response?.banners;
         state.response.info = payload.response?.info;
-        let remove_tabs: string[] = [];
+        let removetabs: string[] = [];
         payload.response?.data.map((data: any, index: number) => {
           if (data.paneType === 'section') {
             if (
@@ -125,7 +125,7 @@ const pageSlice = createSlice({
               data.section.sectionData.lastIndex < 0
             ) {
               state.response.paginationData.push({
-                section_index: index,
+                sectionindex: index,
                 data: data,
               });
             } else {
@@ -136,7 +136,7 @@ const pageSlice = createSlice({
               data.section.sectionData.params &&
               data.section.sectionData.params.showOnPlayer === 'true'
             ) {
-              remove_tabs.push(data.section.sectionInfo.code);
+              removetabs.push(data.section.sectionInfo.code);
             }
           } else if (data.paneType === 'content') {
             state.response.content.push(data);
@@ -147,7 +147,7 @@ const pageSlice = createSlice({
         state.response.tabsInfo = payload.response?.tabsInfo;
         let tabs = state.response.tabsInfo.tabs
         tabs = tabs.filter(
-          (tab) => remove_tabs.indexOf(tab.code) <= -1
+          (tab) => removetabs.indexOf(tab.code) <= -1
         );
         if (payload.response?.streamStatus) {
           state.response.streamStatus = payload.response?.streamStatus;
@@ -169,9 +169,9 @@ const pageSlice = createSlice({
         }
         if (payload.from === 'carouselPagination') {
           payload.result.response.map((section: any, index: number) => {
-            let section_data = state.response.paginationData[index].data;
-            section_data.section.sectionData = section;
-            state.response.sections.push(section_data);
+            let sectiondata = state.response.paginationData[index].data;
+            sectiondata.section.sectionData = section;
+            state.response.sections.push(sectiondata);
           });
           state.response.paginationData =
             state.response.paginationData.slice(4);

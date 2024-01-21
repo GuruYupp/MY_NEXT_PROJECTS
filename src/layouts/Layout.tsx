@@ -18,7 +18,7 @@ import Footer from '@/components/footer/footer';
 import { SSOParamsType } from '@/shared';
 
 function Layout({ children }: { children: ReactNode }) {
-  const { reload ,asPath,query} = useRouter();
+  const { asPath,query} = useRouter();
   const [isLoading, setLoading] = useState<boolean>(true);
   const {isutUser} = useAppSelector((state)=>state.configs)
 

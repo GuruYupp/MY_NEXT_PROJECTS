@@ -14,19 +14,19 @@ export default function Menus({ menus }: props): JSX.Element {
   const {systemConfigs} = useAppSelector(state=>state.configs);
 
   function getMenus(){
-    let more_menu_configs = systemConfigs?.configs?.menusMore
-    if(more_menu_configs){
-      let config_obj = JSON.parse(more_menu_configs)
-      let config_obj_keys = Object.keys(config_obj)
-      let config_menu_res = config_obj_keys.map((key)=>parseInt(key.split('_')[1]))
-      for(let i=0;i<config_menu_res.length;i++){
-        if(window.innerWidth >= config_menu_res[i]){
-          let show_menus = parseInt(config_obj[config_obj_keys[i]])-1
-          let web_menus = menus
+    let moremenuconfigs = systemConfigs?.configs?.menusMore
+    if (moremenuconfigs){
+      let configobj = JSON.parse(moremenuconfigs)
+      let configobjkeys = Object.keys(configobj)
+      let configmenures = configobjkeys.map((key)=>parseInt(key.split('_')[1]))
+      for(let i=0;i<configmenures.length;i++){
+        if(window.innerWidth >= configmenures[i]){
+          let showmenus = parseInt(configobj[configobjkeys[i]])-1
+          let webmenus = menus
           // let web_menus = menus.filter((menu) => (menu.params.web === "true"))
-          setMenus(web_menus.slice(0,show_menus))
-          let moreMenu = { ...web_menus[0], displayText: "More", code: "More", targetPath: "None" }
-          let moreMenus = web_menus.slice(show_menus, web_menus.length);
+          setMenus(webmenus.slice(0,showmenus))
+          let moreMenu = { ...webmenus[0], displayText: "More", code: "More", targetPath: "None" }
+          let moreMenus = webmenus.slice(showmenus, webmenus.length);
           moreMenu.subMenus = moreMenus
           setMoreMenu(moreMenu);
           break;

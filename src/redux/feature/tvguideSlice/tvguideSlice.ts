@@ -7,16 +7,19 @@ export const fetchChannelIds = createAsyncThunk<responseInterface>("fetchchannel
   const result = await getData("/service/api/v1/tvguide/channels")
   const { dispatch } = thunkAPI
   if(result.status === true){
-    let channelIds_info = result.response.data.slice(0, 8)
-    let ids = channelIds_info.map((channel: tvguidestateInterface["channelIds"][0]) => channel.id);
+    let channelIdsinfo = result.response.data.slice(0, 8)
+    let ids = channelIdsinfo.map((channel: tvguidestateInterface["channelIds"][0]) => channel.id);
     let day = new Date();
     let d = (day.getMonth() + 1) + '/' + day.getDate() + '/' + day.getFullYear() + ' ' + day.getHours() + ':' + (day.getMinutes() > 30 ? '30' : '00') + ':00';
-    let start_time = new Date(d).getTime();
-    let end_time = start_time + (24 * 60 * 60 * 1000)
+    let starttime = new Date(d).getTime();
+    let endtime = starttime + (24 * 60 * 60 * 1000)
     dispatch(fetchChannelData({
-      start_time,
-      end_time,
+      // eslint-disable-next-line camelcase
+      start_time:starttime,
+      // eslint-disable-next-line camelcase
+      end_time:endtime,
       page:0,
+      // eslint-disable-next-line camelcase
       channel_ids: ids.join(',')
     }))
   }
@@ -49,7 +52,7 @@ export const initialState:tvguidestateInterface ={
 }
 
 function getDummyProgram():tvguidestateInterface["channelsData"][0]["programs"][0]{
-  let dummy_program= {
+  let dummyprogram= {
     display: {
       markers: {
         startTime: {
@@ -67,7 +70,7 @@ function getDummyProgram():tvguidestateInterface["channelsData"][0]["programs"][
       path: ""
     },
   }
-  return dummy_program
+  return dummyprogram
 }
 
 function enhanceChanneldata(
@@ -76,19 +79,19 @@ function enhanceChanneldata(
   for(let i=0;i<data.length;i++){
     let programs: tvguidestateInterface["channelsData"][0]["programs"] = []
     for(let j=0;j<data[i].programs.length;j++){
-      let dummy_program = getDummyProgram(); // dummy_program
+      let dummyprogram = getDummyProgram(); // dummy_program
       //first_program
       if(j==0){
         //check first program is start from start Time
-        let curr_pgm_start_time = Number(data[i].programs[j].display.markers?.startTime?.value)
-        if ( channelStartTime && curr_pgm_start_time  > channelStartTime) {
-          if (dummy_program.display.markers?.startTime) {
-            dummy_program.display.markers.startTime.value = channelStartTime.toString();
+        let currpgmstarttime = Number(data[i].programs[j].display.markers?.startTime?.value)
+        if (channelStartTime && currpgmstarttime  > channelStartTime) {
+          if (dummyprogram.display.markers?.startTime) {
+            dummyprogram.display.markers.startTime.value = channelStartTime.toString();
           }
-          if (dummy_program.display.markers?.endTime) {
-            dummy_program.display.markers.endTime.value = curr_pgm_start_time.toString();
+          if (dummyprogram.display.markers?.endTime) {
+            dummyprogram.display.markers.endTime.value = currpgmstarttime.toString();
           }
-          programs.push(dummy_program)
+          programs.push(dummyprogram)
         }
 
         programs.push(data[i].programs[j])
@@ -96,17 +99,17 @@ function enhanceChanneldata(
       //last_program
       else if(j== data[i].programs.length - 1){
         //check before empty
-        let prev_pgm_end_time = Number(data[i].programs[j - 1].display.markers?.endTime?.value)
-        let curr_pgm_start_time = Number(data[i].programs[j].display.markers?.startTime?.value)
-        if (curr_pgm_start_time - prev_pgm_end_time > 1000) {
+        let prevpgmendtime = Number(data[i].programs[j - 1].display.markers?.endTime?.value)
+        let currpgmstarttime = Number(data[i].programs[j].display.markers?.startTime?.value)
+        if (currpgmstarttime - prevpgmendtime > 1000) {
 
-          if (dummy_program.display.markers?.startTime) {
-            dummy_program.display.markers.startTime.value = prev_pgm_end_time.toString();
+          if (dummyprogram.display.markers?.startTime) {
+            dummyprogram.display.markers.startTime.value = prevpgmendtime.toString();
           }
-          if (dummy_program.display.markers?.endTime) {
-            dummy_program.display.markers.endTime.value = curr_pgm_start_time.toString();
+          if (dummyprogram.display.markers?.endTime) {
+            dummyprogram.display.markers.endTime.value = currpgmstarttime.toString();
           }
-          programs.push(dummy_program)
+          programs.push(dummyprogram)
         }
 
         //push current program
@@ -114,45 +117,45 @@ function enhanceChanneldata(
 
         
         //check laste program is ending at endTime
-        let curr_pgm_end_time = Number(data[i].programs[j].display.markers?.endTime?.value)
-        if (channelEndTime && (curr_pgm_end_time < channelEndTime)){
-            if (dummy_program.display.markers?.startTime) {
-              dummy_program.display.markers.startTime.value = curr_pgm_end_time.toString();
+        let currpgmendtime = Number(data[i].programs[j].display.markers?.endTime?.value)
+        if (channelEndTime && (currpgmendtime < channelEndTime)){
+            if (dummyprogram.display.markers?.startTime) {
+              dummyprogram.display.markers.startTime.value = currpgmendtime.toString();
             }
-            if (dummy_program.display.markers?.endTime) {
-              dummy_program.display.markers.endTime.value = channelEndTime.toString();
+          if (dummyprogram.display.markers?.endTime) {
+            dummyprogram.display.markers.endTime.value = channelEndTime.toString();
             }
-            programs.push(dummy_program)
+          programs.push(dummyprogram)
           
         }
       }
       //middle_programs
       else{
-        let prev_pgm_end_time = Number(data[i].programs[j - 1].display.markers?.endTime?.value)
-        let curr_pgm_start_time = Number(data[i].programs[j].display.markers?.startTime?.value)
+        let prevpgmendtime = Number(data[i].programs[j - 1].display.markers?.endTime?.value)
+        let currpgmstarttime = Number(data[i].programs[j].display.markers?.startTime?.value)
         //program gap not more than 1 sec if there then add the dummy data
-        if (curr_pgm_start_time - prev_pgm_end_time > 2000){
+        if (currpgmstarttime - prevpgmendtime > 2000){
           
-          if(dummy_program.display.markers?.startTime){
-            dummy_program.display.markers.startTime.value  = prev_pgm_end_time.toString();
+          if(dummyprogram.display.markers?.startTime){
+            dummyprogram.display.markers.startTime.value = prevpgmendtime.toString();
           }
-          if (dummy_program.display.markers?.endTime) {
-            dummy_program.display.markers.endTime.value = curr_pgm_start_time.toString();
+          if (dummyprogram.display.markers?.endTime) {
+            dummyprogram.display.markers.endTime.value = currpgmstarttime.toString();
           }
-          programs.push(dummy_program)
+          programs.push(dummyprogram)
         }
         programs.push(data[i].programs[j])
       }
     }
     if (data[i].programs.length === 0){
-      let dummy_program = getDummyProgram();
-      if (dummy_program.display.markers?.startTime) {
-        dummy_program.display.markers.startTime.value = channelStartTime?.toString();
+      let dummyprogram = getDummyProgram();
+      if (dummyprogram.display.markers?.startTime) {
+        dummyprogram.display.markers.startTime.value = channelStartTime?.toString();
       }
-      if (dummy_program.display.markers?.endTime) {
-        dummy_program.display.markers.endTime.value = channelEndTime?.toString();
+      if (dummyprogram.display.markers?.endTime) {
+        dummyprogram.display.markers.endTime.value = channelEndTime?.toString();
       }
-      programs.push(dummy_program)
+      programs.push(dummyprogram)
     }
     data[i].programs = programs
   }
@@ -197,9 +200,9 @@ const tvgudeSlice = createSlice({
         if (payload.status === true) {
           state.channelIds = [...state.channelIds,...state.paginationchannelIds.slice(0, 8)]
           state.paginationchannelIds = state.paginationchannelIds.slice(8, state.paginationchannelIds.length);
-          let enhanced_channel_data = enhanceChanneldata(payload.response.data,state.selectedTab.startTime,state.selectedTab.endTime)
+          let enhancedchanneldata = enhanceChanneldata(payload.response.data,state.selectedTab.startTime,state.selectedTab.endTime)
     
-          if (payload.response.data) state.channelsData = state.channelsData.concat(enhanced_channel_data);
+          if (payload.response.data) state.channelsData = state.channelsData.concat(enhancedchanneldata);
           state.page = state.page + 1
         }
         state.channelsdataState = "succeeded";

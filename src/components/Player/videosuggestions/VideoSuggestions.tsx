@@ -26,7 +26,7 @@ export default function VideoSuggestions(props: VideoSuggestionsProps){
 
   // tabsInfo = mockdata
 
-  const tabs_settings:Settings = {
+  const tabssettings:Settings = {
     dots: false,
     infinite: true,
     speed: 500,
@@ -41,7 +41,7 @@ export default function VideoSuggestions(props: VideoSuggestionsProps){
   return (
     <div className={`${styles.Videosuggestions}`}>
       <div className={`${styles.tabs}`}>
-        <Slider {...tabs_settings}>
+        <Slider {...tabssettings}>
         {tabsInfo.tabs.map((tab, index) => {
           return (
             <div className={`${styles.tab}`} key={index}>

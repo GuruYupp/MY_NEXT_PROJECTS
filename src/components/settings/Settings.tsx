@@ -19,19 +19,19 @@ function Settings() {
             <div className={`${styles.settings_details_inner}`}>
               <Panel
                 title="Account Details"
-                default_open={true}
+                defaultopen={true}
                 render={() => <AccountDetails />}
               />
               <Panel
                 title="Active Screens & Devices"
                 render={() => <ActiveScreens />}
-                header_right_button={{ text: 'Activate Tv' }}
+                headerrightbutton={{ text: 'Activate Tv' }}
               />
               {systemConfigs?.configs?.showPackages === 'true' && (<Panel
                 title="Subscription"
                 toggle={false}
                 render={() => <Subscriptions />}
-                header_right_button={{ text: 'Explore Plans' }}
+                headerrightbutton={{ text: 'Explore Plans' }}
               />)}
               
               <Panel title="User Settings" render={() => <UserSettings />} />

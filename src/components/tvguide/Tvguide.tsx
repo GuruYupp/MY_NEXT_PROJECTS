@@ -22,7 +22,7 @@ export default function TvGuide() {
     page,
   } = useAppSelector((state) => state.tvguideData);
   const dipatch = useAppDispatch();
-  let time_List: string[] = getNewTimeList();
+  let timeList: string[] = getNewTimeList();
 
   const [programWidth, setProgramWidth] = useState<number>(0);
 
@@ -135,24 +135,28 @@ export default function TvGuide() {
         startTime = selectedTab.startTime.toString();
       }
       let duration = Number(endTime) - Number(startTime);
-      let duration_in_mins = duration / 1000 / 60;
-      let width = (duration_in_mins * programWidth) / 30;
+      let durationinmins = duration / 1000 / 60;
+      let width = (durationinmins * programWidth) / 30;
       return width;
     }
     return 0;
   }
 
   function getChannelsData() {
-    let channelIds_info = paginationchannelIds.slice(0, 8);
-    let ids = channelIds_info.map((channel) => channel.id);
+    let channelIdsinfo = paginationchannelIds.slice(0, 8);
+    let ids = channelIdsinfo.map((channel) => channel.id);
     let startTime = selectedTab.startTime || 0;
     let endTime = selectedTab.endTime || 0;
     dipatch(
       fetchChannelData({
+        // eslint-disable-next-line camelcase
         start_time: startTime,
+        // eslint-disable-next-line camelcase
         end_time: endTime,
         page: page,
+        // eslint-disable-next-line camelcase
         channel_ids: ids.join(","),
+        // eslint-disable-next-line camelcase
         skip_tabs: 1,
       })
     );
@@ -186,9 +190,9 @@ export default function TvGuide() {
   function liveProgress() {
     let currentTime = new Date().getTime();
     if (livebarRef.current && selectedTab.startTime) {
-      let margin_left_min = (currentTime - selectedTab.startTime) / 1000 / 60;
-      let margin_left_px = (margin_left_min * programWidth) / 30;
-      livebarRef.current.style.marginLeft = `${margin_left_px}px`;
+      let marginleftmin = (currentTime - selectedTab.startTime) / 1000 / 60;
+      let marginleftpx = (marginleftmin * programWidth) / 30;
+      livebarRef.current.style.marginLeft = `${marginleftpx}px`;
     }
   }
 
@@ -250,7 +254,7 @@ export default function TvGuide() {
             >
               <div className={`${styles.times}`}>
                 <div className={`${styles.times_inner}`}>
-                  {time_List.map((time, index) => (
+                  {timeList.map((time, index) => (
                     <div key={index} className={`${styles.time}`}>
                       {time}
                     </div>
@@ -279,7 +283,7 @@ export default function TvGuide() {
                           >
                             <ProgramTab
                               program={program}
-                              channel_left={
+                              channelLeft={
                                 programsRef.current?.getBoundingClientRect()
                                   .left
                               }

@@ -184,7 +184,7 @@ export interface seoInterface {
 }
 
 export interface paginationsectionInterface {
-  section_index: number;
+  sectionindex: number;
   data: sectionInterface;
 }
 
@@ -317,7 +317,7 @@ interface systemconfigsInterface {
   menus?: menuInterface[];
 }
 
-export interface template_responseInterface {
+export interface templateresponseInterface {
   addFavourite?: string;
   description?: string;
   favourite?: string;
@@ -624,8 +624,8 @@ export interface plansInterface {
 
 //search page interfaces
 export interface v3bucketsInterface {
-  last_doc: string
-  last_search_order: "typesense" | "done"
+  lastDoc: string
+  lastSearchOrder: "typesense" | "done"
   searchResults: {
     sourceType: string
     displayName: string

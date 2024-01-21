@@ -135,7 +135,7 @@ const searchV1Slice = createSlice({
 
             if(tabfound === false){
               console.log('-->llll')
-              let tab_data: v1bucketsInterface = {
+              let tabdata: v1bucketsInterface = {
                 searchResults: {
                   sourceType: response[i].sourceType,
                   displayName: response[i].displayName,
@@ -143,7 +143,7 @@ const searchV1Slice = createSlice({
                   data: response[i].data,
                 },
               };
-              state.tabsdata.push(tab_data);
+              state.tabsdata.push(tabdata);
             }
           }
           
@@ -208,7 +208,7 @@ const searchV1Slice = createSlice({
           }
 
           if (tabfound === false) {
-            let tab_data: v1bucketsInterface = {
+            let tabdata: v1bucketsInterface = {
               searchResults: {
                 sourceType: response[i].searchResults.sourceType,
                 displayName: response[i].searchResults.displayName,
@@ -216,7 +216,7 @@ const searchV1Slice = createSlice({
                 data: response[i].searchResults.data,
               },
             };
-            state.tabsdata.push(tab_data);
+            state.tabsdata.push(tabdata);
           }
         }
         state.pagination = "succeeded"

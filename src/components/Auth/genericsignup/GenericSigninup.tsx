@@ -51,15 +51,23 @@ const GenericSignup: FC = () => {
     const { number, firstName, lastName, email, password, dob, gender } =
       formData;
     let apiPayload = {
+      // eslint-disable-next-line camelcase
       additional_params: {},
+      // eslint-disable-next-line camelcase
       app_version: "",
+      // eslint-disable-next-line camelcase
       is_header_enrichment: false,
       cookie: "",
       manufacturer: "123",
+      // eslint-disable-next-line camelcase
       os_version: "",
+      // eslint-disable-next-line camelcase
       referral_id: "",
+      // eslint-disable-next-line camelcase
       referral_type: "",
+      // eslint-disable-next-line camelcase
       first_name: firstName,
+      // eslint-disable-next-line camelcase
       last_name: lastName,
       email: email,
       mobile: `91-${number}`,
@@ -80,15 +88,16 @@ const GenericSignup: FC = () => {
       };
     }
     if (encryptApisList?.fields?.signup === "true") {
+      // eslint-disable-next-line camelcase
       apiPayload.is_header_enrichment = true;
     }
     signup(apiPayload);
   };
 
-  const signup = async (post_data: unknown) => {
+  const signup = async (payload: unknown) => {
     let signupresponse = await postData(
       "/service/api/auth/signup/validate",
-      post_data
+      payload
     );
 
     if (signupresponse.status === false) {
@@ -109,6 +118,7 @@ const GenericSignup: FC = () => {
         setShowModal('otpverify')
         setOtpprops({
           context: "signup",
+          // eslint-disable-next-line camelcase
           reference_key: referenceKey,
           message: `One Time Passcode (OTP) has been sent to your email ${email.slice(0, 5)}******${email.substring(8)}`,
           verification:"email",

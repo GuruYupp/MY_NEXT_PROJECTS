@@ -57,24 +57,24 @@ function Section({ section }: any): JSX.Element {
     if(carouselRef.current){
     const cardConfigs = cardDimentionsForResponsive(cardType);
 
-    let card_width = 100 / Math.floor(cardConfigs.cardCount); 
+    let cardwidth = 100 / Math.floor(cardConfigs.cardCount); 
 
-    let carousel_width = card_width * cards.length;
+      let carouselwidth = cardwidth * cards.length;
 
-    if(carousel_width > 100){
-      card_width = 100 / cards.length ;
+      if (carouselwidth > 100){
+      cardwidth = 100 / cards.length ;
       if (cardConfigs.cardCount < cards.length ){
         setEnablearrows(true);
         setEnablerightarrow(true);
       }
     }
     else{
-      carousel_width = 100
+      carouselwidth = 100
       setEnablearrows(false);
     }
 
-    setCarouselWidth(`${carousel_width}%`);
-    setCardWidth(`${card_width}%`);
+    setCarouselWidth(`${carouselwidth}%`);
+    setCardWidth(`${cardwidth}%`);
 
     if(Math.floor(cardConfigs.cardCount) >= cards.length){
       setEnableviewall(false);
@@ -94,30 +94,30 @@ function Section({ section }: any): JSX.Element {
   const handleScrollTo = (to: "left" | "right") => {
     if (sliderRef.current !== null) {
       if (to === "left") {
-        let current_margin_left = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
-        let slider_width = percTonumber(sliderRef.current.style.width);
-        console.log(slider_width - (current_margin_left + 100))
-        if ((slider_width - (current_margin_left + 100) - 100) <= 100){
-          sliderRef.current.style.marginLeft = `-${slider_width - 100}%`
+        let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
+        let sliderwidth = percTonumber(sliderRef.current.style.width);
+        console.log(sliderwidth - (currentmarginleft + 100))
+        if ((sliderwidth - (currentmarginleft + 100) - 100) <= 100){
+          sliderRef.current.style.marginLeft = `-${sliderwidth - 100}%`
           setEnablerightarrow(false);
           setEnableleftarrow(true);
         }
         else{
-          let current_margin_left = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
+          let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
           // if (current_margin_left + 100)
-          sliderRef.current.style.marginLeft = `-${current_margin_left + 100}%`
+          sliderRef.current.style.marginLeft = `-${currentmarginleft + 100}%`
           setEnableleftarrow(true);
         }
       } else if (to === "right") {
-        let current_margin_left = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
-        if (current_margin_left - 100 < 100) {
+        let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
+        if (currentmarginleft - 100 < 100) {
           sliderRef.current.style.marginLeft = `${0}%`
           setEnableleftarrow(false);
           setEnablerightarrow(true);
         }
         else{
-          let current_margin_left = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
-          sliderRef.current.style.marginLeft = `-${current_margin_left - 100}%`
+          let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
+          sliderRef.current.style.marginLeft = `-${currentmarginleft - 100}%`
         }
       }
     }

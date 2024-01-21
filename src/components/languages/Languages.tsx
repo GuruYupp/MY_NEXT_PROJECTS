@@ -27,8 +27,8 @@ function Languages(props: LanguageProps) {
     if(contentLanguages){
       contentLanguages.map(language=>{
         let lang = { ...language, isSelected: true }
-        let toggel_condition = (isLoggedin && profileData && !(profileData.langs?.includes(lang.code)))
-        if (toggel_condition === true){
+        let toggelcondition = (isLoggedin && profileData && !(profileData.langs?.includes(lang.code)))
+        if (toggelcondition === true){
           lang.isSelected = false
         }
         languages.push(lang)

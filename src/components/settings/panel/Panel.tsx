@@ -3,9 +3,9 @@ import styles from './Panel.module.scss';
 interface PanelPropsInterface {
   title?: string;
   toggle?: boolean;
-  default_open?: boolean;
+  defaultopen?: boolean;
   render: () => ReactNode;
-  header_right_button?: {
+  headerrightbutton?: {
     text: string;
   };
 }
@@ -14,12 +14,12 @@ const Panel: FC<PanelPropsInterface> = ({
   title,
   render,
   toggle = true,
-  default_open = false,
-  header_right_button = undefined,
+  defaultopen = false,
+  headerrightbutton = undefined,
 }) => {
   const expandDefault = () => {
     if (toggle === true) {
-      if (default_open === true) return true;
+      if (defaultopen === true) return true;
       else return false;
     } else if (toggle === false) {
       return true;
@@ -42,9 +42,9 @@ const Panel: FC<PanelPropsInterface> = ({
         }`}
       >
         {title || 'Panel title'}
-        {header_right_button && (
+        {headerrightbutton && (
           <button className={`${styles.btn}`}>
-            {header_right_button.text}
+            {headerrightbutton.text}
           </button>
         )}
       </h2>

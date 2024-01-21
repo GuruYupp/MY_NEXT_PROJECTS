@@ -43,6 +43,7 @@ export const fetchSearchSuggestions = createAsyncThunk<responseInterface,string>
   "fetchSearchsuggestions",
   async (query) => {
     let params = {
+      // eslint-disable-next-line camelcase
       last_search_order: "typesense",
       query,
     };
@@ -123,9 +124,9 @@ const searchV3Slice = createSlice({
             lastDoc: string;
             lastSearchOrder: "typesense" | "done";
           }
-          let tab_data: v3bucketsInterface = {
-            last_doc: response.lastDoc,
-            last_search_order: response.lastSearchOrder,
+          let tabdata: v3bucketsInterface = {
+            lastDoc: response.lastDoc,
+            lastSearchOrder: response.lastSearchOrder,
             searchResults: {
               sourceType: response.searchResults.sourceType,
               displayName: response.searchResults.displayName,
@@ -134,11 +135,11 @@ const searchV3Slice = createSlice({
               pagination: "idle",
             },
           };
-          state.tabsdata.push(tab_data);
+          state.tabsdata.push(tabdata);
         }else{
-          let tab_data: v3bucketsInterface = {
-            last_doc: "1",
-            last_search_order: "done",
+          let tabdata: v3bucketsInterface = {
+            lastDoc: "1",
+            lastSearchOrder: "done",
             searchResults: {
               sourceType:state.activeTab.code,
               displayName:"",
@@ -153,7 +154,7 @@ const searchV3Slice = createSlice({
               type: payload.error?.type
             }
           };
-          state.tabsdata.push(tab_data);
+          state.tabsdata.push(tabdata);
         }
       })
       .addCase(fetchSearchBucket.rejected, (state) => {
@@ -161,9 +162,9 @@ const searchV3Slice = createSlice({
       })
 
       .addCase(searchBucketPagiation.pending, (state) => {
-        state.tabsdata.map((tab_data) => {
-          if (tab_data.searchResults.sourceType === state.activeTab.code) {
-            tab_data.searchResults.pagination = "pending";
+        state.tabsdata.map((tabdata) => {
+          if (tabdata.searchResults.sourceType === state.activeTab.code) {
+            tabdata.searchResults.pagination = "pending";
           }
         });
       })
@@ -182,8 +183,8 @@ const searchV3Slice = createSlice({
             tabs[i].searchResults.sourceType ===
             response.searchResults.sourceType
           ) {
-            tabs[i].last_doc = response.lastDoc;
-            tabs[i].last_search_order = response.lastSearchOrder;
+            tabs[i].lastDoc = response.lastDoc;
+            tabs[i].lastSearchOrder = response.lastSearchOrder;
             tabs[i].searchResults.count = response.searchResults.count;
             tabs[i].searchResults.data.push(...response.searchResults.data);
             tabs[i].searchResults.pagination = "fulfilled";
@@ -192,9 +193,9 @@ const searchV3Slice = createSlice({
         }
       })
       .addCase(searchBucketPagiation.rejected, (state) => {
-        state.tabsdata.map((tab_data) => {
-          if (tab_data.searchResults.sourceType === state.activeTab.code) {
-            tab_data.searchResults.pagination = "rejected";
+        state.tabsdata.map((tabdata) => {
+          if (tabdata.searchResults.sourceType === state.activeTab.code) {
+            tabdata.searchResults.pagination = "rejected";
           }
         });
       });

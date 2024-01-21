@@ -1,4 +1,4 @@
-import { template_responseInterface } from "@/shared";
+import { templateresponseInterface } from "@/shared";
 import styles from "./ChannelOverlay.module.scss";
 import { SyntheticEvent, useEffect, useRef } from "react";
 import { getAbsolutPath } from "@/utils";
@@ -7,7 +7,7 @@ import Link from "next/link";
 let appConfig = getConfig().publicRuntimeConfig.appconfig
 
 interface ChannelOverlayTemplateProps{
-  templateData:template_responseInterface;
+  templateData: templateresponseInterface;
   closeModal: () => void;
 }
 export default function ChannelOverlayTemplate(props:ChannelOverlayTemplateProps) {

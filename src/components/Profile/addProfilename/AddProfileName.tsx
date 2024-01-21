@@ -20,7 +20,7 @@ function AddProfileName() {
     },
   });
 
-  const watch_name = watch("name")
+  const watchname = watch("name")
 
  
   const getMasterProfile = ()=>{
@@ -38,7 +38,7 @@ function AddProfileName() {
   const handleSubmit = async (e:FormEvent)=>{
     e.preventDefault()
     let MatserProfile = getMasterProfile() || [];
-    let post_data = {
+    let payload = {
       'profileName': `${getValues().name}`,
       'profileId': MatserProfile[0]?.profileId,
       'isChildren': MatserProfile[0]?.isChildren,
@@ -46,11 +46,11 @@ function AddProfileName() {
       "langs": getSelectedLangs().join(',')
     }
 
-    const add_profile_res = await postData('/service/api/auth/update/user/profile',post_data)
-    if(add_profile_res.status === true){
-      const user_info = await getData("/service/api/auth/user/info")
-      if (user_info.status === true) {
-        localStorage.setItem("userDetails", JSON.stringify(user_info.response));
+    const addprofileres = await postData('/service/api/auth/update/user/profile', payload)
+    if (addprofileres.status === true){
+      const userinfo = await getData("/service/api/auth/user/info")
+      if (userinfo.status === true) {
+        localStorage.setItem("userDetails", JSON.stringify(userinfo.response));
         replace("/profiles/select-user-profile");
       }
     }
@@ -80,7 +80,7 @@ function AddProfileName() {
             <button
               type="submit"
               className={`${styles.continue_btn}`}
-              disabled={(!watch_name || watch_name.length<4)}
+              disabled={(!watchname || watchname.length<4)}
             >
               Continue
             </button>

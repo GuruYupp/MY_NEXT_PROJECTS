@@ -60,14 +60,14 @@ const AccountDetails: FC = () => {
         <GenericAccountDetailsRow
           heading1="Personal Details"
           heading2="Change your Name, Age and Gender"
-          action_btn_text="Edit"
-          action_btn_handle={handleEdit}
+          actionbtntext="Edit"
+          actionbtnhandle={handleEdit}
         />
         {appConfig.settings.email && (
           <GenericAccountDetailsRow
             details={{ label: "Email", value: userDetails?.email || "" }}
-            action_btn_handle={(e) => handleDetailchange(e, "email")}
-            action_btn_text={
+            actionbtnhandle={(e) => handleDetailchange(e, "email")}
+            actionbtntext={
               globalsettings?.fields?.changeEmailSupport === "true"
                 ? "change"
                 : ""
@@ -80,8 +80,8 @@ const AccountDetails: FC = () => {
               label: "Mobile Number",
               value: userDetails?.phoneNumber || "",
             }}
-            action_btn_handle={(e) => handleDetailchange(e, "mobile")}
-            action_btn_text={
+            actionbtnhandle={(e) => handleDetailchange(e, "mobile")}
+            actionbtntext={
               globalsettings?.fields?.changeMobileSupport === "true"
                 ? "update"
                 : ""
@@ -94,8 +94,8 @@ const AccountDetails: FC = () => {
               label: "Password",
               value: "******",
             }}
-            action_btn_handle={(e) => handleDetailchange(e, "password")}
-            action_btn_text={
+            actionbtnhandle={(e) => handleDetailchange(e, "password")}
+            actionbtntext={
               appConfig.settings.changePasswordSupport === true ? "change" : ""
             }
           />
@@ -103,8 +103,8 @@ const AccountDetails: FC = () => {
         <GenericAccountDetailsRow
           heading1="Sign Out"
           heading2="You will be signed out from this device"
-          action_btn_text="Sign Out"
-          action_btn_handle={handleSignOut}
+          actionbtntext="Sign Out"
+          actionbtnhandle={handleSignOut}
         />
       </div>
       {showModal &&

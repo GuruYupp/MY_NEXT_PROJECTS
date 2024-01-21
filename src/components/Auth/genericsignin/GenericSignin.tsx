@@ -75,20 +75,26 @@ const GenericSignIn: FC = () => {
   const onSubmit:SubmitHandler<SingnInFormType> = async (formData) => {
     const {email,number,password} = formData
       let payload={
+        // eslint-disable-next-line camelcase
         login_key: password,
+        // eslint-disable-next-line camelcase
         login_mode:1,
         manufacturer:"123",
+        // eslint-disable-next-line camelcase
         login_id:""
       }
       if(loginType === "email"){
+        // eslint-disable-next-line camelcase
         payload.login_id = email
       }
       else{
+        // eslint-disable-next-line camelcase
         payload.login_id = `91-${number}`
       }
       signIn(payload)
   };
 
+  // eslint-disable-next-line camelcase
   const signIn = async (post_data:any)=>{
     let signInresponse = await postData('/service/api/auth/v1/signin', post_data)
     if(signInresponse.status === false){

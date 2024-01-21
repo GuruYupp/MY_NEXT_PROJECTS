@@ -15,7 +15,7 @@ interface GridTableProps {
 export function GridTable(props: GridTableProps) {
   const { section} = props;
   const {pagination} = useAppSelector(state=>state.pageData);
-  const pagination_req = useRef<any>()
+  const paginationreq = useRef<any>()
   const cards = section?.section?.sectionData?.data || [];
   const cardType = cards.length > 0 ? cards[0].cardType : "overlay_poster";
   const dispatch = useAppDispatch();
@@ -34,7 +34,7 @@ export function GridTable(props: GridTableProps) {
       resizeObserver.observe(elementRef.current);
     }
     return () => {
-      pagination_req.current?.abort();
+      paginationreq.current?.abort();
       resizeObserver.disconnect();
     };
   }, []);
@@ -45,7 +45,7 @@ export function GridTable(props: GridTableProps) {
         window.innerHeight -
         window.scrollY < 300) && (pagination !== "pending" && pagination !== "failed")) {
         if (section.section.sectionData.hasMoreData === true) {
-          section_pagination();
+          sectionpagination();
         }
       }
     }
@@ -55,7 +55,7 @@ export function GridTable(props: GridTableProps) {
     }
   }, [pagination])
 
-  const section_pagination = () => {
+  const sectionpagination = () => {
     let arr = asPath.split("/");
     arr.shift();
     let targetPath = arr.join("/") == "" ? "home" : arr.join("/");
@@ -65,14 +65,14 @@ export function GridTable(props: GridTableProps) {
       code: section.section.sectionData.section
     }
     
-    const pagination_promise =  dispatch(fetchSections({
+    const paginationpromise =  dispatch(fetchSections({
       from: "gridPagination",
       params,
     }))
 
-    pagination_req.current = pagination_promise
+    paginationreq.current = paginationpromise
     
-    pagination_promise.unwrap().then(({ result }) => {
+    paginationpromise.unwrap().then(({ result }) => {
       if (result.response?.status == false && result.response?.error?.code == 401) {
         clientCookie.remove("boxId");
         clientCookie.remove("tenantCode");
@@ -86,8 +86,8 @@ export function GridTable(props: GridTableProps) {
   const setSectionconfigs = () => {
     if (elementRef.current) {
       const cardConfigs = cardDimentionsForResponsive(cardType);
-      let card_width = 100 / Math.floor(cardConfigs.gridCound);
-      setCardWidth(`${card_width}%`);
+      let cardwidth = 100 / Math.floor(cardConfigs.gridCound);
+      setCardWidth(`${cardwidth}%`);
     }
   };
 
@@ -175,8 +175,8 @@ export function SearchGrid(props:SearchGridProps){
   const setSectionconfigs = () => {
     if (elementRef.current) {
       const cardConfigs = cardDimentionsForResponsive(cardType);
-      let card_width = 100 / Math.floor(cardConfigs.gridCound);
-      setCardWidth(`${card_width}%`);
+      let cardwidth = 100 / Math.floor(cardConfigs.gridCound);
+      setCardWidth(`${cardwidth}%`);
     }
   };
 

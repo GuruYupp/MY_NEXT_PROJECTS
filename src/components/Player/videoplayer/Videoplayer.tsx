@@ -37,7 +37,7 @@ function VideoPlayer(props:VideoPlayerPropsInterface){
   const { setSuggestionHeight } = props
   const {response:{streams},error} = useAppSelector(state=>state.streamData);
   const playerRef = useRef<HTMLDivElement>(null);
-  const player_parent_ref = useRef<HTMLDivElement>(null);
+  const playerparentref = useRef<HTMLDivElement>(null);
   useEffect(()=>{
     let playerOBj:any;
     if(playerRef.current && typeof window !== undefined){
@@ -52,8 +52,8 @@ function VideoPlayer(props:VideoPlayerPropsInterface){
             }
           })
           playerOBj.on('ready', function () {
-            if (player_parent_ref.current) {
-              setSuggestionHeight(player_parent_ref.current.clientHeight + 200)
+            if (playerparentref.current) {
+              setSuggestionHeight(playerparentref.current.clientHeight + 200)
             }
 
           })
@@ -101,7 +101,7 @@ function VideoPlayer(props:VideoPlayerPropsInterface){
     return Playlist;
   }
 
-  return <div ref={player_parent_ref}><div ref={playerRef}>{streams?.length === 0 && <PlayerOverlay {...props}/>}</div></div>
+  return <div ref={playerparentref}><div ref={playerRef}>{streams?.length === 0 && <PlayerOverlay {...props}/>}</div></div>
 }
 
 export default VideoPlayer
