@@ -18,6 +18,7 @@ import { OtpVerifydataType } from "@/components/otpverify/otpverifytypes";
 import { responseInterface } from "@/shared";
 import { ModalType } from "@/components/modals/modaltypes";
 import Modal from "@/components/modals/Modal";
+import { DevTool } from "@hookform/devtools";
 
 const GenericSignup: FC = () => {
   const { sociallogin, userfields, encryptApisList, userprofiles } =
@@ -421,7 +422,7 @@ const GenericSignup: FC = () => {
           />,
           document.body
         )}
-      {/* <DevTool control={control} /> */}
+      <DevTool control={control} />
     </>
   );
 };
