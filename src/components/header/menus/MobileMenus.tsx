@@ -6,22 +6,27 @@ import getConfig from "next/config";
 let appConfig = getConfig().publicRuntimeConfig.appconfig;
 
 const mobilemenuImages: { [key: string]: any } = {
+  // eslint-disable-next-line camelcase
   home_mobile__v2: {
     selectedImg: "bottom-menu-home-active.svg",
     defaultImg: "bottom-menu-home-default.svg",
   },
+  // eslint-disable-next-line camelcase
   swag_mobile__v2: {
     selectedImg: "bottom-menu-swag-active.svg",
     defaultImg: "bottom-menu-swag-default.svg",
   },
+  // eslint-disable-next-line camelcase
   plans__v2: {
     selectedImg: "bottom-menu-plans-active.svg",
     defaultImg: "bottom-menu-plans-default.svg",
   },
+  // eslint-disable-next-line camelcase
   book_dth_mobile__v2: {
     selectedImg: "bottom-menu-mydish-active.svg",
     defaultImg: "bottom-menu-mydish-default.svg",
   },
+  // eslint-disable-next-line camelcase
   account__v2: {
     selectedImg: "bottom-menu-myaccount-active.svg",
     defaultImg: "bottom-menu-myaccount-default.svg",

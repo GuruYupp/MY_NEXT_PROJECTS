@@ -31,8 +31,8 @@ const SearchTabs: FC<searchtabsprops> = (props) => {
     )[0];
     if (!bucket) {
       handelbucketSearch({
-        // eslint-disable-next-line camelcase
         query: searchtext,
+        // eslint-disable-next-line camelcase
         last_search_order: "typesense",
         // eslint-disable-next-line camelcase
         page_size: 30,

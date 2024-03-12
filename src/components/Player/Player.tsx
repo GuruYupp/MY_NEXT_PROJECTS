@@ -32,8 +32,10 @@ export default function Player() {
     title,
     subtitle,
     description,
+    // eslint-disable-next-line camelcase
     content_img,
     tvguide,
+    // eslint-disable-next-line camelcase
     tvguide_target,
     pgrating,
     cast,
