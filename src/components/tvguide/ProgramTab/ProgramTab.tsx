@@ -22,12 +22,12 @@ function ProgramTab({
   const programtextRef = useRef<HTMLParagraphElement>(null);
 
   const [showModal, setShowModal] = useState<ModalType>("");
-  const [templateCode, setTemplateCode] = useState<templateType>("")
+  const [templateCode, setTemplateCode] = useState<templateType>("");
 
   const showTemplateModal = (template: templateType) => {
     document.body.style.overflowY = "hidden";
     setTemplateCode(template);
-    setShowModal("template")
+    setShowModal("template");
   };
 
   const closeTemplateModal = () => {
@@ -38,30 +38,30 @@ function ProgramTab({
 
   const handleProgramClick = () => {
     if (template) {
-      console.log(program)
+      console.log(program);
       showTemplateModal(template);
     }
   };
 
-  console.log('hello')
-  
+  console.log("hello");
+
   useEffect(() => {
     if (programRef.current && programtextRef.current) {
       if (setPaddingfromGuide) {
         setPaddingfromGuide(setPaading);
       }
     }
-  }, [channelLeft])
+  }, [channelLeft]);
 
   function setPaading() {
     if (programRef.current && channelLeft) {
       if (programRef.current.getBoundingClientRect().left < channelLeft) {
         if (programtextRef.current) {
-          programtextRef.current.style.paddingLeft = `${channelLeft - programRef.current.getBoundingClientRect().left}px`
+          programtextRef.current.style.paddingLeft = `${channelLeft - programRef.current.getBoundingClientRect().left}px`;
         }
       } else {
         if (programtextRef.current) {
-          programtextRef.current.style.paddingLeft = `0px`
+          programtextRef.current.style.paddingLeft = `0px`;
         }
       }
     }
@@ -77,9 +77,7 @@ function ProgramTab({
         onClick={handleProgramClick}
       >
         {" "}
-        <p ref={programtextRef}>
-          {program.display.title}
-        </p>{" "}
+        <p ref={programtextRef}>{program.display.title}</p>{" "}
       </div>
       {showModal &&
         template &&
@@ -91,7 +89,13 @@ function ProgramTab({
                 console.log(modal);
                 switch (modal) {
                   case "template":
-                    return <Template closeModal={closeTemplateModal} template_code={templateCode} target_path={target.path} />
+                    return (
+                      <Template
+                        closeModal={closeTemplateModal}
+                        template_code={templateCode}
+                        target_path={target.path}
+                      />
+                    );
                   default:
                     return <></>;
                 }
@@ -99,7 +103,7 @@ function ProgramTab({
               return getModal();
             }}
           />,
-          document.body
+          document.body,
         )}
     </>
   );

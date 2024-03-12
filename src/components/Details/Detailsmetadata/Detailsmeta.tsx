@@ -9,7 +9,7 @@ import DetailsActionButton from "./DetailsActionButton/DetailsActionButton";
 
 function DetailsMetaContainer() {
   const { content, pageButtons, shareInfo } = useAppSelector(
-    (state) => state.pageData.response
+    (state) => state.pageData.response,
   );
   let buttonTypes: DetailsButtonType[] = [
     "signin",

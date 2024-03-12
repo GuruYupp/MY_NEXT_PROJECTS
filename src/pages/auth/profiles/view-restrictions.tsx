@@ -3,11 +3,10 @@ import ErrorBoundary from "@/Errorboundary";
 import ViewRestrictions from "@/components/Profile/viewRestrictions/ViewRestrictions";
 
 export default function ViewRestrictionsPage(): JSX.Element {
-
   return (
     <>
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-            <ViewRestrictions/>
+        <ViewRestrictions />
       </ErrorBoundary>
     </>
   );
@@ -67,11 +66,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   // console.log(seodata)
   let seodata = {
     status: false,
-    response: {}
-  }
+    response: {},
+  };
   return {
     props: {
-      seodata: seodata.status ? seodata.response : {}
-    }
-  }
-}
+      seodata: seodata.status ? seodata.response : {},
+    },
+  };
+};

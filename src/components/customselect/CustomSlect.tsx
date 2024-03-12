@@ -9,21 +9,29 @@ type selectedValueType = OptionsInterface[keyof OptionsInterface];
 interface CustomSelectProps {
   selectedValue: selectedValueType;
   options: OptionsInterface;
-  changeSelectedValue:()=>void;
+  changeSelectedValue: () => void;
 }
 
 function CustomSelect(props: CustomSelectProps) {
-  const { selectedValue, options,changeSelectedValue } = props;
+  const { selectedValue, options, changeSelectedValue } = props;
   const [showoptions, setShowOptions] = useState<boolean>(false);
   return (
     <div>
-      <span onClick={()=>{
-        setShowOptions(!showoptions)
-      }}>{selectedValue}</span>
+      <span
+        onClick={() => {
+          setShowOptions(!showoptions);
+        }}
+      >
+        {selectedValue}
+      </span>
       {showoptions && (
         <ul>
           {Object.entries(options).map(([value], index) => {
-            return <li key={index} onClick={() => changeSelectedValue()}>{value}</li>;
+            return (
+              <li key={index} onClick={() => changeSelectedValue()}>
+                {value}
+              </li>
+            );
           })}
         </ul>
       )}
@@ -31,4 +39,4 @@ function CustomSelect(props: CustomSelectProps) {
   );
 }
 
-export default CustomSelect
+export default CustomSelect;

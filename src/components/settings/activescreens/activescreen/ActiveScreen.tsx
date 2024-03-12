@@ -1,6 +1,6 @@
-import { FC } from 'react';
-import { activeScreenInterface } from '../activescreensSlice';
-import styles from './ActiveScreen.module.scss';
+import { FC } from "react";
+import { activeScreenInterface } from "../activescreensSlice";
+import styles from "./ActiveScreen.module.scss";
 
 interface ActiveScreenProps {
   activeScreen: activeScreenInterface;
@@ -10,8 +10,8 @@ const ActiveScreen: FC<ActiveScreenProps> = (props) => {
   const { activeScreen } = props;
   const getDeviceIcon = () => {
     return activeScreen.deviceId === 5
-      ? '/images/web_browser.png'
-      : '/images/mobile_browser.png';
+      ? "/images/web_browser.png"
+      : "/images/mobile_browser.png";
   };
   return (
     <div className={`${styles.active_screen_container}`}>
@@ -34,10 +34,10 @@ const ActiveScreen: FC<ActiveScreenProps> = (props) => {
         <div className={`${styles.active_screen_right}`}>
           <span
             className={`${styles.action_btn} ${
-              activeScreen.isCurrentDevice ? styles.disable : ''
+              activeScreen.isCurrentDevice ? styles.disable : ""
             }`}
           >
-            {activeScreen.isCurrentDevice ? 'Current Device' : 'Logout Device'}
+            {activeScreen.isCurrentDevice ? "Current Device" : "Logout Device"}
           </span>
         </div>
       </div>

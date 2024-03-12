@@ -3,7 +3,8 @@
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  background: url(https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sign-in-bg.jpg) no-repeat 50% fixed;
+  background: url(https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sign-in-bg.jpg)
+    no-repeat 50% fixed;
   background-size: cover;
   -webkit-background-size: cover;
   position: absolute;
@@ -91,7 +92,7 @@
               text-align: center;
             }
           }
-          &.dob_input_container{
+          &.dob_input_container {
             display: block;
           }
           .input {
@@ -144,11 +145,11 @@
         .radio_inputs {
           height: 48px;
           margin-bottom: 40px;
-           .label {
-              font-size: 14px;
-              color: #898b95;
-              margin-right: 20px;
-            }
+          .label {
+            font-size: 14px;
+            color: #898b95;
+            margin-right: 20px;
+          }
           .radio_input_container {
             position: relative;
             display: inline-block;
@@ -158,7 +159,7 @@
               height: 18px;
               width: 18px;
               border-radius: 100%;
-              border: 2px solid hsla(0, 0%, 100%, .349);
+              border: 2px solid hsla(0, 0%, 100%, 0.349);
               vertical-align: middle;
               position: relative;
               .radio_input {
@@ -166,29 +167,29 @@
                 height: 18px;
                 width: 18px;
                 position: absolute;
-                left:50%;
-                top:50%;
-                transform: translate(-50%,-50%);
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
               }
-              .radio_dot{
-                  display: none;
-                  height: 8px;
-                  width: 8px;
-                  position: absolute;
-                  left: 50%;
-                  top: 50%;
-                  transform: translate(-50%, -50%);
-                  border-radius: 100%;
-                  background-color: #fff;
+              .radio_dot {
+                display: none;
+                height: 8px;
+                width: 8px;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                border-radius: 100%;
+                background-color: #fff;
               }
-              &:has(.radio_input:checked){
+              &:has(.radio_input:checked) {
                 border-color: #fff;
-                .radio_dot{
+                .radio_dot {
                   display: inline-block;
                 }
               }
             }
-            .radio_label{
+            .radio_label {
               vertical-align: middle;
               color: #898b95;
               margin-left: 15px;

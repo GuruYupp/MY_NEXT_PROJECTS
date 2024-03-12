@@ -5,18 +5,17 @@ import { EditProfileFormType } from "./editprofiletypes";
 import DatePicker from "react-datepicker";
 
 const EditProfileInput: FC<UseControllerProps<EditProfileFormType>> = (
-  props
+  props,
 ) => {
   const { field } = useController(props);
 
-  const type =
-     props.name === "age" ? "number" : "text";
+  const type = props.name === "age" ? "number" : "text";
   const placeholder =
     props.name === "name"
       ? "Name"
       : props.name === "age"
-      ? "Age"
-      : "Mobile Number";
+        ? "Age"
+        : "Mobile Number";
 
   const readOnly = props.name === "number";
 
@@ -87,12 +86,12 @@ export const EditProfileRadioInput: FC<
 > = (props) => {
   const { defaultValue } = props;
   const { field } = useController(props);
-  
-  const getRadioLabel = ()=>{
-    if(defaultValue === 'M') return 'male'
-    if (defaultValue === 'F') return 'female'
-    if (defaultValue === 'O') return 'others'
-  }
+
+  const getRadioLabel = () => {
+    if (defaultValue === "M") return "male";
+    if (defaultValue === "F") return "female";
+    if (defaultValue === "O") return "others";
+  };
 
   return (
     <div className={`${styles.radio_input_container}`}>

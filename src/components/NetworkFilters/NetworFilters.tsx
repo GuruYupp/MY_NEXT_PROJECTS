@@ -7,21 +7,21 @@ interface NetworkFiltersProps {
 }
 
 function NetworkFilters(props: NetworkFiltersProps) {
-  const {systemConfigs} = useAppSelector(state=>state.configs)
-  const {networks} = systemConfigs
-  
+  const { systemConfigs } = useAppSelector((state) => state.configs);
+  const { networks } = systemConfigs;
+
   return (
     <div onClick={props.closeModal} className={`${styles.filter_container}`}>
-      <div className={`${styles.partners}` }>
-        {
-          networks && networks.length > 0 && (
-            networks.map((network,index)=>{
-              return <div className={`${styles.partner}`} key={index}>
-                <img src={getAbsolutPath(network.iconUrl)} alt=""/>
+      <div className={`${styles.partners}`}>
+        {networks &&
+          networks.length > 0 &&
+          networks.map((network, index) => {
+            return (
+              <div className={`${styles.partner}`} key={index}>
+                <img src={getAbsolutPath(network.iconUrl)} alt="" />
               </div>
-            })
-          )
-        }
+            );
+          })}
       </div>
     </div>
   );

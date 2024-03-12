@@ -1,9 +1,9 @@
-import { FC, useEffect, useReducer } from 'react';
-import styles from './ActiveScreens.module.scss';
-import { getData } from '@/services/data.manager';
-import { activescreensReducer, addScreensAction } from './activescreensSlice';
-import { default as clientCookie } from 'js-cookie';
-import ActiveScreen from './activescreen/ActiveScreen';
+import { FC, useEffect, useReducer } from "react";
+import styles from "./ActiveScreens.module.scss";
+import { getData } from "@/services/data.manager";
+import { activescreensReducer, addScreensAction } from "./activescreensSlice";
+import { default as clientCookie } from "js-cookie";
+import ActiveScreen from "./activescreen/ActiveScreen";
 
 const ActiveScreens: FC = () => {
   const [screens, screensDispatch] = useReducer(activescreensReducer, []);
@@ -13,16 +13,16 @@ const ActiveScreens: FC = () => {
 
   const fetchActiveScreens = async () => {
     let activescreensresponse = await getData(
-      '/service/api/auth/list/user/sessions'
+      "/service/api/auth/list/user/sessions",
     );
 
     if (activescreensresponse.status === true) {
       screensDispatch(addScreensAction(activescreensresponse.response));
     } else if (activescreensresponse.error?.code === 401) {
-      clientCookie.remove('boxId');
-      clientCookie.remove('tenantCode');
-      clientCookie.remove('sessionId');
-      clientCookie.remove('isLoggedin');
+      clientCookie.remove("boxId");
+      clientCookie.remove("tenantCode");
+      clientCookie.remove("sessionId");
+      clientCookie.remove("isLoggedin");
       window.location.reload();
     }
   };

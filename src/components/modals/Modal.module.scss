@@ -1,51 +1,51 @@
-.modal_container{
+.modal_container {
   position: fixed;
-  top:0;
+  top: 0;
   bottom: 0;
-  right:0;
-  left:0;
-  background-color: rgba(0,0,0,0.6);
+  right: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
   z-index: 5;
   min-height: 100vh;
   height: 100vh;
   .filter_modal {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow-y: scroll;
-  }
-  .template_modal{
     position: relative;
-      width: 100%;
-      height: 100%;
-      overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
   }
-  .languages_modal{
+  .template_modal {
     position: relative;
-      width: 100%;
-      height: 100%;
-      overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
   }
-  .emojis_modal{
+  .languages_modal {
     position: relative;
-      width: 100%;
-      height: 100%;
-      overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
   }
-  .otp_modal{
-      position: relative;
-        width: 100%;
-        height: 100%;
-        overflow-y: scroll;
+  .emojis_modal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
   }
-  .otpverify_modal{
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow-y: scroll;
+  .otp_modal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+  .otpverify_modal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
   }
 
-  .updatedetails_modal{
+  .updatedetails_modal {
     position: relative;
     width: 100%;
     height: 100%;

@@ -6,7 +6,7 @@ import {
   fetchSearchSuggestions,
   setsearchText,
   togglesearchSections,
-  togglesearchSuggestions
+  togglesearchSuggestions,
 } from "@/redux/feature/searchv3Slice/searchv3Slice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { debunceFunction } from "@/utils";
@@ -18,23 +18,24 @@ const SearchInput: FC = () => {
 
   const dispatch = useAppDispatch();
 
-  const handleSearch =
-    useCallback((text: string) => {
-      dispatch(setsearchText(text));
-      if (text.length >= 3) {
-        dispatch(togglesearchSections(true));
-        dispatch(togglesearchSuggestions(true))
-        getSuggestions(text);
-      } else if (text.length === 0) {
-        dispatch(emptysearchSuggestions);
-      }
-    },[])
+  const handleSearch = useCallback((text: string) => {
+    dispatch(setsearchText(text));
+    if (text.length >= 3) {
+      dispatch(togglesearchSections(true));
+      dispatch(togglesearchSuggestions(true));
+      getSuggestions(text);
+    } else if (text.length === 0) {
+      dispatch(emptysearchSuggestions);
+    }
+  }, []);
 
-  const getSuggestions = 
-    useCallback(debunceFunction((text: string) => {
-      console.log(text)
-      dispatch(fetchSearchSuggestions(text))
-    }, 1500),[])
+  const getSuggestions = useCallback(
+    debunceFunction((text: string) => {
+      console.log(text);
+      dispatch(fetchSearchSuggestions(text));
+    }, 1500),
+    [],
+  );
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     handleSearch(e.target.value);
@@ -70,7 +71,7 @@ const SearchInput: FC = () => {
         </form>
         {searchtext.length > 0 && <div className={styles.crossbtn}></div>}
       </div>
-      {(suggestions.show && suggestions.data.length > 0) && (
+      {suggestions.show && suggestions.data.length > 0 && (
         <div className={styles.suggestionsContainer}>
           {suggestions.data.map((suggestion, index) => (
             <p key={index} className={styles.suggestion}>

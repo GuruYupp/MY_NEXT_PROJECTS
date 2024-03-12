@@ -5,21 +5,16 @@ import DynamicLayout from "@/layouts/DynamicLayout";
 import ErrorBoundary from "@/Errorboundary";
 // import Layout from "@/layouts/Layout";
 
-
-export default function DynamicPage({ seodata }:{seodata:seoInterface}) {
+export default function DynamicPage({ seodata }: { seodata: seoInterface }) {
   return (
     <>
-      {
-        <Seodata seodata={seodata} />
-      }
+      {<Seodata seodata={seodata} />}
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-          <DynamicLayout />
+        <DynamicLayout />
       </ErrorBoundary>
     </>
   );
 }
-
-
 
 export const getServerSideProps: GetServerSideProps = async () => {
   //args context:GetServerSidePropsContext
@@ -35,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   //     }
   //   }
   // }
-  
+
   // const url = await getBaseApi();
   // let arr = context.resolvedUrl.split('/')
   // arr.shift()
@@ -55,16 +50,16 @@ export const getServerSideProps: GetServerSideProps = async () => {
   // }
 
   // if (seodata.status == false && seodata.error.code == 401) {
-    // console.log(seodata)
-    // const auth_headers = await initAPIS(context)
-    // await createSession({context,...auth_headers})
-    // cookies = auth_headers;
-    // //service/api/v1/page/content?path=videos&count=40
-    // seodata =  await fetchdata(`${url}/service/api/v1/page/seo?path=${seo_url}`,{
-    //     'session-id':cookies.sessionId,
-    //     'box-id':cookies.boxId,
-    //     'tenant-code':cookies.tenantCode
-    // });
+  // console.log(seodata)
+  // const auth_headers = await initAPIS(context)
+  // await createSession({context,...auth_headers})
+  // cookies = auth_headers;
+  // //service/api/v1/page/content?path=videos&count=40
+  // seodata =  await fetchdata(`${url}/service/api/v1/page/seo?path=${seo_url}`,{
+  //     'session-id':cookies.sessionId,
+  //     'box-id':cookies.boxId,
+  //     'tenant-code':cookies.tenantCode
+  // });
   //   return {
   //     props: {
   //       seodata: seodata.status ? seodata.response : {},
@@ -74,12 +69,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   // console.log(seodata)
   let seodata = {
-    status:false,
-    response:{}
-  } 
+    status: false,
+    response: {},
+  };
   return {
     props: {
-      seodata:seodata.status ? seodata.response :{}
-    }
-  }
-}
+      seodata: seodata.status ? seodata.response : {},
+    },
+  };
+};

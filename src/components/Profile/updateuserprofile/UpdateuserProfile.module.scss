@@ -25,36 +25,36 @@
       display: none;
     }
   }
-  .profileUpdate_mobile_header{
-      height: 56px;
-      line-height: 56px;
-      background: #222;
-      padding: 0;
-      display: none;
+  .profileUpdate_mobile_header {
+    height: 56px;
+    line-height: 56px;
+    background: #222;
+    padding: 0;
+    display: none;
+    font-weight: 400;
+    position: fixed;
+    width: 100%;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    @include breakpoint(tablet) {
+      display: block;
+      padding: 0 25px;
+    }
+    .text {
+      font-size: 21px;
+      margin: 0;
+      padding-left: 30px;
+      color: #fff;
       font-weight: 400;
-      position: fixed;
-      width: 100%;
-      z-index: 9;
-      top: 0;
-      left: 0;
-      @include breakpoint(tablet) {
-          display: block;
-            padding: 0 25px;
-        }
-      .text{
-        font-size: 21px;
-          margin: 0;
-          padding-left: 30px;
-          color: #fff;
-          font-weight: 400;
-          img{
-            width: 28px;
-              height: 28px;
-              margin-bottom: 3px;
-              vertical-align: middle;
-              margin-right: 3px;
-          }
+      img {
+        width: 28px;
+        height: 28px;
+        margin-bottom: 3px;
+        vertical-align: middle;
+        margin-right: 3px;
       }
+    }
   }
 
   .profileUpdate_body {
@@ -95,7 +95,7 @@
         height: 120px;
         margin: 0 auto 30px;
       }
-      
+
       .edit_icon {
         position: absolute;
         bottom: 10px;
@@ -105,13 +105,12 @@
         cursor: pointer;
         z-index: 1;
         border: none;
-        
+
         @include breakpoint(laptop) {
           width: 28px;
           height: 28px;
         }
       }
-
     }
 
     .profile_edit_container {
@@ -120,7 +119,7 @@
 
       @include breakpoint(tablet) {
         width: 100%;
-        margin: auto 0
+        margin: auto 0;
       }
 
       .profile_edit_container_inputs {
@@ -146,19 +145,19 @@
             padding: 0 5px;
           }
 
-          .more_langs{
+          .more_langs {
             font-size: 14px;
-              color: #666;
-              position: absolute;
-              left: 110px;
-              top: 14px;
+            color: #666;
+            position: absolute;
+            left: 110px;
+            top: 14px;
+            cursor: pointer;
+            .text {
+              font-style: italic;
+              margin-left: 5px;
+              color: #e7195a;
               cursor: pointer;
-              .text{
-                font-style: italic;
-                  margin-left: 5px;
-                  color: #e7195a;
-                  cursor: pointer;
-              }
+            }
           }
 
           input {
@@ -223,25 +222,24 @@
           }
         }
 
-        .profile_locK_container{
-              padding: 20px 0;
-              border-top: 1px solid #555;
-              .lock_icon{
-                margin-right: 8px;
-                  margin-bottom: 3px;
-                  opacity: .65;
-                  vertical-align: middle;
-              }
-              .text{
-                font-size: 16px;
-                color: #fff;
-                font-weight: 700;
-                cursor: pointer;
-                &.lock_enable{
-                  color: #e7195a;
-                }
-              }
-              
+        .profile_locK_container {
+          padding: 20px 0;
+          border-top: 1px solid #555;
+          .lock_icon {
+            margin-right: 8px;
+            margin-bottom: 3px;
+            opacity: 0.65;
+            vertical-align: middle;
+          }
+          .text {
+            font-size: 16px;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            &.lock_enable {
+              color: #e7195a;
+            }
+          }
         }
       }
     }
@@ -324,7 +322,7 @@
         border-radius: 2px;
         -moz-border-radius: 2px;
         -webkit-border-radius: 2px;
-       
+
         @include breakpoint(desktop-small) {
           padding: 10px 20px;
         }

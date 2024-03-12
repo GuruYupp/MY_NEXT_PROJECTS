@@ -9,25 +9,20 @@ import { ContentPageWrapper } from "@/layouts/DynamicLayout";
 import appConfig from "@/app.config";
 // import Layout from "@/layouts/Layout";
 
-
 export default function SearchPage({ seodata }: { seodata: seoInterface }) {
   return (
     <>
-      {
-        <Seodata seodata={seodata} />
-      }
+      {<Seodata seodata={seodata} />}
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
         <GenericLayout>
           <ContentPageWrapper>
-            {appConfig.search.apiversion === "v3" ? <Searchv3/> : <Searchv1/>}
+            {appConfig.search.apiversion === "v3" ? <Searchv3 /> : <Searchv1 />}
           </ContentPageWrapper>
         </GenericLayout>
       </ErrorBoundary>
     </>
   );
 }
-
-
 
 export const getServerSideProps: GetServerSideProps = async () => {
   //args context:GetServerSidePropsContext
@@ -83,11 +78,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   // console.log(seodata)
   let seodata = {
     status: false,
-    response: {}
-  }
+    response: {},
+  };
   return {
     props: {
-      seodata: seodata.status ? seodata.response : {}
-    }
-  }
-}
+      seodata: seodata.status ? seodata.response : {},
+    },
+  };
+};

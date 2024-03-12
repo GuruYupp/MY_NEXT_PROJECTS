@@ -1,24 +1,24 @@
-import { useEffect, useRef, useState } from 'react';
-import { getAbsolutPath } from '@/utils';
-import styles from './Details.module.scss';
-import Sections from '../Sections/Sections';
-import { useAppSelector } from '@/redux/hooks';
-import { GridTable } from '../grid/Grid';
-import getfrompagedata from './getfrompagedata';
-import DetailsMetaContainer from './Detailsmetadata/Detailsmeta';
-import Slider, { Settings } from 'react-slick';
+import { useEffect, useRef, useState } from "react";
+import { getAbsolutPath } from "@/utils";
+import styles from "./Details.module.scss";
+import Sections from "../Sections/Sections";
+import { useAppSelector } from "@/redux/hooks";
+import { GridTable } from "../grid/Grid";
+import getfrompagedata from "./getfrompagedata";
+import DetailsMetaContainer from "./Detailsmetadata/Detailsmeta";
+import Slider, { Settings } from "react-slick";
 
 export default function DetailsPage() {
   let { content, tabsInfo, sections } = useAppSelector(
-    (state) => state.pageData.response
+    (state) => state.pageData.response,
   );
   // tabsInfo = data
   const bgImageRef = useRef<HTMLDivElement>(null);
-  let activetab = '';
-  let detailsBannerImage = getfrompagedata(content, 'bgImage')?.data;
+  let activetab = "";
+  let detailsBannerImage = getfrompagedata(content, "bgImage")?.data;
   detailsBannerImage = detailsBannerImage
     ? getAbsolutPath(detailsBannerImage)
-    : '';
+    : "";
   if (tabsInfo.showTabs) {
     activetab = tabsInfo.tabs[0].code;
   }
@@ -38,7 +38,7 @@ export default function DetailsPage() {
   };
 
   const settings: Settings = {
-    className: 'slider details_tab_slider',
+    className: "slider details_tab_slider",
     dots: false,
     infinite: false,
     speed: 500,
@@ -47,9 +47,9 @@ export default function DetailsPage() {
     variableWidth: true,
     centerMode: false,
     draggable: true,
-    centerPadding: '0px',
-    cssEase: 'ease',
-    easing: 'linear',
+    centerPadding: "0px",
+    cssEase: "ease",
+    easing: "linear",
   };
 
   return (
@@ -76,7 +76,7 @@ export default function DetailsPage() {
                     key={index}
                     className={
                       `${styles.tab} ` +
-                      (tab.code === activeTab ? `${styles.active}` : '')
+                      (tab.code === activeTab ? `${styles.active}` : "")
                     }
                     onClick={() => handleActivetab(tab.code)}
                   >

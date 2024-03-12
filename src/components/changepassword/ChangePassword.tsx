@@ -1,49 +1,52 @@
-import { SubmitHandler, useForm } from 'react-hook-form';
-import styles from './ChangePassword.module.scss'
-import { ChangePasswordFormType, changePasswordparamsType } from './chagepasswordtype';
-import { DevTool } from '@hookform/devtools';
-import ChnagePasswordInput from './chnagepasswordinput';
-import { useEffect, useRef, useState } from 'react';
-import { postData } from '@/services/data.manager';
-import { useRouter } from 'next/router';
-const ChangePassword = ()=>{
-
+import { SubmitHandler, useForm } from "react-hook-form";
+import styles from "./ChangePassword.module.scss";
+import {
+  ChangePasswordFormType,
+  changePasswordparamsType,
+} from "./chagepasswordtype";
+import { DevTool } from "@hookform/devtools";
+import ChnagePasswordInput from "./chnagepasswordinput";
+import { useEffect, useRef, useState } from "react";
+import { postData } from "@/services/data.manager";
+import { useRouter } from "next/router";
+const ChangePassword = () => {
   const { control, formState, handleSubmit } = useForm<ChangePasswordFormType>({
     mode: "onChange",
   });
 
-  const [errormsg, setErrormsg] = useState<string>('')
-  const errormsgToken = useRef<ReturnType<typeof setTimeout>>()
+  const [errormsg, setErrormsg] = useState<string>("");
+  const errormsgToken = useRef<ReturnType<typeof setTimeout>>();
   const router = useRouter();
-
 
   useEffect(() => {
     return () => {
-      clearTimeout(errormsgToken.current)
-    }
-  }, [])
+      clearTimeout(errormsgToken.current);
+    };
+  }, []);
 
-  const onSubmit:SubmitHandler<ChangePasswordFormType>=async (formData)=>{
+  const onSubmit: SubmitHandler<ChangePasswordFormType> = async (formData) => {
     handleChangePassword({
-      oldPassword:formData.currentpassword,
-      newPassword: formData.confirmnewpassword
-    })
-  }
+      oldPassword: formData.currentpassword,
+      newPassword: formData.confirmnewpassword,
+    });
+  };
 
-  const handleChangePassword = async (payload:changePasswordparamsType)=>{
-    const chagepasswordresponse = await postData('/service/api/auth/change/password',payload);
-    if(chagepasswordresponse.status === true){
+  const handleChangePassword = async (payload: changePasswordparamsType) => {
+    const chagepasswordresponse = await postData(
+      "/service/api/auth/change/password",
+      payload,
+    );
+    if (chagepasswordresponse.status === true) {
       router.back();
-    }
-    else{
-      if(chagepasswordresponse.error?.code === -1){
-        setErrormsg(chagepasswordresponse.error.message)
+    } else {
+      if (chagepasswordresponse.error?.code === -1) {
+        setErrormsg(chagepasswordresponse.error.message);
         errormsgToken.current = setTimeout(() => {
-          setErrormsg('')
-        }, 1000)
+          setErrormsg("");
+        }, 1000);
       }
     }
-  }
+  };
 
   return (
     <>
@@ -102,7 +105,6 @@ const ChangePassword = ()=>{
                 </div>
               </label>
 
-
               <label>
                 <div className={`${styles.input_container}`}>
                   <ChnagePasswordInput
@@ -131,28 +133,27 @@ const ChangePassword = ()=>{
               </label>
 
               <label>
-                <div className={`${styles.input_container} ${styles.submit_input_container}`}>
+                <div
+                  className={`${styles.input_container} ${styles.submit_input_container}`}
+                >
                   <input
                     type="submit"
                     className={`${styles.change_btn}`}
                     value="Change Password"
                   />
-                 
+
                   {errormsg && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {errormsg}
-                    </p>
+                    <p className={`${styles.input_error_msg}`}>{errormsg}</p>
                   )}
                 </div>
               </label>
             </form>
-
           </div>
         </div>
       </div>
       <DevTool control={control} />
     </>
   );
-}
+};
 
 export default ChangePassword;

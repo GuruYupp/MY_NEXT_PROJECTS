@@ -30,7 +30,7 @@ export default function TvGuide() {
   const livebarRef = useRef<HTMLDivElement | null>(null);
   const liveProgressRef = useRef<ReturnType<typeof setInterval>>();
   const debouncesetProgramPadding = debunceFunction(setProgramPadding, 10);
-  const debounceCheckFn = debunceFunction(checkFn,10);
+  const debounceCheckFn = debunceFunction(checkFn, 10);
   const throttelliveProgress = throttelFunction(liveProgress, 10);
 
   useEffect(() => {
@@ -53,16 +53,16 @@ export default function TvGuide() {
     }
   }
 
-   function checkFn(){
+  function checkFn() {
     if (window.innerWidth <= 991) {
       setProgramWidth(180);
     } else {
       setProgramWidth(270);
     }
-  };
+  }
 
   useEffect(() => {
-    debouncesetProgramPadding()
+    debouncesetProgramPadding();
     window.addEventListener("resize", debounceCheckFn);
     programsRef.current?.addEventListener("scroll", handleProgramsScroll);
     return () => {
@@ -119,7 +119,7 @@ export default function TvGuide() {
 
   function getprogramWidth(
     startTime: string | undefined,
-    endTime: string | undefined
+    endTime: string | undefined,
   ) {
     if (startTime && endTime) {
       if (
@@ -158,7 +158,7 @@ export default function TvGuide() {
         channel_ids: ids.join(","),
         // eslint-disable-next-line camelcase
         skip_tabs: 1,
-      })
+      }),
     );
   }
 
@@ -277,7 +277,7 @@ export default function TvGuide() {
                             style={{
                               width: `${getprogramWidth(
                                 program.display.markers?.startTime?.value,
-                                program.display.markers?.endTime?.value
+                                program.display.markers?.endTime?.value,
                               )}px`,
                             }}
                           >

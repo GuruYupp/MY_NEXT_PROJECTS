@@ -5,6 +5,6 @@ export type SingnupFormType = {
   firstName: string;
   lastName: string;
   confirmpassword: string;
-  dob:string;
-  gender:"male" | "female" | "other"
+  dob: string;
+  gender: "male" | "female" | "other";
 };

@@ -1,11 +1,11 @@
-@import '@/_var.scss';
-.add_profile_container{
+@import "@/_var.scss";
+.add_profile_container {
   width: 100%;
   padding: 54px 58px;
-  @include breakpoint(tablet){
-    padding: 20px
+  @include breakpoint(tablet) {
+    padding: 20px;
   }
-  .add_profile_inner{
+  .add_profile_inner {
     text-align: center;
     display: block;
     overflow: hidden;
@@ -18,101 +18,99 @@
     box-shadow: 0 0 4px #00000026;
     border-radius: 4px;
 
-    @include breakpoint(mac){
+    @include breakpoint(mac) {
       width: 450px;
     }
-    @include breakpoint(laptop){
+    @include breakpoint(laptop) {
       width: 400px;
-      padding: 30px
+      padding: 30px;
     }
     @include breakpoint(tablet) {
       width: 400px;
       padding: 30px;
       max-width: 100%;
     }
-    @include breakpoint(mobile){
+    @include breakpoint(mobile) {
       padding: 20px 20px 40px;
       min-height: 70vh;
     }
 
-    .header{
+    .header {
       text-align: center;
-      .title{
-          font-size: 24px;
-          letter-spacing: 0;
-          color: #e5e5e5;
-          margin-bottom: 10px;
-          font-weight: 400;
-          @include breakpoint(mac) {
-              font-size: 22px;
-          }
-          @include breakpoint(laptop) {
-            font-size: 20px;
-          }
+      .title {
+        font-size: 24px;
+        letter-spacing: 0;
+        color: #e5e5e5;
+        margin-bottom: 10px;
+        font-weight: 400;
+        @include breakpoint(mac) {
+          font-size: 22px;
+        }
+        @include breakpoint(laptop) {
+          font-size: 20px;
+        }
       }
-      .subtitle{
+      .subtitle {
         margin: 0;
-        color: hsla(0, 0%, 100%, .45);
+        color: hsla(0, 0%, 100%, 0.45);
         font-size: 14px;
       }
     }
-    .body{
+    .body {
       margin-top: 45px;
       text-align: left;
       position: relative;
-      .input_container{
-        .label{
+      .input_container {
+        .label {
           width: 100%;
-            color: #898b95;
-            font-size: 12px;
-            margin: 0;
+          color: #898b95;
+          font-size: 12px;
+          margin: 0;
         }
-        input{
-            width: 100%;
-            height: 45px;
-            background: #333;
-            padding: 0 10px;
-            color: #fff;
-            opacity: .65;
-            border: 1px solid #444;
-            border-radius: 4px;
-            overflow: hidden;
-            outline: none;
+        input {
+          width: 100%;
+          height: 45px;
+          background: #333;
+          padding: 0 10px;
+          color: #fff;
+          opacity: 0.65;
+          border: 1px solid #444;
+          border-radius: 4px;
+          overflow: hidden;
+          outline: none;
         }
       }
-      .messages{
-        .error{
+      .messages {
+        .error {
           font-size: 12px;
           color: red;
         }
       }
 
-      .continue_btn{
-          width: 100%;
-          color: #fff;
-          border: none;
-          height: 44px;
-          line-height: 44px;
-          border-radius: 2px;
-          font-size: 14px;
-          margin-top: 120px;
-          outline: none;
-          background-color: $primary-color;
-          cursor: pointer;
-          &:disabled {
-              background: #333;
-              cursor: not-allowed;
-          }
-         
-          @include breakpoint(laptop) {
-            height: 40px;
-            line-height: 40px;
-          }
-          @include breakpoint(mobile) {
-            margin-top: 80px;
-          }
-         
-          
+      .continue_btn {
+        width: 100%;
+        color: #fff;
+        border: none;
+        height: 44px;
+        line-height: 44px;
+        border-radius: 2px;
+        font-size: 14px;
+        margin-top: 120px;
+        outline: none;
+        background-color: $primary-color;
+        cursor: pointer;
+        &:disabled {
+          background: #333;
+          cursor: not-allowed;
+        }
+
+        @include breakpoint(laptop) {
+          height: 40px;
+          line-height: 40px;
+        }
+        @include breakpoint(mobile) {
+          margin-top: 80px;
+        }
       }
     }
   }

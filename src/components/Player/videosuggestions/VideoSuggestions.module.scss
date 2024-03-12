@@ -1,42 +1,42 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 
-.Videosuggestions{
-  .tabs{
+.Videosuggestions {
+  .tabs {
     border-bottom: 1px solid #333;
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, .15);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
     margin-bottom: 15px;
     padding: 0px 28px;
     .tab {
-        background-color: hsla(0, 0%, 100%, .06);
-        line-height: 50px;
-    
-        p {
-          padding: 0px 10px;
-          font-size: 14px;
-          font-weight: 400;
-          color: #fff;
-          text-transform: uppercase;
-        }
-      }
-  }
-  
-    .suggestions {
-      margin-right: 5px;
-      overflow-y: scroll;
-      scrollbar-width: thin;
-      &::-webkit-scrollbar{
-        width: 5px;
-      }
-      &::-webkit-scrollbar-track{
-        background: #232323;
-        border-radius: 25px;
-      }
-      &::-webkit-scrollbar-thumb{
-        background-color: #3c3c3c;
-        border-radius: 25px;
-        &:hover{
-          background: #000;
-        }
+      background-color: hsla(0, 0%, 100%, 0.06);
+      line-height: 50px;
+
+      p {
+        padding: 0px 10px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #fff;
+        text-transform: uppercase;
       }
     }
+  }
+
+  .suggestions {
+    margin-right: 5px;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #232323;
+      border-radius: 25px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #3c3c3c;
+      border-radius: 25px;
+      &:hover {
+        background: #000;
+      }
+    }
+  }
 }

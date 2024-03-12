@@ -26,7 +26,7 @@ export const initialState: searchv3Interface = {
 
 export interface searchparamsInterface {
   query: string;
-  last_search_order: string
+  last_search_order: string;
   page_size: number;
   bucket: string;
 }
@@ -34,23 +34,23 @@ export interface searchparamsInterface {
 export const fetchSearchBucket = createAsyncThunk<
   responseInterface,
   searchparamsInterface
-  >("fetchSearchBucket", async (params) => {
+>("fetchSearchBucket", async (params) => {
   const result = await getData("/search/api/v3/get/search/query", params);
   return result;
 });
 
-export const fetchSearchSuggestions = createAsyncThunk<responseInterface,string>(
-  "fetchSearchsuggestions",
-  async (query) => {
-    let params = {
-      // eslint-disable-next-line camelcase
-      last_search_order: "typesense",
-      query,
-    };
-    const result = await getData("/search/api/v1/search/suggestions", params);
-    return result;
-  }
-);
+export const fetchSearchSuggestions = createAsyncThunk<
+  responseInterface,
+  string
+>("fetchSearchsuggestions", async (query) => {
+  let params = {
+    // eslint-disable-next-line camelcase
+    last_search_order: "typesense",
+    query,
+  };
+  const result = await getData("/search/api/v1/search/suggestions", params);
+  return result;
+});
 
 interface searchpaginationparamsInterface extends searchparamsInterface {
   last_doc: string;
@@ -59,7 +59,7 @@ interface searchpaginationparamsInterface extends searchparamsInterface {
 export const searchBucketPagiation = createAsyncThunk<
   responseInterface,
   searchpaginationparamsInterface
-  >("searchBucketPagiation", async (params) => {
+>("searchBucketPagiation", async (params) => {
   const result = await getData("/search/api/v3/get/search/query", params);
   return result;
 });
@@ -75,10 +75,9 @@ const searchV3Slice = createSlice({
       state.suggestions.data = [];
     },
     togglesearchSections: (state, action: PayloadAction<boolean>) => {
-      if(state.tabsdata.length >=0){
-        state.showSections = false
-      }
-      else{
+      if (state.tabsdata.length >= 0) {
+        state.showSections = false;
+      } else {
         state.showSections = action.payload;
       }
     },
@@ -87,7 +86,7 @@ const searchV3Slice = createSlice({
     },
     handlesearchSelectTab: (
       state,
-      action: PayloadAction<searchtabInterface>
+      action: PayloadAction<searchtabInterface>,
     ) => {
       const { payload } = action;
       state.activeTab = payload;
@@ -123,7 +122,7 @@ const searchV3Slice = createSlice({
           let response = payload.response as v3bucketsInterface & {
             lastDoc: string;
             lastSearchOrder: "typesense" | "done";
-          }
+          };
           let tabdata: v3bucketsInterface = {
             lastDoc: response.lastDoc,
             lastSearchOrder: response.lastSearchOrder,
@@ -136,23 +135,23 @@ const searchV3Slice = createSlice({
             },
           };
           state.tabsdata.push(tabdata);
-        }else{
+        } else {
           let tabdata: v3bucketsInterface = {
             lastDoc: "1",
             lastSearchOrder: "done",
             searchResults: {
-              sourceType:state.activeTab.code,
-              displayName:"",
-              count:0,
-              data:[],
+              sourceType: state.activeTab.code,
+              displayName: "",
+              count: 0,
+              data: [],
               pagination: "idle",
             },
-            error:{
+            error: {
               message: payload.error?.message,
               code: payload.error?.code,
               details: payload.error?.details,
-              type: payload.error?.type
-            }
+              type: payload.error?.type,
+            },
           };
           state.tabsdata.push(tabdata);
         }
@@ -199,7 +198,7 @@ const searchV3Slice = createSlice({
           }
         });
       });
-  }
+  },
 });
 
 export default searchV3Slice.reducer;

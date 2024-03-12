@@ -1,4 +1,4 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 .banners {
   position: relative;
   padding-top: 35%;
@@ -87,7 +87,6 @@
 //   background-color: #000;
 // }
 
-
 .shimmer_row {
   display: flex;
 
@@ -99,7 +98,7 @@
     animation-name: shimmer;
     animation-timing-function: linear;
     background: linear-gradient(110deg, #222 8%, #292929 18%, #222 33%);
-    margin:8px
+    margin: 8px;
   }
 
   @keyframes shimmer {
@@ -119,8 +118,8 @@
     }
 
     100% {
-        background-position-x: -200%;
+      background-position-x: -200%;
       opacity: 0.04;
-    } 
+    }
   }
 }

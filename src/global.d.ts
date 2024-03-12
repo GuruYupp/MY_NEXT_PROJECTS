@@ -1,3 +1,3 @@
 interface Window {
-  jwplayer: any
+  jwplayer: any;
 }

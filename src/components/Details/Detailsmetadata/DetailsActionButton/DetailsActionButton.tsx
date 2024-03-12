@@ -1,8 +1,8 @@
-import React, { FC } from 'react'
-import { DetailsActionButtonPropsType } from '../../detailstypes';
+import React, { FC } from "react";
+import { DetailsActionButtonPropsType } from "../../detailstypes";
 
-const DetailsActionButton: FC <DetailsActionButtonPropsType>=(props) =>{
-  const { className,text } = props;
+const DetailsActionButton: FC<DetailsActionButtonPropsType> = (props) => {
+  const { className, text } = props;
   // const [IconImage,setIconImage] = useState<string>(Image?.defaultImgurl || '')
 
   // const setIcon = ()=>{
@@ -18,13 +18,11 @@ const DetailsActionButton: FC <DetailsActionButtonPropsType>=(props) =>{
   //   }
   // }
   return (
-    <span
-      className={className}
-    >
+    <span className={className}>
       {/* {IconImage && <img src={IconImage} alt={Image?.altText} />} */}
       {text}
     </span>
-  )
-}
+  );
+};
 
-export default DetailsActionButton
+export default DetailsActionButton;

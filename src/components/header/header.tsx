@@ -15,10 +15,9 @@ export default function Header() {
   const [headerGradient, setheaderGradient] = useState<boolean>(true);
   const [moveheaderTop, setmoveheaderTop] = useState<boolean>(false);
   const [toggleHeader, setToggleHeader] = useState<"web" | "mobileweb">(
-    "mobileweb"
+    "mobileweb",
   );
-  const [showMobileHeader, setShowMobileHeader] =
-    useState<boolean>(false);
+  const [showMobileHeader, setShowMobileHeader] = useState<boolean>(false);
 
   const { asPath } = useRouter();
 
@@ -87,7 +86,7 @@ export default function Header() {
   const handleMobileheaderToggle = () => {
     const hideheaderPaths = ["/search", "/settings", "/settings/edit-profile"];
 
-    if (hideheaderPaths.includes(asPath) || asPath.includes('profile-lock/')) {
+    if (hideheaderPaths.includes(asPath) || asPath.includes("profile-lock/")) {
       setShowMobileHeader(false);
     } else {
       setShowMobileHeader(true);

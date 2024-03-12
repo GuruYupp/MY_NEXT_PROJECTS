@@ -1,6 +1,6 @@
-import { getData, postData } from '@/services/data.manager';
-import { pageState, responseInterface } from '@/shared';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { getData, postData } from "@/services/data.manager";
+import { pageState, responseInterface } from "@/shared";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface fetchPagedataParams {
   path: string;
@@ -10,14 +10,14 @@ interface fetchPagedataParams {
 export const fetchPagedata = createAsyncThunk<
   responseInterface,
   { params: fetchPagedataParams; signal?: AbortSignal }
->('fetchpagedata', async (args, thunkAPI) => {
+>("fetchpagedata", async (args, thunkAPI) => {
   const { params } = args;
   thunkAPI.dispatch(resetPagestate());
   const result = await getData(
-    'service/api/v1/page/content',
+    "service/api/v1/page/content",
     params,
     thunkAPI.signal,
-    true
+    true,
   );
   // thunkAPI.dispatch(resetPagestate());
   return result;
@@ -31,24 +31,24 @@ interface fetchSectionsParams {
 }
 
 type fetchSectionsResult = {
-  from: 'gridPagination' | 'carouselPagination';
+  from: "gridPagination" | "carouselPagination";
   result: responseInterface;
 };
 
 type fetchSectionsArgs = {
   params: fetchSectionsParams;
-  from: 'gridPagination' | 'carouselPagination';
+  from: "gridPagination" | "carouselPagination";
 };
 
 export const fetchSections = createAsyncThunk<
   fetchSectionsResult,
   fetchSectionsArgs
->('fetchSections', async (args, thunkAPI) => {
+>("fetchSections", async (args, thunkAPI) => {
   const { params, from } = args;
   const result = await getData(
-    '/service/api/v1/section/data',
+    "/service/api/v1/section/data",
     params,
-    thunkAPI.signal
+    thunkAPI.signal,
   );
   return { from, result };
 });
@@ -60,27 +60,31 @@ interface toogleLikeparams {
 export const toogleLike = createAsyncThunk<
   { result: responseInterface; path: string },
   toogleLikeparams
->('toggleLike', async (args) => {
+>("toggleLike", async (args) => {
   let result = await getData(`/service/api/auth/user/favourite/item`, {
     ...args,
   });
   return { result, path: args.path };
 });
 
-
-
-export const removeContinueWatching = createAsyncThunk<string,string>('removeContinueWatching',async (args)=>{
- await postData('/service/api/v1/delete/view/archive', { "viewType": "continue_watching", "pagePath":args })
-  return args
-})
+export const removeContinueWatching = createAsyncThunk<string, string>(
+  "removeContinueWatching",
+  async (args) => {
+    await postData("/service/api/v1/delete/view/archive", {
+      viewType: "continue_watching",
+      pagePath: args,
+    });
+    return args;
+  },
+);
 
 const initialState: pageState = {
-  loading: 'idle',
-  pagination: 'idle',
+  loading: "idle",
+  pagination: "idle",
   response: {
     sections: [],
     info: {
-      pageType:'content'
+      pageType: "content",
     },
     banners: [],
     content: [],
@@ -88,8 +92,8 @@ const initialState: pageState = {
     pageButtons: {},
     shareInfo: {},
     tabsInfo: {
-      hints: '',
-      selectTab: '',
+      hints: "",
+      selectTab: "",
       showTabs: false,
       tabs: [],
     },
@@ -98,7 +102,7 @@ const initialState: pageState = {
 };
 
 const pageSlice = createSlice({
-  name: 'pagedata',
+  name: "pagedata",
   initialState: initialState,
   reducers: {
     resetPagestate: () => {
@@ -109,16 +113,16 @@ const pageSlice = createSlice({
     builder
       .addCase(fetchPagedata.fulfilled, (state, { payload }) => {
         if (payload && payload.status === true) {
-          state.loading = 'succeeded';
+          state.loading = "succeeded";
         } else {
-          state.loading = 'failed';
+          state.loading = "failed";
           return;
         }
         state.response.banners = payload.response?.banners;
         state.response.info = payload.response?.info;
         let removetabs: string[] = [];
         payload.response?.data.map((data: any, index: number) => {
-          if (data.paneType === 'section') {
+          if (data.paneType === "section") {
             if (
               data.section.sectionData.data.length === 0 &&
               data.section.sectionData.hasMoreData === true &&
@@ -134,40 +138,38 @@ const pageSlice = createSlice({
 
             if (
               data.section.sectionData.params &&
-              data.section.sectionData.params.showOnPlayer === 'true'
+              data.section.sectionData.params.showOnPlayer === "true"
             ) {
               removetabs.push(data.section.sectionInfo.code);
             }
-          } else if (data.paneType === 'content') {
+          } else if (data.paneType === "content") {
             state.response.content.push(data);
           }
         });
         state.response.pageButtons = payload.response?.pageButtons;
         state.response.shareInfo = payload.response?.shareInfo;
         state.response.tabsInfo = payload.response?.tabsInfo;
-        let tabs = state.response.tabsInfo.tabs
-        tabs = tabs.filter(
-          (tab) => removetabs.indexOf(tab.code) <= -1
-        );
+        let tabs = state.response.tabsInfo.tabs;
+        tabs = tabs.filter((tab) => removetabs.indexOf(tab.code) <= -1);
         if (payload.response?.streamStatus) {
           state.response.streamStatus = payload.response?.streamStatus;
         }
       })
       .addCase(fetchPagedata.rejected, (state) => {
-        state.loading = 'failed';
+        state.loading = "failed";
       })
       .addCase(fetchPagedata.pending, (state) => {
-        state.loading = 'pending';
+        state.loading = "pending";
       })
       .addCase(fetchSections.fulfilled, (state, action) => {
         const { payload } = action;
         if (payload.result.status === true) {
-          state.pagination = 'succeeded';
+          state.pagination = "succeeded";
         } else {
-          state.pagination = 'failed';
+          state.pagination = "failed";
           return;
         }
-        if (payload.from === 'carouselPagination') {
+        if (payload.from === "carouselPagination") {
           payload.result.response.map((section: any, index: number) => {
             let sectiondata = state.response.paginationData[index].data;
             sectiondata.section.sectionData = section;
@@ -175,11 +177,11 @@ const pageSlice = createSlice({
           });
           state.response.paginationData =
             state.response.paginationData.slice(4);
-        } else if (payload.from === 'gridPagination') {
+        } else if (payload.from === "gridPagination") {
           state.response.sections.map((section) => {
             if (section.contentCode === payload.result.response[0].section) {
               section.section.sectionData.data.push(
-                ...payload.result.response[0].data
+                ...payload.result.response[0].data,
               );
               section.section.sectionData.hasMoreData =
                 payload.result.response[0].hasMoreData;
@@ -190,10 +192,10 @@ const pageSlice = createSlice({
         }
       })
       .addCase(fetchSections.rejected, (state) => {
-        state.pagination = 'failed';
+        state.pagination = "failed";
       })
       .addCase(fetchSections.pending, (state) => {
-        state.pagination = 'pending';
+        state.pagination = "pending";
       })
       .addCase(toogleLike.fulfilled, (state, action) => {
         const { payload } = action;
@@ -202,11 +204,11 @@ const pageSlice = createSlice({
             section.section.sectionData.data.map((card) => {
               if (card.target.path === payload.path) {
                 card.hover.elements.map((element) => {
-                  if (element.key === 'isFavourite') {
-                    if (element.value === 'false') {
-                      element.value = 'true';
+                  if (element.key === "isFavourite") {
+                    if (element.value === "false") {
+                      element.value = "true";
                     } else {
-                      element.value = 'false';
+                      element.value = "false";
                     }
                   }
                 });
@@ -217,20 +219,25 @@ const pageSlice = createSlice({
       })
       .addCase(toogleLike.pending, () => {})
       .addCase(toogleLike.rejected, () => {})
-      .addCase(removeContinueWatching.pending,()=>{})
-      .addCase(removeContinueWatching.fulfilled,(state,action:PayloadAction<string>)=>{
-        let sections = state.response.sections
-        console.log(action)
-        for(let i=0;i<sections.length;i++){
-          console.log(action)
-          if (sections[i].contentCode === "continue_watching") {
-            let cards = sections[i].section.sectionData.data
-            sections[i].section.sectionData.data = cards.filter((card)=>card.target.path !== action.payload)
-            break;
+      .addCase(removeContinueWatching.pending, () => {})
+      .addCase(
+        removeContinueWatching.fulfilled,
+        (state, action: PayloadAction<string>) => {
+          let sections = state.response.sections;
+          console.log(action);
+          for (let i = 0; i < sections.length; i++) {
+            console.log(action);
+            if (sections[i].contentCode === "continue_watching") {
+              let cards = sections[i].section.sectionData.data;
+              sections[i].section.sectionData.data = cards.filter(
+                (card) => card.target.path !== action.payload,
+              );
+              break;
+            }
           }
-        }
-      })
-      .addCase(removeContinueWatching.rejected,()=>{})
+        },
+      )
+      .addCase(removeContinueWatching.rejected, () => {});
   },
 });
 

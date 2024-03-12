@@ -1,6 +1,6 @@
-import axios, { AxiosInstance, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
-import appConfig from './app.config'
+import appConfig from "./app.config";
 // import { setupCache } from 'axios-cache-interceptor/dev';
 type axiostype = AxiosInstance;
 interface dynamicobject {
@@ -12,7 +12,6 @@ interface axiosgetparams {
   headers?: dynamicobject;
   signal?: AbortSignal;
 }
-
 
 export const Axios: axiostype = axios.create({
   baseURL: appConfig.endPoints.api,
@@ -40,7 +39,7 @@ export async function axiosget<T>(config: axiosgetparams): Promise<T> {
 
 export async function axiosPost<T>(
   config: axiosgetparams,
-  payload: any
+  payload: any,
 ): Promise<T> {
   let response: AxiosResponse<T> = await Axios.post<T>(config.url, payload, {
     headers: config.headers,

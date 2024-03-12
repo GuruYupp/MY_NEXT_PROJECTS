@@ -16,10 +16,9 @@ import {
   togglesearchSuggestions,
 } from "@/redux/feature/searchv3Slice/searchv3Slice";
 
-
 const Search: FC = () => {
-  const { showSections, activeTab, tabsdata ,searchtext} = useAppSelector(
-    (state) => state.searchv3
+  const { showSections, activeTab, tabsdata, searchtext } = useAppSelector(
+    (state) => state.searchv3,
   );
   const dispatch = useAppDispatch();
   const { query } = useRouter();
@@ -48,21 +47,24 @@ const Search: FC = () => {
   const getCards = () => {
     return (
       tabsdata.filter(
-        (tabdata) => tabdata.searchResults.sourceType === activeTab.code
+        (tabdata) => tabdata.searchResults.sourceType === activeTab.code,
       )[0]?.searchResults?.data || []
     );
   };
 
-  const getbucketErrormsg = ()=>{
+  const getbucketErrormsg = () => {
     let errormsg = tabsdata.filter(
-      (tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]?.error?.message
+      (tabdata) => tabdata.searchResults.sourceType === activeTab.code,
+    )[0]?.error?.message;
     return errormsg;
-  }
+  };
 
-  const searchPagination = ()=>{
-    let activetab = tabsdata.filter((tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]
-    if(activetab && activetab.lastSearchOrder === "typesense"){
-      let params={
+  const searchPagination = () => {
+    let activetab = tabsdata.filter(
+      (tabdata) => tabdata.searchResults.sourceType === activeTab.code,
+    )[0];
+    if (activetab && activetab.lastSearchOrder === "typesense") {
+      let params = {
         query: searchtext,
         // eslint-disable-next-line camelcase
         last_search_order: activetab.lastSearchOrder,
@@ -70,18 +72,18 @@ const Search: FC = () => {
         page_size: 30,
         bucket: activetab.searchResults.sourceType,
         // eslint-disable-next-line camelcase
-        last_doc: activetab.lastDoc
-      }
-      dispatch(searchBucketPagiation(params))
+        last_doc: activetab.lastDoc,
+      };
+      dispatch(searchBucketPagiation(params));
     }
-  }
+  };
 
-  const getPaginationStatus = ()=>{
-    
-    let activetab = tabsdata.filter((tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]
-    return activetab?.searchResults?.pagination
-    
-  }
+  const getPaginationStatus = () => {
+    let activetab = tabsdata.filter(
+      (tabdata) => tabdata.searchResults.sourceType === activeTab.code,
+    )[0];
+    return activetab?.searchResults?.pagination;
+  };
 
   return (
     <div className={`${styles.search_container}`}>
@@ -97,7 +99,9 @@ const Search: FC = () => {
               pagination={getPaginationStatus()}
             />
           ) : (
-              <h3 className={`${styles.search_error_msg}`}>{getbucketErrormsg()}</h3>
+            <h3 className={`${styles.search_error_msg}`}>
+              {getbucketErrormsg()}
+            </h3>
           )}
         </div>
       )}

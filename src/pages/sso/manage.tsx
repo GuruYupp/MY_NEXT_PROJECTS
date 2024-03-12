@@ -1,6 +1,6 @@
-import { GetServerSideProps } from 'next';
-import ErrorBoundary from '@/Errorboundary';
-import SsoLayout from '@/layouts/SsoLayout';
+import { GetServerSideProps } from "next";
+import ErrorBoundary from "@/Errorboundary";
+import SsoLayout from "@/layouts/SsoLayout";
 
 export default function SsoManagePage() {
   return (

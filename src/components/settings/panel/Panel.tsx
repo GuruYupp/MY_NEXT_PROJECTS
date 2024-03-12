@@ -1,5 +1,5 @@
-import { FC, ReactNode, useState } from 'react';
-import styles from './Panel.module.scss';
+import { FC, ReactNode, useState } from "react";
+import styles from "./Panel.module.scss";
 interface PanelPropsInterface {
   title?: string;
   toggle?: boolean;
@@ -37,20 +37,18 @@ const Panel: FC<PanelPropsInterface> = ({
   return (
     <div className={`${styles.pannel}`} onClick={handlePanelClick}>
       <h2
-        className={`${styles.title} ${expand ? styles.expand : ''} ${
+        className={`${styles.title} ${expand ? styles.expand : ""} ${
           toggle ? styles.show_arrow : styles.hide_arrow
         }`}
       >
-        {title || 'Panel title'}
+        {title || "Panel title"}
         {headerrightbutton && (
-          <button className={`${styles.btn}`}>
-            {headerrightbutton.text}
-          </button>
+          <button className={`${styles.btn}`}>{headerrightbutton.text}</button>
         )}
       </h2>
       <div
         className={`${styles.pannel_data_container} ${
-          expand ? styles.expand : ''
+          expand ? styles.expand : ""
         }`}
       >
         {render()}

@@ -26,10 +26,10 @@
         padding-bottom: 20px;
       }
 
-      @include breakpoint(mobile){
+      @include breakpoint(mobile) {
         font-size: 20px;
         position: fixed;
-        top:0px;
+        top: 0px;
         background-color: #222;
         width: 100%;
         margin: 0px;
@@ -39,21 +39,21 @@
         border: none;
       }
 
-      @include breakpoint(mobile-big-land){
+      @include breakpoint(mobile-big-land) {
         font-size: 19px;
       }
 
-      @include breakpoint(mobile-small){
+      @include breakpoint(mobile-small) {
         font-size: 18px;
       }
-      
-      @include breakpoint(mobile-common-land){
+
+      @include breakpoint(mobile-common-land) {
         font-size: 17px;
       }
 
-      .back_icon{
+      .back_icon {
         display: none;
-        @include breakpoint(mobile){
+        @include breakpoint(mobile) {
           display: inline-block;
           vertical-align: middle;
           height: 24px;
@@ -69,18 +69,18 @@
       display: flex;
 
       @include breakpoint(mobile) {
-       flex-direction: column;
-       border: none;
+        flex-direction: column;
+        border: none;
       }
 
       .left {
         width: 160px;
         margin-right: 20px;
         @include breakpoint(mobile) {
-          margin: 20px auto 40px;       
-          width:100px;   
+          margin: 20px auto 40px;
+          width: 100px;
         }
-  
+
         .profile_icon {
           width: 160px;
           height: 160px;
@@ -133,7 +133,6 @@
             font-weight: 700;
           }
         }
-   
 
         .restrictionContainer {
           padding: 28px 0 34px;
@@ -156,7 +155,6 @@
             color: #adadad;
           }
         }
-
       }
     }
     .btns {
@@ -170,7 +168,7 @@
       .btn {
         padding: 10px 0;
         border: none;
-        background: hsla(0, 0%, 100%, .15);
+        background: hsla(0, 0%, 100%, 0.15);
         width: 160px;
         text-align: center;
         color: #fff;
@@ -180,7 +178,7 @@
         position: relative;
         margin: 0 8px;
         height: 44px;
-        &.save_btn{
+        &.save_btn {
           background-color: $primary-color;
         }
       }

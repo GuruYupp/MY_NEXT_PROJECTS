@@ -9,7 +9,7 @@ import { postData } from "@/services/data.manager";
 import { createPortal } from "react-dom";
 import Languages from "@/components/languages/Languages";
 import Getotp from "@/components/Getotp/Getotp";
-import { getotpModalType } from "@/components/Getotp/getotptypes"
+import { getotpModalType } from "@/components/Getotp/getotptypes";
 import { updateProfile } from "@/redux/feature/userSlice/userSlice";
 import { ModalType } from "@/components/modals/modaltypes";
 import appConfig from "@/app.config";
@@ -33,12 +33,14 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
   const panelRef = useRef<HTMLDivElement>(null);
   const [showModal, setShowModal] = useState<ModalType>("");
-  const [otpModal,setOtpModal] = useState<getotpModalType>("")
+  const [otpModal, setOtpModal] = useState<getotpModalType>("");
   const dispatch = useAppDispatch();
-  const {userDetails} = useAppSelector(state=>state.user)
-  const profile = userDetails?.profileParentalDetails?.filter((profile) => profile.profileId === profileId)[0]
-  const showLanguagesPanel = appConfig.profile.languages
-  
+  const { userDetails } = useAppSelector((state) => state.user);
+  const profile = userDetails?.profileParentalDetails?.filter(
+    (profile) => profile.profileId === profileId,
+  )[0];
+  const showLanguagesPanel = appConfig.profile.languages;
+
   useMemo(() => {
     if (panelRef.current) {
       if (isActive) {
@@ -73,17 +75,17 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
   };
 
   const actionHandler = (
-    handlerType: "Language" | "Viewing Restrictions" | "Profile & Video Lock"
+    handlerType: "Language" | "Viewing Restrictions" | "Profile & Video Lock",
   ) => {
     switch (handlerType) {
       case "Language":
         handleLanguages();
         break;
       case "Profile & Video Lock":
-        handleOtp("Profile & Video Lock")
+        handleOtp("Profile & Video Lock");
         break;
       case "Viewing Restrictions":
-        handleOtp("Viewing Restrictions")
+        handleOtp("Viewing Restrictions");
         break;
       default:
         break;
@@ -100,11 +102,11 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
     setShowModal("languages");
   };
 
-  const handleOtp = (type:getotpModalType)=>{
+  const handleOtp = (type: getotpModalType) => {
     document.body.style.overflowY = "hidden";
-    setShowModal("getotp")
-    setOtpModal(type)
-  }
+    setShowModal("getotp");
+    setOtpModal(type);
+  };
 
   function updateLangugaes(data: any) {
     let codes = data
@@ -112,9 +114,9 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
       .map((data: any) => data.code);
     // console.log(profile)
     postData("/service/api/auth/update/user/profile", {
-      profileId:profile?.profileId,
+      profileId: profile?.profileId,
       langs: codes.join(","),
-      profileName:profile?.name
+      profileName: profile?.name,
     }).then((res) => {
       if (res.status === true) {
         // dispatch(updateUserProperty({ languages: codes.join(',') }));
@@ -124,9 +126,14 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
         //     properties: { langs: codes.join(',') },
         // })
         // );
-        dispatch(updateProfile({profileId:profile?.profileId,properties:{
-          langs: codes.join(",")
-        }}))
+        dispatch(
+          updateProfile({
+            profileId: profile?.profileId,
+            properties: {
+              langs: codes.join(","),
+            },
+          }),
+        );
       }
     });
   }
@@ -164,12 +171,14 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
           </div>
         </div>
         <div className={`${styles.pannel_data_container} `} ref={panelRef}>
-          {showLanguagesPanel && <ProfileParentalControlData
-            controlType="Language"
-            contentData={getLanguagesData()}
-            actionText={getLanguagesActionText()}
-            clickHandler={actionHandler}
-          />}
+          {showLanguagesPanel && (
+            <ProfileParentalControlData
+              controlType="Language"
+              contentData={getLanguagesData()}
+              actionText={getLanguagesActionText()}
+              clickHandler={actionHandler}
+            />
+          )}
           <ProfileParentalControlData
             controlType="Viewing Restrictions"
             contentData={profile?.profileRating || "All Maturity Settings"}
@@ -219,7 +228,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
               return getModal();
             }}
           />,
-          document.body
+          document.body,
         )}
     </>
   );

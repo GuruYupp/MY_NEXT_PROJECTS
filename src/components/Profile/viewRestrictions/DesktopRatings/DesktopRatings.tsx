@@ -5,7 +5,7 @@ const DesktopRatings: FC<DesktopRatingsInterface> = (props) => {
   const { profileRationgs, ratingClick, activeProfileRatingIndex } = props;
   const getratingState = (
     index: number,
-    acitveprofileIndex: number | undefined
+    acitveprofileIndex: number | undefined,
   ) => {
     if (acitveprofileIndex === undefined) return;
     if (index < acitveprofileIndex) {
@@ -27,7 +27,7 @@ const DesktopRatings: FC<DesktopRatingsInterface> = (props) => {
           <div
             className={`${styles.iconsContainer} ${getratingState(
               key,
-              activeProfileRatingIndex
+              activeProfileRatingIndex,
             )}`}
           >
             <div className={`${styles.default_icon}`}>

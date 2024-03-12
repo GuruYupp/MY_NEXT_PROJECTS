@@ -15,8 +15,8 @@ const UpdateDetailsInput: FC<
     props.name === "newemail"
       ? "New Email"
       : props.name === "newnumber"
-      ? "Mobile Number"
-      : "";
+        ? "Mobile Number"
+        : "";
 
   return (
     <label>

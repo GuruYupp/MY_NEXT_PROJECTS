@@ -11,10 +11,12 @@ interface playerPageMeta {
   tvguide: string;
   tvguide_target: string;
   pgrating: string;
-  cast: string
+  cast: string;
 }
 
-export function getPlayerpageMeta(content: pageState["response"]["content"]): playerPageMeta {
+export function getPlayerpageMeta(
+  content: pageState["response"]["content"],
+): playerPageMeta {
   let title = getfrompagedata(content, "title")?.data || "";
   let subtitle = getfrompagedata(content, "subtitle")?.data || "";
   let description = getfrompagedata(content, "description")?.data || "";
@@ -32,5 +34,14 @@ export function getPlayerpageMeta(content: pageState["response"]["content"]): pl
 
   let cast = getfrompagedata(content, "cast")?.data || "";
   cast = cast.split("|").join(",");
-  return { title, subtitle, description, content_img, tvguide, tvguide_target, pgrating, cast }
+  return {
+    title,
+    subtitle,
+    description,
+    content_img,
+    tvguide,
+    tvguide_target,
+    pgrating,
+    cast,
+  };
 }

@@ -1,12 +1,12 @@
-import { GetServerSideProps } from 'next';
-import ErrorBoundary from '@/Errorboundary';
-import MiscLayout from '@/layouts/MiscLayout';
+import { GetServerSideProps } from "next";
+import ErrorBoundary from "@/Errorboundary";
+import MiscLayout from "@/layouts/MiscLayout";
 
 export default function MiscPages() {
   return (
     <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
       {/* <Layout> */}
-        <MiscLayout />
+      <MiscLayout />
       {/* </Layout> */}
     </ErrorBoundary>
   );

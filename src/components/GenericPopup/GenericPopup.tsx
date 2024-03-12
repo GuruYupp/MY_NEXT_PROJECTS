@@ -1,8 +1,7 @@
-import styles from "./GenericPopup.module.scss"
+import styles from "./GenericPopup.module.scss";
 
-function GenericPopup(){
-  return <div className={`${styles.popup_container}`}>
-  </div>
+function GenericPopup() {
+  return <div className={`${styles.popup_container}`}></div>;
 }
 
-export default GenericPopup
+export default GenericPopup;

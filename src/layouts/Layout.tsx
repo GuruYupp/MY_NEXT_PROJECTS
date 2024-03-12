@@ -1,33 +1,33 @@
-import { ReactNode, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { Init } from '@/clientapis';
+import { ReactNode, useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Init } from "@/clientapis";
 import {
   addSystemConfigs,
   addSystemFeatures,
   setutUser,
-} from '@/redux/feature/configSlice/configSlice';
+} from "@/redux/feature/configSlice/configSlice";
 import {
   setActivepackages,
   setActiveprofile,
   setLoggedin,
-} from '@/redux/feature/userSlice/userSlice';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import Loading from '@/components/shared/Loading';
-import Header from '@/components/header/header';
-import Footer from '@/components/footer/footer';
-import { SSOParamsType } from '@/shared';
+} from "@/redux/feature/userSlice/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import Loading from "@/components/shared/Loading";
+import Header from "@/components/header/header";
+import Footer from "@/components/footer/footer";
+import { SSOParamsType } from "@/shared";
 
 function Layout({ children }: { children: ReactNode }) {
-  const { asPath,query,reload} = useRouter();
+  const { asPath, query, reload } = useRouter();
   const [isLoading, setLoading] = useState<boolean>(true);
-  const {isutUser} = useAppSelector((state)=>state.configs)
+  const { isutUser } = useAppSelector((state) => state.configs);
 
   const dispatch = useAppDispatch();
   useEffect(function () {
     let isrenderd = false;
     let ssoparams: SSOParamsType | undefined;
-    if(asPath.includes('sso/manage')){
-      ssoparams = query as SSOParamsType
+    if (asPath.includes("sso/manage")) {
+      ssoparams = query as SSOParamsType;
     }
     Init(ssoparams).then(({ systemConfigs, systemfeature }) => {
       if (
@@ -40,7 +40,7 @@ function Layout({ children }: { children: ReactNode }) {
         if (isrenderd == false) {
           dispatch(addSystemConfigs(systemConfigs.response));
           dispatch(addSystemFeatures(systemfeature.response.systemFeatures));
-          dispatch(setutUser())
+          dispatch(setutUser());
           dispatch(setLoggedin());
           dispatch(setActiveprofile());
           dispatch(setActivepackages());
@@ -54,9 +54,18 @@ function Layout({ children }: { children: ReactNode }) {
     };
   }, []);
 
-
-  const isheaderShown = () => (!asPath.includes("sign") && (!asPath.includes("profiles") || asPath.includes("profiles/profile-lock")) && !asPath.includes("change-password") && isutUser !== true)
-  const isfooterShown = () => (!asPath.includes("sign") && (!asPath.includes("profiles") || asPath.includes("profiles/profile-lock")) && !asPath.includes("change-password") && isutUser !== true)
+  const isheaderShown = () =>
+    !asPath.includes("sign") &&
+    (!asPath.includes("profiles") ||
+      asPath.includes("profiles/profile-lock")) &&
+    !asPath.includes("change-password") &&
+    isutUser !== true;
+  const isfooterShown = () =>
+    !asPath.includes("sign") &&
+    (!asPath.includes("profiles") ||
+      asPath.includes("profiles/profile-lock")) &&
+    !asPath.includes("change-password") &&
+    isutUser !== true;
 
   return (
     <Loading showLoading={isLoading}>

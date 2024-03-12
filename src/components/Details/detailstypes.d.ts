@@ -14,6 +14,6 @@ export type DetailsActionButtonPropsType = {
   | { type: "watchnow" }
   | { type: "trailer" }
   | { type: "rent" }
-  | { type: "favorite", isFavourite:boolean}
+  | { type: "favorite"; isFavourite: boolean }
   | { type: "share" }
 );

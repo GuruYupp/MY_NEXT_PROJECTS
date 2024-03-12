@@ -1,16 +1,17 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import styles from "./EditProfile.module.scss";
 import { EditProfileFormType } from "./editprofiletypes";
-import EditProfileInput, {  EditProfileRadioInput } from "./EditProfileInput";
+import EditProfileInput, { EditProfileRadioInput } from "./EditProfileInput";
 import { useAppSelector } from "@/redux/hooks";
 import { DevTool } from "@hookform/devtools";
 import { postData } from "@/services/data.manager";
 import { useRouter } from "next/router";
 
-
 const EditProfile = () => {
-  const { userDetails } = useAppSelector((state) => state.user)
-  const { formState, control,handleSubmit} = useForm<EditProfileFormType>({defaultValues:{gender:userDetails?.gender || ''}});
+  const { userDetails } = useAppSelector((state) => state.user);
+  const { formState, control, handleSubmit } = useForm<EditProfileFormType>({
+    defaultValues: { gender: userDetails?.gender || "" },
+  });
 
   const router = useRouter();
 
@@ -20,34 +21,36 @@ const EditProfile = () => {
   //   });
   // }, []);
 
-  const isAtLeastOneFieldTouched = ()=> Object.keys(formState.touchedFields).length > 0
-  
+  const isAtLeastOneFieldTouched = () =>
+    Object.keys(formState.touchedFields).length > 0;
 
-  const onSubmit: SubmitHandler<EditProfileFormType> = async (formData)=>{
-    if(!isAtLeastOneFieldTouched()) return;
-    const {age,name,gender} = formData
+  const onSubmit: SubmitHandler<EditProfileFormType> = async (formData) => {
+    if (!isAtLeastOneFieldTouched()) return;
+    const { age, name, gender } = formData;
     let postData = {
-      age:age.toString(),
+      age: age.toString(),
       // eslint-disable-next-line camelcase
       first_name: name,
       // eslint-disable-next-line camelcase
-      last_name: '',
-      gender: gender
+      last_name: "",
+      gender: gender,
+    };
+    updateUserDetails(postData);
+  };
+
+  const updateUserDetails = async (payload: unknown) => {
+    let updateresponse = await postData(
+      "/service/api/auth/update/preference",
+      payload,
+    );
+    if (updateresponse.status === true) {
+      router.replace("/settings");
     }
-    updateUserDetails(postData)
-  }
+  };
 
-  const updateUserDetails = async (payload:unknown)=>{
-    let updateresponse = await postData("/service/api/auth/update/preference", payload)
-    if(updateresponse.status === true){
-      router.replace('/settings')
-    }
-  }
-
-  const handleCancel = ()=>{
-    router.replace('/settings')
-  }
-
+  const handleCancel = () => {
+    router.replace("/settings");
+  };
 
   return (
     <div className={`${styles.editprofile_container}`}>
@@ -97,7 +100,7 @@ const EditProfile = () => {
                   // }}
                   shouldUnregister={true}
                   control={control}
-                  defaultValue={userDetails?.phoneNumber?.split('-')[1]}
+                  defaultValue={userDetails?.phoneNumber?.split("-")[1]}
                 />
                 {formState.errors.number && (
                   <p className={`${styles.input_error_msg}`}>
@@ -107,13 +110,15 @@ const EditProfile = () => {
               </div>
             </div>
 
-            <div className={`${styles.input_container} ${styles.age_input_container}`}>
+            <div
+              className={`${styles.input_container} ${styles.age_input_container}`}
+            >
               <EditProfileInput
                 name="age"
                 rules={{
                   required: "This is required",
                   validate: (value, _formvalues) => {
-                    if (value as number < 18) {
+                    if ((value as number) < 18) {
                       return "Age must be at least 18.";
                     }
                   },
@@ -121,7 +126,6 @@ const EditProfile = () => {
                 shouldUnregister={true}
                 control={control}
                 defaultValue={userDetails?.age || 0}
-                
               />
               {formState.errors.age && (
                 <p className={`${styles.input_error_msg}`}>
@@ -136,25 +140,32 @@ const EditProfile = () => {
                 control={control}
                 name="gender"
                 defaultValue="M"
-                
               />
               <EditProfileRadioInput
                 control={control}
                 name="gender"
                 defaultValue="F"
-                
               />
               <EditProfileRadioInput
                 control={control}
                 name="gender"
                 defaultValue="O"
-                
               />
             </div>
 
             <div className={`${styles.editprofile_btns}`}>
-              <button className={`${styles.btn} ${styles.cancel}`} onClick={handleCancel}>Cancel</button>
-              <button type="submit" className={`${styles.btn} ${styles.submit}`}>Submit</button>
+              <button
+                className={`${styles.btn} ${styles.cancel}`}
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className={`${styles.btn} ${styles.submit}`}
+              >
+                Submit
+              </button>
             </div>
 
             {/* <div
@@ -166,12 +177,13 @@ const EditProfile = () => {
                 handleDate={handleDate}
               />
             </div> */}
-
           </div>
         </form>
-        <p className={`${styles.info}`}>Note: The fields marked with * mark are mandatory.</p>
+        <p className={`${styles.info}`}>
+          Note: The fields marked with * mark are mandatory.
+        </p>
       </div>
-      <DevTool control={control}/>
+      <DevTool control={control} />
     </div>
   );
 };

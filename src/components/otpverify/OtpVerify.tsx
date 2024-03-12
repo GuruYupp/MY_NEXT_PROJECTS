@@ -10,7 +10,12 @@ import { postData } from "@/services/data.manager";
 import appConfig from "@/app.config";
 
 const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
-  const { verifydata, sendDatatoComponent, closeModal, backgroundnone =false } = props;
+  const {
+    verifydata,
+    sendDatatoComponent,
+    closeModal,
+    backgroundnone = false,
+  } = props;
 
   const { register, formState, handleSubmit } = useForm<OtpVerifyFormType>();
 
@@ -90,12 +95,16 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
     if (verifydata.context === "signup") {
       verifyotpresponse = await postData(
         "/service/api/auth/signup/complete",
-        payload
+        payload,
       );
-    } else if (verifydata.context === "signin" || verifydata.context === "update_email" || verifydata.context === "update_mobile") {
+    } else if (
+      verifydata.context === "signin" ||
+      verifydata.context === "update_email" ||
+      verifydata.context === "update_mobile"
+    ) {
       verifyotpresponse = await postData(
         "/service/api/auth/verify/otp",
-        payload
+        payload,
       );
     }
     console.log(verifyotpresponse);
@@ -112,7 +121,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
         //   verifydata.context === "signup" ||
         //   verifydata.context === "signin"
         // ) {
-          sendDatatoComponent({ from: "otpverify", data: verifyotpresponse });
+        sendDatatoComponent({ from: "otpverify", data: verifyotpresponse });
         // }
       }
       closeModal();
@@ -122,7 +131,6 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
   const sendOtp = async (type: "send" | "resend") => {
     let payload;
     let url;
-
 
     if (type === "resend") {
       url = "/service/api/auth/resend/otp";
@@ -148,18 +156,16 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
         };
         url = "service/api/auth/update/email";
       }
-      if(verifydata.context === "update_mobile"){
-        payload ={
-          mobile:verifydata.number
-        }
-        url = "service/api/auth/update/mobile"
+      if (verifydata.context === "update_mobile") {
+        payload = {
+          mobile: verifydata.number,
+        };
+        url = "service/api/auth/update/mobile";
       }
     }
     if (!url) return;
 
-
-
-    const otpresponse = await postData(url,payload);
+    const otpresponse = await postData(url, payload);
     if (otpresponse.status === true) {
       otpTimer.current.resendTime = otpresponse.response.resendTime;
       setSuccessmsg(otpresponse.response.message);
@@ -185,11 +191,16 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
   };
 
   return (
-    <div className={`${styles.otpverify_wrapper} ${!backgroundnone ? styles.showbackground : ''}`}>
+    <div
+      className={`${styles.otpverify_wrapper} ${!backgroundnone ? styles.showbackground : ""}`}
+    >
       <div className={`${styles.otp_container}`}>
         <div className={`${styles.otp_container_inner}`}>
           <span className={`${styles.otpverify_close}`} onClick={closeModal}>
-            <img alt="close" src={`${appConfig.cloudpath}/images/lan-popup-close.png`}></img>
+            <img
+              alt="close"
+              src={`${appConfig.cloudpath}/images/lan-popup-close.png`}
+            ></img>
           </span>
           <p className={`${styles.title}`}>Enter One Time Passcode</p>
           <p className={`${styles.subtitle}`}>{verifydata.message}</p>
@@ -239,14 +250,16 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
               </div>
             </label>
 
-            {verifydata.email && (verifydata.context === "signin" || verifydata.context === "signup") && (
-              <p
-                className={`${styles.change_text}`}
-                onClick={handlechangeEmail}
-              >
-                Change Email Id
-              </p>
-            )}
+            {verifydata.email &&
+              (verifydata.context === "signin" ||
+                verifydata.context === "signup") && (
+                <p
+                  className={`${styles.change_text}`}
+                  onClick={handlechangeEmail}
+                >
+                  Change Email Id
+                </p>
+              )}
           </form>
         </div>
       </div>

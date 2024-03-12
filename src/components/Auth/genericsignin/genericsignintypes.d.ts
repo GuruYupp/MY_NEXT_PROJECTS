@@ -1,1 +1,5 @@
-export type SingnInFormType = { password: string; email: string; number: string };
+export type SingnInFormType = {
+  password: string;
+  email: string;
+  number: string;
+};

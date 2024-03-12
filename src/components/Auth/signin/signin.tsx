@@ -1,15 +1,18 @@
-import styles from './signin.module.scss';
-import { useForm } from 'react-hook-form';
-import { default as clientCookie } from 'js-cookie';
-import { useRouter } from 'next/router';
-import getConfig from 'next/config';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { useEffect, useState, KeyboardEvent, useRef, FormEvent } from 'react';
-import { getData, postData } from '@/services/data.manager';
-import Loading from '../../shared/Loading';
-import { createPortal } from 'react-dom';
-import Toast from '@/components/toasts/Toast';
-import { setActivepackages, setLoggedin } from '@/redux/feature/userSlice/userSlice';
+import styles from "./signin.module.scss";
+import { useForm } from "react-hook-form";
+import { default as clientCookie } from "js-cookie";
+import { useRouter } from "next/router";
+import getConfig from "next/config";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useEffect, useState, KeyboardEvent, useRef, FormEvent } from "react";
+import { getData, postData } from "@/services/data.manager";
+import Loading from "../../shared/Loading";
+import { createPortal } from "react-dom";
+import Toast from "@/components/toasts/Toast";
+import {
+  setActivepackages,
+  setLoggedin,
+} from "@/redux/feature/userSlice/userSlice";
 
 let appConfig = getConfig().publicRuntimeConfig.appconfig;
 
@@ -35,38 +38,38 @@ type otptimerType = {
 export const SignIn = (): JSX.Element => {
   const router = useRouter();
   const { register, formState, getValues } = useForm<IFormInput>({
-    mode: 'onChange',
+    mode: "onChange",
     defaultValues: {
       termsText: true,
       promotionText: true,
-      otp: '',
-      mobileNumber: '7780715079',
+      otp: "",
+      mobileNumber: "7780715079",
     },
   });
 
   const { isLoggedin } = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState<boolean>(true);
 
   // const [countryCodes, setCountryCodes] = useState<countryCodesInterface[]>([]);
-  const [referenceId, setReferenceId] = useState<string>('');
-  const [referenceKey, setReferenceKey] = useState<string>('');
-  const [logincontext, setLogincontext] = useState<string>('');
+  const [referenceId, setReferenceId] = useState<string>("");
+  const [referenceKey, setReferenceKey] = useState<string>("");
+  const [logincontext, setLogincontext] = useState<string>("");
   const [showToast, setShowToast] = useState<boolean>(false);
-  const [toastmsg, setToastMsg] = useState<string>('');
+  const [toastmsg, setToastMsg] = useState<string>("");
   const toastTimer = useRef<ReturnType<typeof setTimeout>>();
   const otpTimer = useRef<otptimerType>({ timerId: undefined, resendTime: 0 });
-  const [otpText, setOtpText] = useState<string>('');
+  const [otpText, setOtpText] = useState<string>("");
 
   const { systemConfigs } = useAppSelector((state) => state.configs);
 
   const signinPageInfo = JSON.parse(
-    systemConfigs.configs?.signinPageInfo || `{}`
+    systemConfigs.configs?.signinPageInfo || `{}`,
   );
 
   const enteronlyNumber = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.code === 'Backspace') return true;
-    if (!(e.code.indexOf('Digit') > -1)) {
+    if (e.code === "Backspace") return true;
+    if (!(e.code.indexOf("Digit") > -1)) {
       e.preventDefault();
     }
     return;
@@ -82,7 +85,7 @@ export const SignIn = (): JSX.Element => {
 
   const startResendTimer = () => {
     if (otpTimer.current?.timerId) {
-      setOtpText('Resend OTP');
+      setOtpText("Resend OTP");
       clearInterval(otpTimer.current.timerId);
     }
 
@@ -91,7 +94,7 @@ export const SignIn = (): JSX.Element => {
       setOtpText(timerMs(otpTimer.current.resendTime - count));
       count = count + 1;
       if (otpTimer.current.resendTime && count >= otpTimer.current.resendTime) {
-        setOtpText('Resend OTP');
+        setOtpText("Resend OTP");
         clearInterval(otpTimer.current.timerId);
         otpTimer.current.timerId = undefined;
       }
@@ -101,55 +104,53 @@ export const SignIn = (): JSX.Element => {
   const getOtp = async () => {
     let mobileNumber: string = getValues().mobileNumber;
     let payload = {
-      context: 'login',
-      mobile: '91' + mobileNumber,
+      context: "login",
+      mobile: "91" + mobileNumber,
     };
-    const otpResponse = await postData('service/api/auth/get/otp', payload);
+    const otpResponse = await postData("service/api/auth/get/otp", payload);
     if (otpResponse.error?.code === -4) {
       let payload = {
         mobile: `91${mobileNumber}`,
-        password: '123456',
+        password: "123456",
         // eslint-disable-next-line camelcase
         additional_params: {
           isOptedForPromotions: `${getValues().promotionText}`,
         },
       };
       const signupResponse = await postData(
-        'service/api/auth/signup/validate',
-        payload
+        "service/api/auth/signup/validate",
+        payload,
       );
       if (otpTimer.current?.timerId) {
-        setOtpText('Resend OTP');
+        setOtpText("Resend OTP");
         clearInterval(otpTimer.current.timerId);
       }
       if (signupResponse.status === true) {
         if (signupResponse.response?.details) {
-          setReferenceKey(
-            signupResponse.response?.details?.referenceKey || ''
-          );
-          setLogincontext(signupResponse.response?.details?.context || '');
+          setReferenceKey(signupResponse.response?.details?.referenceKey || "");
+          setLogincontext(signupResponse.response?.details?.context || "");
         }
       } else {
-        console.log('signup response failed...');
+        console.log("signup response failed...");
       }
     } else if (otpResponse.error?.code === 401) {
-      clientCookie.remove('boxId');
-      clientCookie.remove('tenantCode');
-      clientCookie.remove('sessionId');
-      clientCookie.remove('isLoggedin');
+      clientCookie.remove("boxId");
+      clientCookie.remove("tenantCode");
+      clientCookie.remove("sessionId");
+      clientCookie.remove("isLoggedin");
       window.location.reload();
     } else {
       otpTimer.current.resendTime = otpResponse.response.resendTime;
       startResendTimer();
-      setReferenceId(otpResponse.response.referenceId || '');
-      setLogincontext(otpResponse.response.context || '');
+      setReferenceId(otpResponse.response.referenceId || "");
+      setLogincontext(otpResponse.response.context || "");
     }
   };
 
   const handleverifyClick = () => {
     getOtp()
       .then(() => {
-        console.log('verify click done..');
+        console.log("verify click done..");
       })
       .catch((err) => {
         console.error(err);
@@ -159,11 +160,11 @@ export const SignIn = (): JSX.Element => {
   const handleverifyOtp = async () => {
     let { otp, mobileNumber, promotionText } = getValues();
     if (otp) {
-      if (logincontext === 'login') {
+      if (logincontext === "login") {
         let payload = {
           // eslint-disable-next-line camelcase
           login_id: `91${mobileNumber}`,
-          manufacturer: '123',
+          manufacturer: "123",
           // eslint-disable-next-line camelcase
           login_mode: 2,
           // eslint-disable-next-line camelcase
@@ -174,42 +175,45 @@ export const SignIn = (): JSX.Element => {
           },
         };
         const signinResponse = await postData(
-          '/service/api/auth/v1/signin',
-          payload
+          "/service/api/auth/v1/signin",
+          payload,
         );
         if (signinResponse.status === true) {
-          localStorage.removeItem('systemconfigs');
-          localStorage.removeItem('systemfeature');
-          localStorage.setItem('isLoggedin', 'true');
+          localStorage.removeItem("systemconfigs");
+          localStorage.removeItem("systemfeature");
+          localStorage.setItem("isLoggedin", "true");
 
           const userPackages = await getData(
-            'service/api/auth/user/activepackages'
+            "service/api/auth/user/activepackages",
           );
           if (userPackages.status === true) {
             localStorage.setItem(
-              'activePackages',
-              JSON.stringify(userPackages.response)
+              "activePackages",
+              JSON.stringify(userPackages.response),
             );
             dispatch(setActivepackages());
           }
-          const userInfo = await getData('/service/api/auth/user/info');
+          const userInfo = await getData("/service/api/auth/user/info");
           if (userInfo.status === true) {
             localStorage.setItem(
-              'userDetails',
-              JSON.stringify(userInfo.response)
+              "userDetails",
+              JSON.stringify(userInfo.response),
             );
-            dispatch(setLoggedin())
-            router.push('/profiles/select-user-profile');
+            dispatch(setLoggedin());
+            router.push("/profiles/select-user-profile");
           }
-        } else if (signinResponse.error?.code === -3 || signinResponse.error ?.message) {
+        } else if (
+          signinResponse.error?.code === -3 ||
+          signinResponse.error?.message
+        ) {
           setToastMsg(signinResponse.error.message);
           setShowToast(true);
           toastTimer.current = setTimeout(() => {
-            setToastMsg('');
+            setToastMsg("");
             setShowToast(false);
           }, 5000);
         }
-      } else if (logincontext === 'signup') {
+      } else if (logincontext === "signup") {
         let payload = {
           otp: Number(otp),
           // eslint-disable-next-line camelcase
@@ -217,30 +221,30 @@ export const SignIn = (): JSX.Element => {
         };
 
         const signupResponse = await postData(
-          '/service/api/auth/signup/complete',
-          payload
+          "/service/api/auth/signup/complete",
+          payload,
         );
         if (signupResponse.status === true) {
-          localStorage.removeItem('systemconfigs');
-          localStorage.removeItem('systemfeature');
-          localStorage.setItem('isLoggedin', 'true');
+          localStorage.removeItem("systemconfigs");
+          localStorage.removeItem("systemfeature");
+          localStorage.setItem("isLoggedin", "true");
 
           const userPackages = await getData(
-            'service/api/auth/user/activepackages'
+            "service/api/auth/user/activepackages",
           );
           if (userPackages.status === true) {
             localStorage.setItem(
-              'activePackages',
-              JSON.stringify(userPackages.response)
+              "activePackages",
+              JSON.stringify(userPackages.response),
             );
           }
 
           if (signupResponse.response?.userDetails) {
             localStorage.setItem(
-              'userDetails',
-              JSON.stringify(signupResponse.response?.userDetails)
+              "userDetails",
+              JSON.stringify(signupResponse.response?.userDetails),
             );
-            router.push('/add-profile-name');
+            router.push("/add-profile-name");
           }
         }
       }
@@ -254,23 +258,21 @@ export const SignIn = (): JSX.Element => {
 
   useEffect(() => {
     if (isLoggedin) {
-      router.replace('/profiles/select-user-profile');
+      router.replace("/profiles/select-user-profile");
       return;
     } else {
       setLoading(false);
-      getData('/service/api/v1/get/country').then((data) => {
+      getData("/service/api/v1/get/country").then((data) => {
         if (data.status === true && data.response.length > 0) {
           // setCountryCodes([...data.response]);
-         
         } else if (data?.status == false && data?.error?.code == 401) {
-          clientCookie.remove('boxId');
-          clientCookie.remove('tenantCode');
-          clientCookie.remove('sessionId');
-          clientCookie.remove('isLoggedin');
+          clientCookie.remove("boxId");
+          clientCookie.remove("tenantCode");
+          clientCookie.remove("sessionId");
+          clientCookie.remove("isLoggedin");
           window.location.reload();
         } else {
-          
-          console.log('failed....');
+          console.log("failed....");
         }
       });
     }
@@ -329,7 +331,7 @@ export const SignIn = (): JSX.Element => {
                     >
                       <div className={`${styles.input} ${styles.mobile}`}>
                         <input
-                          {...register('mobileNumber', {})}
+                          {...register("mobileNumber", {})}
                           type="text"
                           placeholder="Enter Number"
                           maxLength={10}
@@ -350,7 +352,7 @@ export const SignIn = (): JSX.Element => {
                   <div className={`${styles.inputContainer}`}>
                     <div className={`${styles.input} ${styles.otp}`}>
                       <input
-                        {...register('otp', {})}
+                        {...register("otp", {})}
                         type="text"
                         placeholder="Enter OTP"
                         maxLength={4}
@@ -373,7 +375,7 @@ export const SignIn = (): JSX.Element => {
                   <label>
                     <input
                       type="checkbox"
-                      {...register('termsText', { required: true })}
+                      {...register("termsText", { required: true })}
                     />
                     -=
                     <div className={`${styles.checkbox_container}`}>
@@ -384,7 +386,7 @@ export const SignIn = (): JSX.Element => {
                         <p>{signinPageInfo.termsText}</p>
                       </div>
                     </div>
-                    {formState.errors?.termsText?.type === 'required' && (
+                    {formState.errors?.termsText?.type === "required" && (
                       <p className={`${styles.errorText}`}>
                         TermsText required
                       </p>
@@ -394,7 +396,7 @@ export const SignIn = (): JSX.Element => {
                   <label>
                     <input
                       type="checkbox"
-                      {...register('promotionText', { required: true })}
+                      {...register("promotionText", { required: true })}
                     />
                     <div className={`${styles.checkbox_container}`}>
                       <span className={`${styles.checkbox}`}></span>
@@ -404,7 +406,7 @@ export const SignIn = (): JSX.Element => {
                         <p>{signinPageInfo.promotionText}</p>
                       </div>
                     </div>
-                    {formState.errors?.promotionText?.type === 'required' && (
+                    {formState.errors?.promotionText?.type === "required" && (
                       <p className={`${styles.errorText}`}>
                         PromotionText required
                       </p>

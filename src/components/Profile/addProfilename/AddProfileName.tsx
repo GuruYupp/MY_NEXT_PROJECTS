@@ -10,52 +10,59 @@ interface AddProfileNameForm {
 }
 function AddProfileName() {
   const { userDetails } = useAppSelector((state) => state.user);
-  const {systemConfigs:{contentLanguages}} = useAppSelector((state)=>state.configs)
-  const {replace} = useRouter()
+  const {
+    systemConfigs: { contentLanguages },
+  } = useAppSelector((state) => state.configs);
+  const { replace } = useRouter();
 
-  const { register, formState,watch ,getValues} = useForm<AddProfileNameForm>({
-    mode: "onChange",
-    defaultValues: {
-      name: "",
+  const { register, formState, watch, getValues } = useForm<AddProfileNameForm>(
+    {
+      mode: "onChange",
+      defaultValues: {
+        name: "",
+      },
     },
-  });
+  );
 
-  const watchname = watch("name")
+  const watchname = watch("name");
 
- 
-  const getMasterProfile = ()=>{
-    return userDetails?.profileParentalDetails?.filter((profile)=>profile.isMasterProfile)
-  }
+  const getMasterProfile = () => {
+    return userDetails?.profileParentalDetails?.filter(
+      (profile) => profile.isMasterProfile,
+    );
+  };
 
-  const getSelectedLangs = ()=>{
-    let codes:string[] = []
-    contentLanguages?.map((lang)=>{
-      codes.push(lang.code)
-    })
-    return codes
-  }
+  const getSelectedLangs = () => {
+    let codes: string[] = [];
+    contentLanguages?.map((lang) => {
+      codes.push(lang.code);
+    });
+    return codes;
+  };
 
-  const handleSubmit = async (e:FormEvent)=>{
-    e.preventDefault()
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
     let MatserProfile = getMasterProfile() || [];
     let payload = {
-      'profileName': `${getValues().name}`,
-      'profileId': MatserProfile[0]?.profileId,
-      'isChildren': MatserProfile[0]?.isChildren,
-      "isProfileLockActive": MatserProfile[0].isProfileLockActive,
-      "langs": getSelectedLangs().join(',')
-    }
+      profileName: `${getValues().name}`,
+      profileId: MatserProfile[0]?.profileId,
+      isChildren: MatserProfile[0]?.isChildren,
+      isProfileLockActive: MatserProfile[0].isProfileLockActive,
+      langs: getSelectedLangs().join(","),
+    };
 
-    const addprofileres = await postData('/service/api/auth/update/user/profile', payload)
-    if (addprofileres.status === true){
-      const userinfo = await getData("/service/api/auth/user/info")
+    const addprofileres = await postData(
+      "/service/api/auth/update/user/profile",
+      payload,
+    );
+    if (addprofileres.status === true) {
+      const userinfo = await getData("/service/api/auth/user/info");
       if (userinfo.status === true) {
         localStorage.setItem("userDetails", JSON.stringify(userinfo.response));
         replace("/profiles/select-user-profile");
       }
     }
-
-  }
+  };
 
   return (
     <div className={`${styles.add_profile_container}`}>
@@ -70,17 +77,23 @@ function AddProfileName() {
           <form onSubmit={handleSubmit}>
             <div className={`${styles.input_container}`}>
               <label className={`${styles.label}`}>Your profile Name</label>
-              <input {...(register("name",{required:true,minLength:4}))} />
+              <input {...register("name", { required: true, minLength: 4 })} />
             </div>
             <div className={`${styles.messages}`}>
-              {(formState.errors.name?.type === "required") && <span className={`${styles.error}`}>name is required</span>}
-              {(formState.errors.name?.type === "minLength") && <span className={`${styles.error}`}>name should be minumum 4 letters</span>}
+              {formState.errors.name?.type === "required" && (
+                <span className={`${styles.error}`}>name is required</span>
+              )}
+              {formState.errors.name?.type === "minLength" && (
+                <span className={`${styles.error}`}>
+                  name should be minumum 4 letters
+                </span>
+              )}
             </div>
-            
+
             <button
               type="submit"
               className={`${styles.continue_btn}`}
-              disabled={(!watchname || watchname.length<4)}
+              disabled={!watchname || watchname.length < 4}
             >
               Continue
             </button>

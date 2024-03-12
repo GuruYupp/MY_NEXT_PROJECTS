@@ -13,9 +13,8 @@ export type ModalType =
   | "mobileratings"
   | "";
 
-
 export interface ModalPropsInterface {
-  withWrapper?:boolean
+  withWrapper?: boolean;
   modalType: ModalType;
-  render: (arg: ModalType) => ReactNode
+  render: (arg: ModalType) => ReactNode;
 }

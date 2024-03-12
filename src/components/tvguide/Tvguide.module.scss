@@ -108,11 +108,11 @@
           overflow-x: hidden;
           position: relative;
           @include breakpoint(tablet-portrait) {
-              overflow-x: scroll;
-              &::-webkit-scrollbar {
-                  display: none;
-              }
+            overflow-x: scroll;
+            &::-webkit-scrollbar {
+              display: none;
             }
+          }
 
           .times {
             // position: relative;

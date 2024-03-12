@@ -1,22 +1,22 @@
-@import '@/_var.scss';
-.otpcontainer{
+@import "@/_var.scss";
+.otpcontainer {
   margin-top: 20px;
   margin-bottom: 26px;
-  @include breakpoint(tablet){
+  @include breakpoint(tablet) {
     display: flex;
     justify-content: center;
   }
-.inputStyle {
-  width: 50px !important;
-  height: 50px;
-  padding: 0;
-  margin-right: 5px;
-  text-align: center;
-  border: 1px solid #444;
-  border-radius: 5px;
-  background: #1f1e1e;
-  color: #fff;
-  outline: none;
-  font-size: 16px;
-}
+  .inputStyle {
+    width: 50px !important;
+    height: 50px;
+    padding: 0;
+    margin-right: 5px;
+    text-align: center;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background: #1f1e1e;
+    color: #fff;
+    outline: none;
+    font-size: 16px;
+  }
 }

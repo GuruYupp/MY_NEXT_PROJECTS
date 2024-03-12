@@ -1,4 +1,4 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 .pannel {
   background-color: #282828;
   position: relative;
@@ -17,7 +17,7 @@
     }
     &.show_arrow {
       &::after {
-        content: '';
+        content: "";
         border: solid #fff;
         border-width: 0 3px 3px 0;
         display: inline-block;

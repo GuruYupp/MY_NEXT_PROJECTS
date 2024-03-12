@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styles from "./ViewRestrictions.module.scss";
 import { getAbsolutPath } from "@/utils";
 
-import {  useCallback, useEffect, useReducer, useState } from "react";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import viewRestrictionReducer, {
   fetchProfileRatings,
   profileRationgsPending,
@@ -33,14 +33,14 @@ import appConfig from "@/app.config";
 
 function ViewRestrictions() {
   const { query, back } = useRouter();
-  const { enableRestrictionpage,apivalidtoken } = useAppSelector(
-    (state) => state.pagerestrictions
+  const { enableRestrictionpage, apivalidtoken } = useAppSelector(
+    (state) => state.pagerestrictions,
   );
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const { userDetails } = useAppSelector((state) => state.user);
   const [cstate, cdispatch] = useReducer(
     viewRestrictionReducer,
-    viewRestrictionReducer.getInitialState()
+    viewRestrictionReducer.getInitialState(),
   );
 
   const [ratingsbarType, setRatingsbarType] = useState<
@@ -50,7 +50,7 @@ function ViewRestrictions() {
   const defaultprofileimg =
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
   let Profile = userDetails?.profileParentalDetails?.filter(
-    (profile) => profile.profileId?.toString() === query.userId
+    (profile) => profile.profileId?.toString() === query.userId,
   )[0];
 
   let ProfileImage: string = Profile?.imageUrl
@@ -69,7 +69,7 @@ function ViewRestrictions() {
           if (unmount === false) {
             cdispatch(profileRationgsFulfiled(ratings));
             cdispatch(
-              setActiveprofileRatingsIndex(Profile?.profileRatingId || -1)
+              setActiveprofileRatingsIndex(Profile?.profileRatingId || -1),
             );
           }
         }
@@ -97,7 +97,7 @@ function ViewRestrictions() {
     return () => {
       unmount = true;
       window.removeEventListener("resize", handleresizeEvent);
-      dispatch(resetViewRestrictions())
+      dispatch(resetViewRestrictions());
     };
   }, []);
 
@@ -117,74 +117,81 @@ function ViewRestrictions() {
     cdispatch(setActiveprofileRatingsIndex(id));
   }, []);
 
-  const handleSearchQuery = useCallback((query:string)=>{
-    console.log(query.length,'----')
-    if(query.length < 3){
-      cdispatch(queryContentsEmpty())
-      return
+  const handleSearchQuery = useCallback((query: string) => {
+    console.log(query.length, "----");
+    if (query.length < 3) {
+      cdispatch(queryContentsEmpty());
+      return;
     }
-    cdispatch(queryContentsPending())
-    fetchContents({query:query}).then((response)=>{
-      if(response.status === true){
-        let contents = response.response?.data as viewRestrictionInterface['queryContents']
-        cdispatch(queryContentsFulfiled(contents))
-      }
-    }).catch(err=>{
-      cdispatch(queryContentsRejected(err))
-    })
-  },[])
+    cdispatch(queryContentsPending());
+    fetchContents({ query: query })
+      .then((response) => {
+        if (response.status === true) {
+          let contents = response.response
+            ?.data as viewRestrictionInterface["queryContents"];
+          cdispatch(queryContentsFulfiled(contents));
+        }
+      })
+      .catch((err) => {
+        cdispatch(queryContentsRejected(err));
+      });
+  }, []);
 
-  const handleSuggestionClick = useCallback((suggestiondata:{id:string,name:string,category:string})=>{
-    cdispatch(addblockedContent(suggestiondata))
-  },[])
+  const handleSuggestionClick = useCallback(
+    (suggestiondata: { id: string; name: string; category: string }) => {
+      cdispatch(addblockedContent(suggestiondata));
+    },
+    [],
+  );
 
-  const handleRemoveblockedContent = useCallback((id:string)=>{
-    cdispatch(removeblockedContent(id))
-  },[])
+  const handleRemoveblockedContent = useCallback((id: string) => {
+    cdispatch(removeblockedContent(id));
+  }, []);
 
   if (enableRestrictionpage === false) {
     back();
   }
 
-  const updateviewRestrictions = async (payload:any)=>{
-    try{
-      const response = await postData('/service/api/auth/update/view/restrictions',payload)
-      if(response.status === true){
+  const updateviewRestrictions = async (payload: any) => {
+    try {
+      const response = await postData(
+        "/service/api/auth/update/view/restrictions",
+        payload,
+      );
+      if (response.status === true) {
         back();
+      } else {
       }
-      else{
+    } catch (err) {}
+  };
 
-      }
-    }
-    catch(err){
-
-    }
-  }
-
-  const handleSavebtn=()=>{
-    const {activeProfileRating,blockedContents} = cstate
-    let blockedItems:{category:string,itemIds:string}[] = []
-    blockedContents.map(({category,itemsMap})=>{
-      blockedItems.push({category,itemIds:Object.keys(itemsMap).join(',')})
-    })
-    let payload={
+  const handleSavebtn = () => {
+    const { activeProfileRating, blockedContents } = cstate;
+    let blockedItems: { category: string; itemIds: string }[] = [];
+    blockedContents.map(({ category, itemsMap }) => {
+      blockedItems.push({ category, itemIds: Object.keys(itemsMap).join(",") });
+    });
+    let payload = {
       blockedItems,
-      context:"userprofiles",
-      profileId:Profile?.profileId,
-      ratingsId:activeProfileRating.id,
-      token:apivalidtoken
-    }
-    updateviewRestrictions(payload)
-  }
-
+      context: "userprofiles",
+      profileId: Profile?.profileId,
+      ratingsId: activeProfileRating.id,
+      token: apivalidtoken,
+    };
+    updateviewRestrictions(payload);
+  };
 
   return (
     <div className={`${styles.parenatal_container}`}>
       <div className={`${styles.inner}`}>
         <div className={`${styles.header}`}>
-          <img src={`${appConfig.staticImagesPath}back.svg`} alt="back-icon" className={`${styles.back_icon}`}/>
+          <img
+            src={`${appConfig.staticImagesPath}back.svg`}
+            alt="back-icon"
+            className={`${styles.back_icon}`}
+          />
           Viewing Restrictions
-          </div>
+        </div>
         <div className={`${styles.body}`}>
           <div className={`${styles.left}`}>
             <div className={`${styles.profile_icon}`}>
@@ -222,14 +229,23 @@ function ViewRestrictions() {
                 Don’t show specific titles for this profile regardless of
                 Maturity Rating
               </p>
-              <TitleRestrictions {...cstate} handleSearch={handleSearchQuery} handleSuggestion={handleSuggestionClick} handleRemoveContent={handleRemoveblockedContent}/>
+              <TitleRestrictions
+                {...cstate}
+                handleSearch={handleSearchQuery}
+                handleSuggestion={handleSuggestionClick}
+                handleRemoveContent={handleRemoveblockedContent}
+              />
             </div>
-
           </div>
         </div>
         <div className={`${styles.btns}`}>
-            <button className={`${styles.btn}`}>Cancel</button>
-            <button className={`${styles.btn} ${styles.save_btn}`} onClick={handleSavebtn}>Save</button>
+          <button className={`${styles.btn}`}>Cancel</button>
+          <button
+            className={`${styles.btn} ${styles.save_btn}`}
+            onClick={handleSavebtn}
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>

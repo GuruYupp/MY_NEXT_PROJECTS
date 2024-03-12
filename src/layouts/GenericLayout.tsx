@@ -16,7 +16,7 @@ function useGetPage() {
       // console.log('hello....')
       let arr = asPath.split("/");
       arr.shift();
-      if(asPath.indexOf("search") > -1){
+      if (asPath.indexOf("search") > -1) {
         arr = [arr.join("").split("?")[0]];
       }
       let targetPath = arr.join("/") == "" ? "home" : arr.join("/");
@@ -34,7 +34,7 @@ function useGetPage() {
             clientCookie.remove("boxId");
             clientCookie.remove("tenantCode");
             clientCookie.remove("sessionId");
-            clientCookie.remove('isLoggedin');
+            clientCookie.remove("isLoggedin");
             window.location.reload();
           }
           return response;
@@ -47,7 +47,7 @@ function useGetPage() {
         dispatch(resetPagestate());
       };
     },
-    [asPath, activeProfile]
+    [asPath, activeProfile],
   );
   return [];
 }

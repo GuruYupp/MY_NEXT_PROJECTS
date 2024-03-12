@@ -1,9 +1,14 @@
-import { useEffect,useRef,useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./Grid.module.scss";
-import  Card  from "../card/card";
+import Card from "../card/card";
 import { cardDimentionsForResponsive } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { cardInterface, searchv1Interface, searchv3Interface, sectionInterface } from "@/shared";
+import {
+  cardInterface,
+  searchv1Interface,
+  searchv3Interface,
+  sectionInterface,
+} from "@/shared";
 import { default as clientCookie } from "js-cookie";
 import { useRouter } from "next/router";
 import { fetchSections } from "@/redux/feature/pageSlice/pageSlice";
@@ -13,9 +18,9 @@ interface GridTableProps {
   section: sectionInterface;
 }
 export function GridTable(props: GridTableProps) {
-  const { section} = props;
-  const {pagination} = useAppSelector(state=>state.pageData);
-  const paginationreq = useRef<any>()
+  const { section } = props;
+  const { pagination } = useAppSelector((state) => state.pageData);
+  const paginationreq = useRef<any>();
   const cards = section?.section?.sectionData?.data || [];
   const cardType = cards.length > 0 ? cards[0].cardType : "overlay_poster";
   const dispatch = useAppDispatch();
@@ -41,19 +46,24 @@ export function GridTable(props: GridTableProps) {
 
   useEffect(() => {
     let scrollfunc = () => {
-      if ((document.documentElement.scrollHeight -
-        window.innerHeight -
-        window.scrollY < 300) && (pagination !== "pending" && pagination !== "failed")) {
+      if (
+        document.documentElement.scrollHeight -
+          window.innerHeight -
+          window.scrollY <
+          300 &&
+        pagination !== "pending" &&
+        pagination !== "failed"
+      ) {
         if (section.section.sectionData.hasMoreData === true) {
           sectionpagination();
         }
       }
-    }
-    window.addEventListener('scroll', scrollfunc);
+    };
+    window.addEventListener("scroll", scrollfunc);
     return () => {
-      window.removeEventListener('scroll', scrollfunc)
-    }
-  }, [pagination])
+      window.removeEventListener("scroll", scrollfunc);
+    };
+  }, [pagination]);
 
   const sectionpagination = () => {
     let arr = asPath.split("/");
@@ -62,27 +72,31 @@ export function GridTable(props: GridTableProps) {
     let params = {
       path: targetPath,
       offset: section.section.sectionData.lastIndex,
-      code: section.section.sectionData.section
-    }
-    
-    const paginationpromise =  dispatch(fetchSections({
-      from: "gridPagination",
-      params,
-    }))
+      code: section.section.sectionData.section,
+    };
 
-    paginationreq.current = paginationpromise
-    
+    const paginationpromise = dispatch(
+      fetchSections({
+        from: "gridPagination",
+        params,
+      }),
+    );
+
+    paginationreq.current = paginationpromise;
+
     paginationpromise.unwrap().then(({ result }) => {
-      if (result.response?.status == false && result.response?.error?.code == 401) {
+      if (
+        result.response?.status == false &&
+        result.response?.error?.code == 401
+      ) {
         clientCookie.remove("boxId");
         clientCookie.remove("tenantCode");
         clientCookie.remove("sessionId");
-        clientCookie.remove('isLoggedin');
+        clientCookie.remove("isLoggedin");
         window.location.reload();
       }
-    })
-  }
-
+    });
+  };
 
   const setSectionconfigs = () => {
     if (elementRef.current) {
@@ -99,13 +113,15 @@ export function GridTable(props: GridTableProps) {
           <Card cardDetails={card} />
         </div>
       ))}
-      {pagination === "pending" && <ShimmerSection/>}
+      {pagination === "pending" && <ShimmerSection />}
     </div>
   );
-} 
+}
 
 export default function Grid() {
-  const { sections,banners,tabsInfo} = useAppSelector(state=>state.pageData.response);
+  const { sections, banners, tabsInfo } = useAppSelector(
+    (state) => state.pageData.response,
+  );
 
   let sectionInfo;
   if (sections[0].section && sections[0].section.sectionInfo) {
@@ -113,15 +129,18 @@ export default function Grid() {
   }
 
   return (
-    <div className={`${styles.Grid_container}` + (banners.length == 0 ? ` ${styles.noBanners}` : '')} >
-      {(sectionInfo && !tabsInfo.showTabs) && (
+    <div
+      className={
+        `${styles.Grid_container}` +
+        (banners.length == 0 ? ` ${styles.noBanners}` : "")
+      }
+    >
+      {sectionInfo && !tabsInfo.showTabs && (
         <div className={`${styles.section_info}`}>
           <span className={`${styles.title}`}>{sectionInfo.name}</span>
         </div>
       )}
-      {
-        sections.length > 0 && (<GridTable section={sections[0]}/>)
-      }
+      {sections.length > 0 && <GridTable section={sections[0]} />}
     </div>
   );
 }
@@ -129,11 +148,13 @@ export default function Grid() {
 interface SearchGridProps {
   cards: cardInterface[];
   searchPaginationHandler?: () => void;
-  pagination?:searchv3Interface["tabsdata"][0]["searchResults"]["pagination"] | searchv1Interface["pagination"]
+  pagination?:
+    | searchv3Interface["tabsdata"][0]["searchResults"]["pagination"]
+    | searchv1Interface["pagination"];
 }
-export function SearchGrid(props:SearchGridProps){
-  const { cards, pagination ,searchPaginationHandler} = props
- 
+export function SearchGrid(props: SearchGridProps) {
+  const { cards, pagination, searchPaginationHandler } = props;
+
   const cardType = cards.length > 0 ? cards[0].cardType : "overlay_poster";
   // const { asPath } = useRouter();
   const elementRef = useRef<HTMLDivElement>(null);
@@ -149,29 +170,30 @@ export function SearchGrid(props:SearchGridProps){
       resizeObserver.observe(elementRef.current);
     }
     return () => {
-      
       resizeObserver.disconnect();
     };
   }, []);
 
   useEffect(() => {
-    if(!pagination) return;
+    if (!pagination) return;
 
     let scrollfunc = () => {
-      if ((document.documentElement.scrollHeight -
-        window.innerHeight -
-        window.scrollY < 300) && (pagination !== "pending" && pagination !== "rejected")) {
-        if (searchPaginationHandler) searchPaginationHandler()
+      if (
+        document.documentElement.scrollHeight -
+          window.innerHeight -
+          window.scrollY <
+          300 &&
+        pagination !== "pending" &&
+        pagination !== "rejected"
+      ) {
+        if (searchPaginationHandler) searchPaginationHandler();
       }
-    }
-    window.addEventListener('scroll', scrollfunc);
+    };
+    window.addEventListener("scroll", scrollfunc);
     return () => {
-      window.removeEventListener('scroll', scrollfunc)
-    }
-  }, [pagination])
-
-
-
+      window.removeEventListener("scroll", scrollfunc);
+    };
+  }, [pagination]);
 
   const setSectionconfigs = () => {
     if (elementRef.current) {

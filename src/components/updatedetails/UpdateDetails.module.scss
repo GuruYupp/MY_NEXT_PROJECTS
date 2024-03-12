@@ -1,10 +1,10 @@
 @import "@/_var.scss";
 .updatedetails_wrapper {
-     width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: 1;
   .updatedetails_container {
     padding: 20px;
@@ -20,11 +20,11 @@
       padding: 10px;
     }
 
-    &.show{
+    &.show {
       opacity: 1;
     }
 
-    &.hide{
+    &.hide {
       opacity: 0;
     }
 

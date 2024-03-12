@@ -1,4 +1,4 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 
 .menus {
   margin-left: 20px;
@@ -17,7 +17,6 @@
 
     .displayText {
       font-size: 14px;
-
     }
 
     .submenus {
@@ -62,11 +61,11 @@
     &.active {
       border-bottom: 2px solid $primary-color;
       color: #fff;
-      opacity: 1
+      opacity: 1;
     }
 
-    &:hover{
-    opacity: 1;
+    &:hover {
+      opacity: 1;
     }
   }
 
@@ -82,19 +81,18 @@
       position: absolute;
       bottom: 28px;
       right: 0px;
-      transition: all .5s;
+      transition: all 0.5s;
       transform: rotate(-45deg);
       -webkit-transform: rotate(45deg);
       padding: 3px;
       opacity: 0.65;
     }
-    &:hover{
-      &::after{
+    &:hover {
+      &::after {
         opacity: 1;
         transform: rotate(-135deg);
         -webkit-transform: rotate(-135deg);
       }
     }
   }
-
 }

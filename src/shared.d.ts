@@ -18,7 +18,7 @@ export interface responseInterface {
     type: string;
     message: string;
     details: any;
-    actionCode?:number
+    actionCode?: number;
   };
 }
 
@@ -63,22 +63,22 @@ export interface bannerInterface {
 }
 
 export type typeofcardType =
-  | 'expands_poster'
-  | 'overlay_poster'
-  | 'sheet_poster'
-  | 'expand_poster'
-  | 'content_poster'
-  | 'circle_poster'
-  | 'expand_roller_poster'
-  | 'roller_poster'
-  | 'square_poster'
-  | 'promo_poster'
-  | 'overlayIcon_poster';
+  | "expands_poster"
+  | "overlay_poster"
+  | "sheet_poster"
+  | "expand_poster"
+  | "content_poster"
+  | "circle_poster"
+  | "expand_roller_poster"
+  | "roller_poster"
+  | "square_poster"
+  | "promo_poster"
+  | "overlayIcon_poster";
 
-export type templateType = 'channel_overlay' | 'tvguide_overlay' | "";
+export type templateType = "channel_overlay" | "tvguide_overlay" | "";
 
 export interface pageAttributesInterface {
-  isDeeplinking?: 'false' | 'true';
+  isDeeplinking?: "false" | "true";
   tvShowName?: string;
   ContentAccessErrorMessage?: string;
   genre?: string;
@@ -89,11 +89,11 @@ export interface pageAttributesInterface {
   RentErrorMessage?: string;
   RentAndSubscribeErrorMessag?: string;
   targetMenuCode?: string;
-  'pgRatingTitle<condition>{pgRating}!='?: string;
+  "pgRatingTitle<condition>{pgRating}!="?: string;
   contentType?: string;
   payType?: string;
   creditsStartTime?: string;
-  showNextButton?: 'false' | 'true';
+  showNextButton?: "false" | "true";
   mediaContentType?: string;
   SubscribeErrorMessage?: string;
   networkName?: string;
@@ -166,7 +166,7 @@ export interface sectionInterface {
       section: string;
       lastIndex: number;
       params?: {
-        showOnPlayer: 'true' | 'false';
+        showOnPlayer: "true" | "false";
       };
     };
   };
@@ -174,7 +174,7 @@ export interface sectionInterface {
 
 export interface seoInterface {
   title?: string;
-  description?:string;
+  description?: string;
   keywords?: string;
   metaTags?: {
     tagType?: string;
@@ -219,7 +219,7 @@ export interface contentInterface {
   };
 }
 
-export interface pageTabInterface{
+export interface pageTabInterface {
   code: string;
   infiniteScroll: boolean;
   sectionCodes: string | string[];
@@ -227,8 +227,8 @@ export interface pageTabInterface{
 }
 
 export interface pageState {
-  loading: 'idle' | 'pending' | 'succeeded' | 'failed';
-  pagination: 'idle' | 'pending' | 'succeeded' | 'failed';
+  loading: "idle" | "pending" | "succeeded" | "failed";
+  pagination: "idle" | "pending" | "succeeded" | "failed";
   response: {
     banners: bannerInterface[];
     sections: sectionInterface[];
@@ -251,7 +251,7 @@ export interface pageState {
       hints: string;
       selectTab: string;
       showTabs: boolean;
-      tabs:pageTabInterface[];
+      tabs: pageTabInterface[];
     };
     streamStatus: streamStatusInterface;
   };
@@ -461,7 +461,7 @@ export interface streamStatusInterface {
 }
 
 export interface streamDataIterface {
-  streamapiloading: 'idle' | 'pending' | 'succeeded' | 'failed';
+  streamapiloading: "idle" | "pending" | "succeeded" | "failed";
   response: {
     analyticsInfo?: {
       contentType?: string;
@@ -548,8 +548,8 @@ export interface channelsDataInterface {
 
 export interface tvguidestateInterface {
   title: string;
-  channelsIdState: 'pending' | 'failed' | 'succeeded' | 'idle';
-  channelsdataState: 'pending' | 'failed' | 'succeeded' | 'idle';
+  channelsIdState: "pending" | "failed" | "succeeded" | "idle";
+  channelsdataState: "pending" | "failed" | "succeeded" | "idle";
   channelIds: channelInterface[];
   paginationchannelIds: channelInterface[];
   channelsData: channelsDataInterface[];
@@ -621,79 +621,78 @@ export interface plansInterface {
   gracePeriod: string;
 }
 
-
 //search page interfaces
 export interface v3bucketsInterface {
-  lastDoc: string
-  lastSearchOrder: "typesense" | "done"
+  lastDoc: string;
+  lastSearchOrder: "typesense" | "done";
   searchResults: {
-    sourceType: string
-    displayName: string
-    count: number
-    data: cardInterface[]
-    pagination: "pending" | "idle" | "fulfilled" | "rejected"
-  }
-  error?:{
-    code?:number;
-    message?:string;
-    details?:{};
-    type?:string;
-  }
-}
-
-export interface v1bucketsInterface {
-  searchResults: {
-    sourceType: string
-    displayName: string
-    count: number
-    data: cardInterface[]
-  }
+    sourceType: string;
+    displayName: string;
+    count: number;
+    data: cardInterface[];
+    pagination: "pending" | "idle" | "fulfilled" | "rejected";
+  };
   error?: {
     code?: number;
     message?: string;
     details?: {};
     type?: string;
-  }
+  };
+}
+
+export interface v1bucketsInterface {
+  searchResults: {
+    sourceType: string;
+    displayName: string;
+    count: number;
+    data: cardInterface[];
+  };
+  error?: {
+    code?: number;
+    message?: string;
+    details?: {};
+    type?: string;
+  };
 }
 
 export interface searchtabInterface {
-  displayName: string
-  code: string
+  displayName: string;
+  code: string;
 }
 
-export interface searchv3Interface{
-  searchtext: string
+export interface searchv3Interface {
+  searchtext: string;
   suggestions: {
-    isloading: "pending" | "idle" | "fulfilled" | "rejected"
-    data: string[]
-    error: any
-    show: boolean
-  }
-  showSections: boolean
-  activeTab: searchtabInterface
-  tabsdata: v3bucketsInterface[]
-  searchResultstate: "pending" | "idle" | "fulfilled" | "rejected"
+    isloading: "pending" | "idle" | "fulfilled" | "rejected";
+    data: string[];
+    error: any;
+    show: boolean;
+  };
+  showSections: boolean;
+  activeTab: searchtabInterface;
+  tabsdata: v3bucketsInterface[];
+  searchResultstate: "pending" | "idle" | "fulfilled" | "rejected";
 }
 
 export interface searchv1Interface {
-  searchtext: string
+  searchtext: string;
   suggestions: {
-    isloading: "pending" | "idle" | "fulfilled" | "rejected"
-    data: string[]
-    error: any
-    show: boolean
-  }
-  showSections: boolean
-  activeTab: searchtabInterface
-  tabsdata: v1bucketsInterface[]
-  searchResultstate: "pending" | "idle" | "fulfilled" | "rejected"
-  pagination: 'idle' | 'pending' | 'succeeded' | 'failed';
-  pagesize: number,
+    isloading: "pending" | "idle" | "fulfilled" | "rejected";
+    data: string[];
+    error: any;
+    show: boolean;
+  };
+  showSections: boolean;
+  activeTab: searchtabInterface;
+  tabsdata: v1bucketsInterface[];
+  searchResultstate: "pending" | "idle" | "fulfilled" | "rejected";
+  pagination: "idle" | "pending" | "succeeded" | "failed";
+  pagesize: number;
 }
 
 export type SSOParamsType = {
-  ut:ReturnType<typeof encodeURI>
-}
+  ut: ReturnType<typeof encodeURI>;
+};
 
 export type profileRatingType = {
   name: string;

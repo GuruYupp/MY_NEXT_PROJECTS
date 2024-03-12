@@ -1,12 +1,12 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 
 .title_wrapper {
   padding: 0px 15px;
   cursor: pointer;
   p {
-    @include ellipse
+    @include ellipse;
   }
-  &.no_program{
-    cursor:not-allowed;
+  &.no_program {
+    cursor: not-allowed;
   }
 }

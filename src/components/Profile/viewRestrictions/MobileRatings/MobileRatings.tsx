@@ -6,34 +6,36 @@ import { createPortal } from "react-dom";
 import { MobileRatingsInterface } from "../viewRestrictiontypes";
 import { ModalType } from "@/components/modals/modaltypes";
 
-const MobileRatings:FC<MobileRatingsInterface> = (props) => {
-
-  const [showModal, setShowModal] = useState<ModalType>('');
-  const handleClick = ()=>{
-    setShowModal('mobileratings')
-  }
+const MobileRatings: FC<MobileRatingsInterface> = (props) => {
+  const [showModal, setShowModal] = useState<ModalType>("");
+  const handleClick = () => {
+    setShowModal("mobileratings");
+  };
 
   const handlecloseModal = () => {
-    setShowModal('');
+    setShowModal("");
   };
-  
+
   return (
     <Fragment>
-    <div className={`${styles.mobile_ratings_container}`} onClick={handleClick}>
-      Select Rating  ALL MATURITY RATINGS
-      <span className={`${styles.arrow}`}></span>
-      
-    </div>
-    {showModal && createPortal(
-      <Modal
-        withWrapper={false}
-        modalType={showModal}
-        render={() => {
-          return <BottomRatings {...props} closeModal={handlecloseModal}/>;
-        }}
-      />,
-      document.body
-    )}
+      <div
+        className={`${styles.mobile_ratings_container}`}
+        onClick={handleClick}
+      >
+        Select Rating ALL MATURITY RATINGS
+        <span className={`${styles.arrow}`}></span>
+      </div>
+      {showModal &&
+        createPortal(
+          <Modal
+            withWrapper={false}
+            modalType={showModal}
+            render={() => {
+              return <BottomRatings {...props} closeModal={handlecloseModal} />;
+            }}
+          />,
+          document.body,
+        )}
     </Fragment>
   );
 };

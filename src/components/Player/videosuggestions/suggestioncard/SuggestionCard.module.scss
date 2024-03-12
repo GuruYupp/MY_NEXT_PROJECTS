@@ -1,40 +1,40 @@
-@import '@/_var.scss';
-.suggestionCard_container{
+@import "@/_var.scss";
+.suggestionCard_container {
   display: flex;
   margin: 0 0 10px 15px;
   justify-content: center;
   align-items: center;
-  .suggestionCard_Img{
+  .suggestionCard_Img {
     max-width: 160px;
-    img{
+    img {
       width: 100%;
     }
   }
-  .suggestionCard_meta{
+  .suggestionCard_meta {
     width: calc(100% - 206px);
     padding-left: 10px;
-    .suggestionCard_title{
-        font-size: 14px;
-        color: #fff;
-        display: block;
-        font-weight: 500;
-        line-height: 1.2;
-        @include ellipse;
+    .suggestionCard_title {
+      font-size: 14px;
+      color: #fff;
+      display: block;
+      font-weight: 500;
+      line-height: 1.2;
+      @include ellipse;
     }
-    .suggestionCard_subtitle{
+    .suggestionCard_subtitle {
       font-size: 12px;
-      color: hsla(0, 0%, 100%, .7);
+      color: hsla(0, 0%, 100%, 0.7);
       font-weight: 400;
       line-height: 1.5;
     }
   }
-  .suggestionCard_logo{
+  .suggestionCard_logo {
     width: 46px;
     height: 46px;
     margin-right: 10px;
-    img{
+    img {
       height: 100%;
-      width:100%;
+      width: 100%;
     }
   }
 }

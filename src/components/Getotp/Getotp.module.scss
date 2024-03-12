@@ -1,4 +1,4 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 .get_otp_container {
   height: 512px;
   width: 528px;
@@ -7,7 +7,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, 14%);
-  @include breakpoint(mobile){
+  @include breakpoint(mobile) {
     width: 100%;
     height: auto;
     padding: 20px;
@@ -21,7 +21,7 @@
     background: #262626;
     border: 0;
     border-radius: 4px;
-    @include breakpoint(mobile){
+    @include breakpoint(mobile) {
       padding: 50px 20px 20px;
     }
     .get_otp_close {
@@ -56,7 +56,7 @@
           width: 80px;
           height: 80px;
         }
-        img{
+        img {
           height: 100%;
           width: 100%;
           vertical-align: middle;
@@ -98,54 +98,55 @@
         text-align: center;
       }
 
-      .otp_input_container{
+      .otp_input_container {
         border: 1px solid #555;
-          position: relative;
-          padding: 11px 15px;
-          border-radius: 4px;
-          margin-bottom: 20px;
-            margin-top: 40px;
-          -moz-border-radius: 4px;
-          -webkit-border-radius: 4px;
-          transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-          .otp_input{
-            padding: 0 100px 0 0;
-              border: none;
-              color: #fff;
-              font-size: 16px;
-              outline: none;
-              background: none;
-              width: 100%;
-              height: inherit;
-              font-weight: 400;
-              line-height: 1.5;
-                
-          }
-          .otp_input_toggel{
-            position: absolute;
-              cursor: default;
-              color: #888;
-              font-size: 14px;
-              right: 15px;
-              top: 12px;
-              cursor: pointer;
-          }
+        position: relative;
+        padding: 11px 15px;
+        border-radius: 4px;
+        margin-bottom: 20px;
+        margin-top: 40px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+        transition:
+          border-color 0.15s ease-in-out,
+          box-shadow 0.15s ease-in-out;
+        .otp_input {
+          padding: 0 100px 0 0;
+          border: none;
+          color: #fff;
+          font-size: 16px;
+          outline: none;
+          background: none;
+          width: 100%;
+          height: inherit;
+          font-weight: 400;
+          line-height: 1.5;
+        }
+        .otp_input_toggel {
+          position: absolute;
+          cursor: default;
+          color: #888;
+          font-size: 14px;
+          right: 15px;
+          top: 12px;
+          cursor: pointer;
+        }
       }
-      .otp_msg{
+      .otp_msg {
         display: inline-block;
         width: 100%;
-        
-        &.success{
+
+        &.success {
           text-align: center;
           font-size: 0.875em;
-          color:green;
+          color: green;
         }
-        &.failmsg{
+        &.failmsg {
           text-align: center;
           font-size: 0.875em;
           color: red;
         }
-        &.error{
+        &.error {
           font-size: 12px;
           color: red;
           position: absolute;
@@ -160,12 +161,12 @@
       bottom: 30px;
       left: 0;
       right: 0;
-      @include breakpoint(mobile){
+      @include breakpoint(mobile) {
         position: relative;
         bottom: 0px;
         margin-top: 60px;
       }
-    .get_otp_footer_btns {
+      .get_otp_footer_btns {
         text-align: center;
         display: flex;
         align-items: center;
@@ -178,26 +179,25 @@
           text-align: center;
           color: #fff;
           border: none;
-          background: hsla(0, 0%, 100%, .15);
+          background: hsla(0, 0%, 100%, 0.15);
           outline: none;
           margin: 0px 8px;
-    
+
           &:nth-child(2) {
             background: $primary-color;
             color: #fff;
-    
+
             &:disabled {
-              opacity: .5;
+              opacity: 0.5;
               cursor: not-allowed;
             }
           }
-    
+
           @include breakpoint(mac) {
             // font-size: 14px;
           }
         }
       }
     }
-
   }
 }

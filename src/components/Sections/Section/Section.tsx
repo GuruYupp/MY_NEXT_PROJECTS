@@ -1,4 +1,4 @@
-import Card  from "@/components/card/card";
+import Card from "@/components/card/card";
 import styles from "./Section.module.scss";
 import { memo, useEffect, useRef, useState } from "react";
 import { cardDimentionsForResponsive, debunceFunction } from "@/utils";
@@ -16,7 +16,6 @@ function Section({ section }: any): JSX.Element {
     sectionControls = section.section.sectionControls;
   }
 
-
   const cards = section?.section?.sectionData?.data || [];
   const cardType = cards.length > 0 && cards[0].cardType;
 
@@ -25,22 +24,18 @@ function Section({ section }: any): JSX.Element {
 
   const [enablearrows, setEnablearrows] = useState<boolean>(false);
   const [enablerightarrow, setEnablerightarrow] = useState<boolean>(false);
-  const [enableviewall,setEnableviewall] = useState<boolean>(false);
+  const [enableviewall, setEnableviewall] = useState<boolean>(false);
   const [enableleftarrow, setEnableleftarrow] = useState<boolean>(false);
   const [carouselWidth, setCarouselWidth] = useState<string>("100%");
- 
+
   const [cardWidth, setCardWidth] = useState<string>("0px");
-  
-
-
 
   // console.log(proxy_sections);
-  
 
   useEffect(() => {
     // console.log('rendering,,,,,')
     if (carouselRef.current === null) return;
-    setSectionconfigs()
+    setSectionconfigs();
     let debouncFunc = debunceFunction(setSectionconfigs, 500);
     const resizeObserver = new ResizeObserver(() => {
       debouncFunc();
@@ -49,40 +44,35 @@ function Section({ section }: any): JSX.Element {
     return () => {
       resizeObserver.disconnect();
     };
-
   }, []);
 
   const setSectionconfigs = () => {
+    if (carouselRef.current) {
+      const cardConfigs = cardDimentionsForResponsive(cardType);
 
-    if(carouselRef.current){
-    const cardConfigs = cardDimentionsForResponsive(cardType);
-
-    let cardwidth = 100 / Math.floor(cardConfigs.cardCount); 
+      let cardwidth = 100 / Math.floor(cardConfigs.cardCount);
 
       let carouselwidth = cardwidth * cards.length;
 
-      if (carouselwidth > 100){
-      cardwidth = 100 / cards.length ;
-      if (cardConfigs.cardCount < cards.length ){
-        setEnablearrows(true);
-        setEnablerightarrow(true);
+      if (carouselwidth > 100) {
+        cardwidth = 100 / cards.length;
+        if (cardConfigs.cardCount < cards.length) {
+          setEnablearrows(true);
+          setEnablerightarrow(true);
+        }
+      } else {
+        carouselwidth = 100;
+        setEnablearrows(false);
       }
-    }
-    else{
-      carouselwidth = 100
-      setEnablearrows(false);
-    }
 
-    setCarouselWidth(`${carouselwidth}%`);
-    setCardWidth(`${cardwidth}%`);
+      setCarouselWidth(`${carouselwidth}%`);
+      setCardWidth(`${cardwidth}%`);
 
-    if(Math.floor(cardConfigs.cardCount) >= cards.length){
-      setEnableviewall(false);
-    }
-    else{
-      setEnableviewall(true)
-    }
-
+      if (Math.floor(cardConfigs.cardCount) >= cards.length) {
+        setEnableviewall(false);
+      } else {
+        setEnableviewall(true);
+      }
     }
   };
 
@@ -94,38 +84,40 @@ function Section({ section }: any): JSX.Element {
   const handleScrollTo = (to: "left" | "right") => {
     if (sliderRef.current !== null) {
       if (to === "left") {
-        let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
+        let currentmarginleft = Math.abs(
+          percTonumber(sliderRef.current.style.marginLeft),
+        );
         let sliderwidth = percTonumber(sliderRef.current.style.width);
-        console.log(sliderwidth - (currentmarginleft + 100))
-        if ((sliderwidth - (currentmarginleft + 100) - 100) <= 100){
-          sliderRef.current.style.marginLeft = `-${sliderwidth - 100}%`
+        console.log(sliderwidth - (currentmarginleft + 100));
+        if (sliderwidth - (currentmarginleft + 100) - 100 <= 100) {
+          sliderRef.current.style.marginLeft = `-${sliderwidth - 100}%`;
           setEnablerightarrow(false);
           setEnableleftarrow(true);
-        }
-        else{
-          let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
+        } else {
+          let currentmarginleft = Math.abs(
+            percTonumber(sliderRef.current.style.marginLeft),
+          );
           // if (current_margin_left + 100)
-          sliderRef.current.style.marginLeft = `-${currentmarginleft + 100}%`
+          sliderRef.current.style.marginLeft = `-${currentmarginleft + 100}%`;
           setEnableleftarrow(true);
         }
       } else if (to === "right") {
-        let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
+        let currentmarginleft = Math.abs(
+          percTonumber(sliderRef.current.style.marginLeft),
+        );
         if (currentmarginleft - 100 < 100) {
-          sliderRef.current.style.marginLeft = `${0}%`
+          sliderRef.current.style.marginLeft = `${0}%`;
           setEnableleftarrow(false);
           setEnablerightarrow(true);
-        }
-        else{
-          let currentmarginleft = Math.abs(percTonumber(sliderRef.current.style.marginLeft));
-          sliderRef.current.style.marginLeft = `-${currentmarginleft - 100}%`
+        } else {
+          let currentmarginleft = Math.abs(
+            percTonumber(sliderRef.current.style.marginLeft),
+          );
+          sliderRef.current.style.marginLeft = `-${currentmarginleft - 100}%`;
         }
       }
     }
   };
-
-  
-
- 
 
   return (
     <>
@@ -134,7 +126,7 @@ function Section({ section }: any): JSX.Element {
           {sectionInfo && (
             <div className={`${styles.section_info}`}>
               <span className={`${styles.title}`}>{sectionInfo.name}</span>
-              {(sectionControls.showViewAll && enableviewall) && (
+              {sectionControls.showViewAll && enableviewall && (
                 <Link href={`/${sectionControls.viewAllTargetPath}`}>
                   <div className={`${styles.view_all}`}>
                     <span className={`${styles.text}`}>View All</span>
@@ -162,7 +154,7 @@ function Section({ section }: any): JSX.Element {
                   width: carouselWidth,
                 }}
                 className={styles.cards}
-               ref={sliderRef}
+                ref={sliderRef}
               >
                 {cards.map((card: any, index: any) => {
                   return (
@@ -171,7 +163,7 @@ function Section({ section }: any): JSX.Element {
                       style={{
                         width: cardWidth,
                         // float:'left',
-                        display:'inline-block'
+                        display: "inline-block",
                       }}
                     >
                       <Card
@@ -200,4 +192,4 @@ function Section({ section }: any): JSX.Element {
   );
 }
 
-export default  memo(Section)
+export default memo(Section);

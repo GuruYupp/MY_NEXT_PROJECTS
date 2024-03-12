@@ -27,7 +27,7 @@
     }
   }
 
-  .suggestionsContainer{
+  .suggestionsContainer {
     // width: 100%;
     bottom: 0;
     margin: 0 auto;
@@ -36,7 +36,7 @@
     max-height: 200px;
     overflow: hidden;
     overflow-y: auto;
-    .suggestion{
+    .suggestion {
       padding: 5px 15px;
       font-size: 15px;
       background: #333;
@@ -45,23 +45,23 @@
       line-height: 30px;
       color: #fff;
       @include ellipse;
-      @include breakpoint(mobile){
+      @include breakpoint(mobile) {
         adding: 0 25px;
         font-size: 13px;
         height: 50px;
         line-height: 50px;
       }
-      &:hover{
+      &:hover {
         background: #404040;
         color: #fff;
-        @include breakpoint(mobile){
+        @include breakpoint(mobile) {
           background: #333;
         }
       }
     }
   }
-  .blockedcontentContainer{
-    .suggestion{
+  .blockedcontentContainer {
+    .suggestion {
       padding: 0 5px 0 10px;
       font-size: 12px;
       margin: 5px 0px;
@@ -71,8 +71,8 @@
       line-height: 30px;
       color: #fff;
       display: inline-block;
-      .close_icon{
-        img{
+      .close_icon {
+        img {
           display: inline-block;
           vertical-align: middle;
           margin-left: 5px;

@@ -20,11 +20,12 @@ import Modal from "../modals/Modal";
 import { createPortal } from "react-dom";
 import getfromcarddata, { getcardMarker } from "./getfromcarddata";
 import { useAppDispatch } from "@/redux/hooks";
-import { removeContinueWatching, toogleLike } from "@/redux/feature/pageSlice/pageSlice";
+import {
+  removeContinueWatching,
+  toogleLike,
+} from "@/redux/feature/pageSlice/pageSlice";
 import { ModalType } from "../modals/modaltypes";
 import Template from "../templates/Template";
-
-
 
 interface linkWrapperProps {
   targetPath: string;
@@ -70,31 +71,31 @@ const Card = (props: cardprops): JSX.Element => {
 
   const showFavoriteButton = getfromcarddata(
     props.cardDetails,
-    "showFavouriteButton"
+    "showFavouriteButton",
   );
   const isFavorite = getfromcarddata(props.cardDetails, "isFavourite");
 
   const showShareButton = getfromcarddata(props.cardDetails, "showShareButton");
 
-  const seekMarker = getcardMarker(props.cardDetails,"seek")
+  const seekMarker = getcardMarker(props.cardDetails, "seek");
 
-  const leftOverTimeMarker = getcardMarker(props.cardDetails,"leftOverTime");
+  const leftOverTimeMarker = getcardMarker(props.cardDetails, "leftOverTime");
 
   const [showModal, setShowModal] = useState<ModalType>("");
-  const [templateCode,setTemplateCode] = useState<templateType>("")
-  
+  const [templateCode, setTemplateCode] = useState<templateType>("");
+
   const dispatch = useAppDispatch();
 
   const showTemplateModal = (template: templateType) => {
     document.body.style.overflowY = "hidden";
     setTemplateCode(template);
-    setShowModal("template")
+    setShowModal("template");
   };
 
   const closeTemplateModal = () => {
     document.body.style.overflowY = "scroll";
     setTemplateCode("");
-    setShowModal("")
+    setShowModal("");
   };
 
   useEffect(() => {
@@ -110,7 +111,7 @@ const Card = (props: cardprops): JSX.Element => {
         resizeObserver.disconnect();
       };
     }
-    return
+    return;
   }, []);
 
   const templateHandler = () => {
@@ -119,11 +120,12 @@ const Card = (props: cardprops): JSX.Element => {
 
   const setImageHeight = () => {
     if (imageRef.current) {
-      if(cardType === "promo_poster") return;
+      if (cardType === "promo_poster") return;
       const cardConfigs = cardDimentionsForResponsive(cardType);
       // console.log(imageRef.current.offsetWidth)
-      imageRef.current.style.height = `${imageRef.current.offsetWidth * cardConfigs.cardRatio
-        }px`;
+      imageRef.current.style.height = `${
+        imageRef.current.offsetWidth * cardConfigs.cardRatio
+      }px`;
     }
   };
 
@@ -131,21 +133,23 @@ const Card = (props: cardprops): JSX.Element => {
     e.currentTarget.setAttribute("src", appConfig.cardDefaultImage);
   };
 
-  const handleLikeButton = (e:MouseEvent,isFavorite:string='')=>{
-    e.preventDefault()
-    if(isFavorite){
-    let action = isFavorite === "true" ? "2" :"1";
-    dispatch(toogleLike({
-      path:cardDetails.target.path,
-      action
-    }))
-    }
-  }
-
-  const handleRemoveContinueWatching = (e:MouseEvent)=>{
+  const handleLikeButton = (e: MouseEvent, isFavorite: string = "") => {
     e.preventDefault();
-    dispatch(removeContinueWatching(target.path))
-  }
+    if (isFavorite) {
+      let action = isFavorite === "true" ? "2" : "1";
+      dispatch(
+        toogleLike({
+          path: cardDetails.target.path,
+          action,
+        }),
+      );
+    }
+  };
+
+  const handleRemoveContinueWatching = (e: MouseEvent) => {
+    e.preventDefault();
+    dispatch(removeContinueWatching(target.path));
+  };
 
   const renderCard = (cardType: typeofcardType) => {
     switch (cardType) {
@@ -156,26 +160,28 @@ const Card = (props: cardprops): JSX.Element => {
             template={template}
             templateHandler={templateHandler}
           >
-          <div className={`${styles.expand_roller_poster}`}>
-            <div className={`${styles.img_container}`} ref={imageRef}>
-              <img
-                src={src}
-                alt="Picture of the author"
-                loading="lazy"
-                onError={handleImageonError}
-              />
-            </div>
-            <div className={`${styles.bottom}`}>
-              <div className={`${styles.card_info}`}>
-                {display.title && (
-                  <div className={`${styles.card_title}`}>{display.title}</div>
-                )}
-                {/* {display.subtitle1 && (
+            <div className={`${styles.expand_roller_poster}`}>
+              <div className={`${styles.img_container}`} ref={imageRef}>
+                <img
+                  src={src}
+                  alt="Picture of the author"
+                  loading="lazy"
+                  onError={handleImageonError}
+                />
+              </div>
+              <div className={`${styles.bottom}`}>
+                <div className={`${styles.card_info}`}>
+                  {display.title && (
+                    <div className={`${styles.card_title}`}>
+                      {display.title}
+                    </div>
+                  )}
+                  {/* {display.subtitle1 && (
                 <div className={`${styles.card_subtitle}`}>{display.subtitle1}</div>
             )} */}
+                </div>
               </div>
             </div>
-          </div>
           </CardLinkWrapper>
         );
       case "overlayIcon_poster":
@@ -252,14 +258,17 @@ const Card = (props: cardprops): JSX.Element => {
                   loading="lazy"
                   onError={handleImageonError}
                 />
-                <div className={`${styles.close_icon}`} onClick={handleRemoveContinueWatching}>
+                <div
+                  className={`${styles.close_icon}`}
+                  onClick={handleRemoveContinueWatching}
+                >
                   <img
                     src={`${appConfig.staticImagesPath}close-icon.svg`}
                     alt="close icon"
                     loading="lazy"
                   />
                 </div>
-                
+
                 {partnerIcon && (
                   <img
                     src={partnerIcon}
@@ -269,11 +278,18 @@ const Card = (props: cardprops): JSX.Element => {
                     onError={handleImageonError}
                   />
                 )}
-                {leftOverTimeMarker && (<span className={`${styles.leftover_duration}`}>{leftOverTimeMarker.value}</span>)}
+                {leftOverTimeMarker && (
+                  <span className={`${styles.leftover_duration}`}>
+                    {leftOverTimeMarker.value}
+                  </span>
+                )}
                 {seekMarker && (
                   <div className={`${styles.seek}`}>
                     <div className={`${styles.seek_inner_relative}`}>
-                      <div className={`${styles.seek_status_bar}`} style={{width:`${Number(seekMarker.value) * 100}%`}}></div>
+                      <div
+                        className={`${styles.seek_status_bar}`}
+                        style={{ width: `${Number(seekMarker.value) * 100}%` }}
+                      ></div>
                     </div>
                   </div>
                 )}
@@ -541,12 +557,12 @@ const Card = (props: cardprops): JSX.Element => {
       case "expand_roller_poster":
         return (
           <div className={`${styles.expand_roller_poster}`}>
-          <CardLinkWrapper
-            targetPath={target.path}
-            template={template}
-            templateHandler={templateHandler}
-          >
-            {/* <div className={`${styles.expand_roller_poster}`}> */}
+            <CardLinkWrapper
+              targetPath={target.path}
+              template={template}
+              templateHandler={templateHandler}
+            >
+              {/* <div className={`${styles.expand_roller_poster}`}> */}
               <div className={`${styles.img_container}`} ref={imageRef}>
                 <img
                   src={src}
@@ -597,37 +613,39 @@ const Card = (props: cardprops): JSX.Element => {
 
                   {showFavoriteButton &&
                     showFavoriteButton.value === "true" && (
-                    <button
-                      className={`${styles.like_btn}`}
-                      onClick={(e) => handleLikeButton(e, isFavorite?.value)}
-                    >
-                      {isFavorite?.value === "true" ? (
-                        <img
-                          src={`${appConfig.cloudpath +
-                            "/images/favorite-active.svg"
+                      <button
+                        className={`${styles.like_btn}`}
+                        onClick={(e) => handleLikeButton(e, isFavorite?.value)}
+                      >
+                        {isFavorite?.value === "true" ? (
+                          <img
+                            src={`${
+                              appConfig.cloudpath +
+                              "/images/favorite-active.svg"
                             }`}
-                          alt="favorite"
-                        />
-                      ) : (
-                        <img
-                          src={`${appConfig.cloudpath + "/images/heart.svg"}`}
-                          alt="favorite"
-                        />
-                      )}
-                    </button>
+                            alt="favorite"
+                          />
+                        ) : (
+                          <img
+                            src={`${appConfig.cloudpath + "/images/heart.svg"}`}
+                            alt="favorite"
+                          />
+                        )}
+                      </button>
                     )}
 
                   {showShareButton && showShareButton.value === "true" && (
                     <button className={`${styles.like_btn}`}>
                       <img
-                        src={`${appConfig.cloudpath + "/images/share.svg"}`} alt="share"
+                        src={`${appConfig.cloudpath + "/images/share.svg"}`}
+                        alt="share"
                       />
                     </button>
                   )}
                 </div>
               </div>
-            {/* </div> */}
-          </CardLinkWrapper>
+              {/* </div> */}
+            </CardLinkWrapper>
           </div>
         );
       case "promo_poster":
@@ -650,28 +668,30 @@ const Card = (props: cardprops): JSX.Element => {
             template={template}
             templateHandler={templateHandler}
           >
-          <div className={`${styles.overlay_poster}`} ref={cardRef}>
-            <div className={`${styles.img_container}`} ref={imageRef}>
-              <img
-                src={src}
-                alt="Picture of the author"
-                loading="lazy"
-                onError={handleImageonError}
-              />
-            </div>
-            <div className={`${styles.bottom}`}>
-              <div className={`${styles.card_info}`}>
-                {display.title && (
-                  <div className={`${styles.card_title}`}>{display.title}</div>
-                )}
-                {display.subtitle1 && (
-                  <div className={`${styles.card_subtitle}`}>
-                    {display.subtitle1}
-                  </div>
-                )}
+            <div className={`${styles.overlay_poster}`} ref={cardRef}>
+              <div className={`${styles.img_container}`} ref={imageRef}>
+                <img
+                  src={src}
+                  alt="Picture of the author"
+                  loading="lazy"
+                  onError={handleImageonError}
+                />
+              </div>
+              <div className={`${styles.bottom}`}>
+                <div className={`${styles.card_info}`}>
+                  {display.title && (
+                    <div className={`${styles.card_title}`}>
+                      {display.title}
+                    </div>
+                  )}
+                  {display.subtitle1 && (
+                    <div className={`${styles.card_subtitle}`}>
+                      {display.subtitle1}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
           </CardLinkWrapper>
         );
     }
@@ -689,7 +709,13 @@ const Card = (props: cardprops): JSX.Element => {
               function getModal() {
                 switch (modal) {
                   case "template":
-                    return <Template closeModal={closeTemplateModal} template_code={templateCode} target_path={target.path}/>
+                    return (
+                      <Template
+                        closeModal={closeTemplateModal}
+                        template_code={templateCode}
+                        target_path={target.path}
+                      />
+                    );
                   default:
                     return <></>;
                 }
@@ -697,12 +723,12 @@ const Card = (props: cardprops): JSX.Element => {
               return getModal();
             }}
           />,
-          document.body
-        )} 
+          document.body,
+        )}
     </>
   );
-}
+};
 
-const MemoCard = memo(Card)
+const MemoCard = memo(Card);
 
-export default MemoCard
+export default MemoCard;

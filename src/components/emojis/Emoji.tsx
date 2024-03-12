@@ -2,7 +2,7 @@ import { getAbsolutPath } from "@/utils";
 import styles from "./Emojis.module.scss";
 import { emojiInterface } from "./emojitypes";
 
-type emojiType = emojiInterface & {selected:boolean}
+type emojiType = emojiInterface & { selected: boolean };
 
 interface EmojiProps {
   emoji: emojiType;

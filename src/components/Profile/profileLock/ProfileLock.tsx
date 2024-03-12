@@ -13,84 +13,93 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { postData } from "@/services/data.manager";
 
 function ProfileLock() {
-  const { query,back } = useRouter();
+  const { query, back } = useRouter();
 
   const { userDetails } = useAppSelector((state) => state.user);
-  const {apivalidtoken,enableRestrictionpage} = useAppSelector((state)=>state.pagerestrictions)
+  const { apivalidtoken, enableRestrictionpage } = useAppSelector(
+    (state) => state.pagerestrictions,
+  );
   const { register, control, handleSubmit } = useForm<ProfileLockFormInterface>(
     {
-      defaultValues: { profilelock: "off", },
+      defaultValues: { profilelock: "off" },
       mode: "onChange",
-    }
+    },
   );
   const [pin, setPin] = useState<string>("");
   const [errormsg, setErrormsg] = useState<string>("");
-  const errormsgToken = useRef<ReturnType<typeof setTimeout>>()
+  const errormsgToken = useRef<ReturnType<typeof setTimeout>>();
 
-  useEffect(()=>{
-    return ()=>{
-      clearTimeout(errormsgToken.current)
-    }
-  },[])
+  useEffect(() => {
+    return () => {
+      clearTimeout(errormsgToken.current);
+    };
+  }, []);
 
   const defaultprofileimg =
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
   let Profile = userDetails?.profileParentalDetails?.filter(
-    (profile) => profile.profileId?.toString() === query.userId
+    (profile) => profile.profileId?.toString() === query.userId,
   )[0];
-  console.log(Profile)
+  console.log(Profile);
 
   let ProfileImage: string = Profile?.imageUrl
     ? getAbsolutPath(Profile?.imageUrl)
     : defaultprofileimg;
 
-    if (enableRestrictionpage === false) {
-      back();
-    }
+  if (enableRestrictionpage === false) {
+    back();
+  }
 
   const onSubmit: SubmitHandler<ProfileLockFormInterface> = async (data) => {
-    if ((data.profilelock === "on" && (data.maturaitypin === "true" || data.pinaddprofile === "true")) && !pin) {
-      setErrormsg('PIN Required')
-      errormsgToken.current = setTimeout(()=>{
-        setErrormsg('')
-      },1000)
+    if (
+      data.profilelock === "on" &&
+      (data.maturaitypin === "true" || data.pinaddprofile === "true") &&
+      !pin
+    ) {
+      setErrormsg("PIN Required");
+      errormsgToken.current = setTimeout(() => {
+        setErrormsg("");
+      }, 1000);
       return;
-    }
-    else if((data.profilelock === "off" && (data.maturaitypin === "true" || data.pinaddprofile === "true")) && !pin){
-      setErrormsg('Enable PIN Access')
-      errormsgToken.current = setTimeout(()=>{
-        setErrormsg('')
-      },1000)
-      return
+    } else if (
+      data.profilelock === "off" &&
+      (data.maturaitypin === "true" || data.pinaddprofile === "true") &&
+      !pin
+    ) {
+      setErrormsg("Enable PIN Access");
+      errormsgToken.current = setTimeout(() => {
+        setErrormsg("");
+      }, 1000);
+      return;
     }
     console.log(data);
     let payload = {
-      "profileId":Profile?.profileId,
-      "pin":pin,
-      "isProfileLockActive":data.profilelock === "on",
-      "isParentalControlEnable":data.maturaitypin === "true",
-      "addProfilePinEnable":data.pinaddprofile === "true",
-      "token":apivalidtoken,
-      "context":"userprofiles"
-    }
-    handleProfileLock(payload)
+      profileId: Profile?.profileId,
+      pin: pin,
+      isProfileLockActive: data.profilelock === "on",
+      isParentalControlEnable: data.maturaitypin === "true",
+      addProfilePinEnable: data.pinaddprofile === "true",
+      token: apivalidtoken,
+      context: "userprofiles",
+    };
+    handleProfileLock(payload);
   };
 
-  const handleProfileLock = async (data:any)=>{
-    try{
-      let profilelockResponse = await postData('/service/api/auth/update/user/profile/lock',data)
-      if(profilelockResponse.status === true){
-        back()
+  const handleProfileLock = async (data: any) => {
+    try {
+      let profilelockResponse = await postData(
+        "/service/api/auth/update/user/profile/lock",
+        data,
+      );
+      if (profilelockResponse.status === true) {
+        back();
+      } else {
+        console.log(profilelockResponse);
       }
-      else{
-        console.log(profilelockResponse)
-      }
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-      console.log(err)
-    }
-    
-  }
+  };
 
   const handleSetPin = useCallback((pin: string) => {
     setPin(pin);
@@ -146,19 +155,27 @@ function ProfileLock() {
               <CheckInfo
                 control={control}
                 name="pinaddprofile"
-                defaultValue={(Profile?.addProfilePinEnable || '')=== true? 'true' : 'false'}
+                defaultValue={
+                  (Profile?.addProfilePinEnable || "") === true
+                    ? "true"
+                    : "false"
+                }
                 labelText={`Require ${Profile?.name}'s PIN to add new profiles`}
               />
               <CheckInfo
                 control={control}
                 name="maturaitypin"
-                defaultValue={(Profile?.isParentalControlEnabled || '')=== true? 'true' : 'false'}
+                defaultValue={
+                  (Profile?.isParentalControlEnabled || "") === true
+                    ? "true"
+                    : "false"
+                }
                 labelText={`Require ${Profile?.name}'s PIN to watch 16+, 18+ videos from this profile regardless of maturity rating`}
               />
               {errormsg && <p className={`${styles.error_msg}`}>{errormsg}</p>}
             </div>
           </div>
-          
+
           <div className={`${styles.btns}`}>
             <button className={`${styles.btn}`}>Cancel</button>
             <button

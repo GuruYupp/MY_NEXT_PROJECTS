@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
 import GenericSignup from "@/components/Auth/genericsignup/GenericSigninup";
 
-
 export default function SignupPage(): JSX.Element {
   return (
     <>
@@ -69,11 +68,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   // console.log(seodata)
   let seodata = {
     status: false,
-    response: {}
-  }
+    response: {},
+  };
   return {
     props: {
-      seodata: seodata.status ? seodata.response : {}
-    }
-  }
-}
+      seodata: seodata.status ? seodata.response : {},
+    },
+  };
+};

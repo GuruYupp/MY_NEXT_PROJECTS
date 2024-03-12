@@ -4,8 +4,8 @@ import Menus from "./menus/Menus";
 import Link from "next/link";
 // import getConfig from "next/config";
 import appConfig from "@/app.config";
-import {  useAppSelector } from "@/redux/hooks";
-import {  memo } from "react";
+import { useAppSelector } from "@/redux/hooks";
+import { memo } from "react";
 // import { createPortal } from "react-dom";
 // import Modal from "../modals/Modal";
 // import {ModalType } from "../modals/modaltypes";
@@ -17,10 +17,8 @@ interface props {
 }
 
 function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
-  const { isLoggedin} = useAppSelector((state) => state.user);
-  const { systemConfigs } = useAppSelector(
-    (state) => state.configs
-  );
+  const { isLoggedin } = useAppSelector((state) => state.user);
+  const { systemConfigs } = useAppSelector((state) => state.configs);
   let showPackages = systemConfigs.configs?.showPackages || false;
   // const [showModal, setShowModal] = useState<ModalType>("");
 
@@ -29,7 +27,6 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
   //   setShowModal("");
   // }
 
- 
   return (
     <div
       className={`${styles.header_bottom} ${
@@ -68,26 +65,27 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
                 <span>Pricing</span>
               </div>
             )}
-            {isLoggedin === false && (<>
-              <div className={`${styles.authcontainer}`}>
-                <Link
-                  href={"/signin"}
-                  className={`${styles.otherbtns} ${styles.authbtn} ${styles.signinbtn}`}
-                >
-                  signin
-                </Link>
-              </div>
-              <div className={`${styles.authcontainer}`}>
-                <Link
-                  href={"/signup"}
-                  className={`${styles.otherbtns} ${styles.authbtn} ${styles.signupbtn}`}
-                >
-                  signup
-                </Link>
-              </div>
+            {isLoggedin === false && (
+              <>
+                <div className={`${styles.authcontainer}`}>
+                  <Link
+                    href={"/signin"}
+                    className={`${styles.otherbtns} ${styles.authbtn} ${styles.signinbtn}`}
+                  >
+                    signin
+                  </Link>
+                </div>
+                <div className={`${styles.authcontainer}`}>
+                  <Link
+                    href={"/signup"}
+                    className={`${styles.otherbtns} ${styles.authbtn} ${styles.signupbtn}`}
+                  >
+                    signup
+                  </Link>
+                </div>
               </>
             )}
-            {isLoggedin === true && <ProfileMenus/>}
+            {isLoggedin === true && <ProfileMenus />}
           </div>
         </div>
       </div>

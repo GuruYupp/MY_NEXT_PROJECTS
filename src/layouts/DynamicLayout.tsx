@@ -1,21 +1,21 @@
-import Banners from '@/components/banners/banners';
-import Sections from '@/components/Sections/Sections';
-import GenericLayout from './GenericLayout';
+import Banners from "@/components/banners/banners";
+import Sections from "@/components/Sections/Sections";
+import GenericLayout from "./GenericLayout";
 
-import { ReactNode } from 'react';
-import TvGuide from '@/components/tvguide/Tvguide';
-import Grid from '@/components/grid/Grid';
-import NetworkDetails from '@/components/network-details/NetworkDetails';
-import DetailsPage from '@/components/Details/Details';
-import { useAppSelector } from '@/redux/hooks';
-import Player from '@/components/Player/Player';
+import { ReactNode } from "react";
+import TvGuide from "@/components/tvguide/Tvguide";
+import Grid from "@/components/grid/Grid";
+import NetworkDetails from "@/components/network-details/NetworkDetails";
+import DetailsPage from "@/components/Details/Details";
+import { useAppSelector } from "@/redux/hooks";
+import Player from "@/components/Player/Player";
 // import Search from '@/components/Searchv3/search';
 
 export function ContentPageWrapper(props: { children: ReactNode }) {
   const { children } = props;
   const { banners } = useAppSelector((state) => state.pageData.response);
   if (banners.length === 0)
-    return <div style={{ paddingTop: '97px' }}>{children}</div>;
+    return <div style={{ paddingTop: "97px" }}>{children}</div>;
   return <>{children}</>;
 }
 
@@ -24,7 +24,7 @@ function DynamicLayout(): JSX.Element {
 
   function renderContentPage() {
     switch (info.path) {
-      case 'catchup':
+      case "catchup":
         return (
           <>
             <TvGuide />
@@ -36,7 +36,7 @@ function DynamicLayout(): JSX.Element {
       //        <Search/>
       //       </ContentPageWrapper>
       //   );
-      case 'tvguide':
+      case "tvguide":
         return <TvGuide />;
       default:
         return (
@@ -49,21 +49,21 @@ function DynamicLayout(): JSX.Element {
   }
 
   function renderDetailsPage() {
-    if (info?.attributes?.contentType === 'network') {
+    if (info?.attributes?.contentType === "network") {
       return <NetworkDetails />;
     }
     return <DetailsPage />;
   }
 
   return (
-      <GenericLayout>
-        <>
-          {info.pageType === 'content' && renderContentPage()}
-          {info.pageType == 'details' && renderDetailsPage()}
-          {info.pageType == 'list' && <Grid />}
-          {info.pageType == 'player' && <Player />}
-        </>
-      </GenericLayout>
+    <GenericLayout>
+      <>
+        {info.pageType === "content" && renderContentPage()}
+        {info.pageType == "details" && renderDetailsPage()}
+        {info.pageType == "list" && <Grid />}
+        {info.pageType == "player" && <Player />}
+      </>
+    </GenericLayout>
   );
 }
 

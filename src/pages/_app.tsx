@@ -1,28 +1,28 @@
-import '@/styles/globals.scss';
-import type { AppProps } from 'next/app';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import "react-datepicker/dist/react-datepicker.css"
+import "@/styles/globals.scss";
+import type { AppProps } from "next/app";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "react-datepicker/dist/react-datepicker.css";
 
-import Head from 'next/head';
-import { Provider } from 'react-redux';
-import Store from '@/redux/store';
-import Script from 'next/script';
-import NextNProgress from 'nextjs-progressbar';
-import Layout from '@/layouts/Layout';
-import appConfig from '@/app.config';
+import Head from "next/head";
+import { Provider } from "react-redux";
+import Store from "@/redux/store";
+import Script from "next/script";
+import NextNProgress from "nextjs-progressbar";
+import Layout from "@/layouts/Layout";
+import appConfig from "@/app.config";
 
-const NPColor = ()=>{
-  const product = appConfig.endPoints.product
-  switch (product){
+const NPColor = () => {
+  const product = appConfig.endPoints.product;
+  switch (product) {
     case "herogotv":
-      return "#0ccdd7"
+      return "#0ccdd7";
     case "timesplay":
-      return "#e7195a"
-    default : 
-      return "#ffff"
+      return "#e7195a";
+    default:
+      return "#ffff";
   }
-}
+};
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

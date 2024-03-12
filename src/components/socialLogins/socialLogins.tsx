@@ -4,7 +4,7 @@ import appConfig from "@/app.config";
 
 const SocialLogins = () => {
   const { sociallogin } = useAppSelector(
-    (state) => state.configs.systemFeatures
+    (state) => state.configs.systemFeatures,
   );
 
   return (

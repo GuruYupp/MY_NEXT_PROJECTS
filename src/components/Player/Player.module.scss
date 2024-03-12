@@ -6,8 +6,8 @@
   .player_page_top_container {
     display: flex;
     @include breakpoint(tablet) {
-        flex-wrap: wrap;
-      }
+      flex-wrap: wrap;
+    }
     .player_page_top_left {
       width: calc(100% - 420px);
       margin-top: 20px;
@@ -116,10 +116,11 @@
                   &.favorite_btn {
                     color: #ffffffb2;
                     padding: 0 10px;
-                    transition: color 0.15s ease-in-out,
-                    background-color 0.15s ease-in-out,
-                    border-color 0.15s ease-in-out,
-                    box-shadow 0.15s ease-in-out;
+                    transition:
+                      color 0.15s ease-in-out,
+                      background-color 0.15s ease-in-out,
+                      border-color 0.15s ease-in-out,
+                      box-shadow 0.15s ease-in-out;
                     font-size: 16px;
                     display: flex;
                     align-items: center;
@@ -154,7 +155,7 @@
                   // }
                 }
 
-                .line{
+                .line {
                   min-height: 30px;
                   width: 2px;
                   margin: 0px 10px;

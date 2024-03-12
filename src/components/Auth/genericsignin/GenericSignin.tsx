@@ -10,7 +10,10 @@ import SignInput from "./SigninInput";
 import SocialLogins from "@/components/socialLogins/socialLogins";
 import Link from "next/link";
 import { getData, postData } from "@/services/data.manager";
-import { setActivepackages, setLoggedin } from "@/redux/feature/userSlice/userSlice";
+import {
+  setActivepackages,
+  setLoggedin,
+} from "@/redux/feature/userSlice/userSlice";
 import { useRouter } from "next/router";
 import { ModalType } from "@/components/modals/modaltypes";
 import { OtpVerifydataType } from "@/components/otpverify/otpverifytypes";
@@ -21,145 +24,152 @@ import { default as clientCookie } from "js-cookie";
 
 const GenericSignIn: FC = () => {
   const { globalsettings, sociallogin, userprofiles } = useAppSelector(
-    (state) => state.configs.systemFeatures
+    (state) => state.configs.systemFeatures,
   );
 
-  const { systemConfigs } = useAppSelector((state)=>state.configs)
-  const { isLoggedin } = useAppSelector((state) => state.user)
-  let showPackages = systemConfigs?.configs?.showPackages || ""
-  const dispatch = useAppDispatch()
-  const router = useRouter()
+  const { systemConfigs } = useAppSelector((state) => state.configs);
+  const { isLoggedin } = useAppSelector((state) => state.user);
+  let showPackages = systemConfigs?.configs?.showPackages || "";
+  const dispatch = useAppDispatch();
+  const router = useRouter();
 
-  const {  control, formState,handleSubmit } = useForm<SingnInFormType>({
+  const { control, formState, handleSubmit } = useForm<SingnInFormType>({
     mode: "onChange",
   });
 
-  const [errormsg,setErrormsg] = useState<string>('')
-  const errormsgToken = useRef<ReturnType<typeof setTimeout>>()
-  const [showModal, setShowModal] = useState<ModalType>('');
-  const [otpprops, setOtpprops] = useState<OtpVerifydataType>({ verification: "" });
+  const [errormsg, setErrormsg] = useState<string>("");
+  const errormsgToken = useRef<ReturnType<typeof setTimeout>>();
+  const [showModal, setShowModal] = useState<ModalType>("");
+  const [otpprops, setOtpprops] = useState<OtpVerifydataType>({
+    verification: "",
+  });
 
-  useEffect(()=>{
-    if (isLoggedin){
+  useEffect(() => {
+    if (isLoggedin) {
       router.back();
       return;
     }
-    return ()=>{
-      clearTimeout(errormsgToken.current)
-    }
-  },[])
+    return () => {
+      clearTimeout(errormsgToken.current);
+    };
+  }, []);
 
   const getInitialLoginType = () => {
-    if (globalsettings?.fields?.isEmailSupported === "true" && globalsettings?.fields?.isMobileSupported === "true") {
+    if (
+      globalsettings?.fields?.isEmailSupported === "true" &&
+      globalsettings?.fields?.isMobileSupported === "true"
+    ) {
       // return "mobile";
-      return "email"
+      return "email";
     }
-    if (globalsettings?.fields?.isMobileSupported === "true" && appConfig.signin.primary == "mobile") {
+    if (
+      globalsettings?.fields?.isMobileSupported === "true" &&
+      appConfig.signin.primary == "mobile"
+    ) {
       return "mobile";
     }
     return "email";
   };
 
   const [loginType, setLogintype] = useState<"email" | "mobile">(
-    getInitialLoginType()
+    getInitialLoginType(),
   );
 
   const toggelEmailNumberInput = () => {
     setLogintype(loginType === "email" ? "mobile" : "email");
   };
 
-  const handleclickSignup = (e:React.MouseEvent<HTMLAnchorElement>):void=>{
+  const handleclickSignup = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
-    router.replace('/signup')
-  }
+    router.replace("/signup");
+  };
 
-  const onSubmit:SubmitHandler<SingnInFormType> = async (formData) => {
-    const {email,number,password} = formData
-      let payload={
-        // eslint-disable-next-line camelcase
-        login_key: password,
-        // eslint-disable-next-line camelcase
-        login_mode:1,
-        manufacturer:"123",
-        // eslint-disable-next-line camelcase
-        login_id:""
-      }
-      if(loginType === "email"){
-        // eslint-disable-next-line camelcase
-        payload.login_id = email
-      }
-      else{
-        // eslint-disable-next-line camelcase
-        payload.login_id = `91-${number}`
-      }
-      signIn(payload)
+  const onSubmit: SubmitHandler<SingnInFormType> = async (formData) => {
+    const { email, number, password } = formData;
+    let payload = {
+      // eslint-disable-next-line camelcase
+      login_key: password,
+      // eslint-disable-next-line camelcase
+      login_mode: 1,
+      manufacturer: "123",
+      // eslint-disable-next-line camelcase
+      login_id: "",
+    };
+    if (loginType === "email") {
+      // eslint-disable-next-line camelcase
+      payload.login_id = email;
+    } else {
+      // eslint-disable-next-line camelcase
+      payload.login_id = `91-${number}`;
+    }
+    signIn(payload);
   };
 
   // eslint-disable-next-line camelcase
-  const signIn = async (post_data:any)=>{
-    let signInresponse = await postData('/service/api/auth/v1/signin', post_data)
-    if(signInresponse.status === false){
-      if(signInresponse.error?.code === -6 && signInresponse.error.actionCode === 1){
+  const signIn = async (post_data: any) => {
+    let signInresponse = await postData(
+      "/service/api/auth/v1/signin",
+      post_data,
+    );
+    if (signInresponse.status === false) {
+      if (
+        signInresponse.error?.code === -6 &&
+        signInresponse.error.actionCode === 1
+      ) {
         // user will register but OTP is not verified for email
         document.body.style.overflowY = "hidden";
-        let identifier = signInresponse.error.details.identifier || ""
-        setShowModal('otpverify')
+        let identifier = signInresponse.error.details.identifier || "";
+        setShowModal("otpverify");
         setOtpprops({
           context: "signin",
           message: `One Time Passcode (OTP) has been sent to your mobile ******${identifier.substring(7)}`,
           verification: "mobile",
-          number:identifier
+          number: identifier,
         });
+      } else if (signInresponse.error && signInresponse.error.message) {
+        setErrormsg(signInresponse.error.message);
+        errormsgToken.current = setTimeout(() => {
+          setErrormsg("");
+        }, 1000);
       }
-     else if(signInresponse.error &&signInresponse.error.message){
-      setErrormsg(signInresponse.error.message)
-      errormsgToken.current = setTimeout(()=>{
-        setErrormsg('')
-      },1000)
-     }
-    }
-    else if(signInresponse.status === true){
+    } else if (signInresponse.status === true) {
       setuserLoggedin();
     }
-  }
+  };
 
-  const setuserLoggedin = async ()=>{
-    localStorage.setItem('isLoggedin', 'true');
-    clientCookie.set('isLoggedin','true');
+  const setuserLoggedin = async () => {
+    localStorage.setItem("isLoggedin", "true");
+    clientCookie.set("isLoggedin", "true");
     if (showPackages === "true") {
       const userPackages = await getData(
-        'service/api/auth/user/activepackages'
+        "service/api/auth/user/activepackages",
       );
       if (userPackages.status === true) {
         localStorage.setItem(
-          'activePackages',
-          JSON.stringify(userPackages.response)
+          "activePackages",
+          JSON.stringify(userPackages.response),
         );
         dispatch(setActivepackages());
       }
     }
-    const userInfo = await getData('/service/api/auth/user/info');
+    const userInfo = await getData("/service/api/auth/user/info");
     if (userInfo.status === true) {
-      localStorage.setItem(
-        'userDetails',
-        JSON.stringify(userInfo.response)
-      );
-      dispatch(setLoggedin())
+      localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
+      dispatch(setLoggedin());
       if (userprofiles?.fields?.is_userprofiles_supported === "true") {
-        clientCookie.set('hasuserprofiles','true');
-        router.replace('/profiles/select-user-profile');
-      }
-      else {
-        router.replace('/')
+        clientCookie.set("hasuserprofiles", "true");
+        router.replace("/profiles/select-user-profile");
+      } else {
+        router.replace("/");
       }
     }
-  }
+  };
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
     let { from, data } = Modaldata;
     switch (from) {
-      case 'otpverify':
-        if(data.status == true){
+      case "otpverify":
+        if (data.status == true) {
           setuserLoggedin();
         }
         break;
@@ -169,10 +179,9 @@ const GenericSignIn: FC = () => {
   }
 
   const handlecloseModal = () => {
-    document.body.style.overflowY = 'scroll';
-    setShowModal('');
+    document.body.style.overflowY = "scroll";
+    setShowModal("");
   };
-
 
   return (
     <>
@@ -264,16 +273,16 @@ const GenericSignIn: FC = () => {
               </label>
 
               <label>
-                <div className={`${styles.input_container} ${styles.submit_input_container}`}>
-              <input
-                type="submit"
-                className={`${styles.signin_btn}`}
-                value="Sign in"
-              />
+                <div
+                  className={`${styles.input_container} ${styles.submit_input_container}`}
+                >
+                  <input
+                    type="submit"
+                    className={`${styles.signin_btn}`}
+                    value="Sign in"
+                  />
                   {errormsg && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {errormsg}
-                    </p>
+                    <p className={`${styles.input_error_msg}`}>{errormsg}</p>
                   )}
                 </div>
               </label>
@@ -284,30 +293,41 @@ const GenericSignIn: FC = () => {
             </div>
           </div>
           <div className={`${styles.inner_bottom}`}>
-            {(appConfig.signin.emailPhoneToggle === true && globalsettings?.fields?.changeEmailSupport === 'true' ) && (
-              <button
-                className={`${styles.email_number_toggle}`}
-                onClick={toggelEmailNumberInput}
-              >
-                Sign In with{" "}
-                {loginType == "mobile" ? "Email Id" : "Mobile Number"}
-              </button>
+            {appConfig.signin.emailPhoneToggle === true &&
+              globalsettings?.fields?.changeEmailSupport === "true" && (
+                <button
+                  className={`${styles.email_number_toggle}`}
+                  onClick={toggelEmailNumberInput}
+                >
+                  Sign In with{" "}
+                  {loginType == "mobile" ? "Email Id" : "Mobile Number"}
+                </button>
+              )}
+
+            {Object.keys(sociallogin?.fields || {}).length > 0 && (
+              <SocialLogins />
             )}
-            
-           {Object.keys(sociallogin?.fields || {}).length > 0 && <SocialLogins/>}
 
             <p className={`${styles.signup_text}`}>
               Don't have an account ?
-              <Link className={`${styles.signup}`} href="/signup" onClick={handleclickSignup}>Sign Up</Link>
+              <Link
+                className={`${styles.signup}`}
+                href="/signup"
+                onClick={handleclickSignup}
+              >
+                Sign Up
+              </Link>
             </p>
 
             <p className={`${styles.terms_policy}`}>
-              <Link className={`${styles.terms}`} href="#">Terms of Service</Link>
-              and 
-              <Link className={`${styles.policy}`} href="#">Privacy Policy</Link>
+              <Link className={`${styles.terms}`} href="#">
+                Terms of Service
+              </Link>
+              and
+              <Link className={`${styles.policy}`} href="#">
+                Privacy Policy
+              </Link>
             </p>
-
-           
           </div>
         </div>
       </div>
@@ -318,8 +338,14 @@ const GenericSignIn: FC = () => {
             render={(modal: ModalType) => {
               function getModal() {
                 switch (modal) {
-                  case 'otpverify':
-                    return <OtpVerify closeModal={handlecloseModal} sendDatatoComponent={getDataFromModal} verifydata={otpprops} />
+                  case "otpverify":
+                    return (
+                      <OtpVerify
+                        closeModal={handlecloseModal}
+                        sendDatatoComponent={getDataFromModal}
+                        verifydata={otpprops}
+                      />
+                    );
                   default:
                     return <></>;
                 }
@@ -327,7 +353,7 @@ const GenericSignIn: FC = () => {
               return getModal();
             }}
           />,
-          document.body
+          document.body,
         )}
       <DevTool control={control} />
     </>

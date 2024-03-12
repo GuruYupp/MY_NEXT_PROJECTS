@@ -15,10 +15,9 @@ import {
   togglesearchSuggestions,
 } from "@/redux/feature/searchv1Slice/searchv1Slice";
 
-
 const Search: FC = () => {
   const { showSections, activeTab, tabsdata } = useAppSelector(
-    (state) => state.searchv1
+    (state) => state.searchv1,
   );
   const dispatch = useAppDispatch();
   const { query } = useRouter();
@@ -33,13 +32,13 @@ const Search: FC = () => {
       searchrequest = search({
         query: query.q,
         pageSize: 36,
-        page:0
+        page: 0,
       });
     }
-    return ()=>{
-      searchrequest?.abort()
+    return () => {
+      searchrequest?.abort();
       dispatch(resetSearchSlice());
-    }
+    };
   }, [query.q]);
 
   const search = (params: searchparamsInterface) => {
@@ -49,18 +48,19 @@ const Search: FC = () => {
   const getCards = () => {
     return (
       tabsdata.filter(
-        (tabdata) => tabdata.searchResults.sourceType === activeTab.code
+        (tabdata) => tabdata.searchResults.sourceType === activeTab.code,
       )[0]?.searchResults?.data || []
     );
   };
 
-  const getbucketErrormsg = ()=>{
+  const getbucketErrormsg = () => {
     let errormsg = tabsdata.filter(
-      (tabdata) => tabdata.searchResults.sourceType === activeTab.code)[0]?.error?.message
+      (tabdata) => tabdata.searchResults.sourceType === activeTab.code,
+    )[0]?.error?.message;
     return errormsg || "No Results Found";
-  }
+  };
 
-  const searchPagination = ()=>{
+  const searchPagination = () => {
     // let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
     // if(active_tab && active_tab.last_search_order === "typesense"){
     //   let params={
@@ -70,14 +70,14 @@ const Search: FC = () => {
     //   }
     //   dispatch(searchv1BucketPagiation(params))
     // }
-  }
+  };
 
-  const getPaginationStatus = ()=>{
+  const getPaginationStatus = () => {
     // let active_tab = tabsdata.filter((tab_data) => tab_data.searchResults.sourceType === activeTab.code)[0]
     // console.log(active_tab)
     // return active_tab?.searchResults?.pagination
-    return undefined
-  }
+    return undefined;
+  };
 
   return (
     <div className={`${styles.search_container}`}>
@@ -93,7 +93,9 @@ const Search: FC = () => {
               pagination={getPaginationStatus()}
             />
           ) : (
-              <h3 className={`${styles.search_error_msg}`}>{getbucketErrormsg()}</h3>
+            <h3 className={`${styles.search_error_msg}`}>
+              {getbucketErrormsg()}
+            </h3>
           )}
         </div>
       )}

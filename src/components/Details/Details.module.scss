@@ -1,4 +1,4 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 .DetailsPage_Container {
   position: relative;
   // padding-top: 150px;
@@ -13,7 +13,7 @@
       height: 100%;
       object-fit: cover;
     }
-    box-shadow: -3px -3px 10px 0 rgba(0, 0, 0, .5);
+    box-shadow: -3px -3px 10px 0 rgba(0, 0, 0, 0.5);
     background-color: #141414;
     .DetailsGrdient1 {
       position: absolute;
@@ -47,11 +47,11 @@
   }
 }
 
-.tabs_Container{
+.tabs_Container {
   // position: relative;
   border-bottom: 1px solid #555;
   padding: 0px 108px;
-.tab {
+  .tab {
     p {
       font-size: 14px;
       color: #999;
@@ -63,18 +63,18 @@
 
     &.active {
       p {
-       background: hsla(0, 0%, 100%, .06);
+        background: hsla(0, 0%, 100%, 0.06);
       }
     }
   }
 }
 
-.details_grid{
+.details_grid {
   padding: 15px 48px;
-  padding-bottom: 25px; 
+  padding-bottom: 25px;
   height: auto;
   overflow: hidden;
-  a{
+  a {
     text-decoration: none;
   }
 }

@@ -30,8 +30,10 @@ const GenericSignup: FC = () => {
     });
 
   const [errormsg, setErrormsg] = useState<string>("");
-  const [showModal, setShowModal] = useState<ModalType>('');
-  const [otpprops, setOtpprops] = useState<OtpVerifydataType>({verification:""});
+  const [showModal, setShowModal] = useState<ModalType>("");
+  const [otpprops, setOtpprops] = useState<OtpVerifydataType>({
+    verification: "",
+  });
   const errormsgToken = useRef<ReturnType<typeof setTimeout>>();
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -98,7 +100,7 @@ const GenericSignup: FC = () => {
   const signup = async (payload: unknown) => {
     let signupresponse = await postData(
       "/service/api/auth/signup/validate",
-      payload
+      payload,
     );
 
     if (signupresponse.status === false) {
@@ -114,31 +116,31 @@ const GenericSignup: FC = () => {
       } else if (signupresponse.response.actionCode === 3) {
         // user will register but OTP is not verified for email
         document.body.style.overflowY = "hidden";
-        let email = signupresponse.response.details.email || ""
-        let referenceKey = signupresponse.response.details.referenceKey || ""
-        setShowModal('otpverify')
+        let email = signupresponse.response.details.email || "";
+        let referenceKey = signupresponse.response.details.referenceKey || "";
+        setShowModal("otpverify");
         setOtpprops({
           context: "signup",
           // eslint-disable-next-line camelcase
           reference_key: referenceKey,
           message: `One Time Passcode (OTP) has been sent to your email ${email.slice(0, 5)}******${email.substring(8)}`,
-          verification:"email",
-          email
+          verification: "email",
+          email,
         });
       } else if (signupresponse.response.actionCode === 17) {
         // to handle token already registered to some other user
       } else {
-       setuserLoggedin(signupresponse)
+        setuserLoggedin(signupresponse);
       }
     }
   };
 
-  const setuserLoggedin = (signupresponse:responseInterface)=>{
+  const setuserLoggedin = (signupresponse: responseInterface) => {
     localStorage.setItem("isLoggedin", "true");
     if (signupresponse.response?.userDetails) {
       localStorage.setItem(
         "userDetails",
-        JSON.stringify(signupresponse.response?.userDetails)
+        JSON.stringify(signupresponse.response?.userDetails),
       );
     }
     dispatch(setLoggedin());
@@ -156,13 +158,13 @@ const GenericSignup: FC = () => {
     } else {
       router.replace("/");
     }
-  }
+  };
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
     const { from, data } = Modaldata;
     switch (from) {
-      case 'otpverify':
-        setuserLoggedin(data)
+      case "otpverify":
+        setuserLoggedin(data);
         break;
       default:
         break;
@@ -170,16 +172,14 @@ const GenericSignup: FC = () => {
   }
 
   const handlecloseModal = () => {
-    document.body.style.overflowY = 'scroll';
-    setShowModal('');
+    document.body.style.overflowY = "scroll";
+    setShowModal("");
   };
-
 
   const handleclickSignin = (e: React.MouseEvent<HTMLAnchorElement>): void => {
     e.preventDefault();
-    router.replace('/signin')
-  }
-
+    router.replace("/signin");
+  };
 
   return (
     <>
@@ -397,7 +397,11 @@ const GenericSignup: FC = () => {
 
             <p className={`${styles.signin_text}`}>
               Have an account?
-              <Link className={`${styles.signin}`} href="/signin" onClick={handleclickSignin}>
+              <Link
+                className={`${styles.signin}`}
+                href="/signin"
+                onClick={handleclickSignin}
+              >
                 Sign In
               </Link>
             </p>
@@ -408,11 +412,17 @@ const GenericSignup: FC = () => {
         createPortal(
           <Modal
             modalType={showModal}
-            render={(modal:ModalType) => {
+            render={(modal: ModalType) => {
               function getModal() {
                 switch (modal) {
-                  case 'otpverify':
-                    return <OtpVerify closeModal={handlecloseModal} sendDatatoComponent={getDataFromModal} verifydata={otpprops}/>
+                  case "otpverify":
+                    return (
+                      <OtpVerify
+                        closeModal={handlecloseModal}
+                        sendDatatoComponent={getDataFromModal}
+                        verifydata={otpprops}
+                      />
+                    );
                   default:
                     return <></>;
                 }
@@ -420,7 +430,7 @@ const GenericSignup: FC = () => {
               return getModal();
             }}
           />,
-          document.body
+          document.body,
         )}
       <DevTool control={control} />
     </>

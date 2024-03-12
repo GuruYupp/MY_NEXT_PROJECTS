@@ -32,7 +32,6 @@
       display: flex;
 
       .profile {
-
         margin: 0px 10px;
         position: relative;
 
@@ -139,7 +138,6 @@
           @include breakpoint(mobile-common-land) {
             font-size: 12px;
           }
-
         }
 
         &.add_profile {

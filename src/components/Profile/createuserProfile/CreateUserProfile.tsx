@@ -1,17 +1,17 @@
-import { useEffect, useRef, useState } from 'react';
-import styles from './CreateUserProfile.module.scss';
-import { createPortal } from 'react-dom';
-import Modal from '@/components/modals/Modal';
-import { useRouter } from 'next/router';
-import Emojis from '@/components/emojis/Emojis';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { getAbsolutPath } from '@/utils';
-import Languages from '@/components/languages/Languages';
-import { postData } from '@/services/data.manager';
-import Toast from '@/components/toasts/Toast';
-import { ModalType } from '@/components/modals/modaltypes';
-import { emojiInterface } from '@/components/emojis/emojitypes';
-import appConfig from '@/app.config';
+import { useEffect, useRef, useState } from "react";
+import styles from "./CreateUserProfile.module.scss";
+import { createPortal } from "react-dom";
+import Modal from "@/components/modals/Modal";
+import { useRouter } from "next/router";
+import Emojis from "@/components/emojis/Emojis";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { getAbsolutPath } from "@/utils";
+import Languages from "@/components/languages/Languages";
+import { postData } from "@/services/data.manager";
+import Toast from "@/components/toasts/Toast";
+import { ModalType } from "@/components/modals/modaltypes";
+import { emojiInterface } from "@/components/emojis/emojitypes";
+import appConfig from "@/app.config";
 interface CreateUserProfileForm {
   name: string;
   isChildren: boolean;
@@ -19,80 +19,83 @@ interface CreateUserProfileForm {
 }
 let defaultprofileimg = `https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg`;
 export default function CreateUserProfile() {
-  const [showModal, setShowModal] = useState<ModalType>('');
+  const [showModal, setShowModal] = useState<ModalType>("");
   const [profileImg, setprofileImg] = useState<string>(defaultprofileimg);
   const [showToast, setShowToast] = useState<boolean>(false);
-  const [toastmsg, setToastMsg] = useState<string>('');
+  const [toastmsg, setToastMsg] = useState<string>("");
   const toastTimer = useRef<ReturnType<typeof setTimeout>>();
 
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { register, getValues, watch, setValue ,handleSubmit} =
+  const { register, getValues, watch, setValue, handleSubmit } =
     useForm<CreateUserProfileForm>({
-      mode: 'onChange',
+      mode: "onChange",
       defaultValues: {
-        name: '',
+        name: "",
         isChildren: false,
-        languages: '',
+        languages: "",
       },
     });
 
-  const watchisChildren = watch('isChildren');
-  const watchprofilename = watch('name');
+  const watchisChildren = watch("isChildren");
+  const watchprofilename = watch("name");
   const { replace } = useRouter();
 
   useEffect(() => {
     if (formRef.current)
       // formRef.current.addEventListener('submit', handleSubmit());
-    return () => {
-      if (toastTimer.current) clearTimeout(toastTimer.current);
-      // if (formRef.current)
+      return () => {
+        if (toastTimer.current) clearTimeout(toastTimer.current);
+        // if (formRef.current)
         // formRef.current.removeEventListener('submit', handleSubmit);
-    };
+      };
   }, []);
 
   const handleChidrencheck = () => {
-    setValue('isChildren', !getValues().isChildren);
+    setValue("isChildren", !getValues().isChildren);
   };
 
   function handlecloseModal() {
-    document.body.style.overflowY = 'scroll';
-    setShowModal('');
+    document.body.style.overflowY = "scroll";
+    setShowModal("");
   }
 
   function handleProfileImage() {
-    document.body.style.overflowY = 'hidden';
-    setShowModal('emojis');
+    document.body.style.overflowY = "hidden";
+    setShowModal("emojis");
   }
 
   function handleContinue() {
-    if (getValues().languages?.length === 0 && appConfig.profile.languages === true) {
-      setShowModal('languages');
-      document.body.style.overflowY = 'hidden';
+    if (
+      getValues().languages?.length === 0 &&
+      appConfig.profile.languages === true
+    ) {
+      setShowModal("languages");
+      document.body.style.overflowY = "hidden";
     } else {
-     handleSubmit(onSubmit)()
+      handleSubmit(onSubmit)();
     }
   }
 
   function handleCancel() {
-    replace('/profiles/manage-user-profile');
+    replace("/profiles/manage-user-profile");
   }
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
     const { from, data } = Modaldata;
     switch (from) {
-      case 'emojis':
+      case "emojis":
         data.map((emoji: emojiInterface) => {
           setprofileImg(emoji.imageUrl);
         });
         break;
-      case 'languages':
+      case "languages":
         let codes = data
           .filter((data: any) => data.isSelected)
           .map((data: any) => data.code);
-        console.log('codes: ', codes);
-        setValue('languages', codes.join(','));
-        formRef.current?.dispatchEvent(new Event('submit'));
+        console.log("codes: ", codes);
+        setValue("languages", codes.join(","));
+        formRef.current?.dispatchEvent(new Event("submit"));
         break;
       default:
         break;
@@ -111,25 +114,23 @@ export default function CreateUserProfile() {
       ],
     };
     const createprofileresponse = await postData(
-      '/service/api/auth/create/user/profile',
-      payload
+      "/service/api/auth/create/user/profile",
+      payload,
     );
     if (createprofileresponse.status === true) {
       if (
         createprofileresponse.response.message ===
-        'RES_S_PROFILE_INSERTION_SUCCESS'
+        "RES_S_PROFILE_INSERTION_SUCCESS"
       ) {
-        replace('/profiles/manage-user-profile');
+        replace("/profiles/manage-user-profile");
       }
     } else if (createprofileresponse.status === false) {
       if (createprofileresponse.error?.code === -4) {
-        if (
-          createprofileresponse.error?.message
-        ) {
+        if (createprofileresponse.error?.message) {
           setToastMsg(createprofileresponse.error?.message);
           setShowToast(true);
           toastTimer.current = setTimeout(() => {
-            setToastMsg('');
+            setToastMsg("");
             setShowToast(false);
           }, 5000);
         }
@@ -137,7 +138,7 @@ export default function CreateUserProfile() {
     }
   };
 
-  const onSubmit:SubmitHandler<CreateUserProfileForm> =async () => {
+  const onSubmit: SubmitHandler<CreateUserProfileForm> = async () => {
     createProfile();
   };
 
@@ -173,29 +174,30 @@ export default function CreateUserProfile() {
                 <div className={`${styles.name_input}`}>
                   <input
                     placeholder="profile name"
-                    {...register('name', { required: true })}
+                    {...register("name", { required: true })}
                   />
 
-                  {appConfig.profile.languages === true && <input
-                    placeholder="profile name"
-                    {...register('languages', { required: true })}
-                    readOnly
-                    style={{ display: 'none' }}
-                  />}
-                  
+                  {appConfig.profile.languages === true && (
+                    <input
+                      placeholder="profile name"
+                      {...register("languages", { required: true })}
+                      readOnly
+                      style={{ display: "none" }}
+                    />
+                  )}
                 </div>
                 <div className={`${styles.check_input}`}>
                   <div className={`${styles.check_input_inner}`}>
-                    <input type="checkbox" {...register('isChildren')} />
+                    <input type="checkbox" {...register("isChildren")} />
                     <div
                       className={`${styles.check_box} ${
-                        watchisChildren ? styles.checked : ''
+                        watchisChildren ? styles.checked : ""
                       }`}
                       onClick={handleChidrencheck}
                     ></div>
                     <span
                       className={`${styles.label} ${
-                        watchisChildren ? styles.checked : ''
+                        watchisChildren ? styles.checked : ""
                       }`}
                     >
                       children
@@ -235,14 +237,14 @@ export default function CreateUserProfile() {
             render={(modal) => {
               function getModal() {
                 switch (modal) {
-                  case 'emojis':
+                  case "emojis":
                     return (
                       <Emojis
                         closeModal={handlecloseModal}
                         sendDatatoComponent={getDataFromModal}
                       />
                     );
-                  case 'languages':
+                  case "languages":
                     return (
                       <Languages
                         closeModal={handlecloseModal}
@@ -256,7 +258,7 @@ export default function CreateUserProfile() {
               return getModal();
             }}
           />,
-          document.body
+          document.body,
         )}
       {showToast && createPortal(<Toast message={toastmsg} />, document.body)}
     </div>

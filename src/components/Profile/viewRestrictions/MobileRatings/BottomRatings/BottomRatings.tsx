@@ -4,10 +4,17 @@ import { BottomRatingsInterface } from "../../viewRestrictiontypes";
 import { FC } from "react";
 
 const BottomRatings: FC<BottomRatingsInterface> = (props) => {
-  const {  Profile,profileRationgs, activeProfileRatingIndex, ratingClick,closeModal,activeProfileRating } = props;
+  const {
+    Profile,
+    profileRationgs,
+    activeProfileRatingIndex,
+    ratingClick,
+    closeModal,
+    activeProfileRating,
+  } = props;
   const getratingState = (
     index: number,
-    acitveprofileIndex: number | undefined
+    acitveprofileIndex: number | undefined,
   ) => {
     if (acitveprofileIndex === undefined) return;
     if (index < acitveprofileIndex) {
@@ -18,7 +25,6 @@ const BottomRatings: FC<BottomRatingsInterface> = (props) => {
       return styles.unselected;
     }
   };
-
 
   return (
     <div className={`${styles.ratings_modal}`}>
@@ -35,7 +41,11 @@ const BottomRatings: FC<BottomRatingsInterface> = (props) => {
         <p className={`${styles.subheading}`}>
           Show all titles of rated{" "}
           <span className={`${styles.rating}`}>
-            '{activeProfileRating?.displayCode || Profile?.profileRating || " A and Below "}'
+            '
+            {activeProfileRating?.displayCode ||
+              Profile?.profileRating ||
+              " A and Below "}
+            '
           </span>{" "}
           for this profile.
         </p>
@@ -49,7 +59,7 @@ const BottomRatings: FC<BottomRatingsInterface> = (props) => {
               <div
                 className={`${styles.iconsContainer} ${getratingState(
                   key,
-                  activeProfileRatingIndex
+                  activeProfileRatingIndex,
                 )}`}
               >
                 <div className={`${styles.default_icon}`}>
@@ -64,7 +74,9 @@ const BottomRatings: FC<BottomRatingsInterface> = (props) => {
                 <span className={`${styles.rating_bar}`}></span>
               </div>
               <p className={`${styles.ratingtext}`}>{rating.displayCode}</p>
-              <p className={`${styles.ratingtext} ${styles.ratingcode}`}>{rating.name}</p>
+              <p className={`${styles.ratingtext} ${styles.ratingcode}`}>
+                {rating.name}
+              </p>
             </div>
           ))}
         </div>

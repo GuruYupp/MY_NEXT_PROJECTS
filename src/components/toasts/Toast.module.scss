@@ -1,8 +1,10 @@
 .toast {
   width: fit-content;
   border-radius: 4px;
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2),
-    0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  box-shadow:
+    0px 3px 5px -1px rgba(0, 0, 0, 0.2),
+    0px 6px 10px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   opacity: 0;
   transform: scale(0);
@@ -10,7 +12,8 @@
   position: fixed;
   bottom: 25px;
   right: 25px;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+  transition:
+    opacity 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
     transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   color: #fff;
   min-width: 228px;
@@ -20,7 +23,8 @@
     opacity: 1;
     transform: none;
     z-index: 9;
-    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
+    transition:
+      opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,
       transform 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   }
   .message {

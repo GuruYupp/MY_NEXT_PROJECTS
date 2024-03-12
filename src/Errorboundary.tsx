@@ -1,24 +1,24 @@
 import { Component, ErrorInfo, ReactNode } from "react";
 
-interface Props{
-  children:ReactNode
-  fallback:ReactNode
+interface Props {
+  children: ReactNode;
+  fallback: ReactNode;
 }
 
-interface State{
-  hasError:boolean
+interface State {
+  hasError: boolean;
 }
 
-class ErrorBoundary extends Component<Props,State>{
-  constructor(props:any){
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: any) {
     super(props);
-    this.state={
-      hasError:false
-    }
+    this.state = {
+      hasError: false,
+    };
   }
 
-  static getDerivedStateFromError(){
-    return {hasError:true};
+  static getDerivedStateFromError() {
+    return { hasError: true };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
@@ -27,11 +27,11 @@ class ErrorBoundary extends Component<Props,State>{
   }
 
   render(): ReactNode {
-    if(this.state.hasError === true){
-      return this.props.fallback
+    if (this.state.hasError === true) {
+      return this.props.fallback;
     }
-    return this.props.children
+    return this.props.children;
   }
 }
 
-export default ErrorBoundary
+export default ErrorBoundary;

@@ -11,21 +11,21 @@ const SignupInput: FC<UseControllerProps<SingnupFormType>> = (props) => {
     props.name === "password" || props.name === "confirmpassword"
       ? "password"
       : props.name === "number"
-      ? "number"
-      : "text";
+        ? "number"
+        : "text";
   const placeholder =
     props.name === "email"
       ? "Email Address"
       : props.name === "number"
-      ? "Mobile Number"
-      : props.name === "firstName"
-      ? "First Name"
-      : props.name === "lastName"
-      ? "last Name"
-      : props.name === "confirmpassword"
-      ? "Confirm Password"
-      : "Password";
-  
+        ? "Mobile Number"
+        : props.name === "firstName"
+          ? "First Name"
+          : props.name === "lastName"
+            ? "last Name"
+            : props.name === "confirmpassword"
+              ? "Confirm Password"
+              : "Password";
+
   return (
     <input
       className={`${styles.input}`}

@@ -5,10 +5,9 @@ export type UpdatedetailsFormType = {
   newnumber: string;
 };
 
-export type UpdatedetailsPropsType={
-  title1?:string;
-  title2?:string;
-  updatetype:"email" | "number"
+export type UpdatedetailsPropsType = {
+  title1?: string;
+  title2?: string;
+  updatetype: "email" | "number";
   closeModal: () => void;
-}
-
+};

@@ -7,11 +7,10 @@ import {
 } from "@/shared";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-
 export const initialState: searchv1Interface = {
   searchtext: "",
-  pagination:'idle',
-  pagesize:36,
+  pagination: "idle",
+  pagesize: 36,
   suggestions: {
     isloading: "idle",
     data: [],
@@ -30,27 +29,31 @@ export const initialState: searchv1Interface = {
 export interface searchparamsInterface {
   query: string;
   pageSize: number;
-  page:number;
+  page: number;
 }
 
 export const fetchSearchv1Bucket = createAsyncThunk<
   responseInterface,
   searchparamsInterface
-  >("fetchSearchv1Bucket", async (params,thunkAPI) => {
-    const result = await getData("/service/api/v1/get/search/query", params, thunkAPI.signal);
+>("fetchSearchv1Bucket", async (params, thunkAPI) => {
+  const result = await getData(
+    "/service/api/v1/get/search/query",
+    params,
+    thunkAPI.signal,
+  );
   return result;
 });
 
-export const fetchSearchv1Suggestions = createAsyncThunk<responseInterface, string>(
-  "fetchSearchv1Suggestions",
-  async (query) => {
-    let params = {
-      query,
-    };
-    const result = await getData("/service/api/v1/search/suggestions", params);
-    return result;
-  }
-);
+export const fetchSearchv1Suggestions = createAsyncThunk<
+  responseInterface,
+  string
+>("fetchSearchv1Suggestions", async (query) => {
+  let params = {
+    query,
+  };
+  const result = await getData("/service/api/v1/search/suggestions", params);
+  return result;
+});
 
 interface searchpaginationparamsInterface extends searchparamsInterface {
   // last_doc: string;
@@ -76,9 +79,8 @@ const searchV1Slice = createSlice({
     },
     togglesearchSections: (state, action: PayloadAction<boolean>) => {
       if (state.tabsdata.length >= 0) {
-        state.showSections = false
-      }
-      else {
+        state.showSections = false;
+      } else {
         state.showSections = action.payload;
       }
     },
@@ -87,7 +89,7 @@ const searchV1Slice = createSlice({
     },
     handlesearchSelectTab: (
       state,
-      action: PayloadAction<searchtabInterface>
+      action: PayloadAction<searchtabInterface>,
     ) => {
       const { payload } = action;
       state.activeTab = payload;
@@ -120,21 +122,24 @@ const searchV1Slice = createSlice({
         const { payload } = action;
         state.searchResultstate = "fulfilled";
         if (payload.status === true) {
-          let response = payload.response as v1bucketsInterface["searchResults"][]
-          for(let i=0;i<response.length;i++){
-            let tabsourcetype = response[i].sourceType
-            let tabfound = false
+          let response =
+            payload.response as v1bucketsInterface["searchResults"][];
+          for (let i = 0; i < response.length; i++) {
+            let tabsourcetype = response[i].sourceType;
+            let tabfound = false;
 
-            for(let j=0;j<state.tabsdata.length;j++){
-              if(tabsourcetype === state.tabsdata[j].searchResults.sourceType){
-                state.tabsdata[j].searchResults.data.push(...response[i].data)
-                tabfound = true
+            for (let j = 0; j < state.tabsdata.length; j++) {
+              if (
+                tabsourcetype === state.tabsdata[j].searchResults.sourceType
+              ) {
+                state.tabsdata[j].searchResults.data.push(...response[i].data);
+                tabfound = true;
                 break;
               }
             }
 
-            if(tabfound === false){
-              console.log('-->llll')
+            if (tabfound === false) {
+              console.log("-->llll");
               let tabdata: v1bucketsInterface = {
                 searchResults: {
                   sourceType: response[i].sourceType,
@@ -146,7 +151,6 @@ const searchV1Slice = createSlice({
               state.tabsdata.push(tabdata);
             }
           }
-          
         } else {
           // let tab_data: bucketsInterface = {
           //   last_doc: "1",
@@ -178,7 +182,7 @@ const searchV1Slice = createSlice({
         //   //   tab_data.searchResults.pagination = "pending";
         //   // }
         // });
-        state.pagination = "pending"
+        state.pagination = "pending";
       })
       .addCase(searchv1BucketPagiation.fulfilled, (state, action) => {
         const { payload } = action;
@@ -194,15 +198,17 @@ const searchV1Slice = createSlice({
         //     break;
         //   }
         // }
-        let response = payload.response as v1bucketsInterface[]
+        let response = payload.response as v1bucketsInterface[];
         for (let i = 0; i < response.length; i++) {
-          let tabsourcetype = response[i].searchResults.sourceType
-          let tabfound = false
+          let tabsourcetype = response[i].searchResults.sourceType;
+          let tabfound = false;
 
           for (let j = 0; j < state.tabsdata.length; j++) {
             if (tabsourcetype === state.tabsdata[j].searchResults.sourceType) {
-              state.tabsdata[j].searchResults.data.push(...response[i].searchResults.data)
-              tabfound = true
+              state.tabsdata[j].searchResults.data.push(
+                ...response[i].searchResults.data,
+              );
+              tabfound = true;
               break;
             }
           }
@@ -219,7 +225,7 @@ const searchV1Slice = createSlice({
             state.tabsdata.push(tabdata);
           }
         }
-        state.pagination = "succeeded"
+        state.pagination = "succeeded";
       })
       .addCase(searchv1BucketPagiation.rejected, (state) => {
         // state.tabsdata.map((tab_data) => {
@@ -227,9 +233,9 @@ const searchV1Slice = createSlice({
         //     // tab_data.searchResults.pagination = "rejected";
         //   }
         // });
-        state.pagination = "failed"
+        state.pagination = "failed";
       });
-  }
+  },
 });
 
 export default searchV1Slice.reducer;

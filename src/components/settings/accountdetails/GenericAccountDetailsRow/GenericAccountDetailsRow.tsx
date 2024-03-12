@@ -1,6 +1,6 @@
 import { FC } from "react";
 
-import styles from './GenericAccountDetailsRow.module.scss';
+import styles from "./GenericAccountDetailsRow.module.scss";
 
 interface GenericAccountDetailsRowprops {
   heading1?: string;
@@ -30,7 +30,7 @@ const GenericAccountDetailsRow: FC<GenericAccountDetailsRowprops> = ({
           <p className={`${styles.value}`}>{details.value}</p>
         </div>
       )}
-      {(actionbtntext) && (
+      {actionbtntext && (
         <span className={`${styles.action_btn}`} onClick={actionbtnhandle}>
           {actionbtntext}
         </span>

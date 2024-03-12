@@ -1,10 +1,10 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 .settings_page {
   height: 100%;
   .settings_container {
     position: relative;
     padding-top: 96px;
-    @include breakpoint(mobile){
+    @include breakpoint(mobile) {
       padding-top: 25px;
     }
     .settings_inner_container {

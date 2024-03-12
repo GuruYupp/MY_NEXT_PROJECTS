@@ -13,10 +13,12 @@ import { UpdatedetailsPropsType } from "@/components/updatedetails/updatedetails
 const AccountDetails: FC = () => {
   const { userDetails } = useAppSelector((state) => state.user);
   const { globalsettings } = useAppSelector(
-    (state) => state.configs.systemFeatures
+    (state) => state.configs.systemFeatures,
   );
   const [showModal, setShowModal] = useState<ModalType>("");
-  const [updateDetails, setUpdateDetails] = useState<Omit<UpdatedetailsPropsType,"closeModal">>({updatetype:"email"});
+  const [updateDetails, setUpdateDetails] = useState<
+    Omit<UpdatedetailsPropsType, "closeModal">
+  >({ updatetype: "email" });
   const router = useRouter();
   const handleEdit = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -32,10 +34,19 @@ const AccountDetails: FC = () => {
     } else {
       document.body.style.overflowY = "hidden";
       if (type === "email") {
-        setUpdateDetails({ updatetype: "email", title1: "Change Email Id", title2:"On changing Email you will be redirected to settings page"});
+        setUpdateDetails({
+          updatetype: "email",
+          title1: "Change Email Id",
+          title2: "On changing Email you will be redirected to settings page",
+        });
       }
       if (type === "mobile") {
-        setUpdateDetails({ updatetype: "number", title1: "Change Mobile Number", title2: "On changing your mobile number you will be redirected to settings page" });
+        setUpdateDetails({
+          updatetype: "number",
+          title1: "Change Mobile Number",
+          title2:
+            "On changing your mobile number you will be redirected to settings page",
+        });
       }
       setShowModal("updatedetails");
     }
@@ -115,7 +126,12 @@ const AccountDetails: FC = () => {
               function getModal() {
                 switch (modal) {
                   case "updatedetails":
-                    return <UpdateDetails {...updateDetails} closeModal={handlecloseModal}/>;
+                    return (
+                      <UpdateDetails
+                        {...updateDetails}
+                        closeModal={handlecloseModal}
+                      />
+                    );
                   default:
                     return <></>;
                 }
@@ -123,7 +139,7 @@ const AccountDetails: FC = () => {
               return getModal();
             }}
           />,
-          document.body
+          document.body,
         )}
     </Fragment>
   );

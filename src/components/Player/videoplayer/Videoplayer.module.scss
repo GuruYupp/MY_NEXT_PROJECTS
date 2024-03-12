@@ -1,4 +1,4 @@
-@import '@/_var.scss';
+@import "@/_var.scss";
 .player_overlay {
   margin-right: 20px;
   position: relative;
@@ -7,15 +7,15 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  .message{
+  .message {
     color: #fff;
   }
-  .buttons{
+  .buttons {
     margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    .button{
+    .button {
       background-color: $secondary-color;
       color: #fff;
       opacity: 0.8;
@@ -26,7 +26,7 @@
       border-radius: 4px;
       padding: 0px 20px;
       font-size: 16px;
-      @include breakpoint(mac){
+      @include breakpoint(mac) {
         font-size: 14px;
         width: 112px;
       }

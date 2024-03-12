@@ -1,13 +1,13 @@
-import getConfig from 'next/config';
+import getConfig from "next/config";
 
 let appConfig = getConfig().publicRuntimeConfig.appconfig;
 
 export function isclient(): boolean {
-  return typeof window == 'undefined' ? false : true;
+  return typeof window == "undefined" ? false : true;
 }
 
 export function isserver(): boolean {
-  return typeof window == 'undefined' ? true : false;
+  return typeof window == "undefined" ? true : false;
 }
 
 export function getBoxId(): string {
@@ -20,13 +20,13 @@ export function getBoxId(): string {
     var boxID =
       s4() +
       s4() +
-      '-' +
+      "-" +
       s4() +
-      '-' +
+      "-" +
       s4() +
-      '-' +
+      "-" +
       s4() +
-      '-' +
+      "-" +
       s4() +
       s4() +
       s4();
@@ -43,7 +43,7 @@ export function getsessionToken(): string | null {
   if (appConfig.sessionId != undefined) {
     return appConfig.sessionId;
   }
-  return localStorage.getItem('session-id');
+  return localStorage.getItem("session-id");
 }
 
 export function getFromlocalStorage(key: string): string | null {
@@ -52,12 +52,12 @@ export function getFromlocalStorage(key: string): string | null {
 
 export const getAbsolutPath = (resourcePath: any) => {
   if (
-    resourcePath.indexOf('http://') == '0' ||
-    resourcePath.indexOf('https://') == '0'
+    resourcePath.indexOf("http://") == "0" ||
+    resourcePath.indexOf("https://") == "0"
   ) {
     return resourcePath;
-  } else if (resourcePath.split(',').length > 1) {
-    let arr = resourcePath.split(',');
+  } else if (resourcePath.split(",").length > 1) {
+    let arr = resourcePath.split(",");
     let profile = getProfile(arr[0]);
     return profile + arr.slice(1, arr.length).join();
   } else {
@@ -68,7 +68,7 @@ export const getAbsolutPath = (resourcePath: any) => {
 
 const getProfile = (resource?: string) => {
   let resourceProfiles = JSON.parse(
-    localStorage.getItem('resourceProfiles') || '{}'
+    localStorage.getItem("resourceProfiles") || "{}",
   );
   if (!!resource) {
     for (let i = 0; i < resourceProfiles.length; i++) {
@@ -87,36 +87,41 @@ const getProfile = (resource?: string) => {
 
 export function getplatform() {
   if (window.innerWidth < 950) {
-    return 'mobileweb';
+    return "mobileweb";
   }
-  return 'web';
+  return "web";
 }
 
 export function getDeviceId() {
-  if (navigator.userAgent.indexOf('tablet') !== -1 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    return '61'
+  if (
+    navigator.userAgent.indexOf("tablet") !== -1 ||
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      navigator.userAgent,
+    )
+  ) {
+    return "61";
   }
-  return '5';
+  return "5";
 }
 
 export function getCardRatio(cardType: string) {
   switch (cardType) {
-    case 'roller_poster':
+    case "roller_poster":
       return 0.6666666666666667;
-    case 'overlay_poster':
-    case 'overlayIcon_poster':
-    case 'sheet_poster':
-    case 'expand_poster':
-    case 'expands_poster':
-    case 'content_poster':
-    case 'promo_poster':
+    case "overlay_poster":
+    case "overlayIcon_poster":
+    case "sheet_poster":
+    case "expand_poster":
+    case "expands_poster":
+    case "content_poster":
+    case "promo_poster":
       //0.5625 is the heigth / width value eg(9:16)
       return 0.5625;
-    case 'circle_poster':
-    case 'square_poster':
+    case "circle_poster":
+    case "square_poster":
       return 1;
-    case 'expand_roller_poster':
-    case 'roller_poster':
+    case "expand_roller_poster":
+    case "roller_poster":
       return 1.5;
     default:
       return 0;
@@ -157,13 +162,13 @@ export function cardDimentionsForResponsive(cardType: string): {
   // largeCards === 16:9 ==> (1.75 - 1.76)
   // windowWidth = window.innerWidth;
   if (
-    cardType == 'overlay_poster' ||
-    cardType == 'overlayIcon_poster' ||
-    cardType == 'sheet_poster' ||
-    cardType == 'network_poster' ||
-    cardType == 'content_poster' ||
-    cardType == 'expands_poster' ||
-    cardType == 'expand_poster'
+    cardType == "overlay_poster" ||
+    cardType == "overlayIcon_poster" ||
+    cardType == "sheet_poster" ||
+    cardType == "network_poster" ||
+    cardType == "content_poster" ||
+    cardType == "expands_poster" ||
+    cardType == "expand_poster"
   ) {
     if (windowWidth <= 320) {
       return { cardCount: 2, gridCound: 2, cardRatio: 0.5625 };
@@ -186,7 +191,7 @@ export function cardDimentionsForResponsive(cardType: string): {
     } else {
       return { cardCount: 6, gridCound: 6, cardRatio: 0.5625 };
     }
-  } else if (cardType == 'roller_poster') {
+  } else if (cardType == "roller_poster") {
     if (windowWidth <= 320) {
       return { cardCount: 2.8, gridCound: 2, cardRatio: 1.5 };
     } else if (windowWidth <= 380) {
@@ -214,7 +219,7 @@ export function cardDimentionsForResponsive(cardType: string): {
     } else {
       return { cardCount: 8, gridCound: 8, cardRatio: 1.5 };
     }
-  } else if (cardType == 'large_poster') {
+  } else if (cardType == "large_poster") {
     if (windowWidth <= 320) {
       return { cardCount: 1.4, gridCound: 2, cardRatio: 0.5625 };
     } else if (windowWidth <= 380) {
@@ -240,7 +245,7 @@ export function cardDimentionsForResponsive(cardType: string): {
     }
   }
   // circle poster and Square poster
-  else if (cardType == 'icon_poster') {
+  else if (cardType == "icon_poster") {
     if (windowWidth <= 320) {
       return { cardCount: 3, gridCound: 3, cardRatio: 1 };
     } else if (windowWidth <= 380) {
@@ -266,7 +271,7 @@ export function cardDimentionsForResponsive(cardType: string): {
     }
   }
   // circle poster and Square poster
-  else if (cardType == 'square_poster') {
+  else if (cardType == "square_poster") {
     if (windowWidth <= 320) {
       return { cardCount: 3, gridCound: 3, cardRatio: 1 };
     } else if (windowWidth <= 380) {
@@ -290,7 +295,7 @@ export function cardDimentionsForResponsive(cardType: string): {
     } else {
       return { cardCount: 12, gridCound: 12, cardRatio: 1 };
     }
-  } else if (cardType == 'circle_poster') {
+  } else if (cardType == "circle_poster") {
     if (windowWidth <= 320) {
       return { cardCount: 3, gridCound: 3, cardRatio: 1 };
     } else if (windowWidth <= 380) {
@@ -317,7 +322,7 @@ export function cardDimentionsForResponsive(cardType: string): {
   }
 
   // edge poster
-  else if (cardType == 'edge_poster') {
+  else if (cardType == "edge_poster") {
     if (windowWidth <= 320) {
       return { cardCount: 2.5, gridCound: 2, cardRatio: 1 };
     } else if (windowWidth <= 380) {
@@ -341,19 +346,19 @@ export function cardDimentionsForResponsive(cardType: string): {
     } else {
       return { cardCount: 6, gridCound: 6, cardRatio: 1 };
     }
-  } else if (cardType == 'channel_poster') {
+  } else if (cardType == "channel_poster") {
     return {
       cardCount: 6,
       gridCound: 6,
       cardRatio: 0.5625,
     };
-  } else if (cardType == 'common_poster') {
+  } else if (cardType == "common_poster") {
     return {
       cardCount: 6,
       gridCound: 6,
       cardRatio: 0.5625,
     };
-  } else if (cardType == 'expand_roller_poster') {
+  } else if (cardType == "expand_roller_poster") {
     if (windowWidth <= 320) {
       return { cardCount: 2.8, gridCound: 2, cardRatio: 1.5 };
     } else if (windowWidth <= 380) {
@@ -379,15 +384,13 @@ export function cardDimentionsForResponsive(cardType: string): {
     } else {
       return { cardCount: 8, gridCound: 8, cardRatio: 1.5 };
     }
-  }
-  else if (cardType === 'promo_poster'){
+  } else if (cardType === "promo_poster") {
     return {
       cardCount: 1,
       gridCound: 1,
       cardRatio: 0.5625,
     };
-  }
-  else {
+  } else {
     if (windowWidth <= 425) {
       return { cardCount: 2.14, gridCound: 2, cardRatio: 0.5625 };
     } else if (windowWidth <= 576) {

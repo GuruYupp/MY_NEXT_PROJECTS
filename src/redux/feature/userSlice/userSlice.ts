@@ -1,24 +1,24 @@
-import { getData } from '@/services/data.manager';
+import { getData } from "@/services/data.manager";
 import {
   plansInterface,
   responseInterface,
   subprofileInterface,
   userDetailsInterface,
-} from '@/shared';
-import { getFromlocalStorage } from '@/utils';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+} from "@/shared";
+import { getFromlocalStorage } from "@/utils";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchProfiles = createAsyncThunk<responseInterface>(
-  'fetchProfiles',
+  "fetchProfiles",
   async (_args, thunkAPI) => {
-    console.log('hello');
+    console.log("hello");
     const result = await getData(
-      'service/api/auth/list/user/profile',
+      "service/api/auth/list/user/profile",
       {},
-      thunkAPI.signal
+      thunkAPI.signal,
     );
     return result;
-  }
+  },
 );
 
 type initialStateType = {
@@ -26,24 +26,24 @@ type initialStateType = {
   profiles: subprofileInterface[];
   activePackages: plansInterface[];
   userDetails: undefined | userDetailsInterface;
-  activeProfile: subprofileInterface | '';
+  activeProfile: subprofileInterface | "";
 };
 const initialState: initialStateType = {
   isLoggedin: false,
   profiles: [],
   activePackages: [],
   userDetails: undefined,
-  activeProfile: '',
+  activeProfile: "",
 };
 const userSlice = createSlice({
-  name: 'userSlice',
+  name: "userSlice",
   initialState,
   reducers: {
     setLoggedin: (state) => {
-      let Loggedin = getFromlocalStorage('isLoggedin');
-      if (!!Loggedin && Loggedin === 'true') {
+      let Loggedin = getFromlocalStorage("isLoggedin");
+      if (!!Loggedin && Loggedin === "true") {
         state.isLoggedin = true;
-        let userdetailstr = getFromlocalStorage('userDetails');
+        let userdetailstr = getFromlocalStorage("userDetails");
         let userdetail = userdetailstr && JSON.parse(userdetailstr);
         if (userdetailstr) {
           state.userDetails = userdetail;
@@ -56,9 +56,8 @@ const userSlice = createSlice({
     },
     setActiveprofile: (state) => {
       if (state.isLoggedin === true) {
-        let activeprofilestr = getFromlocalStorage('activeProfile');
-        let activeprofile =
-          activeprofilestr && JSON.parse(activeprofilestr);
+        let activeprofilestr = getFromlocalStorage("activeProfile");
+        let activeprofile = activeprofilestr && JSON.parse(activeprofilestr);
         if (activeprofilestr) {
           state.activeProfile = activeprofile;
         } else {
@@ -68,9 +67,8 @@ const userSlice = createSlice({
     },
     setActivepackages: (state) => {
       if (state.isLoggedin === true) {
-        let activePackagesstr = getFromlocalStorage('activePackages');
-        let activePackages =
-          activePackagesstr && JSON.parse(activePackagesstr);
+        let activePackagesstr = getFromlocalStorage("activePackages");
+        let activePackages = activePackagesstr && JSON.parse(activePackagesstr);
         if (activePackagesstr) {
           state.activePackages = activePackages;
         } else {
@@ -86,7 +84,7 @@ const userSlice = createSlice({
     },
     updateActiveProfile: (
       state,
-      action: PayloadAction<subprofileInterface>
+      action: PayloadAction<subprofileInterface>,
     ) => {
       if (state.isLoggedin === true) {
         state.activeProfile = action.payload;
@@ -94,20 +92,20 @@ const userSlice = createSlice({
     },
     updateUserProperty: (
       state,
-      action: PayloadAction<Partial<userDetailsInterface>>
+      action: PayloadAction<Partial<userDetailsInterface>>,
     ) => {
       if (state.userDetails) {
         let { payload } = action;
         state.userDetails = { ...state.userDetails, ...payload };
-        localStorage.setItem('userDetails', JSON.stringify(state.userDetails));
+        localStorage.setItem("userDetails", JSON.stringify(state.userDetails));
       }
     },
     updateProfile: (
       state,
       action: PayloadAction<{
-        profileId: subprofileInterface['profileId'];
+        profileId: subprofileInterface["profileId"];
         properties: Partial<subprofileInterface>;
-      }>
+      }>,
     ) => {
       const { payload } = action;
       let profileindex = 0;
@@ -129,8 +127,11 @@ const userSlice = createSlice({
         state.activeProfile = { ...state.activeProfile, ...payload.properties };
       }
 
-      localStorage.setItem('userDetails',JSON.stringify(state.userDetails))
-      localStorage.setItem('activeProfile', JSON.stringify(state.activeProfile))
+      localStorage.setItem("userDetails", JSON.stringify(state.userDetails));
+      localStorage.setItem(
+        "activeProfile",
+        JSON.stringify(state.activeProfile),
+      );
     },
   },
   extraReducers: (builder) => {
@@ -145,8 +146,8 @@ const userSlice = createSlice({
               state.userDetails.profileParentalDetails = payload.response;
             }
             localStorage.setItem(
-              'userDetails',
-              JSON.stringify(state.userDetails)
+              "userDetails",
+              JSON.stringify(state.userDetails),
             );
           }
         }

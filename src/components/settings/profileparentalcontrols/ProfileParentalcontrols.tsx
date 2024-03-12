@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react';
-import styles from './ProfileParentalcontrols.module.scss';
-import ProfileParentalControlPanel from './profileparentalcontrolpanel/ProfileParentalControlPanel';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { fetchProfiles } from '@/redux/feature/userSlice/userSlice';
+import { FC, useEffect, useState } from "react";
+import styles from "./ProfileParentalcontrols.module.scss";
+import ProfileParentalControlPanel from "./profileparentalcontrolpanel/ProfileParentalControlPanel";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { fetchProfiles } from "@/redux/feature/userSlice/userSlice";
 
 const ProfileParentalControls: FC = () => {
   const [activepanelindex, setActivePanelIndex] = useState<number>(-1);

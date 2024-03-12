@@ -1,4 +1,4 @@
-import { createAction, createReducer } from '@reduxjs/toolkit';
+import { createAction, createReducer } from "@reduxjs/toolkit";
 
 export interface activeScreenInterface {
   clientAppVersion: string;
@@ -22,12 +22,12 @@ export interface activeScreenInterface {
 let initialState: activeScreenInterface[] = [];
 
 export const addScreensAction = createAction<activeScreenInterface[]>(
-  'activescreens/addscreens'
+  "activescreens/addscreens",
 );
 
 export const removeScreenAction = createAction<
-  activeScreenInterface['sessionId']
->('activescreens/removescreen');
+  activeScreenInterface["sessionId"]
+>("activescreens/removescreen");
 
 export const activescreensReducer = createReducer(initialState, (builder) => {
   builder

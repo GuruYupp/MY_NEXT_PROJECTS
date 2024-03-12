@@ -38,7 +38,7 @@
         img {
           background: none;
         }
-        a{
+        a {
           text-decoration: none;
         }
         .text {
@@ -87,8 +87,7 @@
     height: 62px;
     z-index: 3;
     position: relative;
-    transition:all cubic-bezier(0.175, 0.885, 0.32, 1.275) ease;
-    
+    transition: all cubic-bezier(0.175, 0.885, 0.32, 1.275) ease;
 
     .header_bottominner {
       // margin: 0px 58px;
@@ -252,7 +251,9 @@
               position: absolute;
               box-shadow: 0 8px 6px 0 rgba(0, 0, 0, 0.46);
               background-color: #333;
-              transition: all 0.3s ease-in-out 0s, visibility 0s linear 0.3s,
+              transition:
+                all 0.3s ease-in-out 0s,
+                visibility 0s linear 0.3s,
                 z-index 0s linear 10ms;
               padding: 10px 0;
               top: 32px;
@@ -315,7 +316,7 @@
                     }
                   }
 
-                  .menu_profile_name{
+                  .menu_profile_name {
                     @include ellipse;
                   }
 
@@ -324,7 +325,6 @@
                     right: 10px;
                   }
                 }
-
               }
             }
 
@@ -344,10 +344,12 @@
 
       &::after {
         content: "";
-        background-image: linear-gradient(to bottom,
-            #141414,
-            rgba(20, 20, 20, 0.35) 59%,
-            rgba(20, 20, 20, 0));
+        background-image: linear-gradient(
+          to bottom,
+          #141414,
+          rgba(20, 20, 20, 0.35) 59%,
+          rgba(20, 20, 20, 0)
+        );
         // background-color: #141414;
         position: absolute;
         width: 100%;
@@ -439,10 +441,12 @@
 
       &::after {
         content: "";
-        background-image: linear-gradient(to bottom,
-            #141414,
-            rgba(20, 20, 20, 0.35) 59%,
-            rgba(20, 20, 20, 0));
+        background-image: linear-gradient(
+          to bottom,
+          #141414,
+          rgba(20, 20, 20, 0.35) 59%,
+          rgba(20, 20, 20, 0)
+        );
         // background-color: #141414;
         position: absolute;
         width: 100%;

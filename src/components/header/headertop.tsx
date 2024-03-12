@@ -18,7 +18,7 @@ function HeaderTop(): JSX.Element {
   const [showModal, setShowModal] = useState<ModalType>("");
   const { userDetails } = useAppSelector((state) => state.user);
   const activeProfile = userDetails?.profileParentalDetails?.filter(
-    (profile) => profile.profileId === userDetails.profileId
+    (profile) => profile.profileId === userDetails.profileId,
   )[0];
   const dispatch = useAppDispatch();
   const handleFilter = () => {
@@ -50,7 +50,7 @@ function HeaderTop(): JSX.Element {
           updateProfile({
             profileId: activeProfile?.profileId,
             properties: { langs: codes.join(",") },
-          })
+          }),
         );
       }
     });
@@ -116,7 +116,9 @@ function HeaderTop(): JSX.Element {
                 alt=""
               />
               <Link href={`mailto:${appConfig.supportmail}`}>
-                <span className={`${styles.text}`}>{appConfig.supportmail}</span>
+                <span className={`${styles.text}`}>
+                  {appConfig.supportmail}
+                </span>
               </Link>
             </div>
           )}
@@ -146,7 +148,7 @@ function HeaderTop(): JSX.Element {
               return getModal();
             }}
           />,
-          document.body
+          document.body,
         )}
     </>
   );

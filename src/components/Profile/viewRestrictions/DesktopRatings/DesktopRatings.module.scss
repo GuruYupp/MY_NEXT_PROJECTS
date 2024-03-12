@@ -5,7 +5,7 @@
   align-items: center;
   margin-top: 20px;
   margin-bottom: 30px;
-  @include breakpoint(mobile){
+  @include breakpoint(mobile) {
     display: none;
   }
   .ratingContainer {

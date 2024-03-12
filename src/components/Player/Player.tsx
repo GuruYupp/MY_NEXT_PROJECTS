@@ -6,44 +6,55 @@ import styles from "./Player.module.scss";
 import Link from "next/link";
 import Section from "../Sections/Section/Section";
 import VideoSuggestions from "./videosuggestions/VideoSuggestions";
-import { fetchStreamData, resetstreamSlice } from "@/redux/feature/streamSlice/streamSlice";
+import {
+  fetchStreamData,
+  resetstreamSlice,
+} from "@/redux/feature/streamSlice/streamSlice";
 import { getPlayerpageMeta } from "./playermeta";
 import appConfig from "@/app.config";
-
 
 export default function Player() {
   const { asPath } = useRouter();
   const { info } = useAppSelector((state) => state.pageData.response);
-  const { streamapiloading } = useAppSelector((state)=>state.streamData)
+  const { streamapiloading } = useAppSelector((state) => state.streamData);
   const { content, pageButtons, shareInfo, sections, streamStatus } =
     useAppSelector((state) => state.pageData.response);
 
-  const dispatch = useAppDispatch()
-  const [suggestionheight,SetsuggestionHeight] = useState<number>(0);
+  const dispatch = useAppDispatch();
+  const [suggestionheight, SetsuggestionHeight] = useState<number>(0);
 
-  const setSuggestionHeight = (height:number)=>{
-    SetsuggestionHeight(height)
-  }
-  
+  const setSuggestionHeight = (height: number) => {
+    SetsuggestionHeight(height);
+  };
+
   // eslint-disable-next-line camelcase
-  const { title, subtitle, description, content_img, tvguide, tvguide_target, pgrating, cast } = getPlayerpageMeta(content) 
+  const {
+    title,
+    subtitle,
+    description,
+    content_img,
+    tvguide,
+    tvguide_target,
+    pgrating,
+    cast,
+  } = getPlayerpageMeta(content);
 
   useEffect(
     function () {
       let params = {
-        path: info.path || '',
+        path: info.path || "",
         // eslint-disable-next-line camelcase
-        stream_type:''
+        stream_type: "",
       };
 
       if (streamStatus.trailerStreamStatus) {
         // eslint-disable-next-line camelcase
-        params.stream_type = "trailer"
-      } 
-      dispatch(resetstreamSlice())
-      dispatch(fetchStreamData({params}))
+        params.stream_type = "trailer";
+      }
+      dispatch(resetstreamSlice());
+      dispatch(fetchStreamData({ params }));
     },
-    [asPath]
+    [asPath],
   );
   return (
     <div className={`${styles.player_page_container}`}>
@@ -51,7 +62,7 @@ export default function Player() {
         <div className={`${styles.player_page_top_left}`}>
           {streamapiloading === "succeeded" && (
             <div className={`${styles.player_wrapper}`}>
-              <VideoPlayer setSuggestionHeight={setSuggestionHeight}/>
+              <VideoPlayer setSuggestionHeight={setSuggestionHeight} />
             </div>
           )}
           <div className={`${styles.player_footer}`}>
@@ -86,16 +97,21 @@ export default function Player() {
                     {pageButtons.showFavouriteButton && (
                       <span className={`${styles.btn} ${styles.favorite_btn}`}>
                         <img
-                          src={`${appConfig.cloudpath + "/images/heart.svg"}`} alt="heart"
+                          src={`${appConfig.cloudpath + "/images/heart.svg"}`}
+                          alt="heart"
                         />
                         Add To Favorite
                       </span>
                     )}
-                    {(pageButtons.showFavouriteButton && shareInfo.isSharingAllowed) && <span className={`${styles.line}`}></span>}
+                    {pageButtons.showFavouriteButton &&
+                      shareInfo.isSharingAllowed && (
+                        <span className={`${styles.line}`}></span>
+                      )}
                     {shareInfo.isSharingAllowed && (
                       <span className={`${styles.btn} ${styles.share_btn}`}>
                         <img
-                          src={`${appConfig.cloudpath + "/images/share.svg"}`} alt="share"
+                          src={`${appConfig.cloudpath + "/images/share.svg"}`}
+                          alt="share"
                         />
                       </span>
                     )}
@@ -125,7 +141,7 @@ export default function Player() {
         </div>
         <div className={`${styles.player_page_top_right}`}>
           <div className={`${styles.player_page_top_right_inner}`}>
-            <VideoSuggestions suggestionHeight={suggestionheight}/>
+            <VideoSuggestions suggestionHeight={suggestionheight} />
           </div>
         </div>
       </div>

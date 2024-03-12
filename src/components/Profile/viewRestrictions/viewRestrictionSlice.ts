@@ -23,38 +23,44 @@ let initialState: viewRestrictionInterface = {
 };
 
 export const profileRationgsPending = createAction(
-  "fetchprofileRationgs/pending"
+  "fetchprofileRationgs/pending",
 );
 export const profileRationgsFulfiled = createAction<profileRatingType[]>(
-  "fetchprofileRationgs/fulfilled"
+  "fetchprofileRationgs/fulfilled",
 );
 export const profileRationgsRejected = createAction<any>(
-  "fetchprofileRationgs/rejected"
+  "fetchprofileRationgs/rejected",
 );
 export const setActiveprofileRatingsIndex = createAction<number>(
-  "setActiveprofileRatingsIndex"
+  "setActiveprofileRatingsIndex",
 );
 
 export const blockedContentsPending = createAction(
-  "fetchblockedContents/pending"
+  "fetchblockedContents/pending",
 );
-export const blockedContentsFulfiled = createAction<viewRestrictionInterface['blockedContents']>(
-  "fetchblockedContents/fulfilled"
-);
+export const blockedContentsFulfiled = createAction<
+  viewRestrictionInterface["blockedContents"]
+>("fetchblockedContents/fulfilled");
 export const blockedContentsRejected = createAction<any>(
-  "fetchblockedContents/rejected"
+  "fetchblockedContents/rejected",
 );
-export const addblockedContent = createAction<{id:string,name:string,category:string}>('blockedContents/add')
-export const removeblockedContent = createAction<string>('blockedContents/remove')
+export const addblockedContent = createAction<{
+  id: string;
+  name: string;
+  category: string;
+}>("blockedContents/add");
+export const removeblockedContent = createAction<string>(
+  "blockedContents/remove",
+);
 
 export const queryContentsPending = createAction("fetchContents/pending");
-export const queryContentsFulfiled = createAction<viewRestrictionInterface['queryContents']>(
-  "fetchContents/fulfilled"
-);
+export const queryContentsFulfiled = createAction<
+  viewRestrictionInterface["queryContents"]
+>("fetchContents/fulfilled");
 export const queryContentsRejected = createAction<any>(
-  "fetchContents/rejected"
+  "fetchContents/rejected",
 );
-export const queryContentsEmpty = createAction('querycontents/empty')
+export const queryContentsEmpty = createAction("querycontents/empty");
 
 const viewRestrictionReducer = createReducer(initialState, (builder) => {
   builder
@@ -64,7 +70,7 @@ const viewRestrictionReducer = createReducer(initialState, (builder) => {
     .addCase(profileRationgsFulfiled, (state, action) => {
       console.log(action.payload);
       state.profileRationgs = action.payload.sort(
-        (a, b) => a.priority - b.priority
+        (a, b) => a.priority - b.priority,
       );
       state.profileRationgsstatus = "fulfilled";
     })
@@ -90,30 +96,30 @@ const viewRestrictionReducer = createReducer(initialState, (builder) => {
     .addCase(blockedContentsRejected, (state) => {
       state.blockedContentstatus = "rejected";
     })
-    .addCase(addblockedContent,(state,action)=>{
-      const {payload} = action;
+    .addCase(addblockedContent, (state, action) => {
+      const { payload } = action;
       let found = false;
-      state.blockedContents.map(({category,itemsMap})=>{
-        if(category === payload.category){
+      state.blockedContents.map(({ category, itemsMap }) => {
+        if (category === payload.category) {
           found = true;
-          if(itemsMap[payload.id] === undefined){
-            itemsMap[payload.id] = payload.name
+          if (itemsMap[payload.id] === undefined) {
+            itemsMap[payload.id] = payload.name;
           }
         }
-      })
-      if(found === false){
-        let itemsMap:{[key:string]:string}={}
-        itemsMap[payload.id] = payload.name
-        state.blockedContents.push({category:payload.category,itemsMap})
+      });
+      if (found === false) {
+        let itemsMap: { [key: string]: string } = {};
+        itemsMap[payload.id] = payload.name;
+        state.blockedContents.push({ category: payload.category, itemsMap });
       }
     })
-    .addCase(removeblockedContent,(state,action)=>{
-      const {payload} = action
+    .addCase(removeblockedContent, (state, action) => {
+      const { payload } = action;
       state.blockedContents.map(({ itemsMap }) => {
-        if(itemsMap[payload]){
-          delete itemsMap[payload]
+        if (itemsMap[payload]) {
+          delete itemsMap[payload];
         }
-      })
+      });
     })
     .addCase(queryContentsPending, (state) => {
       state.blockedContentstatus = "pending";
@@ -126,8 +132,8 @@ const viewRestrictionReducer = createReducer(initialState, (builder) => {
     .addCase(queryContentsRejected, (state) => {
       state.queryContentstatus = "rejected";
     })
-    .addCase(queryContentsEmpty,(state)=>{
-      state.queryContents = []
+    .addCase(queryContentsEmpty, (state) => {
+      state.queryContents = [];
     });
 });
 

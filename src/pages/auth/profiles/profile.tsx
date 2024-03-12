@@ -3,11 +3,10 @@ import ErrorBoundary from "@/Errorboundary";
 import Profiles from "@/components/Profile/Profile";
 
 export default function Profilespage(): JSX.Element {
-
   return (
     <>
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-            <Profiles />
+        <Profiles />
       </ErrorBoundary>
     </>
   );
@@ -67,11 +66,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
   // console.log(seodata)
   let seodata = {
     status: false,
-    response: {}
-  }
+    response: {},
+  };
   return {
     props: {
-      seodata: seodata.status ? seodata.response : {}
-    }
-  }
-}
+      seodata: seodata.status ? seodata.response : {},
+    },
+  };
+};

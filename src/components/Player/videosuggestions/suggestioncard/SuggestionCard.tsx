@@ -1,16 +1,15 @@
-import { cardInterface, typeofcardType } from '@/shared';
-import styles from './SuggestionCard.module.scss';
-import { SyntheticEvent } from 'react';
-import { getAbsolutPath } from '@/utils';
-import appConfig from '@/app.config';
-
+import { cardInterface, typeofcardType } from "@/shared";
+import styles from "./SuggestionCard.module.scss";
+import { SyntheticEvent } from "react";
+import { getAbsolutPath } from "@/utils";
+import appConfig from "@/app.config";
 
 interface SuggestionCardprops {
   cardDetails: cardInterface;
 }
 
 export default function SuggestionCard(
-  props: SuggestionCardprops
+  props: SuggestionCardprops,
 ): JSX.Element {
   const { cardType, display } = props.cardDetails;
   const { cardDetails } = props;
@@ -22,12 +21,12 @@ export default function SuggestionCard(
     cardDetails.display.parentIcon &&
     getAbsolutPath(cardDetails.display.parentIcon);
   const handleImageonError = (e: SyntheticEvent) => {
-    e.currentTarget.setAttribute('src', appConfig.cardDefaultImage);
+    e.currentTarget.setAttribute("src", appConfig.cardDefaultImage);
   };
 
   const renderCard = (cardType: typeofcardType) => {
     switch (cardType) {
-      case 'expands_poster':
+      case "expands_poster":
         return (
           <div className={`${styles.suggestionCard_container}`}>
             <div className={`${styles.suggestionCard_Img}`}>
