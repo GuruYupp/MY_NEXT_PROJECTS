@@ -16,7 +16,7 @@
     "aastha": "npm run dev --tenant=aastha",
     "firstshows": "npm run dev --tenant=firstshows",
     "watcho": "npm run dev --tenant=watcho",
-    "prepare": "husky"
+    "prepare": "husky && husky install"
   },
   "dependencies": {
     "@reduxjs/toolkit": "~1.9.5",
@@ -54,7 +54,7 @@
     "gulp": "^4.0.2",
     "gulp-clean": "~0.4.0",
     "gulp-delete-file": "~1.0.2",
-    "husky": "^9.0.11",
+    "husky": "^8.0.0",
     "sass": "~1.58.0",
     "typescript": "~5.3.3",
     "yargs": "~17.7.2"

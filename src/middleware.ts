@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   
   if (isprotectedPath) {
     if(!isLoggedin){
-    
+       
         return NextResponse.redirect(new URL('/signin',request.url))
     }
   }
