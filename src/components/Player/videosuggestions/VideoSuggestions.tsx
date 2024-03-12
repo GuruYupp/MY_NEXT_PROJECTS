@@ -3,12 +3,13 @@ import styles from "./VideoSuggestions.module.scss";
 import Slider, { Settings } from "react-slick";
 // import { data as mockdata } from '../../Tabs/mockdata';
 import SuggestionCard from "./suggestioncard/SuggestionCard";
+import { memo } from "react";
 
 interface VideoSuggestionsProps {
   suggestionHeight: number;
 }
 
-export default function VideoSuggestions(props: VideoSuggestionsProps) {
+function VideoSuggestions(props: VideoSuggestionsProps) {
   const { suggestionHeight } = props;
   let { tabsInfo, sections } = useAppSelector(
     (state) => state.pageData.response,
@@ -66,3 +67,5 @@ export default function VideoSuggestions(props: VideoSuggestionsProps) {
     </div>
   );
 }
+
+export default memo(VideoSuggestions);

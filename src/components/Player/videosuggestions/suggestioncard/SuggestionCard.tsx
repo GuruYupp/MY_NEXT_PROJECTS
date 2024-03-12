@@ -3,6 +3,7 @@ import styles from "./SuggestionCard.module.scss";
 import { SyntheticEvent } from "react";
 import { getAbsolutPath } from "@/utils";
 import appConfig from "@/app.config";
+import Link from "next/link";
 
 interface SuggestionCardprops {
   cardDetails: cardInterface;
@@ -11,7 +12,7 @@ interface SuggestionCardprops {
 export default function SuggestionCard(
   props: SuggestionCardprops,
 ): JSX.Element {
-  const { cardType, display } = props.cardDetails;
+  const { cardType, display, target } = props.cardDetails;
   const { cardDetails } = props;
   const src = getAbsolutPath(cardDetails.display.imageUrl);
   // const partnerIcon =
@@ -101,5 +102,9 @@ export default function SuggestionCard(
     }
   };
 
-  return <>{renderCard(cardType)}</>;
+  return (
+    <>
+      <Link href={target.path}>{renderCard(cardType)}</Link>
+    </>
+  );
 }

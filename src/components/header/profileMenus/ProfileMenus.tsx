@@ -14,6 +14,8 @@ export default function ProfileMenus() {
     (state) => state.configs,
   );
   const { userDetails, activeProfile } = useAppSelector((state) => state.user);
+  console.log(userDetails);
+  console.log(activeProfile);
 
   const dispatch = useAppDispatch();
   const { replace } = useRouter();
@@ -118,7 +120,8 @@ export default function ProfileMenus() {
             userDetails.profileParentalDetails?.map(
               (profile, index: number) => {
                 return (
-                  profile.profileId !== userDetails.profileId && (
+                  profile.profileId !==
+                    (activeProfile && activeProfile.profileId) && (
                     <li
                       className={`${styles.menu_profile}`}
                       key={index}

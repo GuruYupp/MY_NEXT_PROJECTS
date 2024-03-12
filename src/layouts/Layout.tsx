@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, memo, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Init } from "@/clientapis";
 import {
@@ -78,4 +78,4 @@ function Layout({ children }: { children: ReactNode }) {
   );
 }
 
-export default Layout;
+export default memo(Layout);
