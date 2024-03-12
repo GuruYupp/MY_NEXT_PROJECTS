@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <link rel="icon" type="image/x-icon"
+  href="https://d2ivesio5kogrp.cloudfront.net/static/timesplay/images/timesplay-favicon.png" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+        body{ font-family: 'Poppins', sans-serif;}
+    body.default_theme {background: #141414;}
+    body.white { background:white;}
+    body.white .html-cancellation.template { color: black;}
+
+    /* width */
+    ::-webkit-scrollbar {
+    width: 6px;
+    }
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 6px;
+    }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 6px;
+    }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    }
+     .template-fluid{  height: 99%;  overflow: auto; }
+     .html-cancellation.template{ font-size:16px; color:#fff; padding-right: 20px;}
+     .html-cancellation.template .title{font-size: 26px; font-weight: 400; margin-bottom: 10px; line-height: 1.2;}   
+     @media screen and (max-width : 1024px){
+      .html-cancellation.template{padding: 20px;}
+      .html-cancellation.template .title{font-size: 20px;}
+     }
+     .template-fluid .html-cancellation.template{padding: 0 20px 0 0 ;}
+     .html-cancellation{padding: 0;}
+     .html-cancellation .temp_inner h1{color:#fff; padding:0; margin:0;}
+     .html-cancellation .temp_inner p{font-size:14px; color:#858585; margin-bottom:15px; word-break: break-word;}
+     .html-cancellation a{ color:#0056b3; cursor: pointer;font-size: 14px;}
+    
+  </style>
+  <title>Document</title>
+</head>
+
+<body id="cancellation" class="default_theme">
+  <div class="html-cancellation template">
+    <h1 class="title">Cancellation Policy</h1>
+    <div class="temp_inner">
+         <p>This Cancellation Policy should be read in conjunction with the Terms of Use applicable to the BCCL services
+           you are using.</p>
+         <p>Bennett, Coleman & Company Limited – through Television Division does not offer any reimbursement for
+           subscription cancellations made on TimesPlay App platform or  <a href="www.timesplay.com "
+             target="_blank">www.timesplay.com</a> 
+           or any other platform through which subscription may have been bought including but not limited to Mobile Apps,
+           TV Apps. Customer can cancel their subscription through interface provided on timesplay platforms as mentioned
+           above.</p>
+   
+         <p>For cancellation to take effect, user should intimate TimesPlay team by writing an email at:
+           <a href="appfeedback@timesplay.com" target="_blank">appfeedback@timesplay.com</a>.
+           It may take upto 7 business days to register customer’s request and process the same. Any recurring billing in
+           this period will not be reversed and customer is advised to take cognizance of the same and cancel accordingly.
+         </p>
+    </div>
+  </div>
+
+  <script>
+    var params = {};
+        themes = ['white']
+        for (const [key, value] of (new URLSearchParams(location.search))) {
+            params[`${key}`] = `${value}`
+            
+        }
+        if(!!params.theme && themes.includes(params.theme)){
+          document.getElementById("cancellation").classList.add(params.theme);
+        }
+  </script>
+
+</body>
+</html>

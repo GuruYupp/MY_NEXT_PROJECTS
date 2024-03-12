@@ -1,4 +1,3 @@
-import AuthGuard from '@/components/Auth/AuthGuard'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -22,11 +21,11 @@ const SsoLayout = () => {
   }
 
   return (
-    <AuthGuard>
+    <>
       <div style={{minHeight:"80vh"}}>
         <h1>Hello world..</h1>
       </div>
-    </AuthGuard>
+    </>
   )
 }
 

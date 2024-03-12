@@ -1,5 +1,5 @@
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   basePath: '',
   async rewrites() {
     return [
@@ -34,6 +34,10 @@ module.exports = {
       {
         source: '/profiles/view-restrictions/:userId',
         destination: '/auth/profiles/view-restrictions'
+      },
+      {
+        source: '/profiles/profile-lock/:userId',
+        destination: '/auth/profiles/profile-lock'
       },
       {
         source: '/settings',

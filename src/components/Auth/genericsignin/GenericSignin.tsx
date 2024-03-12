@@ -17,6 +17,7 @@ import { OtpVerifydataType } from "@/components/otpverify/otpverifytypes";
 import { createPortal } from "react-dom";
 import Modal from "@/components/modals/Modal";
 import OtpVerify from "@/components/otpverify/OtpVerify";
+import { default as clientCookie } from "js-cookie";
 
 const GenericSignIn: FC = () => {
   const { globalsettings, sociallogin, userprofiles } = useAppSelector(
@@ -124,6 +125,7 @@ const GenericSignIn: FC = () => {
 
   const setuserLoggedin = async ()=>{
     localStorage.setItem('isLoggedin', 'true');
+    clientCookie.set('isLoggedin','true');
     if (showPackages === "true") {
       const userPackages = await getData(
         'service/api/auth/user/activepackages'
@@ -144,6 +146,7 @@ const GenericSignIn: FC = () => {
       );
       dispatch(setLoggedin())
       if (userprofiles?.fields?.is_userprofiles_supported === "true") {
+        clientCookie.set('hasuserprofiles','true');
         router.replace('/profiles/select-user-profile');
       }
       else {
@@ -281,7 +284,7 @@ const GenericSignIn: FC = () => {
             </div>
           </div>
           <div className={`${styles.inner_bottom}`}>
-            {appConfig.signin.emailPhoneToggle === true && (
+            {(appConfig.signin.emailPhoneToggle === true && globalsettings?.fields?.changeEmailSupport === 'true' ) && (
               <button
                 className={`${styles.email_number_toggle}`}
                 onClick={toggelEmailNumberInput}

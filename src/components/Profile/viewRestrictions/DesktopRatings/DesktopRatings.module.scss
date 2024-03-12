@@ -1,0 +1,116 @@
+@import "@/_var.scss";
+
+.ratingsContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  @include breakpoint(mobile){
+    display: none;
+  }
+  .ratingContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 50px;
+    .iconsContainer {
+      height: 28px;
+      width: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      font-size: 0px;
+      .default_icon {
+        height: 28px;
+        width: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #333;
+        border-radius: 50%;
+        display: none;
+      }
+      .active_icon {
+        height: 28px;
+        width: 28px;
+        background-color: $primary-color;
+        position: relative;
+        display: inline-block;
+        border-radius: 50%;
+        display: none;
+        &::after {
+          display: inline-block;
+          height: 11px;
+          width: 6px;
+          border-bottom: 2px solid #fff;
+          border-right: 2px solid #fff;
+          transform: rotate(45deg);
+          position: absolute;
+          content: "";
+          top: 7px;
+          left: 11px;
+          box-sizing: border-box;
+        }
+      }
+      .selected_icon {
+        height: 18px;
+        width: 18px;
+        border: 1px solid $primary-color;
+        background-color: #141414;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        display: none;
+        &::after {
+          display: inline-block;
+          height: 8px;
+          width: 4px;
+          border-bottom: 1px solid $primary-color;
+          border-right: 1px solid $primary-color;
+          transform: rotate(45deg);
+          position: absolute;
+          content: "";
+          top: 3px;
+          left: 6px;
+          z-index: 9;
+        }
+      }
+      .rating_bar {
+        width: 99px;
+        height: 2px;
+        background: #484848;
+        position: absolute;
+        content: "";
+        right: 50%;
+        z-index: -1;
+      }
+      &.selected {
+        .rating_bar {
+          background-color: $primary-color;
+        }
+        .selected_icon {
+          display: inline-block;
+        }
+        &.active {
+          .selected_icon {
+            display: none;
+          }
+          .active_icon {
+            display: inline-block;
+          }
+        }
+      }
+      &.unselected {
+        .default_icon {
+          display: flex;
+        }
+      }
+    }
+    .ratingtext {
+      font-size: 16px;
+      color: #fff;
+      margin-top: 20px;
+    }
+  }
+}

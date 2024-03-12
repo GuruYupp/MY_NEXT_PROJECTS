@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import getConfig from 'next/config';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { useEffect, useState, KeyboardEvent, useRef, FormEvent } from 'react';
-import { apicall, getData, postData } from '@/services/data.manager';
+import { getData, postData } from '@/services/data.manager';
 import Loading from '../../shared/Loading';
 import { createPortal } from 'react-dom';
 import Toast from '@/components/toasts/Toast';
@@ -136,6 +136,7 @@ export const SignIn = (): JSX.Element => {
       clientCookie.remove('boxId');
       clientCookie.remove('tenantCode');
       clientCookie.remove('sessionId');
+      clientCookie.remove('isLoggedin');
       window.location.reload();
     } else {
       otpTimer.current.resendTime = otpResponse.response.resendTime;
@@ -257,12 +258,7 @@ export const SignIn = (): JSX.Element => {
       return;
     } else {
       setLoading(false);
-      let headers = {
-        'session-id': clientCookie.get('sessionId') || '',
-        'tenant-code': clientCookie.get('tenantCode') || '',
-        'box-id': clientCookie.get('boxId') || '',
-      };
-      apicall('/service/api/v1/get/country', headers, {}).then((data) => {
+      getData('/service/api/v1/get/country').then((data) => {
         if (data.status === true && data.response.length > 0) {
           // setCountryCodes([...data.response]);
          
@@ -270,6 +266,7 @@ export const SignIn = (): JSX.Element => {
           clientCookie.remove('boxId');
           clientCookie.remove('tenantCode');
           clientCookie.remove('sessionId');
+          clientCookie.remove('isLoggedin');
           window.location.reload();
         } else {
           

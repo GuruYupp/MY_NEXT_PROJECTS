@@ -35,17 +35,17 @@ task('clean-public', () => {
 });
 
 task('remove-appConfig', (done) => {
-  return src('./src/app.config.js')
+  return src('./src/app.config.js',{allowEmpty:true})
     .pipe(deletfile());
 });
 
 task('remove-nextConfig', (done) => {
-  return src('./next.config.js')
+  return src('./next.config.js',{allowEmpty:true})
     .pipe(deletfile());
 });
 
 task('remove-varscss', (done) => {
-  return src('./src/_var.scss')
+  return src('./src/_var.scss',{allowEmpty:true})
     .pipe(deletfile());
 });
 

@@ -4,25 +4,6 @@ import { default as clientCookie } from 'js-cookie';
 import { setupCache } from 'axios-cache-interceptor';
 import { AxiosResponse } from 'axios';
 
-export async function apicall(
-  url: string,
-  headers: any,
-  params: any = {},
-  type: 'post' | 'get' = 'get',
-  payload?: any
-): Promise<responseInterface> {
-  let data;
-  if (type === 'get') {
-    data = await axiosget<responseInterface>({ url, headers, params });
-  } else {
-    data = await axiosPost<responseInterface>(
-      { url, headers, params },
-      payload
-    );
-  }
-  return data;
-}
-
 export async function getData(
   url: string,
   params: any = {},

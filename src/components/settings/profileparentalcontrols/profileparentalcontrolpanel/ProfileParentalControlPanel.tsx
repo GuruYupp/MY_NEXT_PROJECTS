@@ -159,7 +159,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
           <div className={`${styles.info_container} `}>
             <h4 className={`${styles.profile_name} `}>{profile?.name}</h4>
             <span className={`${styles.maturity}`}>
-              {profile?.profileRating}
+              {profile?.profileRating || "All Maturity Settings"}
             </span>
           </div>
         </div>
@@ -172,7 +172,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
           />}
           <ProfileParentalControlData
             controlType="Viewing Restrictions"
-            contentData={profile?.profileRating || ""}
+            contentData={profile?.profileRating || "All Maturity Settings"}
             clickHandler={actionHandler}
           />
           <ProfileParentalControlData
@@ -209,6 +209,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
                         sendDatatoComponent={getDataFromModal}
                         profileData={profile}
                         type={otpModal}
+                        isPasswordOtp={true}
                       />
                     );
                   default:

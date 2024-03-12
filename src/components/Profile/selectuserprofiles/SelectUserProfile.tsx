@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Link from "next/link";
 import { fetchProfiles, setActiveprofile } from "@/redux/feature/userSlice/userSlice";
 import { getData, postData } from "@/services/data.manager";
-
+import { default as clientCookie } from "js-cookie";
 
 export default function SelectUserProfiles() {
   const { systemFeatures } = useAppSelector(state => state.configs)
@@ -29,6 +29,7 @@ export default function SelectUserProfiles() {
           if (data.status === true) {
             localStorage.setItem("userDetails", JSON.stringify(data.response));
             localStorage.setItem('activeProfile', JSON.stringify(profile));
+            clientCookie.set('profileExpiry',(new Date().getTime() + (120*60*1000)).toString());
             dispatch(setActiveprofile());
             router.replace('/')
           }

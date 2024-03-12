@@ -1,9 +1,9 @@
 import { ReactNode, useEffect, useState } from "react";
 import { default as clientCookie } from "js-cookie";
-import { apicall } from "@/services/data.manager";
 import { templateType, templateresponseInterface } from "@/shared";
 import ChannelOverlayTemplate from "./channeloverlay/ChannelOverlay";
 import TemplateSkeleton from "../shared/template_skeleton/TemplateSkeleton";
+import { getData } from "@/services/data.manager";
 
 interface TemplateProps{
   closeModal: () => void;
@@ -20,17 +20,12 @@ export default function Template(props:TemplateProps){
   useEffect(()=>{
     let mounted = false;
     //https://dishtv-api.revlet.net/service/api/v1/template/data?template_code=channel_overlay&path=ottchannels/play/news-x-1
-    let headers = {
-      "session-id": clientCookie.get("sessionId") || "",
-      "tenant-code": clientCookie.get("tenantCode") || "",
-      "box-id": clientCookie.get("boxId") || "",
-    };
     let params = {
       path: props.target_path,
       // eslint-disable-next-line camelcase
       template_code:props.template_code,
     };
-    apicall("service/api/v1/template/data", headers, params)
+    getData("service/api/v1/template/data", params=params)
       .then((data) => {
         if (!mounted) return;
         if (data?.status == true) {
@@ -41,6 +36,7 @@ export default function Template(props:TemplateProps){
           clientCookie.remove("boxId");
           clientCookie.remove("tenantCode");
           clientCookie.remove("sessionId");
+          clientCookie.remove('isLoggedin');
           setLoading(false);
           window.location.reload();
         } else {

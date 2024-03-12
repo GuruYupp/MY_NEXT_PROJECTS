@@ -34,6 +34,7 @@ function useGetPage() {
             clientCookie.remove("boxId");
             clientCookie.remove("tenantCode");
             clientCookie.remove("sessionId");
+            clientCookie.remove('isLoggedin');
             window.location.reload();
           }
           return response;

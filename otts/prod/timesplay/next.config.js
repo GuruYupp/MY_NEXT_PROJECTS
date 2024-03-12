@@ -36,6 +36,10 @@ module.exports = {
         destination: '/auth/profiles/view-restrictions'
       },
       {
+        source: '/profiles/profile-lock/:userId',
+        destination: '/auth/profiles/profile-lock'
+      },
+      {
         source: '/settings',
         destination: '/misc/misc',
       },

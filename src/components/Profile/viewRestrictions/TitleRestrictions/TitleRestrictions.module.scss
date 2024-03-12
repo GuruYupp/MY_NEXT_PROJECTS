@@ -1,0 +1,83 @@
+@import "@/_var.scss";
+
+.Container {
+  position: relative;
+  .inputContainer {
+    margin-top: 20px;
+    height: 46px;
+    input {
+      border-radius: 3px;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      background: none;
+      border: 1px solid #555;
+      width: 100%;
+      height: 46px;
+      color: #e5e5e5;
+      font-size: 15px;
+      float: left;
+      margin-right: 16px;
+      padding: 0 15px;
+      outline: none;
+
+      @include breakpoint(mobile) {
+        width: 100%;
+        max-width: 500px;
+      }
+    }
+  }
+
+  .suggestionsContainer{
+    // width: 100%;
+    bottom: 0;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    max-height: 200px;
+    overflow: hidden;
+    overflow-y: auto;
+    .suggestion{
+      padding: 5px 15px;
+      font-size: 15px;
+      background: #333;
+      min-height: 30px;
+      cursor: default;
+      line-height: 30px;
+      color: #fff;
+      @include ellipse;
+      @include breakpoint(mobile){
+        adding: 0 25px;
+        font-size: 13px;
+        height: 50px;
+        line-height: 50px;
+      }
+      &:hover{
+        background: #404040;
+        color: #fff;
+        @include breakpoint(mobile){
+          background: #333;
+        }
+      }
+    }
+  }
+  .blockedcontentContainer{
+    .suggestion{
+      padding: 0 5px 0 10px;
+      font-size: 12px;
+      margin: 5px 0px;
+      background: #333;
+      min-height: 30px;
+      cursor: default;
+      line-height: 30px;
+      color: #fff;
+      display: inline-block;
+      .close_icon{
+        img{
+          display: inline-block;
+          vertical-align: middle;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+}

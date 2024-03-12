@@ -1,7 +1,7 @@
 import { subprofileInterface } from "@/shared";
 import styles from "./Getotp.module.scss";
-import { FormEvent, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useRef, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { postData, postFormData } from "@/services/data.manager";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { ModalType } from "../modals/modaltypes";
@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { enableRestrictionpage } from "@/redux/feature/restrictionSlice/restrictionSlice";
 import { getotpModalType } from './getotptypes'
 import appConfig from "@/app.config";
-// import { default as clientCookie } from "js-cookie";
+
 
 
 interface getotpModalpropsInterface {
@@ -18,6 +18,7 @@ interface getotpModalpropsInterface {
   sendDatatoComponent?: (data: { from: ModalType; data: any }) => void;
   profileData?: subprofileInterface;
   type : getotpModalType;
+  isPasswordOtp:boolean
 }
 
 let Getotpheadings = {
@@ -50,30 +51,36 @@ interface otpForm{
 }
 
 function Getotp(props: getotpModalpropsInterface) {
-  const { closeModal, profileData, type } = props;
+  const { closeModal, profileData, type,isPasswordOtp=false } = props;
   const defaultprofileimg =
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
 
-  const [toggleInput, setToggleInput] = useState<boolean>(false);
+  const [toggleInput, setToggleInput] = useState<boolean>(isPasswordOtp);
   // const [optInputtype,setOtpInputtype] = useState<"text" | "password">("password")
   const [showhideText, setShowHideText] = useState<"SHOW" | "HIDE">("SHOW");
   const [successText, setSuccessText] = useState<string>("");
   const [errorText,setErrorText] = useState<string>("")
   const otpRef = useRef<HTMLInputElement | null>(null)
   const errortexttimer = useRef<ReturnType<typeof setTimeout>>()
-  const { register, formState ,getValues} = useForm<otpForm>({
+  const { register, formState ,handleSubmit} = useForm<otpForm>({
     mode: "onChange",
     defaultValues: {
       otp: "",
     }
   });
 
-  const { ref, ...rest } = register("otp", { required: true, maxLength: 4, minLength: 4 })
+  const { ref, ...rest } = register("otp", { required: true, maxLength: 8, minLength: 4 })
 
   const { userDetails } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const {push} = useRouter()
+  const {push} = useRouter();
+
+  useEffect(()=>{
+    if(otpRef.current){
+      otpRef.current.focus()
+    }
+  },[])
 
 
   const getOtp = () => {
@@ -88,18 +95,23 @@ function Getotp(props: getotpModalpropsInterface) {
     });
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    //context=user_profiles&otp=4441&mobile=91-7780715079
+  const onSubmit:SubmitHandler<otpForm> = async (data) => {
+    console.log('hello')
     let formdata = new FormData()
-    formdata.append("context","user_profiles")
-    formdata.append("otp",getValues().otp)
-    formdata.append("mobile", userDetails?.phoneNumber || "")
+    if(isPasswordOtp){
+      formdata.append("context","userprofiles")
+      formdata.append("password",data.otp)
+    }else{
+      formdata.append("context","user_profiles")
+      formdata.append("otp",data.otp)
+      formdata.append("mobile", userDetails?.phoneNumber || "")
+    }
+  
 
     let otpvalidresponse = await postFormData("/service/api/auth/user/authentication",formdata)
 
     if (otpvalidresponse.status === false){
-      if (otpvalidresponse.error?.code === -41){
+      if (otpvalidresponse.error?.message){
         setSuccessText("")
         setErrorText(otpvalidresponse.error?.message || "")
         errortexttimer.current = setTimeout(()=>{
@@ -110,8 +122,13 @@ function Getotp(props: getotpModalpropsInterface) {
     else{
       if(type === 'Viewing Restrictions'){
         closeModal()
-        dispatch(enableRestrictionpage())
+        dispatch(enableRestrictionpage({token:otpvalidresponse.response.token}))
         push(`/profiles/view-restrictions/${profileData?.profileId}`)
+      }
+      else if(type === 'Profile & Video Lock'){
+        closeModal()
+        dispatch(enableRestrictionpage({token:otpvalidresponse.response.token}))
+        push(`/profiles/profile-lock/${profileData?.profileId}`)
       }
     }
 
@@ -138,7 +155,7 @@ function Getotp(props: getotpModalpropsInterface) {
             />
           </div>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className={`${styles.get_otp_body}`}>
             {!toggleInput && (
               <>
@@ -165,7 +182,7 @@ function Getotp(props: getotpModalpropsInterface) {
                     Getotpheadings[type].inputenable.heading2.replace(
                       "xxx",
                       profileData?.name || "xxx"
-                    )}
+                    ).replace("OTP",isPasswordOtp?"your password":"OTP")}
                 </p>
 
                 <div className={`${styles.otp_input_container}`}>
@@ -177,7 +194,7 @@ function Getotp(props: getotpModalpropsInterface) {
                       otpRef.current = e
                     }}
                     className={`${styles.otp_input}`}
-                    placeholder="OTP"
+                    placeholder={isPasswordOtp ? "Password":"OTP"}
                   />
                   <span
                     className={`${styles.otp_input_toggel}`}
@@ -198,12 +215,17 @@ function Getotp(props: getotpModalpropsInterface) {
                   </span>
                   {formState.errors.otp?.type === "required" && (
                     <span className={`${styles.otp_msg} ${styles.error}`}>
-                      OTP required
+                      {isPasswordOtp ? "Password":"OTP"} required
                     </span>
                   )}
                   {formState.errors.otp?.type === "minLength" && (
                     <span className={`${styles.otp_msg} ${styles.error}`}>
-                      OTP isn't long enough
+                       {isPasswordOtp ? "Password":"OTP"} isn't long enough
+                    </span>
+                  )}
+                  {formState.errors.otp?.type === "maxLength" && (
+                    <span className={`${styles.otp_msg} ${styles.error}`}>
+                       {isPasswordOtp ? "Password":"OTP"} is long
                     </span>
                   )}
                 </div>
@@ -222,7 +244,7 @@ function Getotp(props: getotpModalpropsInterface) {
           </div>
           <div className={`${styles.get_otp_footer}`}>
             <div className={`${styles.get_otp_footer_btns}`}>
-              <button className={`${styles.btn}`} onClick={closeModal}>
+              <button className={`${styles.btn}`} onClick={closeModal} type="button">
                 Cancel
               </button>
               {!toggleInput && (
@@ -232,6 +254,7 @@ function Getotp(props: getotpModalpropsInterface) {
                     setToggleInput(!toggleInput);
                     getOtp();
                   }}
+                  type="button"
                 >
                   Get Otp
                 </button>

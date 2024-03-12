@@ -77,6 +77,7 @@ export function GridTable(props: GridTableProps) {
         clientCookie.remove("boxId");
         clientCookie.remove("tenantCode");
         clientCookie.remove("sessionId");
+        clientCookie.remove('isLoggedin');
         window.location.reload();
       }
     })

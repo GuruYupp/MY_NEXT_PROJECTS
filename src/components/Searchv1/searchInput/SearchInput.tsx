@@ -1,4 +1,4 @@
-import styles from "./Searchinput.module.scss";
+import styles from "./SearchInput.module.scss";
 import { ChangeEvent, FC, FormEvent, useCallback } from "react";
 import { useRouter } from "next/router";
 import {

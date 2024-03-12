@@ -7,6 +7,11 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, 14%);
+  @include breakpoint(mobile){
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
 
   .get_otp_container_inner {
     position: relative;
@@ -16,7 +21,9 @@
     background: #262626;
     border: 0;
     border-radius: 4px;
-
+    @include breakpoint(mobile){
+      padding: 50px 20px 20px;
+    }
     .get_otp_close {
       position: absolute;
       top: 15px;
@@ -75,7 +82,8 @@
         }
 
         @include breakpoint(mobile) {
-          font-size: 16px;
+          font-size: 20px;
+          margin-top: 15px;
         }
       }
 
@@ -152,6 +160,11 @@
       bottom: 30px;
       left: 0;
       right: 0;
+      @include breakpoint(mobile){
+        position: relative;
+        bottom: 0px;
+        margin-top: 60px;
+      }
     .get_otp_footer_btns {
         text-align: center;
         display: flex;

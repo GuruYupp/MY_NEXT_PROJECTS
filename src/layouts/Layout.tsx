@@ -18,7 +18,7 @@ import Footer from '@/components/footer/footer';
 import { SSOParamsType } from '@/shared';
 
 function Layout({ children }: { children: ReactNode }) {
-  const { asPath,query} = useRouter();
+  const { asPath,query,reload} = useRouter();
   const [isLoading, setLoading] = useState<boolean>(true);
   const {isutUser} = useAppSelector((state)=>state.configs)
 
@@ -34,8 +34,8 @@ function Layout({ children }: { children: ReactNode }) {
         (systemConfigs.status == false && systemConfigs?.error?.code == 401) ||
         (systemfeature.status == false && systemfeature?.error?.code == 401)
       ) {
-        // localStorage.clear();
-        // reload();
+        localStorage.clear();
+        reload();
       } else {
         if (isrenderd == false) {
           dispatch(addSystemConfigs(systemConfigs.response));
@@ -55,8 +55,8 @@ function Layout({ children }: { children: ReactNode }) {
   }, []);
 
 
-  const isheaderShown = () => (!asPath.includes("sign") && !asPath.includes("profiles") && !asPath.includes("change-password") && isutUser !== true)
-  const isfooterShown = () => (!asPath.includes("sign") && !asPath.includes("profiles") && !asPath.includes("change-password") && isutUser !== true)
+  const isheaderShown = () => (!asPath.includes("sign") && (!asPath.includes("profiles") || asPath.includes("profiles/profile-lock")) && !asPath.includes("change-password") && isutUser !== true)
+  const isfooterShown = () => (!asPath.includes("sign") && (!asPath.includes("profiles") || asPath.includes("profiles/profile-lock")) && !asPath.includes("change-password") && isutUser !== true)
 
   return (
     <Loading showLoading={isLoading}>

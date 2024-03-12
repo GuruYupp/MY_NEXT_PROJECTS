@@ -245,7 +245,7 @@ export default function UpdateuserProfile() {
                 console.log(modal);
                 switch (modal) {
                   case 'getotp':
-                    return <Getotp closeModal={handlecloseModal} type='Viewing Restrictions' profileData={Profile}/>;
+                    return <Getotp closeModal={handlecloseModal} type='Viewing Restrictions' profileData={Profile} isPasswordOtp={appConfig.profile.type === "password"}/>;
                   case 'languages':
                     return (
                       <Languages

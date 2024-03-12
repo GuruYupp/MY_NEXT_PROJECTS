@@ -1,0 +1,35 @@
+@import "@/_var.scss";
+
+.mobile_ratings_container {
+  display: none;
+  margin-top: 20px;
+  background: hsla(0, 0%, 100%, 0.12);
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid #555;
+  padding: 12px 10px 12px 12px;
+  border-radius: 4px;
+  position: relative;
+  text-align: left;
+  color: #fff;
+  @include breakpoint(tablet) {
+    font-size: 14px;
+  }
+  @include breakpoint(mobile) {
+    display: block;
+    font-size: 12px;
+  }
+
+  .arrow {
+    content: "";
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(45deg);
+    position: absolute;
+    top: 18px;
+    right: 15px;
+  }
+}

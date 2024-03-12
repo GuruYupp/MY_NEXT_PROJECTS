@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
-import ProfileGuard from "@/components/Auth/ProfilesGuard";
 import ViewRestrictions from "@/components/Profile/viewRestrictions/ViewRestrictions";
 
 export default function ViewRestrictionsPage(): JSX.Element {
@@ -8,11 +7,7 @@ export default function ViewRestrictionsPage(): JSX.Element {
   return (
     <>
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-        {/* <Layout> */}
-          <ProfileGuard>
             <ViewRestrictions/>
-          </ProfileGuard>
-        {/* </Layout> */}
       </ErrorBoundary>
     </>
   );

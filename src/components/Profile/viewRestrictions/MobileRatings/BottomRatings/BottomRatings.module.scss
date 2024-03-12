@@ -1,0 +1,188 @@
+@import "@/_var.scss";
+.ratings_modal {
+  position: absolute;
+  width: 100%;
+  background-color: #262626;
+  min-height: 400px;
+  transition-property: all;
+  transition-duration: 0.5s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  animation-name: bottomtotop;
+  animation-duration: 0.25s;
+  bottom: 0px;
+  padding: 60px 40px;
+  @include breakpoint(mobile) {
+    padding: 30px 20px;
+  }
+  @keyframes bottomtotop {
+    0% {
+      bottom: -400px;
+    }
+    100% {
+      bottom: 0px;
+    }
+  }
+  .ratings_inner_modal {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    .close_btn {
+      position: absolute;
+      top: -10px;
+      right: 0;
+      cursor: pointer;
+    }
+    .heading {
+      font-size: 18px;
+      color: #fff;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+      text-align: center;
+      @include breakpoint(mobile) {
+        font-size: 14px;
+        opacity: 0.85;
+      }
+    }
+
+    .subheading {
+      font-size: 14px;
+      color: #adadad;
+      text-align: center;
+      .rating {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+
+    .ratingsContainer {
+      display: flex;
+      // align-items: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
+      flex-direction: column;
+      @include breakpoint(mobile){
+        // display: none;
+      }
+      .ratingContainer {
+        display: flex;
+        // flex-direction: column;
+        align-items: center;
+        // margin-right: 50px;
+        padding:16px;
+        border: 1px solid #424242 !important;
+        border-bottom: none;
+        .iconsContainer {
+          height: 28px;
+          width: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          font-size: 0px;
+          .default_icon {
+            height: 28px;
+            width: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            border-radius: 50%;
+            display: none;
+            z-index: 1;
+          }
+          .active_icon {
+            height: 28px;
+            width: 28px;
+            background-color: $primary-color;
+            position: relative;
+            display: inline-block;
+            border-radius: 50%;
+            display: none;
+            z-index: 1;
+            &::after {
+              display: inline-block;
+              height: 11px;
+              width: 6px;
+              border-bottom: 2px solid #fff;
+              border-right: 2px solid #fff;
+              transform: rotate(45deg);
+              position: absolute;
+              content: "";
+              top: 7px;
+              left: 11px;
+              box-sizing: border-box;
+            }
+          }
+          .selected_icon {
+            height: 20px;
+            width: 20px;
+            border: 1px solid $primary-color;
+            background-color: #141414;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            display: none;
+            z-index: 1;
+            &::after {
+              display: inline-block;
+              height: 9px;
+              width: 5px;
+              border-bottom: 1px solid $primary-color;
+              border-right: 1px solid $primary-color;
+              transform: rotate(45deg);
+              position: absolute;
+              content: "";
+              top: 3px;
+              left: 6px;
+              z-index: 9;
+            }
+          }
+          .rating_bar {
+            width: 2px;
+            height: 60px;
+            background: #484848;
+            position: absolute;
+            content: "";
+            right: 50%;
+            z-index: 0;
+          }
+          &.selected {
+            .rating_bar {
+              background-color: $primary-color;
+            }
+            .selected_icon {
+              display: inline-block;
+            }
+            &.active {
+              .selected_icon {
+                display: none;
+              }
+              .active_icon {
+                display: inline-block;
+              }
+            }
+          }
+          &.unselected {
+            .default_icon {
+              display: flex;
+            }
+          }
+        }
+        .ratingtext {
+          font-size: 16px;
+          color: #fff;
+          margin-left: 16px;
+        }
+
+        .ratingcode{
+          margin: 0px;
+          margin-right: 16px;
+          position: absolute;
+          right: 0px;
+        }
+      }
+    }
+  }
+}

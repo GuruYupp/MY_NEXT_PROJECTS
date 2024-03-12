@@ -7,6 +7,7 @@
     "herogotv:beta": "gulp --tenant=herogotv --env=beta && next dev",
     "herogotv:prod": "gulp --tenant=herogotv --env=prod && next dev",
     "timesplay:beta": "gulp --tenant=timesplay --env=beta && next dev",
+    "aggregator:beta": "gulp --tenant=aggregator --env=beta && next dev",
     "timesplay:prod": "gulp --tenant=timesplay --env=prod && next dev",
     "build": "gulp --tenant=timesplay --env=beta && next build",
     "herogotv:build:prod": "gulp --tenant=herogotv --env=prod && next build",
@@ -33,6 +34,7 @@
     "react-dom": "~18.2.0",
     "react-helmet": "~6.1.0",
     "react-hook-form": "~7.43.9",
+    "react-otp-input": "^3.1.1",
     "react-redux": "~8.0.7",
     "react-slick": "~0.29.0",
     "slick-carousel": "~1.8.1"

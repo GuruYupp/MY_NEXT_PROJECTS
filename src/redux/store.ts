@@ -18,6 +18,7 @@ const Store = configureStore({
     searchv3:searchv3Slice,
     searchv1:searchv1Slice
   },
+  middleware:(getDefaultMiddleware)=>getDefaultMiddleware({serializableCheck:false}),
   devTools:process.env.NODE_ENV === "development"
 })
 

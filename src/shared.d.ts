@@ -694,3 +694,13 @@ export interface searchv1Interface {
 export type SSOParamsType = {
   ut:ReturnType<typeof encodeURI>
 }
+
+export type profileRatingType = {
+  name: string;
+  priority: number;
+  displayCode: string;
+  description: string;
+  pinRequiredRatings: string;
+  id: number;
+  imageUrl: string;
+};

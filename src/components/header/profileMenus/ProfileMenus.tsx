@@ -10,7 +10,7 @@ import {
   updateUserDetails,
 } from '@/redux/feature/userSlice/userSlice';
 export default function ProfileMenus() {
-  const { systemFeatures } = useAppSelector((state) => state.configs);
+  const { systemFeatures ,systemConfigs} = useAppSelector((state) => state.configs);
   const { userDetails, activeProfile } = useAppSelector((state) => state.user);
 
   const dispatch = useAppDispatch();
@@ -97,6 +97,9 @@ export default function ProfileMenus() {
           <li>
             <Link href={'/settings'}>Account Settings</Link>
           </li>
+          {systemConfigs?.configs?.myPurchasesTargetPathWeb && <li>
+            <Link href={`/${systemConfigs?.configs?.myPurchasesTargetPathWeb}`}>My Purchase</Link>
+          </li>}
           <li className={`${styles.divider}`}></li>
           <li onClick={LoadHelpCenter}>Help & Support</li>
           <li onClick={goToFaq}>FAQ</li>

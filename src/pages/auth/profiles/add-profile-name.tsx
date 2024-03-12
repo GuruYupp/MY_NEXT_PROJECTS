@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
-import ProfileGuard from "@/components/Auth/ProfilesGuard";
 import AddProfileName from "@/components/Profile/addProfilename/AddProfileName";
 
 export default function AddProfilePage(): JSX.Element {
@@ -8,11 +7,7 @@ export default function AddProfilePage(): JSX.Element {
   return (
     <>
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-        {/* <Layout> */}
-          <ProfileGuard>
             <AddProfileName/>
-          </ProfileGuard>
-        {/* </Layout> */}
       </ErrorBoundary>
     </>
   );
