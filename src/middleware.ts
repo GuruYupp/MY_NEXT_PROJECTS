@@ -11,7 +11,6 @@ export function middleware(request: NextRequest) {
 
     if (isprotectedPath) {
       if (!isLoggedin) {
-        console.log("hello");
         return NextResponse.redirect(new URL("/signin", request.url));
       }
     }

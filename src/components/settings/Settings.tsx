@@ -6,6 +6,7 @@ import Subscriptions from "@/components/settings/subscriptions/Subscriptions";
 import ProfileParentalControls from "@/components/settings/profileparentalcontrols/ProfileParentalcontrols";
 import UserSettings from "./usersettings/UserSettings";
 import { useAppSelector } from "@/redux/hooks";
+import appConfig from "@/app.config";
 
 function Settings() {
   const { systemFeatures, systemConfigs } = useAppSelector(
@@ -29,7 +30,7 @@ function Settings() {
               <Panel
                 title="Active Screens & Devices"
                 render={() => <ActiveScreens />}
-                headerrightbutton={{ text: "Activate Tv" }}
+                headerrightbutton={{ text: "Activate TV" }}
               />
               {systemConfigs?.configs?.showPackages === "true" && (
                 <Panel
@@ -40,7 +41,10 @@ function Settings() {
                 />
               )}
 
-              <Panel title="User Settings" render={() => <UserSettings />} />
+              {appConfig.settings.userSettings && (
+                <Panel title="User Settings" render={() => <UserSettings />} />
+              )}
+
               {isProfileSettingsEnabled() && (
                 <Panel
                   title="Profile & Parental Controls"

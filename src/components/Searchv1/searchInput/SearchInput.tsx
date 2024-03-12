@@ -52,6 +52,15 @@ const SearchInput: FC = () => {
     });
   };
 
+  const handleSuggestionClick = (suggestion: string) => {
+    replace({
+      pathname: asPath.split("?")[0],
+      query: {
+        q: suggestion,
+      },
+    });
+  };
+
   return (
     <div className={styles.searhwrapper}>
       <div className={styles.searchContainer}>
@@ -75,7 +84,11 @@ const SearchInput: FC = () => {
       {suggestions.show && suggestions.data.length > 0 && (
         <div className={styles.suggestionsContainer}>
           {suggestions.data.map((suggestion, index) => (
-            <p key={index} className={styles.suggestion}>
+            <p
+              key={index}
+              className={styles.suggestion}
+              onClick={() => handleSuggestionClick(suggestion)}
+            >
               {suggestion}
             </p>
           ))}

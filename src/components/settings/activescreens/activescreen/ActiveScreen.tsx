@@ -10,17 +10,15 @@ const ActiveScreen: FC<ActiveScreenProps> = (props) => {
   const { activeScreen } = props;
   const getDeviceIcon = () => {
     return activeScreen.deviceId === 5
-      ? "/images/web_browser.png"
-      : "/images/mobile_browser.png";
+      ? "assets/images/laptop.png"
+      : "assets/images/smartphone.png";
   };
   return (
     <div className={`${styles.active_screen_container}`}>
       <div className={`${styles.active_screen}`}>
         <div className={`${styles.active_screen_left}`}>
           <div className={`${styles.device_img_container}`}>
-            {activeScreen.deviceId === 5 && (
-              <img src={getDeviceIcon()} alt="mobile_browser_icon" />
-            )}
+            <img src={getDeviceIcon()} alt="mobile_browser_icon" />
           </div>
           <div className={`${styles.device_info}`}>
             <h5 className={`${styles.device_type}`}>
