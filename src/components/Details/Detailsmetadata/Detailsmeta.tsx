@@ -44,18 +44,24 @@ function DetailsMetaContainer() {
       <div className={`${styles.title} ${styles.meta_row}`}>{title}</div>
       <div className={`${styles.subtitle} ${styles.meta_row}`}>
         {subtitle}
-        {pgrating && <span className={`${styles.rating} ${styles.meta_row}`}>
-          {pgrating}
-        </span>}
-        
-        {imdbrating && <>
-          <span className={`${styles.break}`}>|</span>
-        <span className={`${styles.imdb} ${styles.meta_row}`}>
-          <img src={`${appConfig.cloudpath + "/images/imdb.png"}`} alt="play" />
-          {imdbrating}
-        </span>
-        </>}
-        
+        {pgrating && (
+          <span className={`${styles.rating} ${styles.meta_row}`}>
+            {pgrating}
+          </span>
+        )}
+
+        {imdbrating && (
+          <>
+            <span className={`${styles.break}`}>|</span>
+            <span className={`${styles.imdb} ${styles.meta_row}`}>
+              <img
+                src={`${appConfig.cloudpath + "/images/imdb.png"}`}
+                alt="play"
+              />
+              {imdbrating}
+            </span>
+          </>
+        )}
       </div>
       <div className={`${styles.description} ${styles.meta_row}`}>
         {description}

@@ -13,7 +13,9 @@ export default function Menus({ menus }: props): JSX.Element {
   const { systemConfigs } = useAppSelector((state) => state.configs);
 
   function getMenus() {
-    let moremenuconfigs = systemConfigs?.configs?.menusMore || "{ \"above_1366\":\"7\" , \"above_1200\":\"6\" , \"above_950\":\"5\" }";
+    let moremenuconfigs =
+      systemConfigs?.configs?.menusMore ||
+      '{ "above_1366":"7" , "above_1200":"6" , "above_950":"5" }';
     if (moremenuconfigs) {
       let configobj = JSON.parse(moremenuconfigs);
       let configobjkeys = Object.keys(configobj);

@@ -216,37 +216,39 @@ const Card = (props: cardprops): JSX.Element => {
             template={template}
             templateHandler={templateHandler}
           >
-          <div className={`${styles.overlay_poster}`} ref={cardRef}>
-            <div className={`${styles.img_container}`} ref={imageRef}>
-              <img
-                src={src}
-                alt="Picture of the author"
-                loading="lazy"
-                onError={handleImageonError}
-              />
-              {partnerIcon && (
+            <div className={`${styles.overlay_poster}`} ref={cardRef}>
+              <div className={`${styles.img_container}`} ref={imageRef}>
                 <img
-                  src={partnerIcon}
-                  className={`${styles.partner_icon}`}
+                  src={src}
                   alt="Picture of the author"
                   loading="lazy"
                   onError={handleImageonError}
                 />
-              )}
-            </div>
-            <div className={`${styles.bottom}`}>
-              <div className={`${styles.card_info}`}>
-                {display.title && (
-                  <div className={`${styles.card_title}`}>{display.title}</div>
-                )}
-                {display.subtitle1 && (
-                  <div className={`${styles.card_subtitle}`}>
-                    {display.subtitle1}
-                  </div>
+                {partnerIcon && (
+                  <img
+                    src={partnerIcon}
+                    className={`${styles.partner_icon}`}
+                    alt="Picture of the author"
+                    loading="lazy"
+                    onError={handleImageonError}
+                  />
                 )}
               </div>
+              <div className={`${styles.bottom}`}>
+                <div className={`${styles.card_info}`}>
+                  {display.title && (
+                    <div className={`${styles.card_title}`}>
+                      {display.title}
+                    </div>
+                  )}
+                  {display.subtitle1 && (
+                    <div className={`${styles.card_subtitle}`}>
+                      {display.subtitle1}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
           </CardLinkWrapper>
         );
       case "content_poster":

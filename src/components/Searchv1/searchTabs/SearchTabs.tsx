@@ -12,8 +12,6 @@ interface searchtabsprops {
 }
 
 const SearchTabs: FC<searchtabsprops> = () => {
-
-
   const { activeTab } = useAppSelector((state) => state.searchv1);
   const { configs } = useAppSelector((state) => state.configs.systemConfigs);
   const dispatch = useAppDispatch();

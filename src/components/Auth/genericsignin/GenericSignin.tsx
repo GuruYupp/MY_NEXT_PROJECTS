@@ -162,7 +162,10 @@ const GenericSignIn: FC = () => {
         router.replace("/profiles/select-user-profile");
       } else {
         localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
-        localStorage.setItem("activeProfile", JSON.stringify(userInfo.response));
+        localStorage.setItem(
+          "activeProfile",
+          JSON.stringify(userInfo.response),
+        );
         dispatch(setActiveprofile());
         router.replace("/");
       }
@@ -298,7 +301,8 @@ const GenericSignIn: FC = () => {
           </div>
           <div className={`${styles.inner_bottom}`}>
             {appConfig.signin.emailPhoneToggle === true &&
-              globalsettings?.fields?.isMobileSupported === "true" && globalsettings?.fields?.isEmailSupported === "true" && (
+              globalsettings?.fields?.isMobileSupported === "true" &&
+              globalsettings?.fields?.isEmailSupported === "true" && (
                 <button
                   className={`${styles.email_number_toggle}`}
                   onClick={toggelEmailNumberInput}

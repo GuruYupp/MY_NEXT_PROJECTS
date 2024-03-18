@@ -73,23 +73,25 @@ export default function ProfileMenus() {
 
   return (
     <div className={`${styles.profile_box}`}>
-          <span className={`${styles.profile_img}`}>
-            <img
-              src={
-                (activeProfile && activeProfile?.imageUrl) ||
-                "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg"
-              }
-              onError={handleprofileImageonError}
-              alt="profile"
-            />
-          </span>
-          <span className={`${styles.profile_name}`}>
-            {activeProfile && activeProfile?.name}
-          </span>
+      <span className={`${styles.profile_img}`}>
+        <img
+          src={
+            (activeProfile && activeProfile?.imageUrl) ||
+            "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg"
+          }
+          onError={handleprofileImageonError}
+          alt="profile"
+        />
+      </span>
+      <span className={`${styles.profile_name}`}>
+        {activeProfile && activeProfile?.name}
+      </span>
       <div className={`${styles.profile_menu}`}>
         <ul>
           <li>
-            <Link href={`/${systemConfigs?.configs?.favouritesTargetPath}`}>My WatchList</Link>
+            <Link href={`/${systemConfigs?.configs?.favouritesTargetPath}`}>
+              My WatchList
+            </Link>
           </li>
           <li>
             <Link href={"/settings"}>Account Settings</Link>
@@ -108,51 +110,51 @@ export default function ProfileMenus() {
           <li onClick={goToFaq}>FAQ</li>
           <li onClick={handleSignout}>Sign Out</li>
         </ul>
-          {systemFeatures?.userprofiles?.fields?.is_userprofiles_supported ===
-        "true" && (
-        <ul>
-          {userDetails &&
-            userDetails.profileParentalDetails?.map(
-              (profile, index: number) => {
-                return (
-                  profile.profileId !==
-                    (activeProfile && activeProfile.profileId) && (
-                    <li
-                      className={`${styles.menu_profile}`}
-                      key={index}
-                      onClick={() => handleSelectProfile(profile)}
-                    >
-                      <span className={`${styles.menu_profile_img}`}>
-                        <img
-                          src={
-                            (profile && profile?.imageUrl) ||
-                            "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg"
-                          }
-                          onError={handleprofileImageonError}
-                          alt="profile"
-                        />
-                      </span>
-                      <span className={`${styles.menu_profile_name}`}>
-                        {profile && profile?.name}
-                      </span>
-                      {profile?.isProfileLockActive && (
-                        <img
-                          src={`https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/lock-icon.svg`}
-                          alt=""
-                          className={`${styles.lock_icon}`}
-                        />
-                      )}
-                    </li>
-                  )
-                );
-              },
-            )}
-          <li className={`${styles.divider}`}></li>
-          <li onClick={hadleExitProfile}>Exit Profile</li>
-          <li>
-            <Link href={`/profiles/manage-user-profile`}>Manage Profile</Link>{" "}
-          </li>
-        </ul>
+        {systemFeatures?.userprofiles?.fields?.is_userprofiles_supported ===
+          "true" && (
+          <ul>
+            {userDetails &&
+              userDetails.profileParentalDetails?.map(
+                (profile, index: number) => {
+                  return (
+                    profile.profileId !==
+                      (activeProfile && activeProfile.profileId) && (
+                      <li
+                        className={`${styles.menu_profile}`}
+                        key={index}
+                        onClick={() => handleSelectProfile(profile)}
+                      >
+                        <span className={`${styles.menu_profile_img}`}>
+                          <img
+                            src={
+                              (profile && profile?.imageUrl) ||
+                              "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg"
+                            }
+                            onError={handleprofileImageonError}
+                            alt="profile"
+                          />
+                        </span>
+                        <span className={`${styles.menu_profile_name}`}>
+                          {profile && profile?.name}
+                        </span>
+                        {profile?.isProfileLockActive && (
+                          <img
+                            src={`https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/lock-icon.svg`}
+                            alt=""
+                            className={`${styles.lock_icon}`}
+                          />
+                        )}
+                      </li>
+                    )
+                  );
+                },
+              )}
+            <li className={`${styles.divider}`}></li>
+            <li onClick={hadleExitProfile}>Exit Profile</li>
+            <li>
+              <Link href={`/profiles/manage-user-profile`}>Manage Profile</Link>{" "}
+            </li>
+          </ul>
         )}
       </div>
     </div>

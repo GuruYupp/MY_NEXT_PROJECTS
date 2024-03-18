@@ -18,8 +18,9 @@ export default function DetailsPage() {
   let detailsBannerImage = getfrompagedata(content, "bgImage")?.data;
   detailsBannerImage = detailsBannerImage
     ? getAbsolutPath(detailsBannerImage)
-    : content[0].content?.backgroundImage ? getAbsolutPath(content[0].content?.backgroundImage) : "";
-
+    : content[0].content?.backgroundImage
+      ? getAbsolutPath(content[0].content?.backgroundImage)
+      : "";
 
   if (tabsInfo.showTabs) {
     activetab = tabsInfo.tabs[0].code;
@@ -90,7 +91,10 @@ export default function DetailsPage() {
           </div>
 
           {sections.map((section, index) => {
-            if (section.contentCode === activeTab ||  section.section.sectionInfo.code === activeTab) {
+            if (
+              section.contentCode === activeTab ||
+              section.section.sectionInfo.code === activeTab
+            ) {
               return (
                 section.section.sectionData.data.length > 0 && (
                   <div className={`${styles.details_grid}`} key={index}>

@@ -12,11 +12,11 @@ const ActiveScreens: FC = () => {
   }, []);
 
   const fetchActiveScreens = async () => {
-    try{
+    try {
       let activescreensresponse = await getData(
         "/service/api/auth/list/user/sessions",
       );
-  
+
       if (activescreensresponse.status === true) {
         screensDispatch(addScreensAction(activescreensresponse.response));
       } else if (activescreensresponse.error?.code === 401) {
@@ -26,9 +26,8 @@ const ActiveScreens: FC = () => {
         clientCookie.remove("isLoggedin");
         window.location.reload();
       }
-    }
-    catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
   };
 

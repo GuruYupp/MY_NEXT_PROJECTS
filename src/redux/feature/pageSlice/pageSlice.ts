@@ -1,6 +1,11 @@
 import { getData, postData } from "@/services/data.manager";
 import { pageState, responseInterface } from "@/shared";
-import { PayloadAction, createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import {
+  PayloadAction,
+  createAsyncThunk,
+  createSlice,
+  current,
+} from "@reduxjs/toolkit";
 
 interface fetchPagedataParams {
   path: string;
@@ -38,7 +43,7 @@ type fetchSectionsResult = {
 type fetchSectionsArgs = {
   params: fetchSectionsParams;
   from: "gridPagination" | "carouselPagination" | "videoSuggestions";
-} 
+};
 
 export const fetchSections = createAsyncThunk<
   fetchSectionsResult,
@@ -189,20 +194,29 @@ const pageSlice = createSlice({
                 payload.result.response[0].lastIndex;
             }
           });
-        }else if(payload.from === "videoSuggestions"){
-          if(payload.result.response.length === 0){
+        } else if (payload.from === "videoSuggestions") {
+          if (payload.result.response.length === 0) {
             return;
           }
-          state.response.paginationData = state.response.paginationData.filter((paginationsection)=>{
-            let sectiondata = paginationsection.data;
-            if(payload.result.response.length === 0){
-              //empty results
-            }
-            else if(paginationsection.data.section.sectionData.section === payload.result.response[0].section){
-              sectiondata.section.sectionData = payload.result.response[0];
-              state.response.sections[paginationsection.sectionindex] = sectiondata;
-            }
-            return paginationsection.data.section.sectionData.section !== payload.result.response[0].section})
+          state.response.paginationData = state.response.paginationData.filter(
+            (paginationsection) => {
+              let sectiondata = paginationsection.data;
+              if (payload.result.response.length === 0) {
+                //empty results
+              } else if (
+                paginationsection.data.section.sectionData.section ===
+                payload.result.response[0].section
+              ) {
+                sectiondata.section.sectionData = payload.result.response[0];
+                state.response.sections[paginationsection.sectionindex] =
+                  sectiondata;
+              }
+              return (
+                paginationsection.data.section.sectionData.section !==
+                payload.result.response[0].section
+              );
+            },
+          );
         }
       })
       .addCase(fetchSections.rejected, (state) => {
