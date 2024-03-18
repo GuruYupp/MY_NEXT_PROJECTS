@@ -15,9 +15,8 @@ import appConfig from "@/app.config";
 
 export default function Player() {
   const { asPath } = useRouter();
-  const { info } = useAppSelector((state) => state.pageData.response);
   const { streamapiloading } = useAppSelector((state) => state.streamData);
-  const { content, pageButtons, shareInfo, sections, streamStatus } =
+  const { content, pageButtons, shareInfo, sections, streamStatus,info ,tabsInfo} =
     useAppSelector((state) => state.pageData.response);
 
   const dispatch = useAppDispatch();
@@ -143,7 +142,7 @@ export default function Player() {
         </div>
         <div className={`${styles.player_page_top_right}`}>
           <div className={`${styles.player_page_top_right_inner}`}>
-            <VideoSuggestions suggestionHeight={suggestionheight} />
+            {tabsInfo.showTabs === true && <VideoSuggestions suggestionHeight={suggestionheight} />}
           </div>
         </div>
       </div>

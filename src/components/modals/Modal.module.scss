@@ -32,12 +32,7 @@
     height: 100%;
     overflow-y: scroll;
   }
-  .otp_modal {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow-y: scroll;
-  }
+
   .otpverify_modal {
     position: relative;
     width: 100%;
@@ -46,6 +41,13 @@
   }
 
   .updatedetails_modal {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+  }
+
+  .profilepin_modal {
     position: relative;
     width: 100%;
     height: 100%;

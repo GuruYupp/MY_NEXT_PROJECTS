@@ -1,0 +1,172 @@
+@import "@/_var.scss";
+.profile_pin_container {
+  height: 513px;
+  width: 520px;
+  border: 0;
+  border-radius: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 14%);
+  @include breakpoint(mobile) {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .profile_pin_container_inner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 50px 70px;
+    background: #262626;
+    border: 0;
+    border-radius: 4px;
+    @include breakpoint(mobile) {
+      padding: 50px 20px 20px;
+    }
+    .profile_pin_close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    .profile_pin_header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .profile_icon {
+        width: 120px;
+        height: 120px;
+        background: #7a7a80;
+        border-radius: 6px;
+        -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        position: relative;
+        // margin: 0px auto 20px;
+        @include breakpoint(tablet) {
+          margin: 20px auto;
+        }
+        @include breakpoint(mobile) {
+          width: 100px;
+          height: 100px;
+          margin-bottom: 16px;
+        }
+        @include breakpoint(mobile-common) {
+          width: 80px;
+          height: 80px;
+        }
+        img {
+          height: 100%;
+          width: 100%;
+          vertical-align: middle;
+        }
+      }
+    }
+
+    .profile_pin_body {
+      .heading {
+        margin-top: 52px;
+        font-size: 22px;
+        color: #fff;
+        text-align: center;
+        line-height: 1.2;
+        margin-bottom: 0.5rem;
+        @include breakpoint(mac) {
+          font-size: 22px;
+        }
+
+        @include breakpoint(laptop) {
+          font-size: 20px;
+        }
+
+        @include breakpoint(mobile) {
+          font-size: 22px;
+          margin-top: 15px;
+        }
+      }
+
+      .sub_heading {
+        margin-top: 20px;
+        font-size: 14px;
+        color: #fff;
+        opacity: 0.65;
+        max-width: 410px;
+        margin: 0 auto;
+        word-break: break-word;
+        text-align: center;
+      }
+
+      .otp_input_container {
+        display: flex;
+        justify-content: center;
+      }
+      .otp_msg {
+        display: inline-block;
+        width: 100%;
+
+        &.success {
+          text-align: center;
+          font-size: 0.875em;
+          color: green;
+        }
+        &.failmsg {
+          text-align: center;
+          font-size: 0.875em;
+          color: red;
+        }
+        &.error {
+          font-size: 12px;
+          color: red;
+          position: absolute;
+          bottom: -45%;
+          left: 0;
+        }
+      }
+    }
+
+    .profile_pin_footer {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      right: 0;
+      @include breakpoint(mobile) {
+        position: relative;
+        bottom: 0px;
+        margin-top: 60px;
+      }
+      .profile_pin_footer_btns {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .btn {
+          border-radius: 2px;
+          height: 44px;
+          width: 160px;
+          font-size: 1.125em;
+          text-align: center;
+          color: #fff;
+          border: none;
+          background: hsla(0, 0%, 100%, 0.15);
+          outline: none;
+          margin: 0px 8px;
+
+          &:nth-child(2) {
+            background: $primary-color;
+            color: #fff;
+
+            &:disabled {
+              opacity: 0.5;
+              cursor: not-allowed;
+            }
+          }
+
+          @include breakpoint(mac) {
+            // font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -12,18 +12,23 @@ const ActiveScreens: FC = () => {
   }, []);
 
   const fetchActiveScreens = async () => {
-    let activescreensresponse = await getData(
-      "/service/api/auth/list/user/sessions",
-    );
-
-    if (activescreensresponse.status === true) {
-      screensDispatch(addScreensAction(activescreensresponse.response));
-    } else if (activescreensresponse.error?.code === 401) {
-      clientCookie.remove("boxId");
-      clientCookie.remove("tenantCode");
-      clientCookie.remove("sessionId");
-      clientCookie.remove("isLoggedin");
-      window.location.reload();
+    try{
+      let activescreensresponse = await getData(
+        "/service/api/auth/list/user/sessions",
+      );
+  
+      if (activescreensresponse.status === true) {
+        screensDispatch(addScreensAction(activescreensresponse.response));
+      } else if (activescreensresponse.error?.code === 401) {
+        clientCookie.remove("boxId");
+        clientCookie.remove("tenantCode");
+        clientCookie.remove("sessionId");
+        clientCookie.remove("isLoggedin");
+        window.location.reload();
+      }
+    }
+    catch(e){
+      console.log(e)
     }
   };
 

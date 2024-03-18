@@ -19,7 +19,7 @@
     height: fit-content;
     width: 480px;
     margin: 80px auto 30px;
-    background-color: #262626;
+    background-color: $secondary-color;
     @include breakpoint(mac) {
       width: 450px;
     }
@@ -177,7 +177,7 @@
           top: 50%;
           transform: translate(-50%, -50%);
           padding: 0px 8px;
-          background: #262626;
+          background: $secondary-color;
           color: #898b95;
           @include breakpoint(mobile) {
             background-color: #141414;
@@ -187,7 +187,7 @@
     }
     .inner_bottom {
       .email_number_toggle {
-        background-color: #404040;
+        background-color: $secondary-color;
         color: #fff;
         height: 44px;
         line-height: 44px;
@@ -198,6 +198,7 @@
         border-radius: 3px;
         outline: none;
         border: none;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
         @include breakpoint(mac) {
           font-size: 16px;

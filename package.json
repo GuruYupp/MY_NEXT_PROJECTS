@@ -9,13 +9,12 @@
     "timesplay:beta": "gulp --tenant=timesplay --env=beta && next dev",
     "aggregator:beta": "gulp --tenant=aggregator --env=beta && next dev",
     "timesplay:prod": "gulp --tenant=timesplay --env=prod && next dev",
+    "firstshows:prod": "gulp --tenant=firstshows --env=prod && next dev",
+    "reeldrama:prod": "gulp --tenant=reeldrama --env=prod && next dev",
     "build": "gulp --tenant=timesplay --env=beta && next build",
     "herogotv:build:prod": "gulp --tenant=herogotv --env=prod && next build",
     "start": "next start",
     "lint": "next lint",
-    "aastha": "npm run dev --tenant=aastha",
-    "firstshows": "npm run dev --tenant=firstshows",
-    "watcho": "npm run dev --tenant=watcho",
     "prepare": "husky && husky install"
   },
   "dependencies": {
@@ -62,6 +61,6 @@
     "yargs": "~17.7.2"
   },
   "lint-staged": {
-    "**/*": "prettier src/ --write --ignore-unknown"
+    "**/*": "prettier ./src/ --write --ignore-unknown"
   }
 }

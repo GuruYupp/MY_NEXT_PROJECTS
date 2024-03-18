@@ -119,13 +119,6 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
       profileName: profile?.name,
     }).then((res) => {
       if (res.status === true) {
-        // dispatch(updateUserProperty({ languages: codes.join(',') }));
-        // dispatch(
-        //   updateProfile({
-        //     profileId: activeProfile?.profileId,
-        //     properties: { langs: codes.join(',') },
-        // })
-        // );
         dispatch(
           updateProfile({
             profileId: profile?.profileId,

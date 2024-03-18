@@ -21,7 +21,7 @@ const Search: FC = () => {
   );
   const dispatch = useAppDispatch();
   const { query } = useRouter();
-
+  console.log(tabsdata)
   useEffect(() => {
     let searchrequest: ReturnType<typeof search>;
     if (!!query.q && typeof query.q === "string") {

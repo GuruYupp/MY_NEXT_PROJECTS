@@ -5,7 +5,7 @@ import { getAbsolutPath } from "@/utils";
 import { useAppSelector } from "@/redux/hooks";
 import appConfig from "@/app.config";
 
-import OtpInput from "./otpInput/OtpInput";
+import OtpInput from "@/components/otpInput/OtpInput";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ProfileLockFormInterface } from "./profilelocktypes";
 import CheckInfo from "./checkInfo/CheckInfo";

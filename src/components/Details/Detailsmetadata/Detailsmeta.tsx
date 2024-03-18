@@ -44,15 +44,18 @@ function DetailsMetaContainer() {
       <div className={`${styles.title} ${styles.meta_row}`}>{title}</div>
       <div className={`${styles.subtitle} ${styles.meta_row}`}>
         {subtitle}
-
-        <span className={`${styles.rating} ${styles.meta_row}`}>
+        {pgrating && <span className={`${styles.rating} ${styles.meta_row}`}>
           {pgrating}
-        </span>
-        <span className={`${styles.break}`}>|</span>
+        </span>}
+        
+        {imdbrating && <>
+          <span className={`${styles.break}`}>|</span>
         <span className={`${styles.imdb} ${styles.meta_row}`}>
           <img src={`${appConfig.cloudpath + "/images/imdb.png"}`} alt="play" />
           {imdbrating}
         </span>
+        </>}
+        
       </div>
       <div className={`${styles.description} ${styles.meta_row}`}>
         {description}
@@ -153,7 +156,7 @@ function DetailsMetaContainer() {
                 selectedImgurl: `${
                   appConfig.cloudpath + "/images/favorite-active.svg"
                 }`,
-                altText: "heart",
+                altText: "",
               }}
               isFavourite={pageButtons.isFavourite}
             />

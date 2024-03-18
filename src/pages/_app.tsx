@@ -19,6 +19,10 @@ const NPColor = () => {
       return "#0ccdd7";
     case "timesplay":
       return "#e7195a";
+    case "firstshows":
+      return "#d99200";
+    case "reeldrama":
+      return "#eb3495";
     default:
       return "#ffff";
   }

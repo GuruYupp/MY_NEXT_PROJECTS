@@ -14,8 +14,6 @@ export default function ProfileMenus() {
     (state) => state.configs,
   );
   const { userDetails, activeProfile } = useAppSelector((state) => state.user);
-  console.log(userDetails);
-  console.log(activeProfile);
 
   const dispatch = useAppDispatch();
   const { replace } = useRouter();
@@ -75,9 +73,6 @@ export default function ProfileMenus() {
 
   return (
     <div className={`${styles.profile_box}`}>
-      {systemFeatures?.userprofiles?.fields?.is_userprofiles_supported ===
-        "true" && (
-        <>
           <span className={`${styles.profile_img}`}>
             <img
               src={
@@ -91,12 +86,10 @@ export default function ProfileMenus() {
           <span className={`${styles.profile_name}`}>
             {activeProfile && activeProfile?.name}
           </span>
-        </>
-      )}
       <div className={`${styles.profile_menu}`}>
         <ul>
           <li>
-            <Link href={"/favorites"}>My Favorites</Link>
+            <Link href={`/${systemConfigs?.configs?.favouritesTargetPath}`}>My WatchList</Link>
           </li>
           <li>
             <Link href={"/settings"}>Account Settings</Link>
@@ -106,7 +99,7 @@ export default function ProfileMenus() {
               <Link
                 href={`/${systemConfigs?.configs?.myPurchasesTargetPathWeb}`}
               >
-                My Purchase
+                My Purchases
               </Link>
             </li>
           )}
@@ -115,6 +108,8 @@ export default function ProfileMenus() {
           <li onClick={goToFaq}>FAQ</li>
           <li onClick={handleSignout}>Sign Out</li>
         </ul>
+          {systemFeatures?.userprofiles?.fields?.is_userprofiles_supported ===
+        "true" && (
         <ul>
           {userDetails &&
             userDetails.profileParentalDetails?.map(
@@ -158,6 +153,7 @@ export default function ProfileMenus() {
             <Link href={`/profiles/manage-user-profile`}>Manage Profile</Link>{" "}
           </li>
         </ul>
+        )}
       </div>
     </div>
   );

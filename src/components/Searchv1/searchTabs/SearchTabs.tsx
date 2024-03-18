@@ -12,28 +12,16 @@ interface searchtabsprops {
 }
 
 const SearchTabs: FC<searchtabsprops> = () => {
-  // const { handelbucketSearch } = props;
+
 
   const { activeTab } = useAppSelector((state) => state.searchv1);
   const { configs } = useAppSelector((state) => state.configs.systemConfigs);
   const dispatch = useAppDispatch();
-  // const [activetab, setActivetab] = useState<searchtabInterface>(activeTab);
   const tabs: searchtabInterface[] =
     JSON.parse(configs?.searchStaticMenus || "[]") || [];
 
   const handletabClick = (tab: searchtabInterface) => {
-    // setActivetab(tab)
     dispatch(handlesearchSelectTab(tab));
-    // let bucket = tabsdata.filter((tabdata) => tabdata.searchResults.sourceType === tab.code)[0]
-    // if(!bucket){
-    //   handelbucketSearch({
-    //     // eslint-disable-next-line camelcase
-    //     query: searchtext,
-    //     // eslint-disable-next-line camelcase
-    //     page_size: 36,
-    //     page:0
-    //   })
-    // }
   };
 
   return (

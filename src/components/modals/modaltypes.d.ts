@@ -11,6 +11,7 @@ export type ModalType =
   | "otpverify"
   | "updatedetails"
   | "mobileratings"
+  | "profilepin"
   | "";
 
 export interface ModalPropsInterface {

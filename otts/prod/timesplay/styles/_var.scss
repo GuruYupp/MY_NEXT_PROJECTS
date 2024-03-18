@@ -11,6 +11,8 @@ $primary-color: #e7195a;
 $secondary-color: #232323;
 $banner-btn-color: #e7195a;
 
+$body-bg-color:#141414;
+
 @mixin cardsPadding {
   padding: 0px 48px;
   width: 100%;
@@ -198,6 +200,11 @@ $banner-btn-color: #e7195a;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+
+@mixin headerLogo{
+  max-width: 140px;
+  align-items: center;
 }
 
 @mixin breakpoint($point) {

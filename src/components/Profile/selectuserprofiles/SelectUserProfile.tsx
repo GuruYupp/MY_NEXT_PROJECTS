@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { SyntheticEvent, useEffect } from "react";
+import { SyntheticEvent, useEffect, useRef, useState } from "react";
 import styles from "./SelectUserProfile.module.scss";
 import { subprofileInterface } from "@/shared";
 import { getAbsolutPath } from "@/utils";
@@ -11,16 +11,27 @@ import {
 } from "@/redux/feature/userSlice/userSlice";
 import { getData, postData } from "@/services/data.manager";
 import { default as clientCookie } from "js-cookie";
+import { ModalType } from "@/components/modals/modaltypes";
+import { createPortal } from "react-dom";
+import Modal from "@/components/modals/Modal";
+import ProfilePin from "@/components/profilepin/ProfilePin";
 
 export default function SelectUserProfiles() {
   const { systemFeatures } = useAppSelector((state) => state.configs);
   const { profiles } = useAppSelector((state) => state.user);
+  const [showModal, setShowModal] = useState<ModalType>("");
+  const [pinerrmsg,setPinerrmsg] = useState<string>('')
+  const [selectedProfile,setSelectedProfile] = useState<subprofileInterface>({});
+  const errortexttimer = useRef<ReturnType<typeof setTimeout>>();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const defaultprofileimg =
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
   useEffect(() => {
     dispatch(fetchProfiles());
+    return ()=>{
+      clearTimeout(errortexttimer.current)
+    }
   }, []);
   const handleImageonError = (
     e: SyntheticEvent<HTMLImageElement, ErrorEvent>,
@@ -29,13 +40,33 @@ export default function SelectUserProfiles() {
   };
 
   const handleImageonClick = (profile: subprofileInterface) => {
-    postData("/service/api/auth/activate/user/profile", {
-      profileId: profile.profileId,
-    }).then((data) => {
-      if (data.status === true) {
-        getData("/service/api/auth/user/info").then((data) => {
-          if (data.status === true) {
-            localStorage.setItem("userDetails", JSON.stringify(data.response));
+    if(profile.isProfileLockActive === true){
+      setSelectedProfile(profile)
+      document.body.style.overflowY = "hidden";
+      setShowModal("profilepin")
+    }
+    else{
+      handleSelectProfile(profile)
+    }
+  };
+
+  const handleSelectProfile = async (profile: subprofileInterface,passcode?:string)=>{
+    let payload:any = {
+      profileId:profile.profileId
+    }
+    
+    if(passcode){
+      payload.passCode = passcode
+    }
+    let profileselectResponse = await postData("/service/api/auth/activate/user/profile",payload)
+    if(profileselectResponse.status === true){
+      if(passcode){
+        document.body.style.overflowY = "scroll";
+        setShowModal("");
+      }
+      let userInfoResponse = await getData("/service/api/auth/user/info")
+      if(userInfoResponse.status === true){
+        localStorage.setItem("userDetails", JSON.stringify(userInfoResponse.response));
             localStorage.setItem("activeProfile", JSON.stringify(profile));
             clientCookie.set(
               "profileExpiry",
@@ -43,13 +74,34 @@ export default function SelectUserProfiles() {
             );
             dispatch(setActiveprofile());
             router.replace("/");
-          }
-        });
       }
-    });
+    }
+    else{
+      setPinerrmsg(profileselectResponse.error?.message || "")
+      errortexttimer.current = setTimeout(() => {
+        setPinerrmsg("");
+      }, 1000);
+    }
+  }
+
+  const handlecloseModal = () => {
+    document.body.style.overflowY = "scroll";
+    setShowModal("");
   };
 
+  function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
+    const { from, data } = Modaldata;
+    switch (from) {
+      case "profilepin":
+        handleSelectProfile(selectedProfile,data)
+        break;
+      default:
+        break;
+    }
+  }
+
   return (
+    <>
     <div className={`${styles.ProfilePage}`}>
       <div className={`${styles.profileContainer}`}>
         <h1 className={`${styles.heading}`}>Who's watching ?</h1>
@@ -100,5 +152,24 @@ export default function SelectUserProfiles() {
         </Link>
       </div>
     </div>
+    {showModal &&
+        createPortal(
+          <Modal
+            modalType={showModal}
+            render={(modal) => {
+              function getModal() {
+                switch (modal) {
+                  case "profilepin":
+                    return <ProfilePin closeModal={handlecloseModal} profileData={selectedProfile} sendDatatoComponent={getDataFromModal} pinerrMsg={pinerrmsg}/>
+                  default:
+                    return <></>;
+                }
+              }
+              return getModal();
+            }}
+          />,
+          document.body,
+        )}
+    </>
   );
 }

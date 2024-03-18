@@ -54,6 +54,8 @@ function Modal(props: ModalPropsInterface) {
         );
       case "mobileratings":
         return render(modalType);
+      case "profilepin":
+        return <div className={`${style.profilepin_modal}`}>{render(modalType)}</div>;
       default:
         return <></>;
     }
