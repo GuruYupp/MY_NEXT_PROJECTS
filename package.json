@@ -61,6 +61,6 @@
     "yargs": "~17.7.2"
   },
   "lint-staged": {
-    "./src": "prettier  --write --ignore-unknown"
+    "**/*": "prettier  .src/ --write --ignore-unknown"
   }
 }
