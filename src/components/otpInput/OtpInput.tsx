@@ -5,11 +5,11 @@ import { FC } from "react";
 interface OtpInputInterfaceProps {
   pin: string;
   setPin: (pin: string) => void;
-  autoFocus?:boolean;
+  autoFocus?: boolean;
 }
 
 const OtpInput: FC<OtpInputInterfaceProps> = (props) => {
-  const { pin, setPin,autoFocus=false } = props;
+  const { pin, setPin, autoFocus = false } = props;
 
   const handleOnChange = (pin: string) => {
     setPin(pin);
