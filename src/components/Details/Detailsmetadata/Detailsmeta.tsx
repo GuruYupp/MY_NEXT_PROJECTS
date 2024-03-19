@@ -105,7 +105,7 @@ function DetailsMetaContainer() {
                           appConfig.cloudpath +
                           "/images/play-circle-outline.svg"
                         }`,
-                        altText: "play",
+                        altText: "resume",
                       }}
                     />
                   </Link>

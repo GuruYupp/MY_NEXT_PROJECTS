@@ -1,16 +1,16 @@
 const appConfig = {
   endPoints: {
-      "location": "https://firstshows-api.revlet.net",
-  "api": "https://firstshows-api.revlet.net",
-  "search": "https://firstshows-api.revlet.net",
-  "pgURL": "https://firstshows-api.revlet.net",
-  "heURL": "http://firstshows-api.revlet.net/service/api/v1/usermobile",
-  "tenantCode": "firstshows",
-  "product": "firstshows",
-  "isSupported": true,
-  "otpURL": "https://firstshows-api.revlet.net"
+    location: "https://firstshows-api.revlet.net",
+    api: "https://firstshows-api.revlet.net",
+    search: "https://firstshows-api.revlet.net",
+    pgURL: "https://firstshows-api.revlet.net",
+    heURL: "http://firstshows-api.revlet.net/service/api/v1/usermobile",
+    tenantCode: "firstshows",
+    product: "firstshows",
+    isSupported: true,
+    otpURL: "https://firstshows-api.revlet.net",
   },
-  cloudpath: "https://d2ivesio5kogrp.cloudfront.net/static/reeldrama",
+  cloudpath: "https://d2ivesio5kogrp.cloudfront.net/static/firstshows",
   bannerImgpath: "https://d229kpbsb5jevy.cloudfront.net/firstshows/",
   headerIconpath:
     "https://d2ivesio5kogrp.cloudfront.net/static/firstshows/images/first-shows-white-logo.png",
@@ -56,10 +56,10 @@ const appConfig = {
     showDeleteButtonAndroid: true,
     changePasswordSupport: true,
     userSettings: true,
-    activeScreenandDevices:{
-      activeDevices:false,
-      activeScreens:true
-    }
+    activeScreenandDevices: {
+      activeDevices: false,
+      activeScreens: true,
+    },
   },
   search: {
     apiversion: "v1",
