@@ -7,6 +7,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { fetchSections } from "@/redux/feature/pageSlice/pageSlice";
+import SlickSection from "./SlickSection/SlickSection";
 
 export function ShimmerSection() {
   return (
@@ -119,7 +120,7 @@ function Sections(): JSX.Element {
     <div className={`${style.sections}`}>
       {sections.map((section, index) => {
         if (section.section.sectionInfo.name != "Cast & Crew") {
-          return <Section key={index} section={section} />;
+          return <SlickSection key={index} section={section} />;
         }
       })}
       {pagination === "pending" && <ShimmerSection />}

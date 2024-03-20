@@ -1,10 +1,12 @@
 import Card from "@/components/card/card";
 import styles from "./Section.module.scss";
-import { memo, useEffect, useRef, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import { cardDimentionsForResponsive, debunceFunction } from "@/utils";
 import Link from "next/link";
+import { sectionInterface } from "@/shared";
 
-function Section({ section }: any): JSX.Element {
+const Section: FC<{ section: sectionInterface }> = (props) => {
+  const { section } = props;
   // console.log('section....', section.section.sectionInfo)
   let sectionInfo;
   let sectionControls;
@@ -17,7 +19,7 @@ function Section({ section }: any): JSX.Element {
   }
 
   const cards = section?.section?.sectionData?.data || [];
-  const cardType = cards.length > 0 && cards[0].cardType;
+  const cardType = cards.length > 0 ? cards[0].cardType : "";
 
   const carouselRef = useRef<HTMLDivElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -126,7 +128,7 @@ function Section({ section }: any): JSX.Element {
           {sectionInfo && (
             <div className={`${styles.section_info}`}>
               <span className={`${styles.title}`}>{sectionInfo.name}</span>
-              {sectionControls.showViewAll && enableviewall && (
+              {sectionControls?.showViewAll && enableviewall && (
                 <Link href={`/${sectionControls.viewAllTargetPath}`}>
                   <div className={`${styles.view_all}`}>
                     <span className={`${styles.text}`}>View All</span>
@@ -190,6 +192,6 @@ function Section({ section }: any): JSX.Element {
       )}
     </>
   );
-}
+};
 
 export default memo(Section);

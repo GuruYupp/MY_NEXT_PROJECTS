@@ -116,3 +116,11 @@ body {
 .custom_slide.slick-slider .slick-list .slick-track .slick-slide.slick-active {
   background-color: #333;
 }
+
+.section_carousel .slick-list {
+  overflow: visible;
+}
+.section_carousel .slick-track {
+  margin-left: 0;
+  margin-right: 0;
+}

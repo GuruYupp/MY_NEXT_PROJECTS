@@ -1,4 +1,5 @@
 import getConfig from "next/config";
+import { Settings } from "react-slick";
 
 let appConfig = getConfig().publicRuntimeConfig.appconfig;
 
@@ -102,31 +103,6 @@ export function getDeviceId() {
     return "61";
   }
   return "5";
-}
-
-export function getCardRatio(cardType: string) {
-  switch (cardType) {
-    case "roller_poster":
-      return 0.6666666666666667;
-    case "overlay_poster":
-    case "overlayIcon_poster":
-    case "sheet_poster":
-    case "expand_poster":
-    case "expands_poster":
-    case "content_poster":
-    case "promo_poster":
-      //0.5625 is the heigth / width value eg(9:16)
-      return 0.5625;
-    case "circle_poster":
-    case "square_poster":
-      return 1;
-    case "expand_roller_poster":
-    case "roller_poster":
-      return 1.5;
-    default:
-      return 0;
-      break;
-  }
 }
 
 export function debunceFunction(fn: any, ms: number) {
@@ -410,5 +386,383 @@ export function cardDimentionsForResponsive(cardType: string): {
     } else {
       return { cardCount: 6, gridCound: 6, cardRatio: 0.5625 };
     }
+  }
+}
+
+export function cardCountForSectionSlick(cardType: string): Settings {
+  switch (cardType) {
+    case "sheet_poster":
+    case "overlay_poster":
+    case "overlayIcon_poster":
+    case "network_poster":
+    case "content_poster":
+    case "expands_poster":
+    case "expands_preview_poster":
+    case "large_poster":
+      return {
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        responsive: [
+          {
+            breakpoint: 1650,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 1300,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 380,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 320,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+        ],
+      };
+    case "expand_poster":
+      return {
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        responsive: [
+          {
+            breakpoint: 1650,
+            settings: {
+              slidesToShow: 6,
+              slidesToScroll: 6,
+            },
+          },
+          {
+            breakpoint: 1300,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 380,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 320,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+        ],
+      };
+    case "expand_action_poster":
+    case "roller_poster":
+      return {
+        slidesToShow: 8,
+        slidesToScroll: 8,
+        responsive: [
+          {
+            breakpoint: 1650,
+            settings: {
+              slidesToShow: 8,
+              slidesToScroll: 8,
+            },
+          },
+          {
+            breakpoint: 1440,
+            settings: {
+              slidesToShow: 7,
+              slidesToScroll: 7,
+            },
+          },
+          {
+            breakpoint: 1300,
+            settings: {
+              slidesToShow: 7,
+              slidesToScroll: 7,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 6,
+              slidesToScroll: 6,
+            },
+          },
+          {
+            breakpoint: 920,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 320,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+        ],
+      };
+    case "icon_poster":
+    case "circle_poster":
+    case "edge_poster":
+    case "square_poster":
+      return {
+        slidesToShow: 12,
+        slidesToScroll: 12,
+        responsive: [
+          {
+            breakpoint: 1440,
+            settings: {
+              slidesToShow: 11,
+              slidesToScroll: 11,
+            },
+          },
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 10,
+              slidesToScroll: 10,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+        ],
+      };
+    case "expand_roller_poster":
+      return {
+        slidesToShow: 8,
+        slidesToScroll: 8,
+        responsive: [
+          {
+            breakpoint: 1440,
+            settings: {
+              slidesToShow: 7,
+              slidesToScroll: 7,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+        ],
+      };
+    case "promo_poster":
+      return {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      };
+    default:
+      return {
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        responsive: [
+          {
+            breakpoint: 1650,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 1300,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 380,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 320,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+        ],
+      };
   }
 }
