@@ -24,7 +24,6 @@ function Dot() {
 }
 
 export default function Banners() {
-  // const { banners } = useContext(PageContext);
   const { banners } = useAppSelector((state) => state.pageData.response);
   const { loading } = useAppSelector((state) => state.pageData);
   const [currentslickIndex, setCurretnSlickIndex] = useState<number>(0);

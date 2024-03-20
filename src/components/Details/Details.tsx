@@ -5,8 +5,9 @@ import Sections from "../Sections/Sections";
 import { useAppSelector } from "@/redux/hooks";
 import { GridTable } from "../grid/Grid";
 import getfrompagedata from "./getfrompagedata";
-import DetailsMetaContainer from "./Detailsmetadata/Detailsmeta";
 import Slider, { Settings } from "react-slick";
+import DesktopDetailsMeta from "./Detailsmetadata/DesktopDetailsMeta/DesktopDetailsMeta";
+import MobileDetailsMeta from "./Detailsmetadata/MobileDetailsMeta/MobileDetailsMeta";
 
 export default function DetailsPage() {
   let { content, tabsInfo, sections } = useAppSelector(
@@ -26,12 +27,18 @@ export default function DetailsPage() {
     activetab = tabsInfo.tabs[0].code;
   }
   const [activeTab, setActivetab] = useState<string>(activetab);
+  const [showDesktopMeta, setShowDesktopMeta] = useState<boolean | undefined>();
 
   useEffect(() => {
+    setDesktopMeta();
+    window.addEventListener("resize", setDesktopMeta);
     if (bgImageRef.current) {
       let height = Math.ceil(window.innerWidth * 0.437);
       bgImageRef.current.style.height = `${height}px`;
     }
+    return () => {
+      window.removeEventListener("resize", setDesktopMeta);
+    };
   }, []);
 
   const handleActivetab = (code: string) => {
@@ -55,6 +62,10 @@ export default function DetailsPage() {
     easing: "linear",
   };
 
+  const setDesktopMeta = () => {
+    setShowDesktopMeta(window.innerWidth >= 767);
+  };
+
   return (
     <>
       <div className={`${styles.DetailsPage_Container}`}>
@@ -66,7 +77,8 @@ export default function DetailsPage() {
           <div className={`${styles.DetailsGrdient1}`}></div>
           <div className={`${styles.DetailsGrdient2}`}></div>
         </div>
-        <DetailsMetaContainer />
+        {showDesktopMeta === true && <DesktopDetailsMeta />}
+        {showDesktopMeta === false && <MobileDetailsMeta />}
       </div>
       {!tabsInfo.showTabs && <Sections />}
       {tabsInfo.showTabs && (

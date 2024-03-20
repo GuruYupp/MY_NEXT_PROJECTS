@@ -1,44 +1,22 @@
-import { useAppSelector } from "@/redux/hooks";
-import styles from "./Detailsmeta.module.scss";
-import getfrompagedata, { DetailsButtonType } from "../getfrompagedata";
-import { dataRowElementInterface } from "@/shared";
-import { Fragment, memo } from "react";
-import Link from "next/link";
+import React, { Fragment, memo } from "react";
+import DetailsMetaHOC from "../DetailsMetaHOC";
+import styles from "./DesktopDetailsMeta.module.scss";
 import appConfig from "@/app.config";
-import DetailsActionButton from "./DetailsActionButton/DetailsActionButton";
-
-function DetailsMetaContainer() {
-  const { content, pageButtons, shareInfo } = useAppSelector(
-    (state) => state.pageData.response,
-  );
-  let buttonTypes: DetailsButtonType[] = [
-    "signin",
-    "trailer",
-    "watch_latest_episode",
-    "watchnow",
-    "resume",
-    "startover",
-  ];
-  let buttons: dataRowElementInterface[] = [];
-
-  let title = getfrompagedata(content, "title")?.data || "";
-
-  // let partnerIcon = getfrompagedata(content,"partnerIcon")?.data || "";
-  let subtitle = getfrompagedata(content, "subtitle")?.data || "";
-  let pgrating = getfrompagedata(content, "pgrating")?.data || "";
-
-  let cast = getfrompagedata(content, "cast")?.data || "";
-  cast = cast.split("|").join(",");
-
-  let description = getfrompagedata(content, "description")?.data || "";
-  let imdbrating = getfrompagedata(content, "imdb")?.data || "";
-  let rentbtn = getfrompagedata(content, "rent")?.data || "";
-
-  buttonTypes.map((button) => {
-    let btn = getfrompagedata(content, button);
-    btn && buttons.push(btn);
-  });
-
+import Link from "next/link";
+import DetailsActionButton from "../DetailsActionButton/DetailsActionButton";
+const DesktopDetailsMeta = (props: any) => {
+  const {
+    title,
+    cast,
+    subtitle,
+    pgrating,
+    imdbrating,
+    description,
+    buttons,
+    rentbtn,
+    pageButtons,
+    shareInfo,
+  } = props;
   return (
     <div className={`${styles.DetailsMeta_Container}`}>
       <div className={`${styles.title} ${styles.meta_row}`}>{title}</div>
@@ -181,8 +159,8 @@ function DetailsMetaContainer() {
       </div>
     </div>
   );
-}
+};
 
-const MemoDetailsMetaContainer = memo(DetailsMetaContainer);
+const MemoDesktopDetailsMeta = memo(DesktopDetailsMeta);
 
-export default MemoDetailsMetaContainer;
+export default DetailsMetaHOC(MemoDesktopDetailsMeta);
