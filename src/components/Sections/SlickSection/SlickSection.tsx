@@ -1,7 +1,7 @@
 import Card from "@/components/card/card";
 import styles from "./SlickSection.module.scss";
-import { FC, memo, useEffect, useRef, useState } from "react";
-import { cardCountForSectionSlick, debunceFunction } from "@/utils";
+import { FC, memo } from "react";
+import { cardCountForSectionSlick } from "@/utils";
 import Link from "next/link";
 import { sectionInterface } from "@/shared";
 import Slider, { Settings } from "react-slick";
@@ -28,7 +28,7 @@ function SamplePrevArrow(props: any) {
 
 const SlickSection: FC<{ section: sectionInterface }> = (props) => {
   const { section } = props;
-  // console.log('section....', section.section.sectionInfo)
+
   let sectionInfo;
   let sectionControls;
   if (section && section.section && section.section.sectionInfo) {
@@ -41,25 +41,6 @@ const SlickSection: FC<{ section: sectionInterface }> = (props) => {
 
   const cards = section?.section?.sectionData?.data || [];
   const cardType = cards.length > 0 ? cards[0].cardType : "";
-
-  const carouselRef = useRef<HTMLDivElement>(null);
-  //   const sliderRef = useRef<HTMLDivElement>(null);
-
-  //   const [enablearrows, setEnablearrows] = useState<boolean>(false);
-  //   const [enablerightarrow, setEnablerightarrow] = useState<boolean>(false);
-  const [enableviewall, setEnableviewall] = useState<boolean>(false);
-  //   const [enableleftarrow, setEnableleftarrow] = useState<boolean>(false);
-  //   const [carouselWidth, setCarouselWidth] = useState<string>("100%");
-
-  //   const [cardWidth, setCardWidth] = useState<string>("0px");
-
-  // console.log(proxy_sections);
-
-  useEffect(() => {
-    // console.log('rendering,,,,,')
-
-    return () => {};
-  }, []);
 
   const settings: Settings = {
     accessibility: false,
@@ -83,7 +64,7 @@ const SlickSection: FC<{ section: sectionInterface }> = (props) => {
           {sectionInfo && (
             <div className={`${styles.section_info}`}>
               <span className={`${styles.title}`}>{sectionInfo.name}</span>
-              {sectionControls?.showViewAll && enableviewall && (
+              {sectionControls?.showViewAll && (
                 <Link href={`/${sectionControls.viewAllTargetPath}`}>
                   <div className={`${styles.view_all}`}>
                     <span className={`${styles.text}`}>View All</span>
@@ -106,11 +87,7 @@ const SlickSection: FC<{ section: sectionInterface }> = (props) => {
                       display: "inline-block",
                     }}
                   >
-                    <Card
-                      key={index}
-                      cardDetails={card}
-                      // cardImageHeight={cardImageHeight}
-                    />
+                    <Card key={index} cardDetails={card} />
                   </div>
                 );
               })}

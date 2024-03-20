@@ -93,6 +93,12 @@ export default function Header() {
     }
   };
 
+  const showMobileHeaderc2 = () => {
+    if (info.pageType === "player" || info.pageType === "details") {
+      return false;
+    }
+    return true;
+  };
   return (
     <div
       className={`${styles.header_container} ${
@@ -107,7 +113,7 @@ export default function Header() {
       )}
       {toggleHeader === "mobileweb" && (
         <>
-          {showMobileHeader && (
+          {showMobileHeader && showMobileHeaderc2() && (
             <div className={`${styles.mobile_header_container}`}>
               <MobileHeaderTop />
               <MobileHeaderBottom

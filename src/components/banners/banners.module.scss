@@ -2,6 +2,9 @@
 .banners {
   position: relative;
   padding-top: 35%;
+  @include breakpoint(mobile) {
+    padding-top: 10%;
+  }
   .bannersWrapper {
     width: 100%;
     position: absolute;
@@ -9,6 +12,9 @@
     bottom: 0;
     left: 0;
     right: 0;
+    @include breakpoint(mobile) {
+      position: relative;
+    }
 
     .bannersContainers {
       overflow: hidden;

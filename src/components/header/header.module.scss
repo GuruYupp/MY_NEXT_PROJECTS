@@ -365,6 +365,9 @@
 
   &.move_top {
     top: -35px;
+    @include breakpoint(mobile) {
+      top: -50px;
+    }
   }
 }
 
@@ -394,7 +397,7 @@
   }
 
   .mobile_header_bottom {
-    background-color: #232323;
+    // background-color: #232323;
     overflow: auto;
     white-space: nowrap;
     padding: 0;
@@ -435,15 +438,15 @@
     /* Firefox */
     &.hasGradient {
       width: 100%;
-
+      background: linear-gradient(180deg, #141414, hsla(0, 0%, 8%, 0));
       &::after {
         content: "";
-        background-image: linear-gradient(
-          to bottom,
-          #141414,
-          rgba(20, 20, 20, 0.35) 59%,
-          rgba(20, 20, 20, 0)
-        );
+        // background-image: linear-gradient(
+        //   to bottom,
+        //   #141414,
+        //   rgba(20, 20, 20, 0.35) 59%,
+        //   rgba(20, 20, 20, 0)
+        // );
         // background-color: #141414;
         position: absolute;
         width: 100%;
@@ -458,9 +461,5 @@
       top: 0px;
       background-color: $secondary-color;
     }
-  }
-
-  &.move_top {
-    top: -35px;
   }
 }

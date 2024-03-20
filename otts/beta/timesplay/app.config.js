@@ -1,9 +1,10 @@
 const appConfig = {
   endPoints: {
-    location: "https://timesnow-test-api.revlet.net",
-    api: "https://timesnow-test-api.revlet.net",
-    search: "https://timesnow-test-api.revlet.net",
-    guideURL: "https://timesnow-test-api.revlet.net",
+    location: "https://aggregrator-test-api.revlet.net",
+    api: "https://aggregrator-test-api.revlet.net",
+    search: "https://aggregrator-test-api.revlet.net",
+    pgURL: "https://aggregrator-test-api.revlet.net",
+    guideURL: "https://aggregrator-test-api.revlet.net",
     tenantCode: "timesplay",
     product: "timesplay",
     isSupported: true,

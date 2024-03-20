@@ -160,7 +160,7 @@ const Card = (props: cardprops): JSX.Element => {
             template={template}
             templateHandler={templateHandler}
           >
-            <div className={`${styles.expand_roller_poster}`}>
+            <div className={`${styles.roller_poster}`}>
               <div className={`${styles.img_container}`} ref={imageRef}>
                 <img
                   src={src}

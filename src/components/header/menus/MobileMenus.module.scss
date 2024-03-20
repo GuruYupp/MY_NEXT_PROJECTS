@@ -6,9 +6,16 @@
   height: 60px;
   background: #232323;
   z-index: 3;
-  .menu {
-    width: 20%;
+  display: flex;
+  justify-content: center;
+  a {
     display: inline-block;
+    width: 20%;
+  }
+  .menu {
+    // width: 20%;
+    display: inline-block;
+    width: 100%;
     .menu_inner {
       display: flex;
       justify-content: center;

@@ -3,6 +3,10 @@
   padding-top: 96px;
   margin-bottom: 30px;
   margin-left: 35px;
+  @include breakpoint(mobile) {
+    padding: 0;
+    margin: 0;
+  }
   .player_page_top_container {
     display: flex;
     @include breakpoint(tablet) {
@@ -40,20 +44,35 @@
       .player_wrapper {
         margin-right: 20px;
         position: relative;
+        @include breakpoint(mobile) {
+          margin-right: 0px;
+        }
       }
 
       .player_footer {
         padding: 20px 0px;
         margin-right: 40px;
+        @include breakpoint(mobile) {
+          margin-right: 0px;
+          padding-left: 15px;
+          padding-right: 15px;
+        }
 
         .player_footer_inner {
           .player_footer_inner_top {
             display: flex;
             justify-content: space-between;
+            @include breakpoint(mobile) {
+              flex-direction: column;
+              gap: 10px;
+            }
             .player_footer_inner_top_left {
               // width: 75%;
               vertical-align: middle;
               width: calc(100% - 300px);
+              @include breakpoint(mobile) {
+                width: auto;
+              }
 
               .image_container {
                 display: inline-block;
@@ -74,6 +93,9 @@
                   font-size: 20px;
                   font-weight: 400;
                   @include ellipse;
+                  @include breakpoint(mobile) {
+                    font-size: 18px;
+                  }
                 }
 
                 .subtitle {
@@ -98,6 +120,10 @@
                 justify-content: space-between;
                 align-items: center;
                 flex-direction: row-reverse;
+
+                @include breakpoint(mobile) {
+                  justify-content: center;
+                }
 
                 .btn {
                   border: 1px solid #444;
@@ -226,8 +252,7 @@
     .player_page_top_right {
       width: 420px;
       @include breakpoint(tablet) {
-        width: calc(100% - 25px);
-        max-width: calc(100% - 15px);
+        width: 100%;
       }
       background-color: $secondary-color;
       .player_page_top_right_inner {

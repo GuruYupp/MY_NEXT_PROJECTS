@@ -1,7 +1,7 @@
-import appConfig from "@/app.config";
 import styles from "./Banner.module.scss";
 import { bannerInterface } from "@/shared";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { getAbsolutPath } from "@/utils";
 type bannerpropsType = {
   banner: bannerInterface;
   playSlider: () => void;
@@ -15,7 +15,10 @@ const Banner: FC<bannerpropsType> = (props) => {
   const playerRef = useRef<HTMLDivElement>(null);
   const playerInstance = useRef<typeof window.jwplayer>();
   const [showplayer, setShowPlayer] = useState<boolean>(false);
+  const [enablePreview, setenablePreview] = useState<boolean>(false);
   useEffect(() => {
+    setPreview();
+    window.addEventListener("resize", setPreview);
     let playerOBj: any;
     if (playerRef.current && typeof window !== undefined) {
       if (banner.params?.streamUrl) {
@@ -26,7 +29,6 @@ const Banner: FC<bannerpropsType> = (props) => {
             mute: true,
             controls: false,
             autostart: "viewable",
-            aspectratio: "16:9",
             floating: false,
             preload: "auto",
             autoPause: {
@@ -60,6 +62,7 @@ const Banner: FC<bannerpropsType> = (props) => {
       }
     }
     return () => {
+      window.removeEventListener("resize", setPreview);
       if (playerOBj !== undefined) {
         playerOBj.remove();
       }
@@ -67,7 +70,6 @@ const Banner: FC<bannerpropsType> = (props) => {
   }, []);
 
   useMemo(() => {
-    console.log(SlideIndex, "-->", activeSlideIndex);
     if (SlideIndex === activeSlideIndex) {
       if (playerRef.current) {
         playerInstance.current?.play();
@@ -88,15 +90,18 @@ const Banner: FC<bannerpropsType> = (props) => {
     Playlist.push(obj);
     return Playlist;
   }
+
+  function setPreview() {
+    if (window.innerWidth < 991 && enablePreview) {
+      setenablePreview(false);
+    } else if (!enablePreview) {
+      setenablePreview(true);
+    }
+  }
   return (
     <div className={styles.imageContainer}>
-      <img
-        src={`${appConfig.bannerImgpath}/content/banner/common/${
-          banner.imageUrl.split(",")[1]
-        }`}
-        alt=""
-      />
-      {banner.params?.streamUrl && (
+      <img src={`${getAbsolutPath(banner.imageUrl)}`} alt="" />
+      {enablePreview && banner.params?.streamUrl && (
         <div
           className={`${styles.playerContainer} ${showplayer ? styles.show : ""}`}
         >

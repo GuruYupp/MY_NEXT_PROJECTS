@@ -2,12 +2,16 @@ import { menuInterface } from "@/shared";
 import styles from "./MobileMenus.module.scss";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import getConfig from "next/config";
-let appConfig = getConfig().publicRuntimeConfig.appconfig;
+import appConfig from "@/app.config";
 
 const mobilemenuImages: { [key: string]: any } = {
   // eslint-disable-next-line camelcase
   home_mobile__v2: {
+    selectedImg: "bottom-menu-home-active.svg",
+    defaultImg: "bottom-menu-home-default.svg",
+  },
+  // eslint-disable-next-line camelcase
+  home_mobile: {
     selectedImg: "bottom-menu-home-active.svg",
     defaultImg: "bottom-menu-home-default.svg",
   },
@@ -30,6 +34,26 @@ const mobilemenuImages: { [key: string]: any } = {
   account__v2: {
     selectedImg: "bottom-menu-myaccount-active.svg",
     defaultImg: "bottom-menu-myaccount-default.svg",
+  },
+  // eslint-disable-next-line camelcase
+  search: {
+    selectedImg: "bottom-menu-serach-active.svg",
+    defaultImg: "bottom-menu-serach-default.svg",
+  },
+  // eslint-disable-next-line camelcase
+  shorts: {
+    selectedImg: "bottom-menu-Shorts-active.svg",
+    defaultImg: "bottom-menu-Shorts-default.svg",
+  },
+  // eslint-disable-next-line camelcase
+  account: {
+    selectedImg: "bottom-menu-myaccount-active.svg",
+    defaultImg: "bottom-menu-myaccount-default.svg",
+  },
+  // eslint-disable-next-line camelcase
+  favourites_mobile: {
+    selectedImg: "bottom-menu-favourites-active.svg",
+    defaultImg: "bottom-menu-favourites-default.svg",
   },
 };
 

@@ -11,6 +11,7 @@
     color: #e5e5e5;
     display: flex;
     align-items: center;
+    @include cardsPadding;
     .title {
       margin: 0;
       font-size: 18px;

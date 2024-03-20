@@ -32,6 +32,7 @@ export default function MobileHeaderBottom({
     targetPath = asPath;
     if (asPath == "/") targetPath = "/home";
     menus.forEach((menu) => {
+      console.log(menu);
       if (`/${menu.targetPath}` === targetPath && menu.params.web === "false") {
         setSubMenus([...menu.subMenus]);
       }
