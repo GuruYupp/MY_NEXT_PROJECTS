@@ -36,10 +36,7 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
       <div className={`${styles.header_bottominner}`}>
         <div className={`${styles.headerbottom_left}`}>
           <div className={`${styles.logo}`}>
-            <img
-              src={`${appConfig.headerIconpath}`}
-              alt="logo"
-            />
+            <img src={`${appConfig.headerIconpath}`} alt="logo" />
           </div>
           <Menus menus={menus} />
         </div>

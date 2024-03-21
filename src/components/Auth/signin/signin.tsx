@@ -15,8 +15,6 @@ import {
 import appConfig from "@/app.config";
 import { getsystemConfigs, getsystemFeature } from "@/clientapis";
 
-
-
 type IFormInput = {
   termsText: boolean;
   promotionText: boolean;
@@ -184,7 +182,7 @@ const SignIn = (): JSX.Element => {
         if (signinResponse.status === true) {
           localStorage.removeItem("systemconfigs");
           localStorage.removeItem("systemfeature");
-          await setuserLoggedin()
+          await setuserLoggedin();
         } else if (
           signinResponse.error?.code === -3 ||
           signinResponse.error?.message
@@ -210,10 +208,8 @@ const SignIn = (): JSX.Element => {
         if (signupResponse.status === true) {
           localStorage.removeItem("systemconfigs");
           localStorage.removeItem("systemfeature");
-          
-          await setuserLoggedin()
 
-          
+          await setuserLoggedin();
 
           // if (signupResponse.response?.userDetails) {
           //   localStorage.setItem(
@@ -228,7 +224,7 @@ const SignIn = (): JSX.Element => {
   };
 
   const setuserLoggedin = async () => {
-    try{
+    try {
       localStorage.setItem("isLoggedin", "true");
       clientCookie.set("isLoggedin", "true");
       await getsystemConfigs();
@@ -253,7 +249,10 @@ const SignIn = (): JSX.Element => {
           clientCookie.set("hasuserprofiles", "true");
           router.replace("/profiles/select-user-profile");
         } else {
-          localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
+          localStorage.setItem(
+            "userDetails",
+            JSON.stringify(userInfo.response),
+          );
           localStorage.setItem(
             "activeProfile",
             JSON.stringify(userInfo.response),
@@ -262,9 +261,8 @@ const SignIn = (): JSX.Element => {
           router.replace("/");
         }
       }
-    }
-    catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -274,20 +272,20 @@ const SignIn = (): JSX.Element => {
   };
 
   useEffect(() => {
-      getData("/service/api/v1/get/country").then((data) => {
-        if (data.status === true && data.response.length > 0) {
-          // setCountryCodes([...data.response]);
-        } else if (data?.status == false && data?.error?.code == 401) {
-          clientCookie.remove("boxId");
-          clientCookie.remove("tenantCode");
-          clientCookie.remove("sessionId");
-          clientCookie.remove("isLoggedin");
-          window.location.reload();
-        } else {
-          console.log("failed....");
-        }
-      });
-    
+    getData("/service/api/v1/get/country").then((data) => {
+      if (data.status === true && data.response.length > 0) {
+        // setCountryCodes([...data.response]);
+      } else if (data?.status == false && data?.error?.code == 401) {
+        clientCookie.remove("boxId");
+        clientCookie.remove("tenantCode");
+        clientCookie.remove("sessionId");
+        clientCookie.remove("isLoggedin");
+        window.location.reload();
+      } else {
+        console.log("failed....");
+      }
+    });
+
     return () => {
       if (otpTimer.current?.timerId) {
         clearInterval(otpTimer.current.timerId);
@@ -435,8 +433,8 @@ const SignIn = (): JSX.Element => {
         </div>
       </div>
       {showToast && createPortal(<Toast message={toastmsg} />, document.body)}
-      </>
+    </>
   );
 };
 
-export default SignIn
+export default SignIn;

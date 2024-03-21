@@ -15,8 +15,8 @@ const mobilemenuImages: { [key: string]: any } = {
     selectedImg: "bottom-menu-home-active.svg",
     defaultImg: "bottom-menu-home-default.svg",
   },
-   // eslint-disable-next-line camelcase
-   home: {
+  // eslint-disable-next-line camelcase
+  home: {
     selectedImg: "bottom-menu-home-active.svg",
     defaultImg: "bottom-menu-home-default.svg",
   },
@@ -61,10 +61,10 @@ const mobilemenuImages: { [key: string]: any } = {
     defaultImg: "bottom-menu-favourites-default.svg",
   },
   // eslint-disable-next-line camelcase
-  watchlist:{
+  watchlist: {
     selectedImg: "bottom-menu-watchlist-active.svg",
     defaultImg: "bottom-menu-watchlist-default.svg",
-  }
+  },
 };
 
 interface props {
@@ -102,31 +102,28 @@ export default function MobileMenus({ menus }: props): JSX.Element {
 
   return (
     <div className={`${styles.mobile_menus}`}>
-      {menus.map(
-        (menu, index) =>
-        // menu.params.web === "false" && 
-         (
-            <Link href={`/${menu.targetPath}`} key={index}>
-              <div
-                className={
-                  `${styles.menu} ` + (isActive(menu) ? styles.active : "")
-                }
-              >
-                <div className={`${styles.menu_inner}`}>
-                  <div className={`${styles.menu_icon}`}>
-                    <img
-                      src={`${appConfig.cloudpath}/images/${getmenuIcon(menu)}`}
-                      alt=""
-                    />
-                  </div>
-                  <span className={`${styles.displayText} `}>
-                    {menu.displayText}
-                  </span>
-                </div>
+      {menus.map((menu, index) => (
+        // menu.params.web === "false" &&
+        <Link href={`/${menu.targetPath}`} key={index}>
+          <div
+            className={
+              `${styles.menu} ` + (isActive(menu) ? styles.active : "")
+            }
+          >
+            <div className={`${styles.menu_inner}`}>
+              <div className={`${styles.menu_icon}`}>
+                <img
+                  src={`${appConfig.cloudpath}/images/${getmenuIcon(menu)}`}
+                  alt=""
+                />
               </div>
-            </Link>
-          ),
-      )}
+              <span className={`${styles.displayText} `}>
+                {menu.displayText}
+              </span>
+            </div>
+          </div>
+        </Link>
+      ))}
     </div>
   );
 }

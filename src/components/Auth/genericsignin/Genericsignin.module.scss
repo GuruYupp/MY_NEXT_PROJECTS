@@ -14,12 +14,12 @@
       @include headerLogo;
       height: auto;
       position: absolute;
-      top:30px;
-      left:30px;
-      @include breakpoint(mobile){
+      top: 30px;
+      left: 30px;
+      @include breakpoint(mobile) {
         position: relative;
-        left:0px;
-        top:0px;
+        left: 0px;
+        top: 0px;
         display: block;
         margin: 30px auto;
       }

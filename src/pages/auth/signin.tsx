@@ -4,16 +4,24 @@ import ErrorBoundary from "@/Errorboundary";
 import appConfig from "@/app.config";
 // import { SignIn } from "@/components/Auth/signin/signin";
 import { Suspense, lazy } from "react";
-const SignIn = lazy(()=>import("@/components/Auth/signin/signin"))
-const GenericSignIn = lazy(()=>import("@/components/Auth/genericsignin/GenericSignin"));
-
-
+const SignIn = lazy(() => import("@/components/Auth/signin/signin"));
+const GenericSignIn = lazy(
+  () => import("@/components/Auth/genericsignin/GenericSignin"),
+);
 
 export default function SigninPage(): JSX.Element {
   return (
     <>
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-        {appConfig.endPoints.tenantCode === "dishtv" ? <Suspense><SignIn/></Suspense>  :  <Suspense><GenericSignIn /></Suspense>}
+        {appConfig.endPoints.tenantCode === "dishtv" ? (
+          <Suspense>
+            <SignIn />
+          </Suspense>
+        ) : (
+          <Suspense>
+            <GenericSignIn />
+          </Suspense>
+        )}
       </ErrorBoundary>
     </>
   );
