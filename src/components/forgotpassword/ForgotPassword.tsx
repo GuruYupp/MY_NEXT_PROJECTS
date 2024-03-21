@@ -2,11 +2,14 @@ import styles from "./ForgotPassword.module.scss";
 import { useRouter } from "next/router";
 import VerifyForm from "./VerifyForm/VerifyForm";
 import { useAppSelector } from "@/redux/hooks";
+import { useEffect } from "react";
 const ForgotPassword = () => {
   const { otpauthentication } = useAppSelector(
     (state) => state.configs.systemFeatures,
   );
   const router = useRouter();
+
+  useEffect(() => {}, []);
 
   return (
     <>
