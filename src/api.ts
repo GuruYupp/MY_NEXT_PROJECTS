@@ -1,6 +1,7 @@
 import { responseInterface } from "./shared";
 import { axiosget } from "./axios";
 import getConfig from "next/config";
+import appConfig from "./app.config";
 
 export const getBaseApi = async (): Promise<string> => {
   const { publicRuntimeConfig } = getConfig();
@@ -10,9 +11,8 @@ export const getBaseApi = async (): Promise<string> => {
 export async function systemconfigapi(
   headers: any,
 ): Promise<responseInterface> {
-  console.log(headers);
   let apiresponse: responseInterface = await axiosget<responseInterface>({
-    url: "service/api/v1/system/config",
+    url: appConfig.systemconfigsApi,
     headers: headers,
   });
   return apiresponse;

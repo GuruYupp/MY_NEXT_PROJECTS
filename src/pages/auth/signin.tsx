@@ -1,14 +1,19 @@
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
-import GenericSignIn from "@/components/Auth/genericsignin/GenericSignin";
+// import GenericSignIn from "@/components/Auth/genericsignin/GenericSignin";
+import appConfig from "@/app.config";
+// import { SignIn } from "@/components/Auth/signin/signin";
+import { Suspense, lazy } from "react";
+const SignIn = lazy(()=>import("@/components/Auth/signin/signin"))
+const GenericSignIn = lazy(()=>import("@/components/Auth/genericsignin/GenericSignin"));
+
+
 
 export default function SigninPage(): JSX.Element {
   return (
     <>
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-        {/* <Layout> */}
-        <GenericSignIn />
-        {/* </Layout> */}
+        {appConfig.endPoints.tenantCode === "dishtv" ? <Suspense><SignIn/></Suspense>  :  <Suspense><GenericSignIn /></Suspense>}
       </ErrorBoundary>
     </>
   );

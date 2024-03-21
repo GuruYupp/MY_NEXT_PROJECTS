@@ -2,19 +2,20 @@ import styles from "./signin.module.scss";
 import { useForm } from "react-hook-form";
 import { default as clientCookie } from "js-cookie";
 import { useRouter } from "next/router";
-import getConfig from "next/config";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { useEffect, useState, KeyboardEvent, useRef, FormEvent } from "react";
 import { getData, postData } from "@/services/data.manager";
-import Loading from "../../shared/Loading";
 import { createPortal } from "react-dom";
 import Toast from "@/components/toasts/Toast";
 import {
   setActivepackages,
+  setActiveprofile,
   setLoggedin,
 } from "@/redux/feature/userSlice/userSlice";
+import appConfig from "@/app.config";
+import { getsystemConfigs, getsystemFeature } from "@/clientapis";
 
-let appConfig = getConfig().publicRuntimeConfig.appconfig;
+
 
 type IFormInput = {
   termsText: boolean;
@@ -35,7 +36,7 @@ type otptimerType = {
   timerId: ReturnType<typeof setInterval> | undefined;
 };
 
-export const SignIn = (): JSX.Element => {
+const SignIn = (): JSX.Element => {
   const router = useRouter();
   const { register, formState, getValues } = useForm<IFormInput>({
     mode: "onChange",
@@ -47,9 +48,7 @@ export const SignIn = (): JSX.Element => {
     },
   });
 
-  const { isLoggedin } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const [loading, setLoading] = useState<boolean>(true);
 
   // const [countryCodes, setCountryCodes] = useState<countryCodesInterface[]>([]);
   const [referenceId, setReferenceId] = useState<string>("");
@@ -62,6 +61,10 @@ export const SignIn = (): JSX.Element => {
   const [otpText, setOtpText] = useState<string>("");
 
   const { systemConfigs } = useAppSelector((state) => state.configs);
+  const { userprofiles } = useAppSelector(
+    (state) => state.configs.systemFeatures,
+  );
+  let showPackages = systemConfigs?.configs?.showPackages || "";
 
   const signinPageInfo = JSON.parse(
     systemConfigs.configs?.signinPageInfo || `{}`,
@@ -181,27 +184,7 @@ export const SignIn = (): JSX.Element => {
         if (signinResponse.status === true) {
           localStorage.removeItem("systemconfigs");
           localStorage.removeItem("systemfeature");
-          localStorage.setItem("isLoggedin", "true");
-
-          const userPackages = await getData(
-            "service/api/auth/user/activepackages",
-          );
-          if (userPackages.status === true) {
-            localStorage.setItem(
-              "activePackages",
-              JSON.stringify(userPackages.response),
-            );
-            dispatch(setActivepackages());
-          }
-          const userInfo = await getData("/service/api/auth/user/info");
-          if (userInfo.status === true) {
-            localStorage.setItem(
-              "userDetails",
-              JSON.stringify(userInfo.response),
-            );
-            dispatch(setLoggedin());
-            router.push("/profiles/select-user-profile");
-          }
+          await setuserLoggedin()
         } else if (
           signinResponse.error?.code === -3 ||
           signinResponse.error?.message
@@ -227,27 +210,61 @@ export const SignIn = (): JSX.Element => {
         if (signupResponse.status === true) {
           localStorage.removeItem("systemconfigs");
           localStorage.removeItem("systemfeature");
-          localStorage.setItem("isLoggedin", "true");
+          
+          await setuserLoggedin()
 
-          const userPackages = await getData(
-            "service/api/auth/user/activepackages",
-          );
-          if (userPackages.status === true) {
-            localStorage.setItem(
-              "activePackages",
-              JSON.stringify(userPackages.response),
-            );
-          }
+          
 
-          if (signupResponse.response?.userDetails) {
-            localStorage.setItem(
-              "userDetails",
-              JSON.stringify(signupResponse.response?.userDetails),
-            );
-            router.push("/add-profile-name");
-          }
+          // if (signupResponse.response?.userDetails) {
+          //   localStorage.setItem(
+          //     "userDetails",
+          //     JSON.stringify(signupResponse.response?.userDetails),
+          //   );
+          //   router.push("/add-profile-name");
+          // }
         }
       }
+    }
+  };
+
+  const setuserLoggedin = async () => {
+    try{
+      localStorage.setItem("isLoggedin", "true");
+      clientCookie.set("isLoggedin", "true");
+      await getsystemConfigs();
+      await getsystemFeature();
+      if (showPackages === "true") {
+        const userPackages = await getData(
+          "service/api/auth/user/activepackages",
+        );
+        if (userPackages.status === true) {
+          localStorage.setItem(
+            "activePackages",
+            JSON.stringify(userPackages.response),
+          );
+          dispatch(setActivepackages());
+        }
+      }
+      const userInfo = await getData("/service/api/auth/user/info");
+      if (userInfo.status === true) {
+        localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
+        dispatch(setLoggedin());
+        if (userprofiles?.fields?.is_userprofiles_supported === "true") {
+          clientCookie.set("hasuserprofiles", "true");
+          router.replace("/profiles/select-user-profile");
+        } else {
+          localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
+          localStorage.setItem(
+            "activeProfile",
+            JSON.stringify(userInfo.response),
+          );
+          dispatch(setActiveprofile());
+          router.replace("/");
+        }
+      }
+    }
+    catch(err){
+      console.log(err)
     }
   };
 
@@ -257,11 +274,6 @@ export const SignIn = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (isLoggedin) {
-      router.replace("/profiles/select-user-profile");
-      return;
-    } else {
-      setLoading(false);
       getData("/service/api/v1/get/country").then((data) => {
         if (data.status === true && data.response.length > 0) {
           // setCountryCodes([...data.response]);
@@ -275,7 +287,7 @@ export const SignIn = (): JSX.Element => {
           console.log("failed....");
         }
       });
-    }
+    
     return () => {
       if (otpTimer.current?.timerId) {
         clearInterval(otpTimer.current.timerId);
@@ -284,7 +296,7 @@ export const SignIn = (): JSX.Element => {
   }, []);
 
   return (
-    <Loading showLoading={loading}>
+    <>
       <div className={`${styles.signin_pageContainer}`}>
         <div className={`${styles.logo}`}>
           <img src={`${appConfig.headerIconpath}`} alt="logo" />
@@ -423,6 +435,8 @@ export const SignIn = (): JSX.Element => {
         </div>
       </div>
       {showToast && createPortal(<Toast message={toastmsg} />, document.body)}
-    </Loading>
+      </>
   );
 };
+
+export default SignIn

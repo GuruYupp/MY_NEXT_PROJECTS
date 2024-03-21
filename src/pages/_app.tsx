@@ -23,6 +23,8 @@ const NPColor = () => {
       return "#d99200";
     case "reeldrama":
       return "#eb3495";
+    case "dishtv":
+      return "#e7195a";
     default:
       return "#ffff";
   }

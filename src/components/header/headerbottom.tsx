@@ -38,8 +38,6 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
           <div className={`${styles.logo}`}>
             <img
               src={`${appConfig.headerIconpath}`}
-              width={85}
-              height={30}
               alt="logo"
             />
           </div>

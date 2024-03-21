@@ -15,6 +15,11 @@ const mobilemenuImages: { [key: string]: any } = {
     selectedImg: "bottom-menu-home-active.svg",
     defaultImg: "bottom-menu-home-default.svg",
   },
+   // eslint-disable-next-line camelcase
+   home: {
+    selectedImg: "bottom-menu-home-active.svg",
+    defaultImg: "bottom-menu-home-default.svg",
+  },
   // eslint-disable-next-line camelcase
   swag_mobile__v2: {
     selectedImg: "bottom-menu-swag-active.svg",
@@ -55,6 +60,11 @@ const mobilemenuImages: { [key: string]: any } = {
     selectedImg: "bottom-menu-favourites-active.svg",
     defaultImg: "bottom-menu-favourites-default.svg",
   },
+  // eslint-disable-next-line camelcase
+  watchlist:{
+    selectedImg: "bottom-menu-watchlist-active.svg",
+    defaultImg: "bottom-menu-watchlist-default.svg",
+  }
 };
 
 interface props {
@@ -94,7 +104,8 @@ export default function MobileMenus({ menus }: props): JSX.Element {
     <div className={`${styles.mobile_menus}`}>
       {menus.map(
         (menu, index) =>
-          menu.params.web === "false" && (
+        // menu.params.web === "false" && 
+         (
             <Link href={`/${menu.targetPath}`} key={index}>
               <div
                 className={

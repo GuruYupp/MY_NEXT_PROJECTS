@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>Contact</title>
+    <meta charset="utf-8">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <link rel="icon" type="image/x-icon" href="https://d2ivesio5kogrp.cloudfront.net/static/timesplay/images/timesplay-favicon.png" />
+
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+     body{ font-family: 'Poppins', sans-serif;}
+    body.default_theme {background: #141414;}
+    body.white { background:white;}
+    body.white .html-contact.template { color: black;}
+
+    /* width */
+    ::-webkit-scrollbar {
+    width: 6px;
+    }
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 6px;
+    }
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 6px;
+    }
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    }
+     .template-fluid{  height: 99%;  overflow: auto; }
+     .html-contact.template{ font-size:16px; color:#fff;  padding-right: 20px;}
+     .html-contact.template .title{font-size: 26px; font-weight: 400;  margin-bottom: 10px; line-height: 1.2;}
+     @media screen and (max-width : 1024px){
+      .html-contact.template{padding: 20px;}
+      .html-contact.template .title{font-size: 20px;}
+     }
+     .template-fluid .html-contact.template{padding: 0 20px 0 0 ;}
+     .html-contact{padding: 0;}
+     .html-contact .temp_inner h1{color:#fff; padding:0; margin:0;}
+     .html-contact .temp_inner p{font-size:14px; color:#858585; margin-bottom:15px; word-break: break-word;}
+     .html-contact .temp_inner .list_item{ margin:25px 0 6px; display: block;}
+     .html-contact a{ color:#0056b3; cursor: pointer;font-size: 14px;}
+    </style>
+</head>
+
+<body id="contact" class="default_theme">
+    <div class="html-contact template">
+      <h1 class="title">Contact Us</h1>
+          <div class="temp_inner">
+            <p>For any queries please contact us at <a href="mailto:appfeedback@timesgroup.com" target="_blank">appfeedback@timesgroup.com</a></p>
+            <p>You may also contact us at below coordinates:</p>
+
+            <span class="list_item">Noida Office</span>
+            <p>Plot No-FC 6, Second Floor, Film City, Noida Sector 16A,</p>
+            <p>Near Laxmi Studio, Noida - 201301+91 0120 6634600 | +91 0120 6637050+91 0120 3305555</p>
+
+            <span class="list_item">Mumbai Office</span>
+            <p>1st Floor, Trade House, Kamala Mill Compound,</p>
+            <p>Senapati Bapat Marg, Lower Parel, Mumbai – 400013+91 22 24999944info@timesnow.tv+91 22 24931341</p>
+
+            <span class="list_item">Delhi Office</span>
+            <p>Times House, 7,</p>
+            <p>Bahadurshah Zafar Marg, New Delhi, 110002+911123302000</p>
+          </div>
+     </div>
+
+     <script>
+        var params = {};
+            themes = ['white']
+            for (const [key, value] of (new URLSearchParams(location.search))) {
+                params[`${key}`] = `${value}`
+                
+            }
+            if(!!params.theme && themes.includes(params.theme)){
+              document.getElementById("contact").classList.add(params.theme);
+            }
+      </script>
+</body>
+
+</html>

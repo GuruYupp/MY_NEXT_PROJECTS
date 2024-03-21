@@ -193,6 +193,12 @@ const GenericSignIn: FC = () => {
   return (
     <>
       <div className={`${styles.signin_container}`}>
+      <div className={`${styles.logo}`}>
+            <img
+              src={`${appConfig.headerIconpath}`}
+              alt="logo"
+            />
+          </div>
         <div className={`${styles.signin_inner}`}>
           <div className={`${styles.inner_top}`}>
             <p className={`${styles.title}`}>Sign in to your Account</p>

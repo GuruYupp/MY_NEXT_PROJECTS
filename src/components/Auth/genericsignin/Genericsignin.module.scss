@@ -8,6 +8,23 @@
   background-size: cover;
   -webkit-background-size: cover;
   position: absolute;
+  .logo {
+    position: relative;
+    img {
+      @include headerLogo;
+      height: auto;
+      position: absolute;
+      top:30px;
+      left:30px;
+      @include breakpoint(mobile){
+        position: relative;
+        left:0px;
+        top:0px;
+        display: block;
+        margin: 30px auto;
+      }
+    }
+  }
   @include breakpoint(tablet) {
   }
   @include breakpoint(mobile) {

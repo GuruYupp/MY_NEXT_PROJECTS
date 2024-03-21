@@ -10,6 +10,7 @@
     "aggregator:beta": "gulp --tenant=aggregator --env=beta && next dev",
     "timesplay:prod": "gulp --tenant=timesplay --env=prod && next dev",
     "firstshows:prod": "gulp --tenant=firstshows --env=prod && next dev",
+    "watcho:prod": "gulp --tenant=watcho --env=prod && next dev",
     "reeldrama:prod": "gulp --tenant=reeldrama --env=prod && next dev",
     "build": "gulp --tenant=timesplay --env=beta && next build",
     "herogotv:build:prod": "gulp --tenant=herogotv --env=prod && next build",

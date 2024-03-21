@@ -16,10 +16,7 @@ import Link from "next/link";
 
 function HeaderTop(): JSX.Element {
   const [showModal, setShowModal] = useState<ModalType>("");
-  const { userDetails } = useAppSelector((state) => state.user);
-  const activeProfile = userDetails?.profileParentalDetails?.filter(
-    (profile) => profile.profileId === userDetails.profileId,
-  )[0];
+  const { activeProfile } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const handleFilter = () => {
     document.body.style.overflowY = "hidden";
@@ -48,7 +45,7 @@ function HeaderTop(): JSX.Element {
         dispatch(updateUserProperty({ languages: codes.join(",") }));
         dispatch(
           updateProfile({
-            profileId: activeProfile?.profileId,
+            profileId: activeProfile ? activeProfile?.profileId : undefined,
             properties: { langs: codes.join(",") },
           }),
         );
@@ -136,7 +133,7 @@ function HeaderTop(): JSX.Element {
                       <Languages
                         closeModal={handlecloseModal}
                         sendDatatoComponent={getDataFromModal}
-                        profileData={activeProfile}
+                        profileData={activeProfile || undefined}
                       />
                     );
                   case "network_filter":

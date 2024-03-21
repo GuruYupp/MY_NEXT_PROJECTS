@@ -18,6 +18,7 @@ const appConfig = {
   staticImagesPath:
     "https://d2ivesio5kogrp.cloudfront.net/static/herogotv/images/",
   tvguideChannelsImgPath: "https://d388d59m61mm0v.cloudfront.net/optimized",
+  systemconfigsApi:"/service/api/v1/system/config",
   namePattern: /^[A-Za-z0-9]+$/,
   authMobilePattern: /^[0-9]{10}$/,
   authEmailPattern:
