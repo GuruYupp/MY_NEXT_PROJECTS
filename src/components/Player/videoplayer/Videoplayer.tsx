@@ -33,11 +33,16 @@ function PlayerOverlay(props: VideoPlayerPropsInterface) {
         )}
         {error.code === -1000 && (
           <>
-           <div className={`${styles.button}`}> <Link href={`/signup`}>Sign Up</Link> </div>
-           <div className={`${styles.button}`}> <Link href={`/signin`}>Sign In</Link> </div>
+            <div className={`${styles.button}`}>
+              {" "}
+              <Link href={`/signup`}>Sign Up</Link>{" "}
+            </div>
+            <div className={`${styles.button}`}>
+              {" "}
+              <Link href={`/signin`}>Sign In</Link>{" "}
+            </div>
           </>
-        )
-        }
+        )}
       </div>
     </div>
   );

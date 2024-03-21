@@ -14,9 +14,7 @@ export default function Header() {
   const { banners, info } = useAppSelector((state) => state.pageData.response);
   const [headerGradient, setheaderGradient] = useState<boolean>(true);
   const [moveheaderTop, setmoveheaderTop] = useState<boolean>(false);
-  const [toggleHeader, setToggleHeader] = useState<"web" | "mobileweb">(
-    "web",
-  );
+  const [toggleHeader, setToggleHeader] = useState<"web" | "mobileweb">("web");
   const [showMobileHeader, setShowMobileHeader] = useState<boolean>(false);
 
   const { asPath } = useRouter();
