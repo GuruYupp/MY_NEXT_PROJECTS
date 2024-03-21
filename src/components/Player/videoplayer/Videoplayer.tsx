@@ -1,6 +1,7 @@
 import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useRef } from "react";
 import styles from "./Videoplayer.module.scss";
+import Link from "next/link";
 
 interface VideoPlayerPropsInterface {
   // streams:StreamInteface[],
@@ -30,6 +31,13 @@ function PlayerOverlay(props: VideoPlayerPropsInterface) {
         {error.code === 402 && (
           <div className={`${styles.button}`}>subscribe</div>
         )}
+        {error.code === -1000 && (
+          <>
+           <div className={`${styles.button}`}> <Link href={`/signup`}>Sign Up</Link> </div>
+           <div className={`${styles.button}`}> <Link href={`/signin`}>Sign In</Link> </div>
+          </>
+        )
+        }
       </div>
     </div>
   );

@@ -13,6 +13,23 @@
   @include breakpoint(mobile) {
     background: #141414;
   }
+  .logo {
+    position: relative;
+    img {
+      @include headerLogo;
+      height: auto;
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      @include breakpoint(mobile) {
+        position: relative;
+        left: 0px;
+        top: 0px;
+        display: block;
+        margin: 30px auto;
+      }
+    }
+  }
   .signup_inner {
     padding: 50px 40px 70px;
     display: block;

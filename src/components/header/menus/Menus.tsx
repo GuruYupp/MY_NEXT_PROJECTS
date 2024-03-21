@@ -1,6 +1,6 @@
 import { menuInterface } from "@/shared";
 import styles from "./menus.module.scss";
-import Menu from "./menu";
+import Menu from "./Menu";
 import { useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { debunceFunction } from "@/utils";

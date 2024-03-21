@@ -23,8 +23,8 @@
 
   .suggestions {
     margin-right: 5px;
-    overflow-y: scroll;
-    scrollbar-width: thin;
+    overflow:auto;
+
     &::-webkit-scrollbar {
       width: 5px;
     }

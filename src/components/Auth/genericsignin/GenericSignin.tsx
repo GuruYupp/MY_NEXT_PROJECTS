@@ -190,6 +190,10 @@ const GenericSignIn: FC = () => {
     setShowModal("");
   };
 
+  const showORtext = ()=>{
+    return Object.keys(sociallogin?.fields || {}).length > 0
+  }
+
   return (
     <>
       <div className={`${styles.signin_container}`}>
@@ -274,6 +278,9 @@ const GenericSignIn: FC = () => {
                     control={control}
                     defaultValue=""
                   />
+                  <p className={`${styles.forgot_password}`}>
+                      <Link href={`/forgot-password`}>forgot password?</Link>
+                  </p>
                   {formState.errors.password && (
                     <p className={`${styles.input_error_msg}`}>
                       {formState.errors.password?.message}
@@ -297,10 +304,10 @@ const GenericSignIn: FC = () => {
                 </div>
               </label>
             </form>
-            <div className={`${styles.or_div}`}>
+            {showORtext() && <div className={`${styles.or_div}`}>
               <hr />
               <span className={`${styles.or_text}`}>OR</span>
-            </div>
+            </div>}
           </div>
           <div className={`${styles.inner_bottom}`}>
             {appConfig.signin.emailPhoneToggle === true &&

@@ -15,7 +15,7 @@ export default function Header() {
   const [headerGradient, setheaderGradient] = useState<boolean>(true);
   const [moveheaderTop, setmoveheaderTop] = useState<boolean>(false);
   const [toggleHeader, setToggleHeader] = useState<"web" | "mobileweb">(
-    "mobileweb",
+    "web",
   );
   const [showMobileHeader, setShowMobileHeader] = useState<boolean>(false);
 

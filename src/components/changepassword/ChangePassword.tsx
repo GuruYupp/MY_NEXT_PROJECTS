@@ -3,9 +3,9 @@ import styles from "./ChangePassword.module.scss";
 import {
   ChangePasswordFormType,
   changePasswordparamsType,
-} from "./chagepasswordtype";
+} from "./changepasswordtype";
 import { DevTool } from "@hookform/devtools";
-import ChnagePasswordInput from "./chnagepasswordinput";
+import ChnagePasswordInput from "./ChangePasswordInput";
 import { useEffect, useRef, useState } from "react";
 import { postData } from "@/services/data.manager";
 import { useRouter } from "next/router";

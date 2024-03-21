@@ -59,12 +59,14 @@ function Layout({ children }: { children: ReactNode }) {
     (!asPath.includes("profiles") ||
       asPath.includes("profiles/profile-lock")) &&
     !asPath.includes("change-password") &&
+    !asPath.includes("forgot-password") &&
     isutUser !== true;
   const isfooterShown = () =>
     !asPath.includes("sign") &&
     (!asPath.includes("profiles") ||
       asPath.includes("profiles/profile-lock")) &&
     !asPath.includes("change-password") &&
+    !asPath.includes("forgot-password") &&
     isutUser !== true;
 
   return (

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from "./ChangePassword.module.scss";
 import { UseControllerProps, useController } from "react-hook-form";
-import { ChangePasswordFormType } from "./chagepasswordtype";
+import { ChangePasswordFormType } from "./changepasswordtype";
 
 const ChnagePasswordInput: FC<UseControllerProps<ChangePasswordFormType>> = (
   props,

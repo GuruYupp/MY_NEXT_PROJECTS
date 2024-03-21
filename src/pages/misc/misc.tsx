@@ -5,9 +5,7 @@ import MiscLayout from "@/layouts/MiscLayout";
 export default function MiscPages() {
   return (
     <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
-      {/* <Layout> */}
       <MiscLayout />
-      {/* </Layout> */}
     </ErrorBoundary>
   );
 }

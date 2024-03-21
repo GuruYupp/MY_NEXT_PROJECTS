@@ -184,6 +184,9 @@ const GenericSignup: FC = () => {
   return (
     <>
       <div className={`${styles.signup_container}`}>
+      <div className={`${styles.logo}`}>
+          <img src={`${appConfig.headerIconpath}`} alt="logo" />
+        </div>
         <div className={`${styles.signup_inner}`}>
           <div className={`${styles.inner_top}`}>
             <p className={`${styles.title}`}>Create Your Account</p>

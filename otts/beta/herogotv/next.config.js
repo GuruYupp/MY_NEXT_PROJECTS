@@ -52,6 +52,10 @@ module.exports = {
         destination: '/misc/misc',
       },
       {
+        source:'/forgot-password',
+        destination: '/misc/misc',
+      },
+      {
         source: '/',
         destination: '/home',
       },
