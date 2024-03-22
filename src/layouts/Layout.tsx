@@ -13,7 +13,7 @@ import {
 } from "@/redux/feature/userSlice/userSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Loading from "@/components/shared/Loading";
-import Header from "@/components/header/header";
+import Header from "@/components/header/Header";
 import Footer from "@/components/footer/footer";
 import { SSOParamsType } from "@/shared";
 

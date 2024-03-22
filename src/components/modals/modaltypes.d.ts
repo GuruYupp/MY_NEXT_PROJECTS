@@ -12,6 +12,7 @@ export type ModalType =
   | "updatedetails"
   | "mobileratings"
   | "profilepin"
+  | "genericmodal"
   | "";
 
 export interface ModalPropsInterface {

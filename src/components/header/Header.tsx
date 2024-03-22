@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import styles from "./header.module.scss";
-import HeaderBottom from "./headerbottom";
-import HeaderTop from "./headertop";
+import styles from "./Header.module.scss";
+import HeaderBottom from "./HeaderBottom";
+import HeaderTop from "./HeaderTop";
 import { useAppSelector } from "@/redux/hooks";
 import MobileHeaderTop from "./MobileHeaderTop";
 import MobileHeaderBottom from "./MobileHeaderBottom";

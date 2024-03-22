@@ -1,5 +1,5 @@
 import { menuInterface } from "@/shared";
-import styles from "./menus.module.scss";
+import styles from "./Menus.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";

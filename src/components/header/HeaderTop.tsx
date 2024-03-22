@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { memo, useState } from "react";
 import Modal from "@/components/modals/Modal";
 import { ModalType } from "@/components/modals/modaltypes";
-import styles from "./header.module.scss";
+import styles from "./Header.module.scss";
 import appConfig from "@/app.config";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {

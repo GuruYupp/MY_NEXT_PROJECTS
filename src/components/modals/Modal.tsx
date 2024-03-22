@@ -32,6 +32,10 @@ function Modal(props: ModalPropsInterface) {
         return (
           <div className={`${style.emojis_modal}`}>{render(modalType)}</div>
         );
+      case "genericmodal":
+        return (
+          <div className={`${style.generic_modal}`}>{render(modalType)}</div>
+        );
       case "template":
         return (
           <div className={`${style.template_modal}`}>{render(modalType)}</div>

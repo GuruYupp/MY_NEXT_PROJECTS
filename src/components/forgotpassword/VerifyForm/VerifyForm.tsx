@@ -8,6 +8,11 @@ import appConfig from "@/app.config";
 import ConutryCode from "@/components/countrycode/countrycode";
 import Link from "next/link";
 import { postData } from "@/services/data.manager";
+import Modal from "@/components/modals/Modal";
+import { createPortal } from "react-dom";
+import GenericModal from "@/components/genericmodal/GenericModal";
+import { ModalType } from "@/components/modals/modaltypes";
+import { dispayInterface as GenericModaldispayInterface } from "@/components/genericmodal/genericmodaltype";
 
 const VerifyForm = () => {
   const { control, formState, handleSubmit } = useForm<ForgotPasswordFormType>({
@@ -47,6 +52,23 @@ const VerifyForm = () => {
     } else {
     }
   };
+
+  const [showModal, setShowModal] = useState<ModalType>("genericmodal");
+  const [genericPopUpdata, setGenericPopUpdata] =
+    useState<GenericModaldispayInterface>({ title: "Guru" });
+
+  const handlecloseModal = () => {
+    document.body.style.overflowY = "scroll";
+    setShowModal("");
+  };
+
+  function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
+    const { from, data } = Modaldata;
+    switch (from) {
+      default:
+        break;
+    }
+  }
 
   return (
     <>
@@ -123,6 +145,25 @@ const VerifyForm = () => {
           <Link href={`/signin`}>Back to Sign In</Link>
         </p>
       </form>
+      {showModal &&
+        createPortal(
+          <Modal
+            modalType={showModal}
+            render={(modal) => {
+              switch (modal) {
+                case "genericmodal":
+                  return (
+                    <GenericModal
+                      closeModal={handlecloseModal}
+                      sendDatatoComponent={getDataFromModal}
+                      displayData={genericPopUpdata}
+                    />
+                  );
+              }
+            }}
+          />,
+          document.body,
+        )}
     </>
   );
 };

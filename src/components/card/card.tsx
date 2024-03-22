@@ -135,6 +135,7 @@ const Card = (props: cardprops): JSX.Element => {
 
   const handleLikeButton = (e: MouseEvent, isFavorite: string = "") => {
     e.preventDefault();
+    console.log(isFavorite, "---,KKK");
     if (isFavorite) {
       let action = isFavorite === "true" ? "2" : "1";
       dispatch(

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./header.module.scss";
+import styles from "./Header.module.scss";
 import appConfig from "@/app.config";
 
 export default function MobileHeaderTop(): JSX.Element {

@@ -1,4 +1,4 @@
-import styles from "./header.module.scss";
+import styles from "./Header.module.scss";
 import { menuInterface } from "@/shared";
 import Menus from "./menus/Menus";
 import Link from "next/link";
