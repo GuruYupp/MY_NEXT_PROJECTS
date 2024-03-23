@@ -34,7 +34,7 @@ export default function MobileHeaderBottom({
     menus.forEach((menu) => {
       console.log(menu);
       //&& menu.params.web === "false"
-      if (`/${menu.targetPath}` === targetPath) {
+      if (menu.params.web !== "true" && `/${menu.targetPath}` === targetPath) {
         setSubMenus([...menu.subMenus]);
       }
     });

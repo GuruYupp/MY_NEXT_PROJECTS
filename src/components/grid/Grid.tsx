@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Grid.module.scss";
-import Card from "../card/card";
+import Card from "../Card/Card";
 import { cardDimentionsForResponsive } from "@/utils";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {

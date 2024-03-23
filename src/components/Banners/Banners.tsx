@@ -1,7 +1,7 @@
-import styles from "./banners.module.scss";
+import styles from "./Banners.module.scss";
 import Slider, { Settings } from "react-slick";
 import { useAppSelector } from "@/redux/hooks";
-import Banner from "./banner/Banner";
+import Banner from "./Banner/Banner";
 import { useRef, useState } from "react";
 
 export function ShimmerSection() {

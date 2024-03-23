@@ -1,4 +1,4 @@
-import Banners from "@/components/banners/banners";
+import Banners from "@/components/Banners/Banners";
 import Sections from "@/components/Sections/Sections";
 import GenericLayout from "./GenericLayout";
 

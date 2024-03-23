@@ -25,8 +25,8 @@ export default function Menus({ menus }: props): JSX.Element {
       for (let i = 0; i < configmenures.length; i++) {
         if (window.innerWidth >= configmenures[i]) {
           let showmenus = parseInt(configobj[configobjkeys[i]]) - 1;
-          let webmenus = menus;
-          // let web_menus = menus.filter((menu) => (menu.params.web === "true"))
+          // let webmenus = menus;
+          let webmenus = menus.filter((menu) => menu.params.web !== "false");
           setMenus(webmenus.slice(0, showmenus));
           let moreMenu = {
             ...webmenus[0],

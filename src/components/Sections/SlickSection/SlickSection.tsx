@@ -1,4 +1,4 @@
-import Card from "@/components/card/card";
+import Card from "@/components/Card/Card";
 import styles from "./SlickSection.module.scss";
 import { FC, memo } from "react";
 import { cardCountForSectionSlick } from "@/utils";

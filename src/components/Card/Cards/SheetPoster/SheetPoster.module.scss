@@ -1,0 +1,57 @@
+@import "@/_var.scss";
+
+.sheet_poster {
+  position: relative;
+  margin: 10px;
+
+  // @include cardwidth(overlayposter);
+  @media only screen and (max-width: 950px) {
+    margin: 4px;
+  }
+
+  margin-bottom: 20px;
+
+  .img_container {
+    width: 100%;
+
+    img {
+      background: linear-gradient(110deg, #222 8%, #292929 18%, #222 33%);
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .bottom {
+    width: 100%;
+    // background: linear-gradient(180deg, hsla(0, 0%, 8%, 0), hsla(0, 0%, 8%, .45) 47%, #141414);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    .card_info {
+      padding: 0px 10px;
+
+      .card_title {
+        @include ellipse;
+        font-size: 14px;
+        color: #ffffff;
+        line-height: 26px;
+        padding-bottom: 2px;
+      }
+
+      .card_subtitle {
+        color: #a6a6b2;
+        font-size: 12px;
+        padding-bottom: 2px;
+        @include ellipse;
+      }
+    }
+  }
+
+  &:hover {
+    transition: all 0.2s;
+    box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.46);
+    transform: scale(1.16);
+    z-index: 1;
+  }
+}

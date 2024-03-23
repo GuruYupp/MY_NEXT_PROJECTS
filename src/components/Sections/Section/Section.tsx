@@ -1,4 +1,4 @@
-import Card from "@/components/card/card";
+import Card from "@/components/Card/Card";
 import styles from "./Section.module.scss";
 import { FC, memo, useEffect, useRef, useState } from "react";
 import { cardDimentionsForResponsive, debunceFunction } from "@/utils";

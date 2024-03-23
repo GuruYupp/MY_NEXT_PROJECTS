@@ -102,28 +102,30 @@ export default function MobileMenus({ menus }: props): JSX.Element {
 
   return (
     <div className={`${styles.mobile_menus}`}>
-      {menus.map((menu, index) => (
-        // menu.params.web === "false" &&
-        <Link href={`/${menu.targetPath}`} key={index}>
-          <div
-            className={
-              `${styles.menu} ` + (isActive(menu) ? styles.active : "")
-            }
-          >
-            <div className={`${styles.menu_inner}`}>
-              <div className={`${styles.menu_icon}`}>
-                <img
-                  src={`${appConfig.cloudpath}/images/${getmenuIcon(menu)}`}
-                  alt=""
-                />
+      {menus.map(
+        (menu, index) =>
+          menu.params.web !== "true" && (
+            <Link href={`/${menu.targetPath}`} key={index}>
+              <div
+                className={
+                  `${styles.menu} ` + (isActive(menu) ? styles.active : "")
+                }
+              >
+                <div className={`${styles.menu_inner}`}>
+                  <div className={`${styles.menu_icon}`}>
+                    <img
+                      src={`${appConfig.cloudpath}/images/${getmenuIcon(menu)}`}
+                      alt=""
+                    />
+                  </div>
+                  <span className={`${styles.displayText} `}>
+                    {menu.displayText}
+                  </span>
+                </div>
               </div>
-              <span className={`${styles.displayText} `}>
-                {menu.displayText}
-              </span>
-            </div>
-          </div>
-        </Link>
-      ))}
+            </Link>
+          ),
+      )}
     </div>
   );
 }

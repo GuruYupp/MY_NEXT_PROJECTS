@@ -1,6 +1,6 @@
 import { memo, useEffect, useRef } from "react";
 import style from "./Sections.module.scss";
-import Section from "@/components/Sections/Section/Section";
+// import Section from "@/components/Sections/Section/Section";
 import { useRouter } from "next/router";
 import { default as clientCookie } from "js-cookie";
 import { useAppSelector } from "@/redux/hooks";

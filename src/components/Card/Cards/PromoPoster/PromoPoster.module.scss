@@ -1,0 +1,15 @@
+@import "@/_var.scss";
+.promo_poster {
+  position: relative;
+  margin: 7px;
+
+  .img_container {
+    width: 100%;
+
+    img {
+      background: linear-gradient(110deg, #222 8%, #292929 18%, #222 33%);
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
