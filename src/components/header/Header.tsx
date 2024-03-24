@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import styles from "./Header.module.scss";
 import HeaderBottom from "./HeaderBottom";
 import HeaderTop from "./HeaderTop";
@@ -9,7 +9,7 @@ import MobileMenus from "./menus/MobileMenus";
 import { useRouter } from "next/router";
 import appConfig from "@/app.config";
 
-export default function Header() {
+function Header() {
   const { menus } = useAppSelector((state) => state.configs);
   const { banners, info } = useAppSelector((state) => state.pageData.response);
   const [headerGradient, setheaderGradient] = useState<boolean>(true);
@@ -126,3 +126,7 @@ export default function Header() {
     </div>
   );
 }
+
+const MemoHeader = memo(Header);
+
+export default MemoHeader;

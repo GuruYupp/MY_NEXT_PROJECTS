@@ -1,12 +1,10 @@
 import { FC, useEffect, useRef, useState } from "react";
 import styles from "./Genericsignin.module.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import ConutryCode from "@/components/countrycode/countrycode";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import appConfig from "@/app.config";
 import { SingnInFormType } from "./genericsignintypes";
-import SignInput from "./SigninInput";
 import SocialLogins from "@/components/socialLogins/socialLogins";
 import Link from "next/link";
 import { getData, postData } from "@/services/data.manager";
@@ -22,6 +20,7 @@ import { createPortal } from "react-dom";
 import Modal from "@/components/modals/Modal";
 import OtpVerify from "@/components/otpverify/OtpVerify";
 import { default as clientCookie } from "js-cookie";
+import GenericInput from "@/components/shared/GenericInput/GenericInput";
 
 const GenericSignIn: FC = () => {
   const { globalsettings, sociallogin, userprofiles } = useAppSelector(
@@ -34,7 +33,7 @@ const GenericSignIn: FC = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { control, formState, handleSubmit } = useForm<SingnInFormType>({
+  const { control, handleSubmit } = useForm<SingnInFormType>({
     mode: "onChange",
   });
 
@@ -190,10 +189,6 @@ const GenericSignIn: FC = () => {
     setShowModal("");
   };
 
-  const showORtext = () => {
-    return Object.keys(sociallogin?.fields || {}).length > 0;
-  };
-
   return (
     <>
       <div className={`${styles.signin_container}`}>
@@ -207,109 +202,74 @@ const GenericSignIn: FC = () => {
           <div className={`${styles.inner_middle}`}>
             <form onSubmit={handleSubmit(onSubmit)}>
               {loginType === "mobile" && (
-                <label>
-                  <div className={`${styles.input_container}`}>
-                    <div className={`${styles.country_code_container}`}>
-                      <ConutryCode />
-                    </div>
-                    <SignInput
-                      name="number"
-                      rules={{
-                        required: "Mobile Number Required",
-                        validate: (value, _formvalues) => {
-                          if (!appConfig.authMobilePattern.test(value)) {
-                            return "Invalid Mobile Number";
-                          }
-                        },
-                      }}
-                      shouldUnregister={true}
-                      control={control}
-                      defaultValue=""
-                    />
-                    {formState.errors.number && (
-                      <p className={`${styles.input_error_msg}`}>
-                        {formState.errors.number?.message}
-                      </p>
-                    )}
-                  </div>
-                </label>
+                <GenericInput
+                  control={control}
+                  type="text"
+                  name="mobile"
+                  shouldUnregister={true}
+                  rules={{
+                    required: "Mobile Number Required",
+                    validate: (value, _formvalues) => {
+                      if (!appConfig.authMobilePattern.test(value)) {
+                        return "Invalid Mobile Number";
+                      }
+                    },
+                  }}
+                  showCountrycode={true}
+                  placeholder="Mobile Number"
+                />
               )}
               {loginType === "email" && (
-                <label>
-                  <div className={`${styles.input_container}`}>
-                    <SignInput
-                      name="email"
-                      rules={{
-                        required: "This is required",
-                        // validate: {
-                        //   matchPattern: (v) => appConfig.authEmailPattern.test(v)
-                        // },
-                        validate: (value, _formvalues) => {
-                          if (!appConfig.authEmailPattern.test(value)) {
-                            return "Enter a valid email address";
-                          }
-                        },
-                      }}
-                      shouldUnregister={true}
-                      control={control}
-                      defaultValue=""
-                    />
-                    {formState.errors.email && (
-                      <p className={`${styles.input_error_msg}`}>
-                        {formState.errors.email?.message}
-                      </p>
-                    )}
-                  </div>
-                </label>
+                <GenericInput
+                  control={control}
+                  type="email"
+                  name="email"
+                  shouldUnregister={true}
+                  rules={{
+                    required: "This is required",
+                    validate: (value, _formvalues) => {
+                      if (!appConfig.authEmailPattern.test(value)) {
+                        return "Enter a valid email address";
+                      }
+                    },
+                  }}
+                  placeholder="Email Address"
+                />
               )}
-              <label>
-                <div className={`${styles.input_container}`}>
-                  <SignInput
-                    name="password"
-                    rules={{
-                      required: "This is required",
-                      validate: (value, _formvalues) => {
-                        if (value.length < 4 || value.length > 15) {
-                          return "Password length should be 4-15 Charecters";
-                        }
-                      },
-                    }}
-                    shouldUnregister={true}
-                    control={control}
-                    defaultValue=""
-                  />
-                  <p className={`${styles.forgot_password}`}>
-                    <Link href={`/forgot-password`}>forgot password?</Link>
-                  </p>
-                  {formState.errors.password && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {formState.errors.password?.message}
-                    </p>
-                  )}
-                </div>
-              </label>
-
-              <label>
-                <div
-                  className={`${styles.input_container} ${styles.submit_input_container}`}
-                >
-                  <input
-                    type="submit"
-                    className={`${styles.signin_btn}`}
-                    value="Sign in"
-                  />
-                  {errormsg && (
-                    <p className={`${styles.input_error_msg}`}>{errormsg}</p>
-                  )}
-                </div>
-              </label>
-            </form>
-            {showORtext() && (
-              <div className={`${styles.or_div}`}>
-                <hr />
-                <span className={`${styles.or_text}`}>OR</span>
+              <div className={`${styles.input_wrapper}`}>
+                <GenericInput
+                  control={control}
+                  type="password"
+                  name="password"
+                  shouldUnregister={true}
+                  rules={{
+                    required: "This is required",
+                    validate: (value, _formvalues) => {
+                      if (value.length < 4 || value.length > 15) {
+                        return "Password length should be 4-15 Charecters";
+                      }
+                    },
+                  }}
+                  placeholder="Password"
+                />
+                <p className={`${styles.forgot_password}`}>
+                  <Link href={`/forgot-password`}>forgot password?</Link>
+                </p>
               </div>
-            )}
+
+              <GenericInput
+                control={control}
+                type="submit"
+                name="submit"
+                shouldUnregister={true}
+                defaultValue="Sign in"
+              />
+            </form>
+
+            <div className={`${styles.or_div}`}>
+              <hr />
+              <span className={`${styles.or_text}`}>OR</span>
+            </div>
           </div>
           <div className={`${styles.inner_bottom}`}>
             {appConfig.signin.emailPhoneToggle === true &&
@@ -325,7 +285,13 @@ const GenericSignIn: FC = () => {
               )}
 
             {Object.keys(sociallogin?.fields || {}).length > 0 && (
-              <SocialLogins />
+              <>
+                <div className={`${styles.or_div}`}>
+                  <hr />
+                  <span className={`${styles.or_text}`}>OR</span>
+                </div>
+                <SocialLogins />
+              </>
             )}
 
             <p className={`${styles.signup_text}`}>

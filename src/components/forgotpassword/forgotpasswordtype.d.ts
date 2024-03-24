@@ -3,6 +3,12 @@ export type ForgotPasswordFormType = {
   number: string;
   newpassword: string;
   confirmpassword: string;
+  otp: string;
 };
 
-export type changePasswordparamsType = {};
+export type resetPasswordformType = "verify" | "otpscreen" | "resetpassword";
+
+export interface verifyOTPPropsInterface {
+  formType: resetPasswordformType;
+  handleFormType: (arg: resetPasswordformType) => void;
+}

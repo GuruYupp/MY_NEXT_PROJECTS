@@ -122,11 +122,11 @@ const SignIn = (): JSX.Element => {
         "service/api/auth/signup/validate",
         payload,
       );
-      if (otpTimer.current?.timerId) {
-        setOtpText("Resend OTP");
-        clearInterval(otpTimer.current.timerId);
-      }
       if (signupResponse.status === true) {
+        if (otpTimer.current?.timerId) {
+          setOtpText("Resend OTP");
+          clearInterval(otpTimer.current.timerId);
+        }
         if (signupResponse.response?.details) {
           setReferenceKey(signupResponse.response?.details?.referenceKey || "");
           setLogincontext(signupResponse.response?.details?.context || "");
