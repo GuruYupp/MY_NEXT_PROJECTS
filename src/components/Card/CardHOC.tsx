@@ -17,7 +17,7 @@ import { templateType } from "@/shared";
 import Modal from "../modals/Modal";
 import { createPortal } from "react-dom";
 import getfromcarddata, { getcardMarker } from "./getfromcarddata";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   removeContinueWatching,
   toogleLike,
@@ -26,12 +26,16 @@ import { ModalType } from "../modals/modaltypes";
 import Template from "../templates/Template";
 import { RootCardPropsInterface, cardPropsInterface } from "./cardtype";
 import CardLinkWrapper from "./CardLinkWrapper";
+import { dispayInterface as genericpopupdispayInterface } from "../Genericmodal/genericmodaltype";
+import GenericModal from "../Genericmodal/GenericModal";
 
 function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
   function CardWrapper(props: RootCardPropsInterface) {
     const { cardType, display, target, template } = props.cardDetails;
-    // console.log(target)
+
     const { cardDetails } = props;
+
+    const { isLoggedin } = useAppSelector((state) => state.user);
 
     const imageRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
@@ -45,7 +49,6 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
 
     const showButton = getfromcarddata(props.cardDetails, "showButton");
     const buttonText = getfromcarddata(props.cardDetails, "ButtonText");
-    // const button_target_path = getfromcarddata(props.cardDetails,"targetPath");
 
     const showFavoriteButton = getfromcarddata(
       props.cardDetails,
@@ -64,18 +67,20 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
 
     const [showModal, setShowModal] = useState<ModalType>("");
     const [templateCode, setTemplateCode] = useState<templateType>("");
+    const [genericPopUpData, setGenericPopUpData] =
+      useState<genericpopupdispayInterface>({});
 
     const dispatch = useAppDispatch();
 
-    const showTemplateModal = (template: templateType) => {
+    const handleshowModal = (modal: ModalType, template?: templateType) => {
       document.body.style.overflowY = "hidden";
-      setTemplateCode(template);
-      setShowModal("template");
+      setShowModal(modal);
+      template && setTemplateCode(template);
     };
 
-    const closeTemplateModal = () => {
+    const handleCloseModal = () => {
       document.body.style.overflowY = "scroll";
-      setTemplateCode("");
+      templateCode && setTemplateCode("");
       setShowModal("");
     };
 
@@ -88,7 +93,6 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
         });
         resizeObserver.observe(imageRef.current);
         return () => {
-          // window.removeEventListener('resize', setSectionconfigs);
           resizeObserver.disconnect();
         };
       }
@@ -96,14 +100,15 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
     }, []);
 
     const templateHandler = () => {
-      if (template) showTemplateModal(template);
+      if (template) {
+        handleshowModal("template", template);
+      }
     };
 
     const setImageHeight = () => {
       if (imageRef.current) {
         if (cardType === "promo_poster") return;
         const cardConfigs = cardDimentionsForResponsive(cardType);
-        // console.log(imageRef.current.offsetWidth)
         imageRef.current.style.height = `${
           imageRef.current.offsetWidth * cardConfigs.cardRatio
         }px`;
@@ -111,16 +116,24 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
     };
 
     const handleLikeButton = (e: SyntheticEvent) => {
+      console.log("isLoggedin", isLoggedin);
       e.preventDefault();
-      console.log(isFavorite, "---,KKK");
-      if (isFavorite) {
-        let action = isFavorite.value === "true" ? "2" : "1";
+
+      if (isLoggedin) {
+        let action = isFavorite?.value === "true" ? "2" : "1";
         dispatch(
           toogleLike({
             path: cardDetails.target.path,
             action,
           }),
         );
+      } else {
+        handleshowModal("genericmodal");
+        setGenericPopUpData({
+          title: "Please sign in to use this and more such features",
+          yesbuttonText: "Sign In",
+          nobuttonText: "Cancel",
+        });
       }
     };
 
@@ -161,17 +174,23 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
           <CardComponent {...allcardProps} />
         </CardLinkWrapper>
         {showModal &&
-          template &&
           createPortal(
             <Modal
               modalType={showModal}
               render={(modal) => {
                 function getModal() {
                   switch (modal) {
+                    case "genericmodal":
+                      return (
+                        <GenericModal
+                          displayData={genericPopUpData}
+                          closeModal={handleCloseModal}
+                        />
+                      );
                     case "template":
                       return (
                         <Template
-                          closeModal={closeTemplateModal}
+                          closeModal={handleCloseModal}
                           template_code={templateCode}
                           target_path={target.path}
                         />

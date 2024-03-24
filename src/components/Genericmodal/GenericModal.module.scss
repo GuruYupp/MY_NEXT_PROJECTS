@@ -1,3 +1,4 @@
+@import "@/_var.scss";
 .genericpopup_container {
   background-color: rgb(18, 18, 18);
   color: rgb(255, 255, 255);
@@ -19,16 +20,27 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+
   .genericpopup_inner {
     background: #262626;
     color: #9ea2b4;
     padding: 40px 0;
+    position: relative;
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+      img {
+        transition: all 0.2s ease;
+      }
+    }
 
     .title {
       padding: 0 50px 30px;
-      font-size: 10px;
+      font-size: 18px;
       letter-spacing: 0.14px;
-      font-weight: 100;
+      font-weight: 500;
       color: #fff;
       line-height: normal;
       text-align: center;
@@ -37,6 +49,21 @@
       display: flex;
       justify-content: center;
       gap: 10px;
+      .btn {
+        flex-basis: 120px;
+        border-radius: 2px;
+        font-size: 14px;
+        height: 40px;
+        padding: 10px;
+        background: none;
+        color: #fff;
+        border: 1px solid #fff;
+        text-align: center;
+        &.primary {
+          background-color: $primary-color;
+          border-color: $primary-color;
+        }
+      }
     }
   }
 }

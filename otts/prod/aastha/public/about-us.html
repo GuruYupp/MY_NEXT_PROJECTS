@@ -1,0 +1,100 @@
+<html>
+<head>
+<title>About</title>
+<meta charset="utf-8">
+<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+<link rel="icon" type="image/x-icon" href="https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/watcho-favicon.png" />
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    body{ font-family: 'Poppins', sans-serif;}
+ body.white .html-about {background:white;}
+ body.white .html-about.template {color: black;}
+
+
+        /* width */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+      background: #1a1a1a;
+      border-radius: 6px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 6px;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+     body{background: #141414;}
+     .template-fluid{  height: 99%;  overflow: auto; }
+      @media screen and (max-width: 1024px){
+      .template-fluid {height: 100%;}   
+      } 
+     .html-about.template{ font-size:16px; color:#fff;  padding-right: 20px;}
+     .html-about.template .title{font-size: 26px; font-weight: 400;  margin-bottom: 10px; line-height: 1.2;}
+     .template-fluid .html-about.template{padding: 0 20px 0 0 ;background:#222222}  
+     @media screen and (max-width : 767px) {.template-fluid .html-about.template {padding-right: 10px;}}
+     @media screen and (max-width: 1024px){
+     .template-fluid .html-about.template{background:white}
+     .html-about .temp_inner h1{ font-size:20px;}
+     .html-about.template{padding: 20px;}
+      .html-about.template .title{font-size: 20px;}
+     } 
+     
+     .html-about{padding: 0;}
+     .html-about .temp_inner h1{color:#141414; padding:0; margin:0;}
+     .html-about .temp_inner p{font-size:14px; color:#858585; margin-bottom:15px; word-break: break-word;}
+     .html-about .temp_inner .list_item{ margin:25px 0 6px; display: block;}
+     .html-about .temp_inner .lists{ margin-bottom:30px;}
+     .html-about .temp_inner .lists p{ padding-left:20px; margin-bottom:5px;}
+     .html-about .italic_underline{ font-style: italic; text-decoration: underline;}
+     .html-about .sm_heading{ color:#141414;}
+     .html-about .iub{ font-style: italic; font-weight: bold; color:#fff;}
+     .html-about .list_inside1{ color:#858585; margin-bottom:15px;}
+     .html-about .mt10{ margin-top:10px;}
+     .html-about .list_inside1 .lists{ padding-left:40px;}
+     .html-about .ml15{ margin-left:15px;}
+     .html-about .html-about{ color:#0056b3; cursor: pointer;}
+    @media screen and (max-width: 480px){
+      .html-about.template h1{ font-size:22px;}
+      .html-about.template h5{ font-size:18px; margin-bottom:30px;}
+      .html-about.template ul li ol{ padding-left:15px;}
+
+
+      .html-about h1{margin-top: 0px;}
+      .html-about .temp_inner p{margin-bottom:8px;}
+      .html-about .temp_inner .list_item{ margin:14px 0 4px; }
+    }
+</style>
+</head>
+<body id="about" class="default_theme">
+  <div class="html-about container-fluid template">
+    <h1 class="title">About</h1>
+    <div class="temp_inner">
+            <p>Times Play, the flagship OTT platform from the distinguished legacy of the Times Network, (Bennett Coleman and Company Limited). The platform redefines entertainment by seamlessly integrating an extensive array of Entertainment content with real-time news coverage. This fusion of entertainment and information reflects our commitment to delivering a holistic OTT experience.</p>
+            <p>At the core of Times Play's uniqueness is the integration of premium channels like Movies Now HD, MNX HD, MN+, Romedy Now, Times Now, Times Now Navbharat, Zoom TV, ET Now, and Mirror Now. Times Play offers limitless entertainment options from Blockbuster Movies, Web Series, Original Documentaries as well as Latest and Breaking news from India and around the world.</p>
+            <p>With the flexibility to enjoy content at home on TV or your PC or on-the-go via our user- friendly mobile app, we cater to diverse preferences. The modular subscription plans, multiple profile creations and watching content simultaneously across multiple screens embodies our commitment to user convenience. As a destination for curated entertainment and latest news, Times Play invites you to join our community—a space where your preferences shape our evolving journey. Thank you for choosing Times Play, where entertainment meets insight.</p>
+        </div>  
+  </div>
+  <script>
+var params = {};
+         themes = ['white']
+         for (const [key, value] of (new URLSearchParams(location.search))) {
+             params[`${key}`] = `${value}`
+             
+         }
+         if(!!params.theme && themes.includes(params.theme)){
+           document.getElementById("about").classList.add(params.theme);
+         }
+  </script>
+</body>
+</html>

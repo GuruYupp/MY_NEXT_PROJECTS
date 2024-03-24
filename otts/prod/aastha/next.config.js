@@ -48,7 +48,7 @@ module.exports = {
         destination: '/misc/misc',
       },
       {
-        source:'/change-password',
+        source: '/change-password',
         destination: '/misc/misc',
       },
       {

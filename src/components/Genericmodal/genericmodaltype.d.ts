@@ -5,6 +5,7 @@ export interface dispayInterface {
   subtitle1?: string;
   yesbuttonText?: string;
   nobuttonText?: string;
+  primarybtn?: "yesbutton" | "nobutton";
 }
 
 export interface GenericModalPropsInterface {

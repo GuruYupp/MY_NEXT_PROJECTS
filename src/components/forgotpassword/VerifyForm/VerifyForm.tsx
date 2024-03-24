@@ -10,9 +10,9 @@ import Link from "next/link";
 import { postData } from "@/services/data.manager";
 import Modal from "@/components/modals/Modal";
 import { createPortal } from "react-dom";
-import GenericModal from "@/components/genericmodal/GenericModal";
+import GenericModal from "@/components/Genericmodal/GenericModal";
 import { ModalType } from "@/components/modals/modaltypes";
-import { dispayInterface as GenericModaldispayInterface } from "@/components/genericmodal/genericmodaltype";
+import { dispayInterface as GenericModaldispayInterface } from "@/components/Genericmodal/genericmodaltype";
 
 const VerifyForm = () => {
   const { control, formState, handleSubmit } = useForm<ForgotPasswordFormType>({
@@ -21,11 +21,18 @@ const VerifyForm = () => {
   const { otpauthentication } = useAppSelector(
     (state) => state.configs.systemFeatures,
   );
+  const [showOtpScreen, setShowOtpScreen] = useState<string>(
+    otpauthentication?.fields?.update_password_show_otp_screen || "",
+  );
   const [errormsg, setErrormsg] = useState<string>("");
   const errormsgtimer = useRef<ReturnType<typeof setTimeout>>();
   const [verifyField, setVerifyField] = useState<"email" | "mobile" | "">(
     otpauthentication?.fields?.forgot_password_identifier_type || "",
   );
+  const [showModal, setShowModal] = useState<ModalType>("");
+  const [genericPopUpdata, setGenericPopUpdata] =
+    useState<GenericModaldispayInterface>({});
+
   const onSubmit: SubmitHandler<ForgotPasswordFormType> = async (formData) => {
     if (!verifyField) return;
     const { email, number } = formData;
@@ -50,21 +57,30 @@ const VerifyForm = () => {
         }, 1000);
       }
     } else {
+      handleshowModal("genericmodal");
+      setGenericPopUpdata({
+        title: otpvalidresponse.response.message || "",
+        yesbuttonText: "Okay",
+      });
     }
   };
-
-  const [showModal, setShowModal] = useState<ModalType>("genericmodal");
-  const [genericPopUpdata, setGenericPopUpdata] =
-    useState<GenericModaldispayInterface>({ title: "Guru" });
 
   const handlecloseModal = () => {
     document.body.style.overflowY = "scroll";
     setShowModal("");
   };
 
+  const handleshowModal = (modal: ModalType) => {
+    document.body.style.overflowY = "hidden";
+    setShowModal(modal);
+  };
+
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
     const { from, data } = Modaldata;
     switch (from) {
+      case "genericmodal":
+        handlecloseModal();
+        break;
       default:
         break;
     }
