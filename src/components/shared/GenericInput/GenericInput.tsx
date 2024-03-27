@@ -8,14 +8,14 @@ const GenericInput: FC<UseControllerProps<any> & GenericInputPropsInterface> = (
   props,
 ) => {
   const { field, fieldState } = useController(props);
-  const { readonly = false, placeholder, type, showCountrycode } = props;
+  const { readonly = false, placeholder, type, showCountrycode, name } = props;
 
   return (
     <label>
       <div
         className={`${styles.input_container} ${type === "submit" ? styles.submit_input_container : ""}`}
       >
-        {showCountrycode && type === "number" && (
+        {showCountrycode && name === "mobile" && (
           <div className={`${styles.country_code_container}`}>
             <ConutryCode />
           </div>

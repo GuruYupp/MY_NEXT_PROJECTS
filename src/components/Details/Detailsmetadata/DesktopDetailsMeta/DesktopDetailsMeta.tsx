@@ -13,19 +13,24 @@ const DesktopDetailsMeta = (props: any) => {
     imdbrating,
     description,
     buttons,
-    rentbtn,
     pageButtons,
     shareInfo,
+    director,
+    rentalinfo,
   } = props;
+  console.log("CAST", cast);
   return (
     <div className={`${styles.DetailsMeta_Container}`}>
       <div className={`${styles.title} ${styles.meta_row}`}>{title}</div>
       <div className={`${styles.subtitle} ${styles.meta_row}`}>
         {subtitle}
         {pgrating && (
-          <span className={`${styles.rating} ${styles.meta_row}`}>
-            {pgrating}
-          </span>
+          <>
+            &nbsp; | &nbsp;
+            <span className={`${styles.rating} ${styles.meta_row}`}>
+              {pgrating}
+            </span>
+          </>
         )}
 
         {imdbrating && (
@@ -44,11 +49,15 @@ const DesktopDetailsMeta = (props: any) => {
       <div className={`${styles.description} ${styles.meta_row}`}>
         {description}
       </div>
+      {director && (
+        <div className={`${styles.cast}`}>Director : {director}</div>
+      )}
       {cast && (
         <div className={`${styles.cast} ${styles.meta_row}`}>
           Cast & Crew : {cast}
         </div>
       )}
+
       <div className={`${styles.details_footer}`}>
         <div className={`${styles.buttons}`}>
           {buttons.length > 0 &&
@@ -59,6 +68,24 @@ const DesktopDetailsMeta = (props: any) => {
                     <DetailsActionButton
                       className={`${styles.btn} ${styles.signin_btn}`}
                       type="signin"
+                      text={btn.data}
+                    />
+                  </Link>
+                )}
+                {btn.elementSubtype === "rent" && (
+                  <Link href={`${btn.target}`}>
+                    <DetailsActionButton
+                      type="rent"
+                      text={btn.data}
+                      className={`${styles.btn} ${styles.rent_btn}`}
+                    />
+                  </Link>
+                )}
+                {btn.elementSubtype === "subscribe" && (
+                  <Link href={`${btn.target}`}>
+                    <DetailsActionButton
+                      className={`${styles.btn} ${styles.signin_btn}`}
+                      type="subscribe"
                       text={btn.data}
                     />
                   </Link>
@@ -123,13 +150,7 @@ const DesktopDetailsMeta = (props: any) => {
                 )}
               </Fragment>
             ))}
-          {rentbtn && (
-            <DetailsActionButton
-              type="rent"
-              text={rentbtn}
-              className={`${styles.btn} ${styles.rent_btn}`}
-            />
-          )}
+
           {pageButtons.showFavouriteButton && (
             <DetailsActionButton
               type="favorite"
@@ -156,6 +177,15 @@ const DesktopDetailsMeta = (props: any) => {
             />
           )}
         </div>
+        {rentalinfo && (
+          <div className={`${styles.rentalinfo}`}>
+            <img
+              src={`${appConfig.staticImagesPath}pack-info-icon.svg`}
+              alt="info"
+            />
+            <p className={`${styles.text}`}>{rentalinfo}</p>
+          </div>
+        )}
       </div>
     </div>
   );

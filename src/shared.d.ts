@@ -20,6 +20,9 @@ export interface responseInterface {
     details: any;
     actionCode?: number;
   };
+  pageAttributes?: {
+    [key: string]: string;
+  };
 }
 
 export interface configsandfeaturesInterface extends responseInterface {
@@ -483,6 +486,11 @@ export interface streamDataIterface {
     message?: string;
     type?: string;
   };
+  pageAttributes:
+    | {
+        [key: string]: string;
+      }
+    | undefined;
 }
 
 //guide interfaces....

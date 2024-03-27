@@ -22,7 +22,7 @@ export default function SuggestionCard(
     cardDetails.display.parentIcon &&
     getAbsolutPath(cardDetails.display.parentIcon);
   const handleImageonError = (e: SyntheticEvent) => {
-    e.currentTarget.setAttribute("src", appConfig.cardDefaultImage);
+    e.currentTarget.setAttribute("src", appConfig.videosuggestionDefaultImg);
   };
 
   const renderCard = (cardType: typeofcardType) => {

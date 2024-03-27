@@ -16,12 +16,8 @@
     position: absolute;
     bottom: 0px;
     width: 100%;
-    background: linear-gradient(
-      180deg,
-      hsla(0, 0%, 8%, 0),
-      hsla(0, 0%, 8%, 0.45) 47%,
-      #141414
-    );
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
+    height: 75px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -51,5 +47,8 @@
     box-shadow: 0 9px 12px 1px rgba(0, 0, 0, 0.46);
     transform: scale(1.16);
     z-index: 1;
+    // .bottom{
+    //   display: flex;
+    // }
   }
 }

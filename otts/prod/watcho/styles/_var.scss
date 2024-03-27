@@ -1,6 +1,6 @@
 @use 'sass:math';
 @import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500&display=swap');
 
 //hello;
 $font-family-primary: Poppins, sans-serif;
@@ -9,7 +9,7 @@ $font-awesome: 'FontAwesome';
 $section-padding-left: null !default;
 $primary-color: #e7195a;
 $secondary-color: #232323;
-$banner-btn-color: #e7195a;
+$banner-btn-color: #ffcb05;
 
 $body-bg-color:#141414;
 

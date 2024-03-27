@@ -2,6 +2,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { useEffect, useRef } from "react";
 import styles from "./Videoplayer.module.scss";
 import Link from "next/link";
+import { getAbsolutPath } from "@/utils";
 
 interface VideoPlayerPropsInterface {
   // streams:StreamInteface[],
@@ -10,7 +11,10 @@ interface VideoPlayerPropsInterface {
 
 function PlayerOverlay(props: VideoPlayerPropsInterface) {
   const { setSuggestionHeight } = props;
-  const { error } = useAppSelector((state) => state.streamData);
+  const { error, pageAttributes } = useAppSelector((state) => state.streamData);
+  const { content } = useAppSelector((state) => state.pageData.response);
+  let backgroundImage =
+    getAbsolutPath(content[0].content?.backgroundImage || "") || "";
   const playerInfoRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (playerInfoRef.current) {
@@ -26,14 +30,38 @@ function PlayerOverlay(props: VideoPlayerPropsInterface) {
   };
   return (
     <div className={`${styles.player_overlay}`} ref={playerInfoRef}>
-      <p className={`${styles.message}`}>{error.message}</p>
-      <div className={`${styles.buttons}`}>
-        {error.code === 402 && (
-          <div className={`${styles.button}`}>subscribe</div>
-        )}
-        {error.code === -1000 && (
-          <>
-            <div className={`${styles.button}`}>
+      {backgroundImage && (
+        <div className={`${styles.imageContainer}`}>
+          <img src={backgroundImage} alt="playerbg" />
+        </div>
+      )}
+      {error.code === 402 && (
+        <>
+          <p className={`${styles.message2}`}>{error.message}</p>
+          <div className={`${styles.buttons}`}>
+            <div className={`${styles.button}`}>subscribe</div>
+          </div>
+        </>
+      )}
+      {error.code === -1000 && (
+        <>
+          {pageAttributes?.ContentAccessErrorMessage && (
+            <h1 className={`${styles.message1}`}>
+              {pageAttributes.ContentAccessErrorMessage}
+            </h1>
+          )}
+          {pageAttributes?.SignAndSignupErrorMessage && (
+            <p className={`${styles.message2}`}>
+              {pageAttributes.SignAndSignupErrorMessage}
+            </p>
+          )}
+
+          {!pageAttributes && (
+            <p className={`${styles.message2}`}>{error.message}</p>
+          )}
+
+          <div className={`${styles.buttons}`}>
+            <div className={`${styles.button} ${styles.primary}`}>
               {" "}
               <Link href={`/signup`}>Sign Up</Link>{" "}
             </div>
@@ -41,9 +69,9 @@ function PlayerOverlay(props: VideoPlayerPropsInterface) {
               {" "}
               <Link href={`/signin`}>Sign In</Link>{" "}
             </div>
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   );
 }

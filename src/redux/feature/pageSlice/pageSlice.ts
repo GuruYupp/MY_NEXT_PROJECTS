@@ -1,5 +1,5 @@
 import { getData, postData } from "@/services/data.manager";
-import { pageState, responseInterface } from "@/shared";
+import { pageState, pageTabInterface, responseInterface } from "@/shared";
 import {
   PayloadAction,
   createAsyncThunk,
@@ -158,6 +158,22 @@ const pageSlice = createSlice({
         tabs = tabs.filter((tab) => removetabs.indexOf(tab.code) <= -1);
         if (payload.response?.streamStatus) {
           state.response.streamStatus = payload.response?.streamStatus;
+        }
+        if (state.response.info.pageType === "player") {
+          if (state.response.tabsInfo.showTabs === false) {
+            state.response.sections.map((section) => {
+              if (section.section.sectionInfo.code === "recommendations") {
+                let tab: pageTabInterface = {
+                  code: "recommendations",
+                  infiniteScroll: false,
+                  title: section.section.sectionInfo.name,
+                  sectionCodes: ["recommendations"],
+                };
+                state.response.tabsInfo.showTabs = true;
+                state.response.tabsInfo.tabs.push(tab);
+              }
+            });
+          }
         }
       })
       .addCase(fetchPagedata.rejected, (state) => {

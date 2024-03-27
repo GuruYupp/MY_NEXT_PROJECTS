@@ -3,8 +3,9 @@ import styles from "./SlickSection.module.scss";
 import { FC, memo } from "react";
 import { cardCountForSectionSlick } from "@/utils";
 import Link from "next/link";
-import { sectionInterface } from "@/shared";
+import { cardInterface, sectionInterface } from "@/shared";
 import Slider, { Settings } from "react-slick";
+import { useRouter } from "next/router";
 
 function SampleNextArrow(props: any) {
   const { onClick, className } = props;
@@ -28,6 +29,7 @@ function SamplePrevArrow(props: any) {
 
 const SlickSection: FC<{ section: sectionInterface }> = (props) => {
   const { section } = props;
+  const { asPath } = useRouter();
 
   let sectionInfo;
   let sectionControls;
@@ -74,19 +76,22 @@ const SlickSection: FC<{ section: sectionInterface }> = (props) => {
 
           <div className={styles.cards_wrapper}>
             <Slider {...settings}>
-              {cards.map((card: any, index: any) => {
-                return (
-                  <div
-                    key={index}
-                    style={{
-                      //   width: cardWidth,
-                      // float:'left',
-                      display: "inline-block",
-                    }}
-                  >
-                    <Card key={index} cardDetails={card} />
-                  </div>
-                );
+              {cards.map((card: cardInterface, index: any) => {
+                let currentTarget = asPath.slice(1);
+                if (card.target.path !== currentTarget) {
+                  return (
+                    <div
+                      key={index}
+                      style={{
+                        //   width: cardWidth,
+                        // float:'left',
+                        display: "inline-block",
+                      }}
+                    >
+                      <Card key={index} cardDetails={card} />
+                    </div>
+                  );
+                }
               })}
             </Slider>
           </div>

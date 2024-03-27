@@ -117,11 +117,13 @@ function VideoSuggestions(props: VideoSuggestionsProps) {
       <div className={`${styles.tabs}`}>
         <Slider {...tabssettings}>
           {tabsInfo.tabs.map((tab, index) => {
-            return (
-              <div className={`${styles.tab}`} key={index}>
-                <p>{tab.title}</p>
-              </div>
-            );
+            if (tab.code.includes("under-player") === false) {
+              return (
+                <div className={`${styles.tab}`} key={index}>
+                  <p>{tab.title}</p>
+                </div>
+              );
+            }
           })}
         </Slider>
       </div>

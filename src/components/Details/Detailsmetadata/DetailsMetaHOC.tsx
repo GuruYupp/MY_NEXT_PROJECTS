@@ -1,15 +1,20 @@
 import { useAppSelector } from "@/redux/hooks";
-import getfrompagedata, { DetailsButtonType } from "../getfrompagedata";
+import getfrompagedata, {
+  DetailsButtonType,
+  getCastInfo,
+} from "../getfrompagedata";
 import { dataRowElementInterface } from "@/shared";
 
 function DetailsMetaHOC(WrappedComponent: any) {
   return function WithMetaProps() {
-    const { content, pageButtons, shareInfo } = useAppSelector(
+    const { content, pageButtons, shareInfo, sections } = useAppSelector(
       (state) => state.pageData.response,
     );
     let buttonTypes: DetailsButtonType[] = [
-      "signin",
       "trailer",
+      "signin",
+      "rent",
+      "subscribe",
       "watch_latest_episode",
       "watchnow",
       "resume",
@@ -26,9 +31,21 @@ function DetailsMetaHOC(WrappedComponent: any) {
     let cast = getfrompagedata(content, "cast")?.data || "";
     cast = cast.split("|").join(",");
 
+    let director = "";
+    if (!cast) {
+      let castData = getCastInfo(
+        sections.filter(
+          (section) => section.section.sectionInfo.name === "Cast & Crew",
+        )[0],
+      );
+      cast = castData.cast;
+      director = castData.director;
+    }
+
     let description = getfrompagedata(content, "description")?.data || "";
     let imdbrating = getfrompagedata(content, "imdb")?.data || "";
-    let rentbtn = getfrompagedata(content, "rent")?.data || "";
+    // let rentbtn = getfrompagedata(content, "rent")?.data || "";
+    let rentalinfo = getfrompagedata(content, "rentalinfo")?.data || "";
 
     buttonTypes.map((button) => {
       let btn = getfrompagedata(content, button);
@@ -44,7 +61,9 @@ function DetailsMetaHOC(WrappedComponent: any) {
       pgrating,
       description,
       imdbrating,
-      rentbtn,
+      cast,
+      director,
+      rentalinfo,
     };
     return <WrappedComponent {...propsData} />;
   };

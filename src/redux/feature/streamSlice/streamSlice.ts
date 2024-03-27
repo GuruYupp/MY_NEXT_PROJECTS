@@ -34,6 +34,7 @@ let initialState: streamDataIterface = {
     streams: [],
   },
   error: {},
+  pageAttributes: undefined,
 };
 
 const streamSlice = createSlice({
@@ -56,6 +57,9 @@ const streamSlice = createSlice({
         } else {
           if (payload.error) {
             state.error = payload.error;
+          }
+          if (payload.pageAttributes) {
+            state.pageAttributes = payload.pageAttributes;
           }
         }
         state.streamapiloading = "succeeded";

@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import styles from "./Player.module.scss";
 import Link from "next/link";
-import Section from "../Sections/Section/Section";
 import VideoSuggestions from "./videosuggestions/VideoSuggestions";
 import {
   fetchStreamData,
@@ -12,6 +11,7 @@ import {
 } from "@/redux/feature/streamSlice/streamSlice";
 import { getPlayerpageMeta } from "./playermeta";
 import appConfig from "@/app.config";
+import SlickSection from "../Sections/SlickSection/SlickSection";
 
 export default function Player() {
   const { asPath } = useRouter();
@@ -159,7 +159,7 @@ export default function Player() {
         <div className={`${styles.sections}`}>
           {sections.map((section, index) => {
             if (section.section.sectionData.params?.showOnPlayer == "true") {
-              return <Section key={index} section={section} />;
+              return <SlickSection key={index} section={section} />;
             }
           })}
         </div>

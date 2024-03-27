@@ -1,4 +1,8 @@
-import { contentInterface, dataRowElementInterface } from "@/shared";
+import {
+  contentInterface,
+  dataRowElementInterface,
+  sectionInterface,
+} from "@/shared";
 
 export type DetailsButtonType =
   | "bgImage"
@@ -18,6 +22,8 @@ export type DetailsButtonType =
   | "startover"
   | "imdb"
   | "rent"
+  | "subscribe"
+  | "rentalinfo"
   | "";
 
 export default function getfrompagedata(
@@ -33,6 +39,21 @@ export default function getfrompagedata(
         }
       });
     });
+  });
+  return res;
+}
+
+export function getCastInfo(section?: sectionInterface) {
+  let res = { cast: "", director: "" };
+  if (!section) return res;
+  section.section.sectionData.data.map((data) => {
+    if (data.display.subtitle1 === "Director") {
+      res.director = data.display.title || "";
+    } else {
+      res.cast = !res.cast
+        ? `${data.display.title}`
+        : res.cast + `, ${data.display.title}`;
+    }
   });
   return res;
 }

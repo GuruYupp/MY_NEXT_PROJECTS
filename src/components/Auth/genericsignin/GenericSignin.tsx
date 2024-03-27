@@ -57,7 +57,7 @@ const GenericSignIn: FC = () => {
   const getInitialLoginType = () => {
     if (
       globalsettings?.fields?.isEmailSupported === "true" &&
-      globalsettings?.fields?.isMobileSupported === "true"
+      appConfig.signin.primary == "email"
     ) {
       // return "mobile";
       return "email";

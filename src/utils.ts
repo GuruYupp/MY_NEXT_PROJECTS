@@ -476,8 +476,8 @@ export function cardCountForSectionSlick(cardType: string): Settings {
           {
             breakpoint: 1650,
             settings: {
-              slidesToShow: 6,
-              slidesToScroll: 6,
+              slidesToShow: 5,
+              slidesToScroll: 5,
             },
           },
           {
@@ -539,7 +539,6 @@ export function cardCountForSectionSlick(cardType: string): Settings {
         ],
       };
     case "expand_action_poster":
-    case "roller_poster":
       return {
         slidesToShow: 8,
         slidesToScroll: 8,
@@ -556,6 +555,69 @@ export function cardCountForSectionSlick(cardType: string): Settings {
             settings: {
               slidesToShow: 7,
               slidesToScroll: 7,
+            },
+          },
+          {
+            breakpoint: 1300,
+            settings: {
+              slidesToShow: 7,
+              slidesToScroll: 7,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 6,
+              slidesToScroll: 6,
+            },
+          },
+          {
+            breakpoint: 920,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+          {
+            breakpoint: 320,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+            },
+          },
+        ],
+      };
+    case "roller_poster":
+      return {
+        slidesToShow: 8,
+        slidesToScroll: 8,
+        responsive: [
+          {
+            breakpoint: 1650,
+            settings: {
+              slidesToShow: 8,
+              slidesToScroll: 8,
             },
           },
           {

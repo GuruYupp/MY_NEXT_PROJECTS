@@ -16,4 +16,5 @@ export type DetailsActionButtonPropsType = {
   | { type: "rent" }
   | { type: "favorite"; isFavourite: boolean }
   | { type: "share" }
+  | { type: "subscribe" }
 );
