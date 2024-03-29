@@ -25,6 +25,7 @@ function useGetPage() {
         count: 40,
       };
 
+      document.body.scrollTop = 0;
       const promise = dispatch(fetchPagedata({ params }));
 
       promise

@@ -30,6 +30,7 @@ const appConfig = {
     partners: false,
     languages: true,
     topheader: true,
+    signup:true,
   },
   signin: {
     primary: "mobile", //email (or) mobile

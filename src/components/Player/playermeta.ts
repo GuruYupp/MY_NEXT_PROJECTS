@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import getfrompagedata from "../Details/getfrompagedata";
-import { pageState } from "@/shared";
+import { pageStateInterface } from "@/shared";
 import { getAbsolutPath } from "@/utils";
 
 interface playerPageMeta {
@@ -15,7 +15,7 @@ interface playerPageMeta {
 }
 
 export function getPlayerpageMeta(
-  content: pageState["response"]["content"],
+  content: pageStateInterface["response"]["content"],
 ): playerPageMeta {
   let title = getfrompagedata(content, "title")?.data || "";
   let subtitle = getfrompagedata(content, "subtitle")?.data || "";

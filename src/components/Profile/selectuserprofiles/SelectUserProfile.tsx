@@ -129,7 +129,7 @@ export default function SelectUserProfiles() {
                       alt={profile.name}
                       onClick={() => handleImageonClick(profile)}
                     />
-                    {profile.isPinAvailable && !profile.isPinExpired && (
+                    {profile.isPinAvailable && (
                       <img
                         src={`https://d2ivesio5kogrp.cloudfront.net/static/reeldrama/images/profile-lock.svg`}
                         alt=""

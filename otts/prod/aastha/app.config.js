@@ -27,6 +27,7 @@ const appConfig = {
     partners: false,
     languages: false,
     topheader: true,
+    signup:true,
   },
   signin: {
     primary: "mobile", //email (or) mobile

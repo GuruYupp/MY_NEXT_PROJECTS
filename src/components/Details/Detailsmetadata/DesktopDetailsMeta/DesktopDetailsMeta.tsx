@@ -1,10 +1,11 @@
-import React, { Fragment, memo } from "react";
+import React, { Fragment, memo, FC } from "react";
 import DetailsMetaHOC from "../DetailsMetaHOC";
 import styles from "./DesktopDetailsMeta.module.scss";
 import appConfig from "@/app.config";
 import Link from "next/link";
 import DetailsActionButton from "../DetailsActionButton/DetailsActionButton";
-const DesktopDetailsMeta = (props: any) => {
+import { DetailsMetaPropsType } from "../../detailstypes";
+const DesktopDetailsMeta: FC<DetailsMetaPropsType> = (props) => {
   const {
     title,
     cast,
@@ -16,9 +17,10 @@ const DesktopDetailsMeta = (props: any) => {
     pageButtons,
     shareInfo,
     director,
+    targetpath,
     rentalinfo,
   } = props;
-  console.log("CAST", cast);
+
   return (
     <div className={`${styles.DetailsMeta_Container}`}>
       <div className={`${styles.title} ${styles.meta_row}`}>{title}</div>
@@ -130,6 +132,7 @@ const DesktopDetailsMeta = (props: any) => {
                       className={`${styles.btn} ${styles.watch_latest}`}
                       type="watchnow"
                       text={btn.data}
+                      btndata={btn}
                     />
                   </Link>
                 )}
@@ -145,6 +148,7 @@ const DesktopDetailsMeta = (props: any) => {
                         }`,
                         altText: "trailer",
                       }}
+                      btndata={btn}
                     />
                   </Link>
                 )}
@@ -163,7 +167,8 @@ const DesktopDetailsMeta = (props: any) => {
                 }`,
                 altText: "",
               }}
-              isFavourite={pageButtons.isFavourite}
+              isFavourite={pageButtons?.isFavourite}
+              targetpath={targetpath}
             />
           )}
           {shareInfo.isSharingAllowed && (

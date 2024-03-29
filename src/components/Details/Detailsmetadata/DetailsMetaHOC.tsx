@@ -4,10 +4,12 @@ import getfrompagedata, {
   getCastInfo,
 } from "../getfrompagedata";
 import { dataRowElementInterface } from "@/shared";
+import { ComponentType } from "react";
+import { DetailsMetaPropsType } from "../detailstypes";
 
-function DetailsMetaHOC(WrappedComponent: any) {
+function DetailsMetaHOC(WrappedComponent: ComponentType<DetailsMetaPropsType>) {
   return function WithMetaProps() {
-    const { content, pageButtons, shareInfo, sections } = useAppSelector(
+    const { content, pageButtons, shareInfo, sections, info } = useAppSelector(
       (state) => state.pageData.response,
     );
     let buttonTypes: DetailsButtonType[] = [
@@ -23,6 +25,7 @@ function DetailsMetaHOC(WrappedComponent: any) {
     let buttons: dataRowElementInterface[] = [];
 
     let title = getfrompagedata(content, "title")?.data || "";
+    let targetpath = info.path || "";
 
     // let partnerIcon = getfrompagedata(content,"partnerIcon")?.data || "";
     let subtitle = getfrompagedata(content, "subtitle")?.data || "";
@@ -64,6 +67,7 @@ function DetailsMetaHOC(WrappedComponent: any) {
       cast,
       director,
       rentalinfo,
+      targetpath,
     };
     return <WrappedComponent {...propsData} />;
   };

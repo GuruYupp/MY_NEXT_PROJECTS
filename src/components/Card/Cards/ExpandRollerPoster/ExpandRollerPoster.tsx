@@ -58,7 +58,7 @@ const ExpandRollerPoster: FC<cardPropsInterface> = (props) => {
                 (showButton.value === "play" ? `${styles.play_btn}` : "")
               }
             >
-              {buttonText && buttonText.value}
+              {buttonText && buttonText.value && "Watch"}
             </button>
             // </Link>
           )}

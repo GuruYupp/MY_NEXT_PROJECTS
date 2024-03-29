@@ -201,9 +201,10 @@ export interface dataRowElementInterface {
   columnNumber?: number;
   displayConditionExpr?: string;
   rowSpan?: number;
-  target?: string;
+  target: string;
   isClickable?: boolean;
   elementType?: string;
+  properties?: { [key: string]: unknown };
 }
 
 export interface dataRowInterface {
@@ -229,7 +230,21 @@ export interface pageTabInterface {
   title: string;
 }
 
-export interface pageState {
+export interface pageButtonInterface {
+  showFavouriteButton?: boolean;
+  isFavourite?: boolean;
+  feedback?: {
+    feedbackAllowed?: boolean;
+    showFeedback?: boolean;
+    showDownload?: boolean;
+  };
+  download?: {
+    isEnabled?: boolean;
+    message?: boolean;
+  };
+}
+
+export interface pageStateInterface {
   loading: "idle" | "pending" | "succeeded" | "failed";
   pagination: "idle" | "pending" | "succeeded" | "failed";
   response: {
@@ -243,7 +258,7 @@ export interface pageState {
     };
     content: contentInterface[];
     paginationData: paginationsectionInterface[];
-    pageButtons: any;
+    pageButtons: pageButtonInterface;
     shareInfo: {
       description?: string;
       imageUrl?: string;

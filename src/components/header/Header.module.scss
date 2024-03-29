@@ -156,12 +156,13 @@
               right: 0;
               content: "";
               margin: 0;
-              margin-left: 20px;
+              margin-left: 15px;
               margin-right: 0px;
             }
           }
 
           .pricing {
+            margin-left: 0px;
             span {
               border-right: 1px solid #ffffffbf;
               padding: 0px 8px;
@@ -171,30 +172,18 @@
           .authcontainer {
             .authbtn {
               color: #ffffffbf;
-              padding: 0px 10px;
-            }
-
-            .signinbtn {
-              color: #ffffffbf;
               padding: 5px 13px;
               // margin: 0px 15px;
               font-size: 14px;
               text-decoration: none;
+              text-align: center;
               margin: 0px;
-            }
-
-            .signupbtn {
-              color: #ffffffbf;
-              background-color: $primary-color;
-              padding: 5px 13px;
-              font-size: 14px;
-              text-decoration: none;
+              text-transform: uppercase;
             }
 
             .authactivebtn {
               color: #fff;
               background-color: $primary-color;
-              padding: 8px 15px;
             }
           }
 

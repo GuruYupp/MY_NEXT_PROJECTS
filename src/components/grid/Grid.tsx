@@ -110,7 +110,10 @@ export function GridTable(props: GridTableProps) {
     <div ref={elementRef} style={{ width: "100%" }}>
       {cards.map((card, index: number) => (
         <div key={index} style={{ width: cardWidth, float: "left" }}>
-          <Card cardDetails={card} />
+          <Card
+            cardDetails={card}
+            sectionCode={section.section.sectionInfo.code}
+          />
         </div>
       ))}
       {pagination === "pending" && <ShimmerSection />}

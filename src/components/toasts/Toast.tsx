@@ -2,9 +2,11 @@ import { useEffect, useRef } from "react";
 import styles from "./Toast.module.scss";
 interface ToastProps {
   message: string;
+  opendelay?: number;
+  duration?: number;
 }
 const Toast = (props: ToastProps) => {
-  const { message } = props;
+  const { message, duration = 2500, opendelay = 500 } = props;
   console.log(message);
 
   const toastRef = useRef<HTMLDivElement>(null);
@@ -13,10 +15,10 @@ const Toast = (props: ToastProps) => {
   useEffect(() => {
     setTimeout(() => {
       toastRef.current?.classList.add(styles.animate);
-    }, 1000);
+    }, opendelay);
     toasttimer.current = setTimeout(() => {
       toastRef.current?.classList.remove(styles.animate);
-    }, 2500);
+    }, duration);
     return () => {
       if (toasttimer.current) {
         clearTimeout(toasttimer.current);

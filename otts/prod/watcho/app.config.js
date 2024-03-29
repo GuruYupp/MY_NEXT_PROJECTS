@@ -10,7 +10,7 @@ const appConfig = {
     // "tenantCode": "dishtv",
     // "product": "dishtv",
     // "isSupported": true
-    "location": "https://dishtv-api.revlet.net",
+  "location": "https://dishtv-api.revlet.net",
 	"api": "https://dishtv-api.revlet.net",
 	"search": "https://dishtv-searchapi.revlet.net",
 	"pgURL": "https://dishtv-pgapi.revlet.net",
@@ -37,9 +37,10 @@ const appConfig = {
     /^[a-zA-Z0-9_.-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   supportmail: "",
   header: {
-    partners: false,
+    partners: true,
     languages: true,
     topheader: true,
+    signup:false,
   },
   signin: {
     primary: "mobile", //email (or) mobile
@@ -53,7 +54,7 @@ const appConfig = {
     gender: true,
   },
   profile: {
-    type: "password",
+    type: "otp",
     languages: true,
   },
   settings: {
@@ -70,7 +71,7 @@ const appConfig = {
     userSettings: true,
   },
   search: {
-    apiversion: "v1",
+    apiversion: "v3",
   },
 };
 

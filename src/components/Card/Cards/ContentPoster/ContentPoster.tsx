@@ -13,6 +13,7 @@ const ContentPoster: FC<cardPropsInterface> = (props) => {
     leftOverTimeMarker,
     seekMarker,
     parentIcon,
+    sectionCode,
   } = props;
   const handleImageonError = (e: SyntheticEvent) => {
     e.currentTarget.setAttribute("src", appConfig.cardDefaultImage);
@@ -26,16 +27,18 @@ const ContentPoster: FC<cardPropsInterface> = (props) => {
           loading="lazy"
           onError={handleImageonError}
         />
-        <div
-          className={`${styles.close_icon}`}
-          onClick={handleRemoveContinueWatching}
-        >
-          <img
-            src={`${appConfig.staticImagesPath}close-icon.svg`}
-            alt="close icon"
-            loading="lazy"
-          />
-        </div>
+        {sectionCode === "continue_watching" && (
+          <div
+            className={`${styles.close_icon}`}
+            onClick={handleRemoveContinueWatching}
+          >
+            <img
+              src={`${appConfig.staticImagesPath}close-icon.svg`}
+              alt="close icon"
+              loading="lazy"
+            />
+          </div>
+        )}
 
         {partnerIcon && (
           <img

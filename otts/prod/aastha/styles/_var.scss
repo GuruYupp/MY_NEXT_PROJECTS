@@ -21,6 +21,10 @@ $signup-bg-Image:'https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sig
 $signin-bg-color:#262626;
 $signin-bg-Image:'https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sign-in-bg.jpg';
 
+//settings
+$settings-panel-header-bg-color:#282828;
+$settings-panel-body-bg-color:#222;
+
 @mixin cardsPadding {
   padding: 0px 48px;
   width: 100%;

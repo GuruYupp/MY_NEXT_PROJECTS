@@ -88,7 +88,11 @@ const SlickSection: FC<{ section: sectionInterface }> = (props) => {
                         display: "inline-block",
                       }}
                     >
-                      <Card key={index} cardDetails={card} />
+                      <Card
+                        key={index}
+                        cardDetails={card}
+                        sectionCode={section.section.sectionInfo.code}
+                      />
                     </div>
                   );
                 }

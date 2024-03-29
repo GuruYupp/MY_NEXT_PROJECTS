@@ -211,7 +211,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
                         sendDatatoComponent={getDataFromModal}
                         profileData={profile}
                         type={otpModal}
-                        isPasswordOtp={true}
+                        isPasswordOtp={appConfig.profile.type === "password"}
                       />
                     );
                   default:

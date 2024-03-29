@@ -1,4 +1,4 @@
-import { getData } from "@/services/data.manager";
+import { getSearchapis } from "@/services/data.manager";
 import {
   v3bucketsInterface,
   responseInterface,
@@ -35,7 +35,7 @@ export const fetchSearchBucket = createAsyncThunk<
   responseInterface,
   searchparamsInterface
 >("fetchSearchBucket", async (params) => {
-  const result = await getData("/search/api/v3/get/search/query", params);
+  const result = await getSearchapis("/search/api/v3/get/search/query", params);
   return result;
 });
 
@@ -48,7 +48,10 @@ export const fetchSearchSuggestions = createAsyncThunk<
     last_search_order: "typesense",
     query,
   };
-  const result = await getData("/search/api/v1/search/suggestions", params);
+  const result = await getSearchapis(
+    "/search/api/v1/search/suggestions",
+    params,
+  );
   return result;
 });
 
@@ -60,7 +63,7 @@ export const searchBucketPagiation = createAsyncThunk<
   responseInterface,
   searchpaginationparamsInterface
 >("searchBucketPagiation", async (params) => {
-  const result = await getData("/search/api/v3/get/search/query", params);
+  const result = await getSearchapis("/search/api/v3/get/search/query", params);
   return result;
 });
 

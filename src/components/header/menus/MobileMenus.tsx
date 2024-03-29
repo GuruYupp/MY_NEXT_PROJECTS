@@ -36,6 +36,11 @@ const mobilemenuImages: { [key: string]: any } = {
     defaultImg: "bottom-menu-mydish-default.svg",
   },
   // eslint-disable-next-line camelcase
+  d2h_mobile__v2: {
+    electedImg: "bottom-menu-mydish-active.svg",
+    defaultImg: "bottom-menu-mydish-default.svg",
+  },
+  // eslint-disable-next-line camelcase
   account__v2: {
     selectedImg: "bottom-menu-myaccount-active.svg",
     defaultImg: "bottom-menu-myaccount-default.svg",
@@ -72,6 +77,7 @@ interface props {
 }
 export default function MobileMenus({ menus }: props): JSX.Element {
   const { asPath } = useRouter();
+  console.log(menus);
 
   const checkPathinsubmenu = (menu: menuInterface) => {
     if (menu.subMenus.length === 0) return false;

@@ -124,7 +124,7 @@ const GenericSignIn: FC = () => {
           context: "signin",
           message: `One Time Passcode (OTP) has been sent to your mobile ******${identifier.substring(7)}`,
           verification: "mobile",
-          number: identifier,
+          mobile: identifier,
         });
       } else if (signInresponse.error && signInresponse.error.message) {
         setErrormsg(signInresponse.error.message);
@@ -257,13 +257,18 @@ const GenericSignIn: FC = () => {
                 </p>
               </div>
 
-              <GenericInput
-                control={control}
-                type="submit"
-                name="submit"
-                shouldUnregister={true}
-                defaultValue="Sign in"
-              />
+              <div className={`${styles.input_wrapper}`}>
+                <GenericInput
+                  control={control}
+                  type="submit"
+                  name="submit"
+                  shouldUnregister={true}
+                  defaultValue="Sign in"
+                />
+                {errormsg && (
+                  <p className={`${styles.input_error_msg}`}>{errormsg}</p>
+                )}
+              </div>
             </form>
 
             <div className={`${styles.or_div}`}>

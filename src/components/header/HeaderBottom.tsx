@@ -14,6 +14,7 @@ interface props {
 function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
   const { isLoggedin } = useAppSelector((state) => state.user);
   const { systemConfigs } = useAppSelector((state) => state.configs);
+
   let showPackages = systemConfigs.configs?.showPackages || false;
   // const [showModal, setShowModal] = useState<ModalType>("");
 
@@ -21,6 +22,15 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
   //   document.body.style.overflowY = "scroll";
   //   setShowModal("");
   // }
+
+  const getSinginUpbtnPrimaryClass = (type: "signin" | "signup") => {
+    let authbtnClass = `${styles.authbtn}`;
+    if ((!appConfig.header.signup && type === "signin") || type === "signup") {
+      return `${authbtnClass} ${styles.authactivebtn}`;
+    } else {
+      return authbtnClass;
+    }
+  };
 
   return (
     <div
@@ -60,19 +70,21 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
                 <div className={`${styles.authcontainer}`}>
                   <Link
                     href={"/signin"}
-                    className={`${styles.otherbtns} ${styles.authbtn} ${styles.signinbtn}`}
+                    className={getSinginUpbtnPrimaryClass("signin")}
                   >
-                    signin
+                    sign in
                   </Link>
                 </div>
-                <div className={`${styles.authcontainer}`}>
-                  <Link
-                    href={"/signup"}
-                    className={`${styles.otherbtns} ${styles.authbtn} ${styles.signupbtn}`}
-                  >
-                    signup
-                  </Link>
-                </div>
+                {appConfig.header.signup && (
+                  <div className={`${styles.authcontainer}`}>
+                    <Link
+                      href={"/signup"}
+                      className={getSinginUpbtnPrimaryClass("signup")}
+                    >
+                      sign up
+                    </Link>
+                  </div>
+                )}
               </>
             )}
             {isLoggedin === true && <ProfileMenus />}

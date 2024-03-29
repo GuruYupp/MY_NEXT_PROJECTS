@@ -7,7 +7,7 @@
     "herogotv:beta": "gulp --tenant=herogotv --env=beta && next dev",
     "herogotv:prod": "gulp --tenant=herogotv --env=prod && next dev",
     "timesplay:beta": "gulp --tenant=timesplay --env=beta && next dev",
-    "aggregator:beta": "gulp --tenant=aggregator --env=beta && next dev",
+    
     "timesplay:prod": "gulp --tenant=timesplay --env=prod && next dev",
     "firstshows:prod": "gulp --tenant=firstshows --env=prod && next dev",
     "watcho:prod": "gulp --tenant=watcho --env=prod && next dev",

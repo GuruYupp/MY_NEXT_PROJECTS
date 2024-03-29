@@ -323,7 +323,7 @@ const SignIn = (): JSX.Element => {
                       >
                         <span className={`${styles.countryname}`}>
                           <img
-                            src="https://d3hprka3kr08q2.cloudfront.net/yupptv/yuppflix/countries/india.png"
+                            src="https://yuppstatic.akamaized.net/yupptv/yuppflix/countries/india.png"
                             alt=""
                           />
                           +91

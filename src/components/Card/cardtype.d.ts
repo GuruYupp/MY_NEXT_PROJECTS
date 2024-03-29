@@ -18,10 +18,12 @@ export interface cardPropsInterface {
   handleLikeButton?: (e: SyntheticEvent) => void;
   handleRemoveContinueWatching?: (e: SyntheticEvent) => void;
   setcardImageRef: RefCallback<HTMLDivElement | null>;
+  sectionCode?: string;
 }
 
 export interface RootCardPropsInterface {
   cardDetails: cardInterface;
+  sectionCode?: string;
 }
 
 export interface CardlinkWrapperPropsInterface {

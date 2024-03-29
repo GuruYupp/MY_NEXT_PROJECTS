@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import styles from "../Header.module.scss";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 import Link from "next/link";
 import { subprofileInterface } from "@/shared";
 import { getData, postData } from "@/services/data.manager";
@@ -9,11 +9,21 @@ import {
   updateActiveProfile,
   updateUserDetails,
 } from "@/redux/feature/userSlice/userSlice";
+import { ModalType } from "@/components/modals/modaltypes";
+import { default as clientCookie } from "js-cookie";
+import { createPortal } from "react-dom";
+import Modal from "@/components/modals/Modal";
+import ProfilePin from "@/components/profilepin/ProfilePin";
 export default function ProfileMenus() {
   const { systemFeatures, systemConfigs } = useAppSelector(
     (state) => state.configs,
   );
   const { userDetails, activeProfile } = useAppSelector((state) => state.user);
+  const [showModal, setShowModal] = useState<ModalType>("");
+
+  const [selectedProfile, setSelectedProfile] = useState<subprofileInterface>(
+    {},
+  );
 
   const dispatch = useAppDispatch();
   const { replace } = useRouter();
@@ -44,32 +54,72 @@ export default function ProfileMenus() {
 
   function handleSelectProfile(profile: subprofileInterface) {
     if (profile.isProfileLockActive === true) {
+      setSelectedProfile(profile);
+      document.body.style.overflowY = "hidden";
+      setShowModal("profilepin");
     } else {
       switchSelectedProfile(profile);
     }
   }
 
-  function switchSelectedProfile(profile: subprofileInterface) {
-    postData("/service/api/auth/activate/user/profile", {
+  async function switchSelectedProfile(
+    profile: subprofileInterface,
+    passcode?: string,
+  ) {
+    let payload: any = {
       profileId: profile.profileId,
-    }).then((data) => {
-      if (data.status === true) {
-        getData("/service/api/auth/user/info").then((data) => {
-          if (data.status === true) {
-            localStorage.setItem("userDetails", JSON.stringify(data.response));
-            localStorage.setItem("activeProfile", JSON.stringify(profile));
-            dispatch(updateUserDetails(data.response));
-            dispatch(updateActiveProfile(profile));
-          }
-        });
+    };
+
+    if (passcode) {
+      payload.passCode = passcode;
+    }
+
+    let profileselectResponse = await postData(
+      "/service/api/auth/activate/user/profile",
+      payload,
+    );
+    if (profileselectResponse.status === true) {
+      if (passcode) {
+        document.body.style.overflowY = "scroll";
+        setShowModal("");
       }
-    });
+      let userInfoResponse = await getData("/service/api/auth/user/info");
+      if (userInfoResponse.status === true) {
+        localStorage.setItem(
+          "userDetails",
+          JSON.stringify(userInfoResponse.response),
+        );
+        localStorage.setItem("activeProfile", JSON.stringify(profile));
+        dispatch(updateUserDetails(userInfoResponse.response));
+        dispatch(updateActiveProfile(profile));
+        clientCookie.set(
+          "profileExpiry",
+          (new Date().getTime() + 120 * 60 * 1000).toString(),
+        );
+      }
+    }
   }
 
   function hadleExitProfile() {
     localStorage.setItem("activeProfile", "");
     replace("/profiles/select-user-profile");
   }
+
+  function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
+    const { from, data } = Modaldata;
+    switch (from) {
+      case "profilepin":
+        switchSelectedProfile(selectedProfile, data);
+        break;
+      default:
+        break;
+    }
+  }
+
+  const handlecloseModal = () => {
+    document.body.style.overflowY = "scroll";
+    setShowModal("");
+  };
 
   return (
     <div className={`${styles.profile_box}`}>
@@ -157,6 +207,30 @@ export default function ProfileMenus() {
           </ul>
         )}
       </div>
+      {showModal &&
+        createPortal(
+          <Modal
+            modalType={showModal}
+            render={(modal) => {
+              function getModal() {
+                switch (modal) {
+                  case "profilepin":
+                    return (
+                      <ProfilePin
+                        closeModal={handlecloseModal}
+                        profileData={selectedProfile}
+                        sendDatatoComponent={getDataFromModal}
+                      />
+                    );
+                  default:
+                    return <></>;
+                }
+              }
+              return getModal();
+            }}
+          />,
+          document.body,
+        )}
     </div>
   );
 }

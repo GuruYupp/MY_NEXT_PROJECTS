@@ -2,7 +2,8 @@ import { responseInterface } from "@/shared";
 import { Axios, axiosPost, axiosget } from "@/axios";
 import { default as clientCookie } from "js-cookie";
 import { setupCache } from "axios-cache-interceptor";
-import { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
+import appConfig from "@/app.config";
 
 export async function getData(
   url: string,
@@ -83,4 +84,21 @@ export async function getpageData(
       },
     });
   return response.data;
+}
+
+export async function getSearchapis(url: string, params: any = {}) {
+  let headers = {
+    "session-id": clientCookie.get("sessionId") || "",
+    "tenant-code": clientCookie.get("tenantCode") || "",
+    "box-id": clientCookie.get("boxId") || "",
+  };
+
+  let axiosResponse = await axios({
+    method: "get",
+    baseURL: appConfig.endPoints.search,
+    url,
+    headers,
+    params,
+  });
+  return axiosResponse.data;
 }

@@ -1,12 +1,12 @@
 @import "@/_var.scss";
 .pannel {
   margin-top: 20px;
-  background-color: $secondary-color;
+  background-color: $settings-panel-body-bg-color;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   .title {
     font-size: 18px;
-    background-color: $body-bg-color;
+    background-color: $settings-panel-header-bg-color;
     font-weight: 400;
     margin: 0;
     position: relative;
@@ -16,7 +16,6 @@
     border-radius: 0;
     height: 60px;
     line-height: 60px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     .btn {
       position: absolute;
       right: 6%;

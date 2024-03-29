@@ -36,7 +36,7 @@ function Languages(props: LanguageProps) {
         let lang = { ...language, isSelected: true };
         let toggelcondition =
           isLoggedin && profileData && !profileData.langs?.includes(lang.code);
-        if (toggelcondition === true) {
+        if (toggelcondition === true && profileData?.langs !== "") {
           lang.isSelected = false;
         }
         languages.push(lang);

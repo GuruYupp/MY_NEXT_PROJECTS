@@ -1,11 +1,10 @@
 import { getData, postData } from "@/services/data.manager";
-import { pageState, pageTabInterface, responseInterface } from "@/shared";
 import {
-  PayloadAction,
-  createAsyncThunk,
-  createSlice,
-  current,
-} from "@reduxjs/toolkit";
+  pageStateInterface,
+  pageTabInterface,
+  responseInterface,
+} from "@/shared";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 interface fetchPagedataParams {
   path: string;
@@ -83,7 +82,7 @@ export const removeContinueWatching = createAsyncThunk<string, string>(
   },
 );
 
-const initialState: pageState = {
+const initialState: pageStateInterface = {
   loading: "idle",
   pagination: "idle",
   response: {
@@ -259,6 +258,12 @@ const pageSlice = createSlice({
               }
             });
           });
+          if (state.response.info.pageType === "details") {
+            if (state.response.pageButtons.showFavouriteButton === true) {
+              state.response.pageButtons.isFavourite =
+                !state.response.pageButtons.isFavourite;
+            }
+          }
         }
       })
       .addCase(toogleLike.pending, () => {})

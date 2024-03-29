@@ -21,6 +21,10 @@ $signup-bg-Image:'https://d2ivesio5kogrp.cloudfront.net/static/reeldrama/images/
 $signin-bg-color:#1d1d3e;
 $signin-bg-Image:'https://d2ivesio5kogrp.cloudfront.net/static/reeldrama/images/sign-in-bg.jpg';
 
+//settings
+$settings-panel-header-bg-color:#222148;
+$settings-panel-body-bg-color:#18182f;
+
 @mixin cardsPadding {
   padding: 0px 48px;
   width: 100%;

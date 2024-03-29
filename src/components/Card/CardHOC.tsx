@@ -1,8 +1,4 @@
-import {
-  cardDimentionsForResponsive,
-  getAbsolutPath,
-  debunceFunction,
-} from "@/utils";
+import { cardDimentionsForResponsive, debunceFunction } from "@/utils";
 import {
   ComponentType,
   MutableRefObject,
@@ -16,7 +12,6 @@ import {
 import { templateType } from "@/shared";
 import Modal from "../modals/Modal";
 import { createPortal } from "react-dom";
-import getfromcarddata, { getcardMarker } from "./getfromcarddata";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
   removeContinueWatching,
@@ -28,43 +23,19 @@ import { RootCardPropsInterface, cardPropsInterface } from "./cardtype";
 import CardLinkWrapper from "./CardLinkWrapper";
 import { dispayInterface as genericpopupdispayInterface } from "../Genericmodal/genericmodaltype";
 import GenericModal from "../Genericmodal/GenericModal";
+import useGetCardProps from "./useCardProps";
 
 function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
   function CardWrapper(props: RootCardPropsInterface) {
-    const { cardType, display, target, template } = props.cardDetails;
+    const { cardDetails, sectionCode } = props;
+    const { cardType, target, template } = cardDetails;
 
-    const { cardDetails } = props;
+    const cardDisplaydetails = useGetCardProps(props);
+    const { isFavorite } = cardDisplaydetails;
 
     const { isLoggedin } = useAppSelector((state) => state.user);
 
     const imageRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
-
-    const cardImage = getAbsolutPath(cardDetails.display.imageUrl);
-    const partnerIcon =
-      cardDetails.display.partnerIcon &&
-      getAbsolutPath(cardDetails.display.partnerIcon);
-    const parentIcon =
-      cardDetails.display.parentIcon &&
-      getAbsolutPath(cardDetails.display.parentIcon);
-
-    const showButton = getfromcarddata(props.cardDetails, "showButton");
-    const buttonText = getfromcarddata(props.cardDetails, "ButtonText");
-
-    const showFavoriteButton = getfromcarddata(
-      props.cardDetails,
-      "showFavouriteButton",
-    );
-    const isFavorite = getfromcarddata(props.cardDetails, "isFavourite");
-
-    const showShareButton = getfromcarddata(
-      props.cardDetails,
-      "showShareButton",
-    );
-
-    const seekMarker = getcardMarker(props.cardDetails, "seek");
-
-    const leftOverTimeMarker = getcardMarker(props.cardDetails, "leftOverTime");
-
     const [showModal, setShowModal] = useState<ModalType>("");
     const [templateCode, setTemplateCode] = useState<templateType>("");
     const [genericPopUpData, setGenericPopUpData] =
@@ -149,19 +120,11 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
     };
 
     let allcardProps: cardPropsInterface = {
+      ...cardDisplaydetails,
       setcardImageRef,
       handleRemoveContinueWatching,
       handleLikeButton,
-      leftOverTimeMarker,
-      seekMarker,
-      display,
-      cardImage,
-      parentIcon,
-      partnerIcon,
-      showButton,
-      showFavoriteButton,
-      showShareButton,
-      buttonText,
+      sectionCode,
     };
 
     return (

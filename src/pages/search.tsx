@@ -3,11 +3,13 @@ import { seoInterface } from "@/shared";
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
 import GenericLayout from "@/layouts/GenericLayout";
-import Searchv3 from "@/components/Searchv3/search";
-import Searchv1 from "@/components/Searchv1/search";
 import { ContentPageWrapper } from "@/layouts/DynamicLayout";
 import appConfig from "@/app.config";
+import { Suspense, lazy } from "react";
 // import Layout from "@/layouts/Layout";
+
+const Searchv3 = lazy(() => import("@/components/Searchv3/search"));
+const Searchv1 = lazy(() => import("@/components/Searchv1/search"));
 
 export default function SearchPage({ seodata }: { seodata: seoInterface }) {
   return (
@@ -16,7 +18,15 @@ export default function SearchPage({ seodata }: { seodata: seoInterface }) {
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
         <GenericLayout>
           <ContentPageWrapper>
-            {appConfig.search.apiversion === "v3" ? <Searchv3 /> : <Searchv1 />}
+            {appConfig.search.apiversion === "v3" ? (
+              <Suspense>
+                <Searchv3 />
+              </Suspense>
+            ) : (
+              <Suspense>
+                <Searchv1 />
+              </Suspense>
+            )}
           </ContentPageWrapper>
         </GenericLayout>
       </ErrorBoundary>
