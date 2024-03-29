@@ -8,6 +8,7 @@ import {
 } from "./otpverifytypes";
 import { postData } from "@/services/data.manager";
 import appConfig from "@/app.config";
+import GenericInput from "../shared/GenericInput/GenericInput";
 
 const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
   const {
@@ -17,7 +18,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
     backgroundnone = false,
   } = props;
 
-  const { register, formState, handleSubmit } = useForm<OtpVerifyFormType>();
+  const { handleSubmit, control } = useForm<OtpVerifyFormType>();
 
   const msgToken = useRef<ReturnType<typeof setTimeout>>();
   const [errormsg, setErrormsg] = useState<string>("");
@@ -50,7 +51,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
       verifyOtp({
         context: verifydata.context,
         otp: Number(otp),
-        mobile: verifydata.number,
+        mobile: verifydata.mobile,
       });
     } else if (verifydata.context === "update_email") {
       verifyOtp({
@@ -146,7 +147,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
         if (verifydata.verification === "email") {
           payload = { ...payload, email: verifydata.email };
         } else if (verifydata.verification === "mobile") {
-          payload = { ...payload, mobile: verifydata.number };
+          payload = { ...payload, mobile: verifydata.mobile };
         }
         url = "/service/api/auth/get/otp";
       }
@@ -158,7 +159,7 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
       }
       if (verifydata.context === "update_mobile") {
         payload = {
-          mobile: verifydata.number,
+          mobile: verifydata.mobile,
         };
         url = "service/api/auth/update/mobile";
       }
@@ -205,50 +206,47 @@ const OtpVerify: FC<OtpVerifyPropsInterface> = (props) => {
           <p className={`${styles.title}`}>Enter One Time Passcode</p>
           <p className={`${styles.subtitle}`}>{verifydata.message}</p>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <label>
-              <div className={`${styles.input_container}`}>
-                <input
-                  className={`${styles.input}`}
-                  placeholder="OTP"
-                  {...register("otp", { required: "OTP required" })}
-                  type="number"
-                />
-                {formState.errors.otp && (
-                  <p className={`${styles.input_error_msg}`}>
-                    {formState.errors.otp?.message}
-                  </p>
-                )}
-                {otpText === "Resend OTP" && (
-                  <p className={`${styles.resend}`} onClick={handleResend}>
-                    resend otp
-                  </p>
-                )}
-                {otpText !== "Resend OTP" && (
-                  <p className={`${styles.resend} ${styles.timer}`}>
-                    {otpText}
-                  </p>
-                )}
-              </div>
-            </label>
+            <div className={`${styles.input_wrapper}`}>
+              <GenericInput
+                control={control}
+                placeholder="OTP"
+                type="text"
+                name="otp"
+                rules={{
+                  required: "This Field required",
+                  validate: (value) => {
+                    if (value.length < 4) {
+                      return "Please Enter a valid OTP";
+                    }
+                  },
+                }}
+                shouldUnregister={true}
+              />
+              {errormsg && (
+                <p className={`${styles.input_error_msg}`}>{errormsg}</p>
+              )}
+              {otpText === "Resend OTP" && (
+                <p className={`${styles.resend}`} onClick={handleResend}>
+                  resend otp
+                </p>
+              )}
+              {otpText !== "Resend OTP" && (
+                <p className={`${styles.resend} ${styles.timer}`}>{otpText}</p>
+              )}
+            </div>
 
-            <label>
-              <div
-                className={`${styles.input_container} ${styles.submit_input_container}`}
-              >
-                <input
-                  type="submit"
-                  className={`${styles.verify_btn}`}
-                  value="Verify"
-                />
-                {errormsg && (
-                  <p className={`${styles.input_error_msg}`}>{errormsg}</p>
-                )}
-
-                {successmsg && (
-                  <p className={`${styles.input_success_msg}`}>{successmsg}</p>
-                )}
-              </div>
-            </label>
+            <div className={`${styles.input_wrapper}`}>
+              <GenericInput
+                control={control}
+                placeholder="OTP"
+                type="submit"
+                name="submit"
+                defaultValue="verify"
+              />
+              {successmsg && (
+                <p className={`${styles.input_success_msg}`}>{successmsg}</p>
+              )}
+            </div>
 
             {verifydata.email &&
               (verifydata.context === "signin" ||

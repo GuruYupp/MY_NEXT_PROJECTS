@@ -1,7 +1,7 @@
 import { ModalType } from "../modals/modaltypes";
 
 export type OtpVerifyFormType = {
-  otp: number;
+  otp: string;
 };
 
 export type OtpVerifydataType = {
@@ -10,7 +10,7 @@ export type OtpVerifydataType = {
   verification: "" | "email" | "mobile";
   message?: string;
   email?: string;
-  number?: string;
+  mobile?: string;
   new_identifier?: string;
 };
 

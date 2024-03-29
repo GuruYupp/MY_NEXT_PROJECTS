@@ -36,9 +36,9 @@ const appConfig = {
     emailPhoneToggle: true,
   },
   signup: {
-    firstName: true,
-    lastName: true,
-    confirmPassword: false,
+    firstName: false,
+    lastName: false,
+    confirmPassword: true,
     age: true,
     gender: true,
   },

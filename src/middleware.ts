@@ -20,10 +20,13 @@ export function middleware(request: NextRequest) {
       let notallowedPaths =
         request.nextUrl.pathname.startsWith("/signin") ||
         request.nextUrl.pathname.startsWith("/signup") ||
-        request.nextUrl.pathname.startsWith("/forgotpassword");
+        request.nextUrl.pathname.startsWith("/forgot-password");
       let profileExpiry = request.cookies.get("profileExpiry");
 
       if (notallowedPaths) {
+        return NextResponse.redirect(new URL("/", request.url));
+      }
+      if (request.nextUrl.pathname.includes("/profiles") && !hasuserprofiles) {
         return NextResponse.redirect(new URL("/", request.url));
       }
       if (

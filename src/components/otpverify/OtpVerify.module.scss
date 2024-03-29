@@ -8,8 +8,7 @@
   align-items: center;
 
   &.showbackground {
-    background: url(https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sign-in-bg.jpg)
-      no-repeat 50% fixed;
+    background: url($signin-bg-Image) no-repeat 50% fixed;
     background-size: cover;
     -webkit-background-size: cover;
   }
@@ -29,7 +28,7 @@
 
     .otp_container_inner {
       padding: 65px 40px;
-      background-color: #262626;
+      background-color: $signin-bg-color;
       position: relative;
 
       .title {
@@ -94,78 +93,8 @@
       }
 
       form {
-        .input_container {
-          display: flex;
-          border: 1px solid #52525c;
-          margin-bottom: 40px;
+        .input_wrapper {
           position: relative;
-
-          &.submit_input_container {
-            border: none;
-            margin-top: 140px;
-
-            .input_error_msg,
-            .input_success_msg {
-              position: absolute;
-              top: -70px;
-              left: 50%;
-              transform: translateX(-50%);
-              color: #f93822;
-              font-size: 12px;
-              bottom: initial;
-              width: 100%;
-              text-align: center;
-            }
-
-            .input_success_msg {
-              color: green;
-            }
-          }
-
-          .input {
-            background: none;
-            border: none;
-            color: #fff;
-            padding: 0 16px;
-            width: 100%;
-            font-size: 15px !important;
-            height: 48px;
-            line-height: 48px;
-
-            &.email_input {
-              width: 100%;
-            }
-
-            &.number_input {
-              width: 75%;
-              border-left: 1px solid #52525c;
-            }
-
-            /* Chrome, Safari, Edge, Opera */
-            &::-webkit-outer-spin-button,
-            &::-webkit-inner-spin-button {
-              -webkit-appearance: none;
-              margin: 0;
-            }
-
-            /* Firefox */
-            &[type="number"] {
-              -moz-appearance: textfield;
-              appearance: textfield;
-            }
-
-            &:focus {
-              outline: none;
-            }
-          }
-
-          .input_error_msg {
-            position: absolute;
-            bottom: -20px;
-            color: #f93822;
-            font-size: 12px;
-          }
-
           .resend {
             text-align: right;
             color: $primary-color;
@@ -180,29 +109,132 @@
               text-transform: capitalize;
             }
           }
-
-          .verify_btn {
-            background-color: $primary-color;
-            color: #000;
-            height: 44px;
-            line-height: 44px;
-            text-transform: none;
+          .input_error_msg,
+          .input_success_msg {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #f93822;
+            font-size: 12px;
+            bottom: initial;
             width: 100%;
-            font-size: 18px;
-            border-radius: 3px;
-            outline: none;
-            border: none;
-            cursor: pointer;
+            text-align: center;
+          }
 
-            @include breakpoint(mac) {
-              font-size: 16px;
-            }
-
-            @include breakpoint(laptop) {
-              font-size: 14px;
-            }
+          .input_success_msg {
+            color: green;
           }
         }
+        // .input_container {
+        //   display: flex;
+        //   border: 1px solid #52525c;
+        //   margin-bottom: 40px;
+        //   position: relative;
+
+        //   &.submit_input_container {
+        //     border: none;
+        //     margin-top: 140px;
+
+        //     .input_error_msg,
+        //     .input_success_msg {
+        //       position: absolute;
+        //       top: -70px;
+        //       left: 50%;
+        //       transform: translateX(-50%);
+        //       color: #f93822;
+        //       font-size: 12px;
+        //       bottom: initial;
+        //       width: 100%;
+        //       text-align: center;
+        //     }
+
+        //     .input_success_msg {
+        //       color: green;
+        //     }
+        //   }
+
+        //   .input {
+        //     background: none;
+        //     border: none;
+        //     color: #fff;
+        //     padding: 0 16px;
+        //     width: 100%;
+        //     font-size: 15px !important;
+        //     height: 48px;
+        //     line-height: 48px;
+
+        //     &.email_input {
+        //       width: 100%;
+        //     }
+
+        //     &.number_input {
+        //       width: 75%;
+        //       border-left: 1px solid #52525c;
+        //     }
+
+        //     /* Chrome, Safari, Edge, Opera */
+        //     &::-webkit-outer-spin-button,
+        //     &::-webkit-inner-spin-button {
+        //       -webkit-appearance: none;
+        //       margin: 0;
+        //     }
+
+        //     /* Firefox */
+        //     &[type="number"] {
+        //       -moz-appearance: textfield;
+        //       appearance: textfield;
+        //     }
+
+        //     &:focus {
+        //       outline: none;
+        //     }
+        //   }
+
+        //   .input_error_msg {
+        //     position: absolute;
+        //     bottom: -20px;
+        //     color: #f93822;
+        //     font-size: 12px;
+        //   }
+
+        //   .resend {
+        //     text-align: right;
+        //     color: $primary-color;
+        //     font-size: 14px;
+        //     text-transform: uppercase;
+        //     position: absolute;
+        //     bottom: -40px;
+        //     width: 100%;
+
+        //     &.timer {
+        //       color: #52525c;
+        //       text-transform: capitalize;
+        //     }
+        //   }
+
+        //   .verify_btn {
+        //     background-color: $primary-color;
+        //     color: #fff;
+        //     height: 44px;
+        //     line-height: 44px;
+        //     text-transform: none;
+        //     width: 100%;
+        //     font-size: 18px;
+        //     border-radius: 3px;
+        //     outline: none;
+        //     border: none;
+        //     cursor: pointer;
+
+        //     @include breakpoint(mac) {
+        //       font-size: 16px;
+        //     }
+
+        //     @include breakpoint(laptop) {
+        //       font-size: 14px;
+        //     }
+        //   }
+        // }
 
         .change_text {
           color: #909090;

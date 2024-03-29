@@ -13,6 +13,13 @@ $banner-btn-color: #fff;
 
 $body-bg-color: #0f0f1c;
 
+//signup
+$signup-bg-color:#1d1d3e;
+$signup-bg-Image:'https://d2ivesio5kogrp.cloudfront.net/static/reeldrama/images/sign-in-bg.jpg';
+
+//signin
+$signin-bg-color:#1d1d3e;
+$signin-bg-Image:'https://d2ivesio5kogrp.cloudfront.net/static/reeldrama/images/sign-in-bg.jpg';
 
 @mixin cardsPadding {
   padding: 0px 48px;

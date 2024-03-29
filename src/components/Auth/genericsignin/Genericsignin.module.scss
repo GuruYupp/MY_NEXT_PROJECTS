@@ -3,8 +3,7 @@
   width: 100%;
   min-height: 100vh;
   margin: 0 auto;
-  background: url(https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/sign-in-bg.jpg)
-    no-repeat 50% fixed;
+  background: url($signin-bg-Image) no-repeat 50% fixed;
   background-size: cover;
   -webkit-background-size: cover;
   position: absolute;
@@ -36,7 +35,8 @@
     height: fit-content;
     width: 480px;
     margin: 80px auto 30px;
-    background-color: $secondary-color;
+    background-color: $signin-bg-color;
+
     @include breakpoint(mac) {
       width: 450px;
     }
@@ -196,7 +196,7 @@
         display: flex;
         align-items: center;
         hr {
-          background-color: #898b95;
+          background-color: $signin-bg-color;
           vertical-align: middle;
           width: 100%;
           border-width: 0px;
@@ -248,7 +248,7 @@
         display: flex;
         align-items: center;
         hr {
-          background-color: #898b95;
+          background-color: $signin-bg-color;
           vertical-align: middle;
           width: 100%;
           border-width: 0px;

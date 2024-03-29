@@ -2,15 +2,10 @@ import styles from "./Header.module.scss";
 import { menuInterface } from "@/shared";
 import Menus from "./menus/Menus";
 import Link from "next/link";
-// import getConfig from "next/config";
 import appConfig from "@/app.config";
 import { useAppSelector } from "@/redux/hooks";
 import { memo } from "react";
-// import { createPortal } from "react-dom";
-// import Modal from "../modals/Modal";
-// import {ModalType } from "../modals/modaltypes";
 import ProfileMenus from "./profileMenus/ProfileMenus";
-// let appConfig = getConfig().publicRuntimeConfig.appconfig;
 interface props {
   menus: menuInterface[];
   headerGradient: boolean;

@@ -1,33 +1,39 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./Genericsignup.module.scss";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import ConutryCode from "@/components/countrycode/countrycode";
 import { SubmitHandler, useForm } from "react-hook-form";
 // import { DevTool } from "@hookform/devtools";
 import appConfig from "@/app.config";
 import { SingnupFormType } from "./genericsignuptypes";
-import SignupInput, { DateInput, RadioInput } from "./Signupinput";
+import { DateInput, RadioInput } from "./Signupinput";
 import SocialLogins from "@/components/socialLogins/socialLogins";
 import Link from "next/link";
-import { postData } from "@/services/data.manager";
+import { getData, postData } from "@/services/data.manager";
 import { useRouter } from "next/router";
-import { setLoggedin } from "@/redux/feature/userSlice/userSlice";
+import {
+  setActivepackages,
+  setActiveprofile,
+  setLoggedin,
+} from "@/redux/feature/userSlice/userSlice";
 import { createPortal } from "react-dom";
 import OtpVerify from "@/components/otpverify/OtpVerify";
 import { OtpVerifydataType } from "@/components/otpverify/otpverifytypes";
-import { responseInterface } from "@/shared";
+import { default as clientCookie } from "js-cookie";
 import { ModalType } from "@/components/modals/modaltypes";
 import Modal from "@/components/modals/Modal";
 import { DevTool } from "@hookform/devtools";
+import GenericInput from "@/components/shared/GenericInput/GenericInput";
 
 const GenericSignup: FC = () => {
   const { sociallogin, userfields, encryptApisList, userprofiles } =
     useAppSelector((state) => state.configs.systemFeatures);
 
-  const { control, formState, setValue, handleSubmit } =
-    useForm<SingnupFormType>({
-      mode: "onChange",
-    });
+  const { systemConfigs } = useAppSelector((state) => state.configs);
+  let showPackages = systemConfigs?.configs?.showPackages || "";
+
+  const { control, setValue, handleSubmit } = useForm<SingnupFormType>({
+    mode: "onChange",
+  });
 
   const [errormsg, setErrormsg] = useState<string>("");
   const [showModal, setShowModal] = useState<ModalType>("");
@@ -51,9 +57,9 @@ const GenericSignup: FC = () => {
   }, []);
 
   const onSubmit: SubmitHandler<SingnupFormType> = async (formData) => {
-    const { number, firstName, lastName, email, password, dob, gender } =
+    const { mobile, firstName, lastName, email, password, dob, gender } =
       formData;
-    let apiPayload = {
+    let apiPayload: any = {
       // eslint-disable-next-line camelcase
       additional_params: {},
       // eslint-disable-next-line camelcase
@@ -68,14 +74,16 @@ const GenericSignup: FC = () => {
       referral_id: "",
       // eslint-disable-next-line camelcase
       referral_type: "",
-      // eslint-disable-next-line camelcase
-      first_name: firstName,
-      // eslint-disable-next-line camelcase
-      last_name: lastName,
       email: email,
-      mobile: `91-${number}`,
+      mobile: `91-${mobile}`,
       password: password,
     };
+    if (firstName) {
+      apiPayload["first_name"] = firstName;
+    }
+    if (lastName) {
+      apiPayload["last_name"] = lastName;
+    }
     if (dob) {
       apiPayload["additional_params"] = {
         ...apiPayload.additional_params,
@@ -113,6 +121,17 @@ const GenericSignup: FC = () => {
     } else if (signupresponse.status === true) {
       if (signupresponse.response.actionCode === 1) {
         // user not register until OTP verification for mobile
+        let mobile = signupresponse.response.details.mobile || "";
+        let referenceKey = signupresponse.response.details.referenceKey || "";
+        setShowModal("otpverify");
+        setOtpprops({
+          context: "signup",
+          // eslint-disable-next-line camelcase
+          reference_key: referenceKey,
+          message: `One Time Passcode (OTP) has been sent to your email ******${mobile.substring(5)}`,
+          verification: "email",
+          mobile,
+        });
       } else if (signupresponse.response.actionCode === 3) {
         // user will register but OTP is not verified for email
         document.body.style.overflowY = "hidden";
@@ -130,33 +149,42 @@ const GenericSignup: FC = () => {
       } else if (signupresponse.response.actionCode === 17) {
         // to handle token already registered to some other user
       } else {
-        setuserLoggedin(signupresponse);
+        await setuserLoggedin();
       }
     }
   };
 
-  const setuserLoggedin = (signupresponse: responseInterface) => {
+  const setuserLoggedin = async () => {
     localStorage.setItem("isLoggedin", "true");
-    if (signupresponse.response?.userDetails) {
-      localStorage.setItem(
-        "userDetails",
-        JSON.stringify(signupresponse.response?.userDetails),
+    clientCookie.set("isLoggedin", "true");
+    if (showPackages === "true") {
+      const userPackages = await getData(
+        "service/api/auth/user/activepackages",
       );
-    }
-    dispatch(setLoggedin());
-    if (userprofiles?.fields?.is_userprofiles_supported === "true") {
-      let MatserProfile =
-        signupresponse.response?.userDetails?.profileParentalDetails?.[0];
-      if (
-        appConfig.authMobilePattern.test(MatserProfile?.name || "") ||
-        MatserProfile?.name === ""
-      ) {
-        router.replace("/add-profile-name");
-      } else {
-        router.replace("/profiles/select-user-profile");
+      if (userPackages.status === true) {
+        localStorage.setItem(
+          "activePackages",
+          JSON.stringify(userPackages.response),
+        );
+        dispatch(setActivepackages());
       }
-    } else {
-      router.replace("/");
+    }
+    const userInfo = await getData("/service/api/auth/user/info");
+    if (userInfo.status === true) {
+      localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
+      dispatch(setLoggedin());
+      if (userprofiles?.fields?.is_userprofiles_supported === "true") {
+        clientCookie.set("hasuserprofiles", "true");
+        router.replace("/profiles/select-user-profile");
+      } else {
+        localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
+        localStorage.setItem(
+          "activeProfile",
+          JSON.stringify(userInfo.response),
+        );
+        dispatch(setActiveprofile());
+        router.replace("/");
+      }
     }
   };
 
@@ -164,7 +192,7 @@ const GenericSignup: FC = () => {
     const { from, data } = Modaldata;
     switch (from) {
       case "otpverify":
-        setuserLoggedin(data);
+        setuserLoggedin();
         break;
       default:
         break;
@@ -193,146 +221,106 @@ const GenericSignup: FC = () => {
           </div>
           <div className={`${styles.inner_middle}`}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <label>
-                <div className={`${styles.input_container}`}>
-                  <SignupInput
-                    name="firstName"
-                    rules={{
-                      required: "This is required",
-                    }}
-                    shouldUnregister={true}
-                    control={control}
-                    defaultValue=""
-                  />
-                  {formState.errors.firstName && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {formState.errors.firstName?.message}
-                    </p>
-                  )}
-                </div>
-              </label>
+              {appConfig.signup.firstName && (
+                <GenericInput
+                  control={control}
+                  rules={{
+                    required: "This is required",
+                  }}
+                  name="firstName"
+                  shouldUnregister={true}
+                  defaultValue=""
+                  type="text"
+                  placeholder="First Name"
+                />
+              )}
 
-              <label>
-                <div className={`${styles.input_container}`}>
-                  <SignupInput
-                    name="lastName"
-                    rules={{
-                      required: "This is required",
-                    }}
-                    shouldUnregister={true}
-                    control={control}
-                    defaultValue=""
-                  />
-                  {formState.errors.lastName && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {formState.errors.lastName?.message}
-                    </p>
-                  )}
-                </div>
-              </label>
+              {appConfig.signup.lastName && (
+                <GenericInput
+                  control={control}
+                  rules={{
+                    required: "This is required",
+                  }}
+                  name="lastName"
+                  shouldUnregister={true}
+                  defaultValue=""
+                  type="text"
+                  placeholder="Last Name"
+                />
+              )}
 
-              <label>
-                <div className={`${styles.input_container}`}>
-                  <SignupInput
-                    name="email"
-                    rules={{
-                      required: "This is required",
-                      validate: (value, _formvalues) => {
-                        if (!appConfig.authEmailPattern.test(value)) {
-                          return "Enter a valid email address";
-                        }
-                      },
-                    }}
-                    shouldUnregister={true}
-                    control={control}
-                    defaultValue=""
-                  />
-                  {formState.errors.email && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {formState.errors.email?.message}
-                    </p>
-                  )}
-                </div>
-              </label>
+              <GenericInput
+                control={control}
+                rules={{
+                  required: "Email id required",
+                  validate: (value, _formvalues) => {
+                    if (!appConfig.authEmailPattern.test(value)) {
+                      return "Enter a valid email address";
+                    }
+                  },
+                }}
+                name="email"
+                shouldUnregister={true}
+                defaultValue=""
+                type="text"
+                placeholder="Email Address"
+              />
 
-              <label>
-                <div className={`${styles.input_container}`}>
-                  <div className={`${styles.country_code_container}`}>
-                    <ConutryCode />
-                  </div>
-                  <SignupInput
-                    name="number"
-                    rules={{
-                      required: "Mobile Number Required",
-                      validate: (value, _formvalues) => {
-                        if (!appConfig.authMobilePattern.test(value)) {
-                          return "Invalid Mobile Number";
-                        }
-                      },
-                    }}
-                    shouldUnregister={true}
-                    control={control}
-                    defaultValue=""
-                  />
-                  {formState.errors.number && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {formState.errors.number?.message}
-                    </p>
-                  )}
-                </div>
-              </label>
+              <GenericInput
+                control={control}
+                rules={{
+                  required: "Mobile Number Required",
+                  validate: (value, _formvalues) => {
+                    if (!appConfig.authMobilePattern.test(value)) {
+                      return "Invalid Mobile Number";
+                    }
+                  },
+                }}
+                name="mobile"
+                shouldUnregister={true}
+                showCountrycode={true}
+                defaultValue=""
+                type="text"
+                placeholder="Mobile Number"
+              />
 
-              <label>
-                <div className={`${styles.input_container}`}>
-                  <SignupInput
-                    name="password"
-                    rules={{
-                      required: "This is required",
-                      validate: (value, _formvalues) => {
-                        if (value.length < 4 || value.length > 15) {
-                          return "Password length should be 4-15 Charecters";
-                        }
-                      },
-                    }}
-                    shouldUnregister={true}
-                    control={control}
-                    defaultValue=""
-                  />
-                  {formState.errors.password && (
-                    <p className={`${styles.input_error_msg}`}>
-                      {formState.errors.password?.message}
-                    </p>
-                  )}
-                </div>
-              </label>
+              <GenericInput
+                control={control}
+                rules={{
+                  required: "This is required",
+                  validate: (value, _formvalues) => {
+                    if (value.length < 4 || value.length > 15) {
+                      return "Password length should be 4-15 Charecters";
+                    }
+                  },
+                }}
+                name="password"
+                shouldUnregister={true}
+                defaultValue=""
+                type="text"
+                placeholder="Password"
+              />
 
               {appConfig.signup.confirmPassword && (
-                <label>
-                  <div className={`${styles.input_container}`}>
-                    <SignupInput
-                      name="confirmpassword"
-                      rules={{
-                        required: "This is required",
-                        validate: (value, formvalues) => {
-                          if (formvalues.password !== value) {
-                            return "Passwords are mismatched";
-                          }
-                          if (value.length < 4 || value.length > 15) {
-                            return "Password length should be 4-15 Charecters";
-                          }
-                        },
-                      }}
-                      shouldUnregister={true}
-                      control={control}
-                      defaultValue=""
-                    />
-                    {formState.errors.confirmpassword && (
-                      <p className={`${styles.input_error_msg}`}>
-                        {formState.errors.confirmpassword?.message}
-                      </p>
-                    )}
-                  </div>
-                </label>
+                <GenericInput
+                  control={control}
+                  rules={{
+                    required: "This is required",
+                    validate: (value, formvalues) => {
+                      if (formvalues.password !== value) {
+                        return "Passwords are mismatched";
+                      }
+                      if (value.length < 4 || value.length > 15) {
+                        return "Password length should be 4-15 Charecters";
+                      }
+                    },
+                  }}
+                  name="confirmpassword"
+                  shouldUnregister={true}
+                  defaultValue=""
+                  type="text"
+                  placeholder="Confirm Password"
+                />
               )}
 
               {appConfig.signup.age && userfields?.fields?.age === "1" && (
@@ -387,7 +375,13 @@ const GenericSignup: FC = () => {
           </div>
           <div className={`${styles.inner_bottom}`}>
             {Object.keys(sociallogin?.fields || {}).length > 0 && (
-              <SocialLogins />
+              <>
+                <div className={`${styles.or_div}`}>
+                  <hr />
+                  <span className={`${styles.or_text}`}>OR</span>
+                </div>
+                <SocialLogins />
+              </>
             )}
 
             <p className={`${styles.terms_policy}`}>

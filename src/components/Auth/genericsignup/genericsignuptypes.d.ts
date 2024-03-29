@@ -1,7 +1,7 @@
 export type SingnupFormType = {
   password: string;
   email: string;
-  number: string;
+  mobile: string;
   firstName: string;
   lastName: string;
   confirmpassword: string;

@@ -36,11 +36,11 @@ const appConfig = {
     emailPhoneToggle: true,
   },
   signup: {
-    firstName: true,
-    lastName: true,
-    confirmPassword: false,
-    age: true,
-    gender: true,
+    firstName: false,
+    lastName: false,
+    confirmPassword: true,
+    age: false,
+    gender: false,
   },
   profile: {
     type: "password",

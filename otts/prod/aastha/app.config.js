@@ -33,11 +33,11 @@ const appConfig = {
     emailPhoneToggle: true,
   },
   signup: {
-    firstName: true,
-    lastName: true,
+    firstName: false,
+    lastName: false,
     confirmPassword: false,
-    age: true,
-    gender: true,
+    age: false,
+    gender: false,
   },
   profile: {
     type: "password",
