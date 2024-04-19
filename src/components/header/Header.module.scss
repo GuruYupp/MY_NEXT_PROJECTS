@@ -402,7 +402,9 @@
       display: inline-block;
       margin: 0 !important;
       padding: 15.5px 20px;
-
+      @include breakpoint(tablet) {
+        padding: 11px 14px;
+      }
       &.active {
         border-bottom: 2px solid $primary-color;
         color: #fff;
@@ -422,12 +424,18 @@
       opacity: 0.4;
       text-transform: capitalize;
       display: inline-block;
+
+      @include breakpoint(tablet) {
+        font-size: 14px;
+        opacity: 1;
+      }
     }
 
     /* Firefox */
     &.hasGradient {
       width: 100%;
-      background: linear-gradient(180deg, #141414, hsla(0, 0%, 8%, 0));
+      background: linear-gradient(180deg, #141414 0, hsla(0, 0%, 8%, 0));
+      position: relative;
       &::after {
         content: "";
         // background-image: linear-gradient(

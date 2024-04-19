@@ -2,7 +2,7 @@ import { createPortal } from "react-dom";
 import { memo, useState } from "react";
 import Modal from "@/components/modals/Modal";
 import { ModalType } from "@/components/modals/modaltypes";
-import styles from "./Header.module.scss";
+import styles from "../Header.module.scss";
 import appConfig from "@/app.config";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import {
@@ -10,8 +10,8 @@ import {
   updateUserProperty,
 } from "@/redux/feature/userSlice/userSlice";
 import { postData } from "@/services/data.manager";
-import Languages from "../languages/Languages";
-import NetworkFilters from "../NetworkFilters/NetworFilters";
+import Languages from "@/components/languages/Languages";
+import NetworkFilters from "@/components/NetworkFilters/NetworFilters";
 import Link from "next/link";
 
 function HeaderTop(): JSX.Element {

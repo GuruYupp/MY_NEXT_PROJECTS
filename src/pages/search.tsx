@@ -17,17 +17,17 @@ export default function SearchPage({ seodata }: { seodata: seoInterface }) {
       {<Seodata seodata={seodata} />}
       <ErrorBoundary fallback={<p>Something went Wrong ❌❌</p>}>
         <GenericLayout>
-          <ContentPageWrapper>
-            {appConfig.search.apiversion === "v3" ? (
-              <Suspense>
-                <Searchv3 />
-              </Suspense>
-            ) : (
-              <Suspense>
-                <Searchv1 />
-              </Suspense>
-            )}
-          </ContentPageWrapper>
+          {/* <ContentPageWrapper> */}
+          {appConfig.search.apiversion === "v3" ? (
+            <Suspense>
+              <Searchv3 />
+            </Suspense>
+          ) : (
+            <Suspense>
+              <Searchv1 />
+            </Suspense>
+          )}
+          {/* </ContentPageWrapper> */}
         </GenericLayout>
       </ErrorBoundary>
     </>

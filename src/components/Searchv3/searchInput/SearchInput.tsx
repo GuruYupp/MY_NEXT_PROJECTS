@@ -54,12 +54,14 @@ const SearchInput: FC = () => {
   return (
     <div className={styles.searhwrapper}>
       <div className={styles.searchContainer}>
-        <img
-          src={`${appConfig.cloudpath}/images/search-icon.svg`}
-          width={22}
-          height={18}
-          alt="logo"
-        />
+        <div className={`${styles.search_icon}`}>
+          <img
+            src={`${appConfig.cloudpath}/images/search-icon.svg`}
+            width={22}
+            height={18}
+            alt="logo"
+          />
+        </div>
         <form onSubmit={handleSubmit}>
           <input
             type="text"

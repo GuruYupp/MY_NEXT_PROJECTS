@@ -2,9 +2,31 @@
 .searhwrapper {
   padding: 0px 60px;
   padding-top: 30px;
+  @include breakpoint(mobile) {
+    padding: 0px 20px;
+    padding-top: 20px;
+  }
   .searchContainer {
     display: flex;
     align-items: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+
+    @include breakpoint(mobile) {
+      border: 1px solid #333;
+      padding: 0px;
+    }
+
+    .search_icon {
+      display: inline-block;
+      img {
+        @include breakpoint(mobile) {
+          width: 18px;
+          vertical-align: middle;
+          margin-left: 10px;
+        }
+      }
+    }
     form {
       width: 100%;
     }
@@ -26,16 +48,16 @@
         top: 40px;
       }
       @include breakpoint(mobile) {
-        width: calc(100% - 40px);
-        font-size: 15px;
-        position: inherit;
-        padding-left: 44px;
+        // width: calc(100% - 40px);
+        // font-size: 15px;
+        // position: inherit;
+        // padding-left: 44px;
+        // height: 42px;
+        // line-height: 42px;
         height: 42px;
         line-height: 42px;
       }
     }
-    border-bottom: 1px solid #333;
-    padding-bottom: 10px;
 
     .crossbtn {
       position: relative;

@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import styles from "../Header.module.scss";
+import styles from "../../Header.module.scss";
 import { SyntheticEvent, useState } from "react";
 import Link from "next/link";
 import { subprofileInterface } from "@/shared";

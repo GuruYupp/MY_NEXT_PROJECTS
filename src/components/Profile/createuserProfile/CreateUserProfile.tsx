@@ -12,6 +12,8 @@ import Toast from "@/components/toasts/Toast";
 import { ModalType } from "@/components/modals/modaltypes";
 import { emojiInterface } from "@/components/emojis/emojitypes";
 import appConfig from "@/app.config";
+import { useAppSelector } from "@/redux/hooks";
+import ProfilePin from "@/components/profilepin/ProfilePin";
 interface CreateUserProfileForm {
   name: string;
   isChildren: boolean;
@@ -23,7 +25,13 @@ export default function CreateUserProfile() {
   const [profileImg, setprofileImg] = useState<string>(defaultprofileimg);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastmsg, setToastMsg] = useState<string>("");
+  const [pinerrmsg, setPinerrmsg] = useState<string>("");
   const toastTimer = useRef<ReturnType<typeof setTimeout>>();
+  const { userDetails } = useAppSelector((state) => state.user);
+  const masterProfile =
+    userDetails?.profileParentalDetails?.filter(
+      (profile) => profile.isMasterProfile,
+    )[0] || {};
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -72,6 +80,9 @@ export default function CreateUserProfile() {
     ) {
       setShowModal("languages");
       document.body.style.overflowY = "hidden";
+    } else if (masterProfile?.addProfilePinEnable === true) {
+      document.body.style.overflowY = "hidden";
+      setShowModal("profilepin");
     } else {
       handleSubmit(onSubmit)();
     }
@@ -97,22 +108,29 @@ export default function CreateUserProfile() {
         setValue("languages", codes.join(","));
         formRef.current?.dispatchEvent(new Event("submit"));
         break;
+      case "profilepin":
+        createProfile(data);
+        break;
       default:
         break;
     }
   }
 
-  const createProfile = async () => {
-    let payload = {
+  const createProfile = async (passcode?: string) => {
+    let payload: any = {
       profiles: [
         {
           image: profileImg,
           isMasterProfile: false,
+          isChildren: getValues().isChildren,
           langs: getValues().languages,
           name: getValues().name,
         },
       ],
     };
+    if (passcode) {
+      payload.passCode = passcode;
+    }
     const createprofileresponse = await postData(
       "/service/api/auth/create/user/profile",
       payload,
@@ -249,6 +267,15 @@ export default function CreateUserProfile() {
                       <Languages
                         closeModal={handlecloseModal}
                         sendDatatoComponent={getDataFromModal}
+                      />
+                    );
+                  case "profilepin":
+                    return (
+                      <ProfilePin
+                        closeModal={handlecloseModal}
+                        profileData={masterProfile}
+                        sendDatatoComponent={getDataFromModal}
+                        pinerrMsg={pinerrmsg}
                       />
                     );
                   default:

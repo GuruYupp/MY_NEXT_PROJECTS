@@ -3,6 +3,7 @@ import styles from "./MobileMenus.module.scss";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import appConfig from "@/app.config";
+import { useEffect } from "react";
 
 const mobilemenuImages: { [key: string]: any } = {
   // eslint-disable-next-line camelcase
@@ -74,10 +75,15 @@ const mobilemenuImages: { [key: string]: any } = {
 
 interface props {
   menus: menuInterface[];
+  handleActiveMobilemenu: (arg: menuInterface) => void;
+  activeMobileMenu: menuInterface | undefined;
 }
-export default function MobileMenus({ menus }: props): JSX.Element {
+export default function MobileMenus({
+  menus,
+  activeMobileMenu,
+  handleActiveMobilemenu,
+}: props): JSX.Element {
   const { asPath } = useRouter();
-  console.log(menus);
 
   const checkPathinsubmenu = (menu: menuInterface) => {
     if (menu.subMenus.length === 0) return false;
@@ -85,25 +91,66 @@ export default function MobileMenus({ menus }: props): JSX.Element {
     if (path) {
       let pathFound = false;
       menu.subMenus.forEach((menu: menuInterface) => {
-        if (menu.targetPath === path) pathFound = true;
+        if (menu.targetPath === activeMobileMenu?.targetPath) pathFound = true;
       });
       return pathFound;
     }
     return false;
   };
 
-  const isActive: (arg: menuInterface) => boolean = (menu) =>
-    asPath == `/${menu.targetPath}` ||
-    (asPath == "/" && menu.targetPath == "home") ||
-    checkPathinsubmenu(menu)
+  const getPathsubmenu = (menu: menuInterface) => {
+    if (menu.subMenus.length === 0) return false;
+    let path = asPath.split("/")[1] || "home";
+    if (path) {
+      menu.subMenus.forEach((menu: menuInterface) => {
+        console.log(path, "---", menu.targetPath);
+        if (menu.targetPath === path) return menu;
+      });
+    }
+  };
+
+  // const isActive: (arg: menuInterface) => boolean = (menu) =>
+  //   asPath == `/${menu.targetPath}` ||
+  //   (asPath == "/" && menu.targetPath == "home") ||
+  //   checkPathinsubmenu(menu)
+  //     ? true
+  //     : false;
+
+  const isActive: (arg: menuInterface) => boolean = (menu) => {
+    return menu.targetPath === activeMobileMenu?.targetPath ||
+      checkPathinsubmenu(menu)
       ? true
       : false;
+  };
 
   const getmenuIcon = (menu: menuInterface) => {
     let menuIcon = isActive(menu)
       ? mobilemenuImages[menu.code].selectedImg
       : mobilemenuImages[menu.code].defaultImg;
     return menuIcon;
+  };
+
+  useEffect(() => {
+    menus.map((menu: menuInterface) => {
+      if (
+        menu.params.web !== "true" &&
+        activeMobileMenu === undefined &&
+        menu.targetPath === "home"
+      ) {
+        handleActiveMobilemenu(menu);
+      } else if (activeMobileMenu !== undefined && menu.params.web !== "true") {
+        let pathmenu = getPathsubmenu(menu);
+        console.log(pathmenu, "-->>>s");
+        if (pathmenu) {
+          console.log(pathmenu);
+          handleActiveMobilemenu(menu);
+        }
+      }
+    });
+  }, [asPath]);
+
+  const handleClickMobileMenu: (arg: menuInterface) => void = (menu) => {
+    handleActiveMobilemenu(menu);
   };
 
   return (
@@ -116,6 +163,7 @@ export default function MobileMenus({ menus }: props): JSX.Element {
                 className={
                   `${styles.menu} ` + (isActive(menu) ? styles.active : "")
                 }
+                onClick={() => handleClickMobileMenu(menu)}
               >
                 <div className={`${styles.menu_inner}`}>
                   <div className={`${styles.menu_icon}`}>

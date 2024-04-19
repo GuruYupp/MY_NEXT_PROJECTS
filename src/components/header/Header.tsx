@@ -1,16 +1,11 @@
 import { memo, useEffect, useState } from "react";
-import styles from "./Header.module.scss";
-import HeaderBottom from "./HeaderBottom";
-import HeaderTop from "./HeaderTop";
 import { useAppSelector } from "@/redux/hooks";
-import MobileHeaderTop from "./MobileHeaderTop";
-import MobileHeaderBottom from "./MobileHeaderBottom";
-import MobileMenus from "./menus/MobileMenus";
 import { useRouter } from "next/router";
 import appConfig from "@/app.config";
+import DeskTopHeader from "./DesktopHeader/DesktopHeader";
+import MobileHeader from "./MobileHeader/MobileHeader";
 
 function Header() {
-  const { menus } = useAppSelector((state) => state.configs);
   const { banners, info } = useAppSelector((state) => state.pageData.response);
   const [headerGradient, setheaderGradient] = useState<boolean>(true);
   const [moveheaderTop, setmoveheaderTop] = useState<boolean>(false);
@@ -79,11 +74,12 @@ function Header() {
     return () => {
       resizeObserver.disconnect();
     };
-  }, []);
+  }, [asPath]);
 
   const handleMobileheaderToggle = () => {
     const hideheaderPaths = ["/search", "/settings", "/settings/edit-profile"];
 
+    console.log(asPath);
     if (hideheaderPaths.includes(asPath) || asPath.includes("profile-lock/")) {
       setShowMobileHeader(false);
     } else {
@@ -91,39 +87,22 @@ function Header() {
     }
   };
 
-  const showMobileHeaderc2 = () => {
-    if (info.pageType === "player" || info.pageType === "details") {
-      return false;
-    }
-    return true;
-  };
   return (
-    <div
-      className={`${styles.header_container} ${
-        moveheaderTop === true ? styles.move_top : ""
-      }`}
-    >
+    <>
       {toggleHeader === "web" && (
-        <>
-          {appConfig.header.topheader === true && <HeaderTop />}
-          <HeaderBottom menus={menus} headerGradient={headerGradient} />
-        </>
+        <DeskTopHeader
+          moveheaderTop={moveheaderTop}
+          headerGradient={headerGradient}
+        />
       )}
       {toggleHeader === "mobileweb" && (
-        <>
-          {showMobileHeader && showMobileHeaderc2() && (
-            <div className={`${styles.mobile_header_container}`}>
-              <MobileHeaderTop />
-              <MobileHeaderBottom
-                menus={menus}
-                headerGradient={headerGradient}
-              />
-            </div>
-          )}
-          <MobileMenus menus={menus} />
-        </>
+        <MobileHeader
+          moveheaderTop={moveheaderTop}
+          headerGradient={headerGradient}
+          showMobileHeader={showMobileHeader}
+        />
       )}
-    </div>
+    </>
   );
 }
 

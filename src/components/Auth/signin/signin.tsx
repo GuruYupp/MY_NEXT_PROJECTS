@@ -42,7 +42,7 @@ const SignIn = (): JSX.Element => {
       termsText: true,
       promotionText: true,
       otp: "",
-      mobileNumber: "7780715079",
+      mobileNumber: "9966922412",
     },
   });
 
