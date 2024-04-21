@@ -23,6 +23,8 @@ const appConfig = {
   authEmailPattern:
     /^[a-zA-Z0-9_.-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   supportmail: "support.app@aasthatv.co.in",
+  appDefaultLanguage:"en",
+  localelangs:["en"],
   header: {
     partners: false,
     languages: false,
@@ -45,11 +47,11 @@ const appConfig = {
     languages: true,
   },
   settings: {
-    personal: true,
+    personal: false,
     email: true,
     mobile: true,
     password: true,
-    logout: true,
+    logout: false,
     unSubscribe: false,
     resubscribe: false,
     showDeleteButtonIos: true,
@@ -58,7 +60,7 @@ const appConfig = {
     userSettings: true,
     activeScreenandDevices: {
       activeDevices: false,
-      activeScreens: true,
+      activeScreens: false,
     },
   },
   search: {

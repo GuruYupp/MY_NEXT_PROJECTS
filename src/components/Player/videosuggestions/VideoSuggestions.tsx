@@ -3,7 +3,7 @@ import styles from "./VideoSuggestions.module.scss";
 import Slider, { Settings } from "react-slick";
 import { default as clientCookie } from "js-cookie";
 import SuggestionCard from "./suggestioncard/SuggestionCard";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchSections } from "@/redux/feature/pageSlice/pageSlice";
 import { useRouter } from "next/router";
 

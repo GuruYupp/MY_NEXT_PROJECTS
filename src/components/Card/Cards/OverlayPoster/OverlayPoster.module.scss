@@ -5,6 +5,7 @@
   margin: 7px;
   .img_container {
     width: 100%;
+    position: relative;
     img {
       background: linear-gradient(110deg, #222 8%, #292929 18%, #222 33%);
       width: 100%;
@@ -16,7 +17,13 @@
     position: absolute;
     bottom: 0px;
     width: 100%;
-    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 1));
+    background: linear-gradient(
+      180deg,
+      hsla(0, 0%, 8%, 0),
+      hsla(0, 0%, 8%, 0.45) 47%,
+      #141414
+    );
+    transition: all 0.5s ease-in;
     height: 75px;
     display: flex;
     flex-direction: column;
@@ -38,6 +45,29 @@
         font-size: 12px;
         padding-bottom: 2px;
         @include ellipse;
+      }
+    }
+
+    .leftover_duration {
+      padding: 0px 10px;
+      font-size: 12px;
+      color: #fff;
+      left: 0px;
+      z-index: 1;
+    }
+
+    .seek {
+      width: 100%;
+      background-color: #333;
+      height: 3px;
+      z-index: 1;
+      .seek_inner_relative {
+        position: relative;
+        width: 100%;
+        .seek_status_bar {
+          height: 3px;
+          background-color: $primary-color;
+        }
       }
     }
   }

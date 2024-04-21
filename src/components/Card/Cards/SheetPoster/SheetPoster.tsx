@@ -4,7 +4,13 @@ import { cardPropsInterface } from "../../cardtype";
 import appConfig from "@/app.config";
 import CardHOC from "../../CardHOC";
 const SheetPoster: FC<cardPropsInterface> = (props) => {
-  const { setcardImageRef, cardImage, display } = props;
+  const {
+    setcardImageRef,
+    cardImage,
+    display,
+    leftOverTimeMarker,
+    seekMarker,
+  } = props;
   const handleImageonError = (e: SyntheticEvent) => {
     e.currentTarget.setAttribute("src", appConfig.cardDefaultImage);
   };
@@ -17,6 +23,21 @@ const SheetPoster: FC<cardPropsInterface> = (props) => {
           onError={handleImageonError}
           loading="lazy"
         />
+        {leftOverTimeMarker && (
+          <span className={`${styles.leftover_duration}`}>
+            {leftOverTimeMarker.value}
+          </span>
+        )}
+        {seekMarker && (
+          <div className={`${styles.seek}`}>
+            <div className={`${styles.seek_inner_relative}`}>
+              <div
+                className={`${styles.seek_status_bar}`}
+                style={{ width: `${Number(seekMarker.value) * 100}%` }}
+              ></div>
+            </div>
+          </div>
+        )}
       </div>
       <div className={`${styles.bottom}`}>
         <div className={`${styles.card_info}`}>

@@ -47,6 +47,10 @@
         @include breakpoint(mobile) {
           margin-right: 0px;
         }
+
+        .player_skelton {
+          aspect-ratio: 16 / 9;
+        }
       }
 
       .player_footer {

@@ -5,7 +5,14 @@ import { cardPropsInterface } from "../../cardtype";
 import appConfig from "@/app.config";
 
 const OverlayPoster: FC<cardPropsInterface> = (props) => {
-  const { cardImage, display, setcardImageRef, partnerIcon } = props;
+  const {
+    cardImage,
+    display,
+    setcardImageRef,
+    partnerIcon,
+    leftOverTimeMarker,
+    seekMarker,
+  } = props;
   const handleImageonError = (e: SyntheticEvent) => {
     e.currentTarget.setAttribute("src", appConfig.cardDefaultImage);
   };
@@ -39,6 +46,21 @@ const OverlayPoster: FC<cardPropsInterface> = (props) => {
                 {display.subtitle1}
               </div>
             )}
+          </div>
+        )}
+        {leftOverTimeMarker && (
+          <span className={`${styles.leftover_duration}`}>
+            {leftOverTimeMarker.value}
+          </span>
+        )}
+        {seekMarker && (
+          <div className={`${styles.seek}`}>
+            <div className={`${styles.seek_inner_relative}`}>
+              <div
+                className={`${styles.seek_status_bar}`}
+                style={{ width: `${Number(seekMarker.value) * 100}%` }}
+              ></div>
+            </div>
           </div>
         )}
       </div>

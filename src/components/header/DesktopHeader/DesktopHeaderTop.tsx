@@ -97,7 +97,7 @@ function HeaderTop(): JSX.Element {
             </div>
           )}
 
-          <div className={`${styles.content}`}>About</div>
+          <div className={`${styles.content}`}>About Us</div>
 
           {/* <div className={`${styles.content}`}>
             <img

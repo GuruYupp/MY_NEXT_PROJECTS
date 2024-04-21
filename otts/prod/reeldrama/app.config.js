@@ -25,7 +25,9 @@ const appConfig = {
   authMobilePattern: /^[0-9]{10}$/,
   authEmailPattern:
     /^[a-zA-Z0-9_.-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  supportmail: "support@firstshows.com",
+  supportmail: "support@reeldrama.com",
+  appDefaultLanguage:"en",
+  localelangs:["en"],
   header: {
     partners: false,
     languages: true,

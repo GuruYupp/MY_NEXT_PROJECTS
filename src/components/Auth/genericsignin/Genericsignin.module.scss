@@ -206,7 +206,7 @@
         display: flex;
         align-items: center;
         hr {
-          background-color: $signin-bg-color;
+          background-color: $or-line-bg-color;
           vertical-align: middle;
           width: 100%;
           border-width: 0px;
@@ -218,7 +218,7 @@
           top: 50%;
           transform: translate(-50%, -50%);
           padding: 0px 8px;
-          background: $secondary-color;
+          background: $signin-bg-color;
           color: #898b95;
           @include breakpoint(mobile) {
             background-color: #141414;
@@ -239,7 +239,6 @@
         border-radius: 3px;
         outline: none;
         border: none;
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
         @include breakpoint(mac) {
           font-size: 16px;
@@ -258,7 +257,7 @@
         display: flex;
         align-items: center;
         hr {
-          background-color: $signin-bg-color;
+          background-color: $or-line-bg-color;
           vertical-align: middle;
           width: 100%;
           border-width: 0px;
@@ -270,7 +269,7 @@
           top: 50%;
           transform: translate(-50%, -50%);
           padding: 0px 8px;
-          background: $secondary-color;
+          background: $signin-bg-color;
           color: #898b95;
           @include breakpoint(mobile) {
             background-color: #141414;

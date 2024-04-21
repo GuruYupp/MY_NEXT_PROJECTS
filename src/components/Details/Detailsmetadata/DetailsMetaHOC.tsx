@@ -19,8 +19,8 @@ function DetailsMetaHOC(WrappedComponent: ComponentType<DetailsMetaPropsType>) {
       "subscribe",
       "watch_latest_episode",
       "watchnow",
-      "resume",
       "startover",
+      "resume",
     ];
     let buttons: dataRowElementInterface[] = [];
 

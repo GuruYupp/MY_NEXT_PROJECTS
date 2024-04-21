@@ -99,28 +99,22 @@ export default function MobileMenus({
   };
 
   const getPathsubmenu = (menu: menuInterface) => {
-    if (menu.subMenus.length === 0) return false;
     let path = asPath.split("/")[1] || "home";
+    if (menu.targetPath === path) return menu;
+    if (menu.subMenus.length === 0) return false;
     if (path) {
       menu.subMenus.forEach((menu: menuInterface) => {
-        console.log(path, "---", menu.targetPath);
         if (menu.targetPath === path) return menu;
       });
     }
   };
 
-  // const isActive: (arg: menuInterface) => boolean = (menu) =>
-  //   asPath == `/${menu.targetPath}` ||
-  //   (asPath == "/" && menu.targetPath == "home") ||
-  //   checkPathinsubmenu(menu)
-  //     ? true
-  //     : false;
-
   const isActive: (arg: menuInterface) => boolean = (menu) => {
-    return menu.targetPath === activeMobileMenu?.targetPath ||
-      checkPathinsubmenu(menu)
-      ? true
-      : false;
+    console.log(menu);
+    console.log(activeMobileMenu);
+    // console.log( menu.targetPath === activeMobileMenu?.targetPath)
+    console.log("-----------------");
+    return menu.targetPath === activeMobileMenu?.targetPath ? true : false;
   };
 
   const getmenuIcon = (menu: menuInterface) => {
@@ -140,9 +134,8 @@ export default function MobileMenus({
         handleActiveMobilemenu(menu);
       } else if (activeMobileMenu !== undefined && menu.params.web !== "true") {
         let pathmenu = getPathsubmenu(menu);
-        console.log(pathmenu, "-->>>s");
         if (pathmenu) {
-          console.log(pathmenu);
+          console.log(pathmenu, "--->>>");
           handleActiveMobilemenu(menu);
         }
       }

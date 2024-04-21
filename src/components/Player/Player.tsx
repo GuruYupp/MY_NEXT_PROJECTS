@@ -73,6 +73,11 @@ export default function Player() {
               <VideoPlayer setSuggestionHeight={setSuggestionHeight} />
             </div>
           )}
+          {(streamapiloading === "pending" || streamapiloading === "idle") && (
+            <div className={`${styles.player_wrapper}`}>
+              <div className={`${styles.player_skelton}`}></div>
+            </div>
+          )}
           <div className={`${styles.player_footer}`}>
             <div className={`${styles.player_footer_inner}`}>
               <div className={`${styles.player_footer_inner_top}`}>

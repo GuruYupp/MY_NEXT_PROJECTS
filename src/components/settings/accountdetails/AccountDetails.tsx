@@ -68,12 +68,14 @@ const AccountDetails: FC = () => {
   return (
     <Fragment>
       <div className={`${styles.account_details_container}`}>
-        <GenericAccountDetailsRow
-          heading1="Personal Details"
-          heading2="Change your Name, Age and Gender"
-          actionbtntext="Edit"
-          actionbtnhandle={handleEdit}
-        />
+        {appConfig.settings.personal && (
+          <GenericAccountDetailsRow
+            heading1="Personal Details"
+            heading2="Change your Name, Age and Gender"
+            actionbtntext="Edit"
+            actionbtnhandle={handleEdit}
+          />
+        )}
         {appConfig.settings.email && (
           <GenericAccountDetailsRow
             details={{ label: "Email", value: userDetails?.email || "" }}
@@ -111,12 +113,14 @@ const AccountDetails: FC = () => {
             }
           />
         )}
-        <GenericAccountDetailsRow
-          heading1="Sign Out"
-          heading2="You will be signed out from this device"
-          actionbtntext="Sign Out"
-          actionbtnhandle={handleSignOut}
-        />
+        {appConfig.settings.logout && (
+          <GenericAccountDetailsRow
+            heading1="Sign Out"
+            heading2="You will be signed out from this device"
+            actionbtntext="Sign Out"
+            actionbtnhandle={handleSignOut}
+          />
+        )}
       </div>
       {showModal &&
         createPortal(

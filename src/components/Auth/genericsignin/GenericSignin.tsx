@@ -35,6 +35,11 @@ const GenericSignIn: FC = () => {
 
   const { control, handleSubmit } = useForm<SingnInFormType>({
     mode: "onChange",
+    defaultValues: {
+      password: "",
+      email: "",
+      number: "",
+    },
   });
 
   const [errormsg, setErrormsg] = useState<string>("");
@@ -217,6 +222,7 @@ const GenericSignIn: FC = () => {
                   }}
                   showCountrycode={true}
                   placeholder="Mobile Number"
+                  defaultValue=""
                 />
               )}
               {loginType === "email" && (
@@ -234,6 +240,7 @@ const GenericSignIn: FC = () => {
                     },
                   }}
                   placeholder="Email Address"
+                  defaultValue=""
                 />
               )}
               <div className={`${styles.input_wrapper}`}>
@@ -251,6 +258,7 @@ const GenericSignIn: FC = () => {
                     },
                   }}
                   placeholder="Password"
+                  defaultValue=""
                 />
                 <p className={`${styles.forgot_password}`}>
                   <Link href={`/forgot-password`}>forgot password?</Link>
