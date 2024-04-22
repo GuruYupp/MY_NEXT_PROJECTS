@@ -12,6 +12,11 @@ import { SSOParamsType, configsandfeaturesInterface } from "./shared";
 import { getDeviceSubTypeInfo } from "./services/user.manager";
 import { getData } from "./services/data.manager";
 
+const tokenLangs: { [key: string]: string } = {
+  en: "ENG",
+  fr: "FRE",
+};
+
 export const isThere = (key: string) => {
   if (!getFromlocalStorage(key) || !clientCookie.get(key)) {
     return false;
@@ -96,7 +101,7 @@ export const checkTokens = async function () {
     let boxId = getBoxId();
 
     let sessionTokeninfo = await fetchdata(
-      ` ${appConfig.endPoints.api}/service/api/v1/get/token?tenant_code=${appConfig.endPoints.tenantCode}&box_id=${boxId}&product=${appConfig.endPoints.product}&device_id=${getDeviceId()}&display_lang_code=ENG&device_sub_type=${getDeviceSubTypeInfo()}&timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
+      ` ${appConfig.endPoints.api}/service/api/v1/get/token?tenant_code=${appConfig.endPoints.tenantCode}&box_id=${boxId}&product=${appConfig.endPoints.product}&device_id=${getDeviceId()}&display_lang_code=${tokenLangs[appConfig.appDefaultLanguage]}&device_sub_type=${getDeviceSubTypeInfo()}&timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
     );
     let sessionId =
       sessionTokeninfo.status == true

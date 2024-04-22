@@ -16,6 +16,8 @@ import Loading from "@/components/shared/Loading";
 import Header from "@/components/header/Header";
 import Footer from "@/components/footer/footer";
 import { SSOParamsType } from "@/shared";
+import { fetchLocalLang } from "@/redux/feature/localizationSlice/localizationSlice";
+import appConfig from "@/app.config";
 
 function Layout({ children }: { children: ReactNode }) {
   const { asPath, query, reload } = useRouter();
@@ -38,6 +40,7 @@ function Layout({ children }: { children: ReactNode }) {
         reload();
       } else {
         if (isrenderd == false) {
+          dispatch(fetchLocalLang(appConfig.appDefaultLanguage));
           dispatch(addSystemConfigs(systemConfigs.response));
           dispatch(addSystemFeatures(systemfeature.response.systemFeatures));
           dispatch(setutUser());

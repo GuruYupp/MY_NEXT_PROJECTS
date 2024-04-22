@@ -29,6 +29,7 @@ const GenericSignIn: FC = () => {
 
   const { systemConfigs } = useAppSelector((state) => state.configs);
   const { isLoggedin } = useAppSelector((state) => state.user);
+  const { localLang } = useAppSelector((state) => state.localization);
   let showPackages = systemConfigs?.configs?.showPackages || "";
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -202,7 +203,9 @@ const GenericSignIn: FC = () => {
         </div>
         <div className={`${styles.signin_inner}`}>
           <div className={`${styles.inner_top}`}>
-            <p className={`${styles.title}`}>Sign in to your Account</p>
+            <p className={`${styles.title}`}>
+              {localLang.SIGN_IN_TO_YOUR_ACCOUNT || "Sign in to your Account"}
+            </p>
           </div>
           <div className={`${styles.inner_middle}`}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -221,7 +224,7 @@ const GenericSignIn: FC = () => {
                     },
                   }}
                   showCountrycode={true}
-                  placeholder="Mobile Number"
+                  placeholder={localLang.MOBILE_NUMBER || "Mobile Number"}
                   defaultValue=""
                 />
               )}
@@ -257,11 +260,13 @@ const GenericSignIn: FC = () => {
                       }
                     },
                   }}
-                  placeholder="Password"
+                  placeholder={localLang.PASSWORD || "Password"}
                   defaultValue=""
                 />
                 <p className={`${styles.forgot_password}`}>
-                  <Link href={`/forgot-password`}>forgot password?</Link>
+                  <Link href={`/forgot-password`}>
+                    {localLang["FORGOT_PASSWORD?"] || "forgot password?"}
+                  </Link>
                 </p>
               </div>
 
@@ -271,7 +276,7 @@ const GenericSignIn: FC = () => {
                   type="submit"
                   name="submit"
                   shouldUnregister={true}
-                  defaultValue="Sign in"
+                  defaultValue={localLang.SIGN_IN || "Sign in"}
                 />
                 {errormsg && (
                   <p className={`${styles.input_error_msg}`}>{errormsg}</p>
@@ -292,8 +297,10 @@ const GenericSignIn: FC = () => {
                   className={`${styles.email_number_toggle}`}
                   onClick={toggelEmailNumberInput}
                 >
-                  Sign In with{" "}
-                  {loginType == "mobile" ? "Email Id" : "Mobile Number"}
+                  {localLang.SIGN_IN_WITH || "Sign In with"}{" "}
+                  {loginType == "mobile"
+                    ? localLang.EMAIL_ID || "Email Id"
+                    : localLang.MOBILE_NUMBER || "Mobile Number"}
                 </button>
               )}
 
@@ -308,13 +315,13 @@ const GenericSignIn: FC = () => {
             )}
 
             <p className={`${styles.signup_text}`}>
-              Don't have an account ?
+              {localLang.DONT_HAVE_AN_ACCOUNT || "Don't have an account"} ?
               <Link
                 className={`${styles.signup}`}
                 href="/signup"
                 onClick={handleclickSignup}
               >
-                Sign Up
+                {localLang.SIGN_UP || "Sign Up"}
               </Link>
             </p>
 
@@ -324,7 +331,7 @@ const GenericSignIn: FC = () => {
               </Link>
               and
               <Link className={`${styles.policy}`} href="#">
-                Privacy Policy
+                {localLang.PRIVACY_POLICY || "Privacy Policy"}
               </Link>
             </p>
           </div>

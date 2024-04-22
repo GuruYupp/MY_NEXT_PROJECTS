@@ -7,6 +7,8 @@ import tvguideSlice from "./feature/tvguideSlice/tvguideSlice";
 import restrictionSlice from "./feature/restrictionSlice/restrictionSlice";
 import searchv3Slice from "./feature/searchv3Slice/searchv3Slice";
 import searchv1Slice from "./feature/searchv1Slice/searchv1Slice";
+import localizationSlice from "./feature/localizationSlice/localizationSlice";
+
 const Store = configureStore({
   reducer: {
     configs: configSlice,
@@ -17,6 +19,7 @@ const Store = configureStore({
     pagerestrictions: restrictionSlice,
     searchv3: searchv3Slice,
     searchv1: searchv1Slice,
+    localization: localizationSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

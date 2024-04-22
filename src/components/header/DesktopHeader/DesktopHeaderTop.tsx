@@ -17,6 +17,7 @@ import Link from "next/link";
 function HeaderTop(): JSX.Element {
   const [showModal, setShowModal] = useState<ModalType>("");
   const { activeProfile } = useAppSelector((state) => state.user);
+  const { localLang } = useAppSelector((state) => state.localization);
   const dispatch = useAppDispatch();
   const handleFilter = () => {
     document.body.style.overflowY = "hidden";
@@ -92,12 +93,17 @@ function HeaderTop(): JSX.Element {
                 src={`${appConfig.cloudpath}/images/language-selection-icon.svg`}
                 alt=""
               />
-              <span className={`${styles.text}`}>Languages</span>
+              <span className={`${styles.text}`}>
+                {localLang.LANGUAGES || "Languages"}
+              </span>
               <span className={`${styles.downarrow}`}></span>
             </div>
           )}
 
-          <div className={`${styles.content}`}>About Us</div>
+          <div className={`${styles.content}`}>
+            {" "}
+            {localLang.ABOUT_US || "About Us"}{" "}
+          </div>
 
           {/* <div className={`${styles.content}`}>
             <img

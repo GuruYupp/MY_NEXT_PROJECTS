@@ -25,7 +25,7 @@ const appConfig = {
   authEmailPattern:
     /^[a-zA-Z0-9_.-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   supportmail: "contact@wassa.tv",
-  appDefaultLanguage:"en",
+  appDefaultLanguage:"fr",
   localelangs:["en","fr"],
   header: {
     partners: false,

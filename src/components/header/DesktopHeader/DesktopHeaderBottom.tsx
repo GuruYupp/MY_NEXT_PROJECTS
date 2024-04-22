@@ -14,6 +14,7 @@ interface props {
 function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
   const { isLoggedin } = useAppSelector((state) => state.user);
   const { systemConfigs } = useAppSelector((state) => state.configs);
+  const { localLang } = useAppSelector((state) => state.localization);
 
   let showPackages = systemConfigs.configs?.showPackages || false;
   // const [showModal, setShowModal] = useState<ModalType>("");
@@ -57,12 +58,12 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
                   src={`https://d2ivesio5kogrp.cloudfront.net/static/kandidtv/images/search-icon.svg`}
                   alt="logo"
                 />
-                Search
+                {localLang.SEARCH || "Search"}
               </Link>
             </div>
             {showPackages == "true" && (
               <div className={`${styles.otherbtns} ${styles.pricing}`}>
-                <span>Pricing</span>
+                <span>{localLang.PRICING || "PRICING"}</span>
               </div>
             )}
             {isLoggedin === false && (
@@ -72,7 +73,7 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
                     href={"/signin"}
                     className={getSinginUpbtnPrimaryClass("signin")}
                   >
-                    sign in
+                    {localLang.SIGN_IN || "sign in"}
                   </Link>
                 </div>
                 {appConfig.header.signup && (
@@ -81,7 +82,7 @@ function HeaderBottom({ menus, headerGradient }: props): JSX.Element {
                       href={"/signup"}
                       className={getSinginUpbtnPrimaryClass("signup")}
                     >
-                      sign up
+                      {localLang.SIGN_UP || "sign up"}
                     </Link>
                   </div>
                 )}

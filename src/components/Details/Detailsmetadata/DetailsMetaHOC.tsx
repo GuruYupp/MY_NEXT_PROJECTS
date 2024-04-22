@@ -24,7 +24,10 @@ function DetailsMetaHOC(WrappedComponent: ComponentType<DetailsMetaPropsType>) {
     ];
     let buttons: dataRowElementInterface[] = [];
 
-    let title = getfrompagedata(content, "title")?.data || "";
+    let title =
+      getfrompagedata(content, "title")?.data ||
+      content[0].content?.title ||
+      "";
     let targetpath = info.path || "";
 
     // let partnerIcon = getfrompagedata(content,"partnerIcon")?.data || "";
