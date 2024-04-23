@@ -27,14 +27,14 @@ function Settings() {
                 defaultopen={true}
                 render={() => <AccountDetails />}
               />
-              {appConfig.settings.activeScreenandDevices.activeDevices ||
-                (appConfig.settings.activeScreenandDevices.activeScreens && (
-                  <Panel
-                    title="Active Screens & Devices"
-                    render={() => <ActiveScreens />}
-                    headerrightbutton={{ text: "Activate TV" }}
-                  />
-                ))}
+              {(appConfig.settings.activeScreenandDevices.activeDevices ||
+                appConfig.settings.activeScreenandDevices.activeScreens) && (
+                <Panel
+                  title="Active Screens & Devices"
+                  render={() => <ActiveScreens />}
+                  headerrightbutton={{ text: "Activate TV" }}
+                />
+              )}
               {systemConfigs?.configs?.showPackages === "true" && (
                 <Panel
                   title="Subscription"

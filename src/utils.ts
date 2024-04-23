@@ -334,7 +334,10 @@ export function cardDimentionsForResponsive(cardType: string): {
       gridCound: 6,
       cardRatio: 0.5625,
     };
-  } else if (cardType == "expand_roller_poster") {
+  } else if (
+    cardType == "expand_roller_poster" ||
+    cardType == "expand_action_poster"
+  ) {
     if (windowWidth <= 320) {
       return { cardCount: 2.8, gridCound: 2, cardRatio: 1.5 };
     } else if (windowWidth <= 380) {

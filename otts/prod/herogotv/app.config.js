@@ -60,6 +60,10 @@ const appConfig = {
     showDeleteButtonAndroid: true,
     changePasswordSupport: true,
     userSettings: false,
+    activeScreenandDevices: {
+      activeDevices: false,
+      activeScreens: false,
+    },
   },
   search: {
     apiversion: "v1",

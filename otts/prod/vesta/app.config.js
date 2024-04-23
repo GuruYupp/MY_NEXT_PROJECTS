@@ -1,22 +1,23 @@
 const appConfig = {
   endPoints: {
-    location: "https://timesplay-api.revlet.net",
-    api: "https://timesplay-api.revlet.net",
-    search: "https://timesplay-api.revlet.net",
-    pgURL: "https://timesplay-api.revlet.net",
-    guideURL: "https://timesplay-api.revlet.net",
-    tenantCode: "timesplay",
-    product: "timesplay",
-    isSupported: true,
+      "location": "https://vesta-api.revlet.net",
+      "api": "https://vesta-api.revlet.net",
+      "search": "https://vesta-api.revlet.net",
+      "pgURL": "https://vesta-api.revlet.net",
+      "guideURL": "https://vesta-api.revlet.net",
+      "heURL": "https://vesta-api.revlet.net",
+      "otpURL": "https://vesta-api.revlet.net",
+      "tenantCode": "vesta",
+      "product": "vesta",
   },
-  cloudpath: "https://d2ivesio5kogrp.cloudfront.net/static/timesplay",
-  bannerImgpath: "https://d229kpbsb5jevy.cloudfront.net/timesplay/",
+  cloudpath: "https://d2ivesio5kogrp.cloudfront.net/static/vesta",
+  bannerImgpath: "https://d229kpbsb5jevy.cloudfront.net/vesta/",
   headerIconpath:
-    "https://d2ivesio5kogrp.cloudfront.net/static/timesplay/images/logo.svg",
+    "https://d2ivesio5kogrp.cloudfront.net/static/vesta/images/logo.png",
   cardDefaultImage:
-    "https://d2ivesio5kogrp.cloudfront.net/static/timesplay/images/default-details.png",
+    "https://d2ivesio5kogrp.cloudfront.net/static/vesta/images/default-details.png",
   staticImagesPath:
-    "https://d2ivesio5kogrp.cloudfront.net/static/timesplay/images/",
+    "https://d2ivesio5kogrp.cloudfront.net/static/vesta/images/",
   tvguideChannelsImgPath: "https://d388d59m61mm0v.cloudfront.net/optimized",
   videosuggestionDefaultImg:"",
   systemconfigsApi:"/service/api/v1/system/config",
@@ -24,13 +25,13 @@ const appConfig = {
   authMobilePattern: /^[0-9]{10}$/,
   authEmailPattern:
     /^[a-zA-Z0-9_.-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  supportmail: "info@timesgroup.com",
+  supportmail: "",
   appDefaultLanguage:"en",
   localelangs:["en"],
   header: {
     partners: false,
     languages: true,
-    topheader: true,
+    topheader: false,
     signup:true,
   },
   signin: {
@@ -61,8 +62,8 @@ const appConfig = {
     changePasswordSupport: true,
     userSettings: true,
     activeScreenandDevices: {
-      activeDevices: false,
-      activeScreens: false,
+      activeDevices: true,
+      activeScreens: true,
     },
   },
   search: {

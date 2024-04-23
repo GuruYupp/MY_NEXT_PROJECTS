@@ -76,7 +76,8 @@ export type typeofcardType =
   | "roller_poster"
   | "square_poster"
   | "promo_poster"
-  | "overlayIcon_poster";
+  | "overlayIcon_poster"
+  | "expand_action_poster";
 
 export type templateType = "channel_overlay" | "tvguide_overlay" | "";
 

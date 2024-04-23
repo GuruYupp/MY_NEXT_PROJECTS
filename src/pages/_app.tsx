@@ -27,6 +27,8 @@ const NPColor = () => {
       return "#e7195a";
     case "aastha":
       return "#c30";
+    case "vesta":
+      return "ff2363";
     default:
       return "#ffff";
   }
