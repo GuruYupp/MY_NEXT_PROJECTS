@@ -79,7 +79,6 @@ function Header() {
   const handleMobileheaderToggle = () => {
     const hideheaderPaths = ["/search", "/settings", "/settings/edit-profile"];
 
-    console.log(asPath);
     if (hideheaderPaths.includes(asPath) || asPath.includes("profile-lock/")) {
       setShowMobileHeader(false);
     } else {

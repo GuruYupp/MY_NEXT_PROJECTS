@@ -265,7 +265,7 @@ const GenericSignIn: FC = () => {
                 />
                 <p className={`${styles.forgot_password}`}>
                   <Link href={`/forgot-password`}>
-                    {localLang["FORGOT_PASSWORD?"] || "forgot password?"}
+                    {localLang["FORGOT_PASSWORD"] || "forgot password?"}
                   </Link>
                 </p>
               </div>

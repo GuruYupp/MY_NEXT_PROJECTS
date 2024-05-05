@@ -1,80 +1,15 @@
-import { useAppSelector } from "@/redux/hooks";
-import { useEffect, useRef } from "react";
-import styles from "./Videoplayer.module.scss";
-import Link from "next/link";
-import { getAbsolutPath } from "@/utils";
-
-interface VideoPlayerPropsInterface {
-  // streams:StreamInteface[],
-  setSuggestionHeight: (height: number) => void;
-}
-
-function PlayerOverlay(props: VideoPlayerPropsInterface) {
-  const { setSuggestionHeight } = props;
-  const { error, pageAttributes } = useAppSelector((state) => state.streamData);
-  const { content } = useAppSelector((state) => state.pageData.response);
-  let backgroundImage =
-    getAbsolutPath(content[0].content?.backgroundImage || "") || "";
-  const playerInfoRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (playerInfoRef.current) {
-      playerInfoRef.current.style.height = `${getHeight()}px`;
-      setSuggestionHeight(playerInfoRef.current?.clientHeight + 200);
-    }
-  }, []);
-  const getHeight = () => {
-    if (playerInfoRef.current) {
-      return playerInfoRef.current.clientWidth / (16 / 9);
-    }
-    return 0;
-  };
-  return (
-    <div className={`${styles.player_overlay}`} ref={playerInfoRef}>
-      {backgroundImage && (
-        <div className={`${styles.imageContainer}`}>
-          <img src={backgroundImage} alt="playerbg" />
-        </div>
-      )}
-      {error.code === 402 && (
-        <>
-          <p className={`${styles.message2}`}>{error.message}</p>
-          <div className={`${styles.buttons}`}>
-            <div className={`${styles.button}`}>subscribe</div>
-          </div>
-        </>
-      )}
-      {error.code === -1000 && (
-        <>
-          {pageAttributes?.ContentAccessErrorMessage && (
-            <h1 className={`${styles.message1}`}>
-              {pageAttributes.ContentAccessErrorMessage}
-            </h1>
-          )}
-          {pageAttributes?.SignAndSignupErrorMessage && (
-            <p className={`${styles.message2}`}>
-              {pageAttributes.SignAndSignupErrorMessage}
-            </p>
-          )}
-
-          {!pageAttributes && (
-            <p className={`${styles.message2}`}>{error.message}</p>
-          )}
-
-          <div className={`${styles.buttons}`}>
-            <div className={`${styles.button} ${styles.primary}`}>
-              {" "}
-              <Link href={`/signup`}>Sign Up</Link>{" "}
-            </div>
-            <div className={`${styles.button}`}>
-              {" "}
-              <Link href={`/signin`}>Sign In</Link>{" "}
-            </div>
-          </div>
-        </>
-      )}
-    </div>
-  );
-}
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useEffect, useRef, useState } from "react";
+import { VideoPlayerPropsInterface } from "../playertypes";
+import PlayerOverlay from "./PlayerOverlay/PlayerOverlay";
+import { ModalType } from "@/components/modals/modaltypes";
+import { createPortal } from "react-dom";
+import Modal from "@/components/modals/Modal";
+import ParentalControlPin from "@/components/ParentalControlPin/ParentalControlPin";
+import {
+  fetchStreamData,
+  resetstreamSlice,
+} from "@/redux/feature/streamSlice/streamSlice";
 
 function VideoPlayer(props: VideoPlayerPropsInterface) {
   const { setSuggestionHeight } = props;
@@ -82,6 +17,10 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
     response: { streams },
     error,
   } = useAppSelector((state) => state.streamData);
+  const { activeProfile } = useAppSelector((state) => state.user);
+  const { info } = useAppSelector((state) => state.pageData.response);
+  const dispatch = useAppDispatch();
+  const [showModal, setShowModal] = useState<ModalType>("");
   const playerRef = useRef<HTMLDivElement>(null);
   const playerparentref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -105,6 +44,8 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
         }
       } else if (error) {
         if (error.code === 402) {
+        } else if (error.code === -820) {
+          setShowModal("parentalcontrolpin");
         }
       }
     }
@@ -147,12 +88,69 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
     return Playlist;
   }
 
+  function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
+    const { from, data } = Modaldata;
+    debugger;
+    switch (from) {
+      case "parentalcontrolpin":
+        // switchSelectedProfile(selectedProfile, data);
+        getStreamByPin(data);
+        break;
+      default:
+        break;
+    }
+  }
+
+  const getStreamByPin = async (pin: string) => {
+    let params = {
+      path: info.path || "",
+      // eslint-disable-next-line camelcase
+      pin,
+    };
+
+    dispatch(resetstreamSlice());
+    dispatch(fetchStreamData({ params }));
+  };
+
+  const handlecloseModal = () => {
+    document.body.style.overflowY = "scroll";
+    setShowModal("");
+  };
+
   return (
-    <div ref={playerparentref}>
-      <div ref={playerRef}>
-        {streams?.length === 0 && <PlayerOverlay {...props} />}
+    <>
+      <div ref={playerparentref}>
+        <div ref={playerRef}>
+          {streams?.length === 0 && <PlayerOverlay {...props} />}
+        </div>
       </div>
-    </div>
+      {showModal &&
+        createPortal(
+          <Modal
+            modalType={showModal}
+            render={(modal) => {
+              function getModal() {
+                switch (modal) {
+                  case "parentalcontrolpin":
+                    return (
+                      activeProfile && (
+                        <ParentalControlPin
+                          closeModal={handlecloseModal}
+                          profileData={activeProfile}
+                          sendDatatoComponent={getDataFromModal}
+                        />
+                      )
+                    );
+                  default:
+                    return <></>;
+                }
+              }
+              return getModal();
+            }}
+          />,
+          document.body,
+        )}
+    </>
   );
 }
 

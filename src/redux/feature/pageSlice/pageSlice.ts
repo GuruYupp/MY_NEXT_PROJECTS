@@ -13,7 +13,7 @@ interface fetchPagedataParams {
 
 export const fetchPagedata = createAsyncThunk<
   responseInterface,
-  { params: fetchPagedataParams; signal?: AbortSignal }
+  { params: fetchPagedataParams }
 >("fetchpagedata", async (args, thunkAPI) => {
   const { params } = args;
   thunkAPI.dispatch(resetPagestate());

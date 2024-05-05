@@ -110,10 +110,6 @@ export default function MobileMenus({
   };
 
   const isActive: (arg: menuInterface) => boolean = (menu) => {
-    console.log(menu);
-    console.log(activeMobileMenu);
-    // console.log( menu.targetPath === activeMobileMenu?.targetPath)
-    console.log("-----------------");
     return menu.targetPath === activeMobileMenu?.targetPath ? true : false;
   };
 
@@ -135,7 +131,6 @@ export default function MobileMenus({
       } else if (activeMobileMenu !== undefined && menu.params.web !== "true") {
         let pathmenu = getPathsubmenu(menu);
         if (pathmenu) {
-          console.log(pathmenu, "--->>>");
           handleActiveMobilemenu(menu);
         }
       }

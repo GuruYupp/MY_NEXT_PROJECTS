@@ -10,7 +10,7 @@ export const fetchLocalLang = createAsyncThunk<
   Omit<initialStateInterface, "localLangCode">,
   string
 >("fetchlocalLang", async (arg, thunkAPI) => {
-  let langJson = await fetch(`./locales/${arg}.json`);
+  let langJson = await fetch(`/locales/${arg}.json`);
   let langData = await langJson.json();
   thunkAPI.dispatch(setLocalLang(arg));
   return { localLang: langData };

@@ -42,6 +42,16 @@ let Getotpheadings = {
       heading2: "Enter OTP to edit profile lock xxx’s Profile",
     },
   },
+  "Forgot Profile & Video Lock": {
+    default: {
+      heading1: "Get OTP To edit Profile Lock",
+      heading2: "Get OTP to edit profile lock xxx’s Profile",
+    },
+    inputenable: {
+      heading1: "Profile Lock",
+      heading2: "Enter OTP to edit profile lock xxx’s Profile",
+    },
+  },
 };
 
 interface otpForm {
@@ -97,7 +107,6 @@ function Getotp(props: getotpModalpropsInterface) {
   };
 
   const onSubmit: SubmitHandler<otpForm> = async (data) => {
-    console.log("hello");
     let formdata = new FormData();
     if (isPasswordOtp) {
       formdata.append("context", "userprofiles");
@@ -128,7 +137,10 @@ function Getotp(props: getotpModalpropsInterface) {
           enableRestrictionpage({ token: otpvalidresponse.response.token }),
         );
         push(`/profiles/view-restrictions/${profileData?.profileId}`);
-      } else if (type === "Profile & Video Lock") {
+      } else if (
+        type === "Profile & Video Lock" ||
+        type === "Forgot Profile & Video Lock"
+      ) {
         closeModal();
         dispatch(
           enableRestrictionpage({ token: otpvalidresponse.response.token }),

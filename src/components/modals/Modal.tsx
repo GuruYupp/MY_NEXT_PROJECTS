@@ -2,20 +2,6 @@ import { Fragment } from "react";
 import style from "./Modal.module.scss";
 import { ModalPropsInterface, ModalType } from "./modaltypes";
 
-// export type ModalType =
-// 	| "network_filter"
-// 	| "languages"
-// 	| "emojis"
-// 	| "template"
-// 	| "signout"
-// 	| "getotp"
-// 	| "";
-
-// export interface ModalPropsInterface {
-// 	modalType: ModalType;
-// 	render: (arg: ModalType)=>ReactNode
-// }
-
 function Modal(props: ModalPropsInterface) {
   const { render, modalType, withWrapper = true } = props;
   const renderModal = (modelType: ModalType) => {
@@ -61,6 +47,12 @@ function Modal(props: ModalPropsInterface) {
       case "profilepin":
         return (
           <div className={`${style.profilepin_modal}`}>{render(modalType)}</div>
+        );
+      case "parentalcontrolpin":
+        return (
+          <div className={`${style.parental_control_pin_modal}`}>
+            {render(modalType)}
+          </div>
         );
       default:
         return <></>;

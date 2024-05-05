@@ -1,0 +1,123 @@
+@import "@/_var.scss";
+.parental_contron_pin_container {
+  max-width: 470px;
+  border: 0;
+  border-radius: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 14%);
+  @include breakpoint(mobile) {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .parental_contron_pin_container_inner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 50px 26px 30px;
+    background: #262626;
+    border: 0;
+    border-radius: 4px;
+    .parental_contron_pin_close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      cursor: pointer;
+    }
+
+    .parental_contron_pin_body {
+      .sub_heading {
+        font-size: 18px;
+        color: #fff;
+        word-break: break-word;
+        text-align: center;
+        margin-top: 16px;
+        margin-bottom: 50px;
+      }
+
+      .otp_input_container {
+        display: flex;
+        justify-content: center;
+      }
+      .otp_msg {
+        display: inline-block;
+        width: 100%;
+
+        &.success {
+          text-align: center;
+          font-size: 0.875em;
+          color: green;
+        }
+        &.failmsg {
+          text-align: center;
+          font-size: 0.875em;
+          color: red;
+        }
+        &.error {
+          font-size: 12px;
+          color: red;
+          position: absolute;
+          bottom: -45%;
+          left: 0;
+        }
+      }
+
+      .forgot_link_div {
+        margin-top: 20px;
+        text-align: center;
+        .forgot_text {
+          font-size: 12px;
+          margin: 0 auto;
+          color: #898b93;
+          opacity: 0.5;
+          display: inline-block;
+        }
+      }
+    }
+
+    .parental_contron_pin_footer {
+      margin-top: 30px;
+      margin-bottom: 20px;
+      @include breakpoint(mobile) {
+        position: relative;
+        bottom: 0px;
+        margin-top: 60px;
+      }
+      .parental_contron_pin_footer_btns {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .btn {
+          border-radius: 2px;
+          height: 44px;
+          width: 130px;
+          font-size: 14px;
+          text-align: center;
+          color: #fff;
+          border: none;
+          background: hsla(0, 0%, 100%, 0.15);
+          outline: none;
+          text-transform: uppercase;
+          margin: 0px 8px;
+
+          &:nth-child(2) {
+            background: $primary-color;
+            color: #fff;
+
+            &:disabled {
+              opacity: 0.5;
+              cursor: not-allowed;
+            }
+          }
+
+          @include breakpoint(mac) {
+            // font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+}

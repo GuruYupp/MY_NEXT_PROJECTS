@@ -13,6 +13,7 @@ export type ModalType =
   | "mobileratings"
   | "profilepin"
   | "genericmodal"
+  | "parentalcontrolpin"
   | "";
 
 export interface ModalPropsInterface {

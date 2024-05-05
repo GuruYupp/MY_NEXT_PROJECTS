@@ -12,9 +12,13 @@ type fetchStreamDataParams = {
 export const fetchStreamData = createAsyncThunk<
   responseInterface,
   fetchStreamDataParams
->("fetchstream", async (args) => {
+>("fetchstream", async (args, thunkAPI) => {
   const { params } = args;
-  const result = await getData("/service/api/v1/page/stream", params);
+  const result = await getData(
+    "/service/api/v1/page/stream",
+    params,
+    thunkAPI.signal,
+  );
   return result;
 });
 

@@ -1,10 +1,8 @@
 import { subprofileInterface } from "@/shared";
 import styles from "./ProfilePin.module.scss";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useCallback, useState } from "react";
 import { ModalType } from "../modals/modaltypes";
 import { getAbsolutPath } from "@/utils";
-import { useRouter } from "next/router";
 import appConfig from "@/app.config";
 import OtpInput from "@/components/otpInput/OtpInput";
 import { useForm } from "react-hook-form";

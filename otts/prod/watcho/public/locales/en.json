@@ -5,7 +5,6 @@
   "BY_SIGNING_IN_YOU_AGREE_TO_BRAND_NAME": " By Signing in you agree to Wassa",
   "SIGN_IN_WITH": "Sign In with",
   "CONTINUE": "CONTINUE",
-  "FORGOT_PASSWORD?": "Forgot Password?",
   "MOBILE_NUMBER": "Mobile Number",
   "EMAIL_ID": "Email ID",
   "SIGN_IN_TO_YOUR_ACCOUNT": "Sign in to your Account",
@@ -247,5 +246,7 @@
   "PLEASE_ENTER_THE_VOUCHER_CODE_BELOW": "Please enter the  Voucher code below",
   "BY_CONTINUING_YOU_AGREE": "By continuing, you agree to Wassa's ",
   "PLEASE_ENTER_A_VALID_VOUCHER_CODE": "Please enter a valid voucher code",
-  "PLEASE_SIGN_IN_TO_USE_THIS_AND_MORE_SUCH_FEATURES": "Please sign in to use this and more such features"
+  "PLEASE_SIGN_IN_TO_USE_THIS_AND_MORE_SUCH_FEATURES": "Please sign in to use this and more such features",
+  "ENTER_YOUR_4_DIGIT_VIDEO_PIN_TO_WATCH_THE_RESTRICTED_CONTENT" : "Enter your 4-digit Video pin to watch the restricted content",
+  "FORGOT_PIN": "Forgot Pin?"
 }

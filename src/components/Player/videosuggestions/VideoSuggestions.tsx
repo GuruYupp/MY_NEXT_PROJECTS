@@ -6,10 +6,7 @@ import SuggestionCard from "./suggestioncard/SuggestionCard";
 import { useEffect, useRef, useState } from "react";
 import { fetchSections } from "@/redux/feature/pageSlice/pageSlice";
 import { useRouter } from "next/router";
-
-interface VideoSuggestionsProps {
-  suggestionHeight: number;
-}
+import { VideoSuggestionsProps } from "../playertypes";
 
 function VideoSuggestions(props: VideoSuggestionsProps) {
   const { suggestionHeight } = props;
