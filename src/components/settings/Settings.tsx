@@ -9,13 +9,8 @@ import { useAppSelector } from "@/redux/hooks";
 import appConfig from "@/app.config";
 
 function Settings() {
-  const { systemFeatures, systemConfigs } = useAppSelector(
-    (state) => state.configs,
-  );
+  const { systemConfigs } = useAppSelector((state) => state.configs);
 
-  const isProfileSettingsEnabled = () =>
-    systemFeatures?.userprofiles &&
-    systemFeatures?.userprofiles?.fields.is_userprofiles_supported == "true";
   return (
     <div className={`${styles.settings_page}`}>
       <div className={`${styles.settings_container}`}>
@@ -48,7 +43,7 @@ function Settings() {
                 <Panel title="User Settings" render={() => <UserSettings />} />
               )}
 
-              {isProfileSettingsEnabled() && (
+              {appConfig.settings.profileandparentalcontrol && (
                 <Panel
                   title="Profile & Parental Controls"
                   render={() => <ProfileParentalControls />}

@@ -23,7 +23,7 @@ export default function getfromcarddata(
   return res;
 }
 
-export type markerType = "seek" | "leftOverTime" | "";
+export type markerType = "seek" | "leftOverTime" | "badge" | "";
 
 export function getcardMarker(
   content: cardInterface,

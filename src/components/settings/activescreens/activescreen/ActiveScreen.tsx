@@ -1,10 +1,6 @@
 import { FC } from "react";
-import { activeScreenInterface } from "../activescreensSlice";
 import styles from "./ActiveScreen.module.scss";
-
-interface ActiveScreenProps {
-  activeScreen: activeScreenInterface;
-}
+import { ActiveScreenProps } from "../../settingstypes";
 
 const ActiveScreen: FC<ActiveScreenProps> = (props) => {
   const { activeScreen } = props;

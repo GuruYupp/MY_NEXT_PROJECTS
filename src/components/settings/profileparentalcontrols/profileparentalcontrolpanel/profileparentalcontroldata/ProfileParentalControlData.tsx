@@ -1,11 +1,7 @@
 import { FC } from "react";
 import styles from "./ProfileParentalControlData.module.scss";
-interface ProfileParentalControlDataProps {
-  controlType: "Language" | "Viewing Restrictions" | "Profile & Video Lock";
-  contentData: string;
-  actionText?: string;
-  clickHandler?: (arg: ProfileParentalControlDataProps["controlType"]) => void;
-}
+import { ProfileParentalControlDataProps } from "@/components/settings/settingstypes";
+
 const ProfileParentalControlData: FC<ProfileParentalControlDataProps> = ({
   controlType,
   contentData,

@@ -4,13 +4,28 @@ import { cardPropsInterface } from "../../cardtype";
 import appConfig from "@/app.config";
 import CardHOC from "../../CardHOC";
 const RollerPoster: FC<cardPropsInterface> = (props) => {
-  const { setcardImageRef, cardImage, display } = props;
+  const {
+    setcardImageRef,
+    cardImage,
+    display,
+    badgeMarker,
+    getStylesFromMarkers,
+  } = props;
   const handleImageonError = (e: SyntheticEvent) => {
     e.currentTarget.setAttribute("src", appConfig.cardDefaultImage);
   };
+
   return (
     <div className={`${styles.roller_poster}`}>
       <div className={`${styles.img_container}`} ref={setcardImageRef}>
+        {badgeMarker && (
+          <span
+            className={`${styles.badge}`}
+            style={{ ...getStylesFromMarkers(badgeMarker) }}
+          >
+            {badgeMarker.value}
+          </span>
+        )}
         <img
           src={cardImage}
           alt="Picture of the author"

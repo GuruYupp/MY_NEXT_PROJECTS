@@ -16,20 +16,22 @@ function useGetCardProps(
     cardDetails.display.parentIcon &&
     getAbsolutPath(cardDetails.display.parentIcon);
 
-  const showButton = getfromcarddata(props.cardDetails, "showButton");
-  const buttonText = getfromcarddata(props.cardDetails, "ButtonText");
+  const showButton = getfromcarddata(cardDetails, "showButton");
+  const buttonText = getfromcarddata(cardDetails, "ButtonText");
 
   const showFavoriteButton = getfromcarddata(
-    props.cardDetails,
+    cardDetails,
     "showFavouriteButton",
   );
-  const isFavorite = getfromcarddata(props.cardDetails, "isFavourite");
+  const isFavorite = getfromcarddata(cardDetails, "isFavourite");
 
-  const showShareButton = getfromcarddata(props.cardDetails, "showShareButton");
+  const showShareButton = getfromcarddata(cardDetails, "showShareButton");
 
-  const seekMarker = getcardMarker(props.cardDetails, "seek");
+  const seekMarker = getcardMarker(cardDetails, "seek");
 
-  const leftOverTimeMarker = getcardMarker(props.cardDetails, "leftOverTime");
+  const leftOverTimeMarker = getcardMarker(cardDetails, "leftOverTime");
+
+  const badgeMarker = getcardMarker(cardDetails, "badge");
 
   let allcardProps = {
     leftOverTimeMarker,
@@ -43,6 +45,7 @@ function useGetCardProps(
     showShareButton,
     buttonText,
     isFavorite,
+    badgeMarker,
   };
   return allcardProps;
 }

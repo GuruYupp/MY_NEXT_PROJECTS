@@ -7,9 +7,10 @@ import { createPortal } from "react-dom";
 import Modal from "@/components/modals/Modal";
 import ParentalControlPin from "@/components/ParentalControlPin/ParentalControlPin";
 import {
-  fetchStreamData,
   resetstreamSlice,
+  updateStreamData,
 } from "@/redux/feature/streamSlice/streamSlice";
+import { useRouter } from "next/router";
 
 function VideoPlayer(props: VideoPlayerPropsInterface) {
   const { setSuggestionHeight } = props;
@@ -18,11 +19,11 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
     error,
   } = useAppSelector((state) => state.streamData);
   const { activeProfile } = useAppSelector((state) => state.user);
-  const { info } = useAppSelector((state) => state.pageData.response);
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState<ModalType>("");
   const playerRef = useRef<HTMLDivElement>(null);
   const playerparentref = useRef<HTMLDivElement>(null);
+  const { back } = useRouter();
   useEffect(() => {
     let playerOBj: any;
     if (playerRef.current && typeof window !== undefined) {
@@ -54,7 +55,7 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
         playerOBj.remove();
       }
     };
-  }, []);
+  }, [streams]);
 
   function getPlayList() {
     let Playlist: any[] = [];
@@ -90,30 +91,22 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
     const { from, data } = Modaldata;
-    debugger;
     switch (from) {
       case "parentalcontrolpin":
-        // switchSelectedProfile(selectedProfile, data);
-        getStreamByPin(data);
+        dispatch(resetstreamSlice());
+        dispatch(updateStreamData(data));
         break;
       default:
         break;
     }
   }
 
-  const getStreamByPin = async (pin: string) => {
-    let params = {
-      path: info.path || "",
-      // eslint-disable-next-line camelcase
-      pin,
-    };
-
-    dispatch(resetstreamSlice());
-    dispatch(fetchStreamData({ params }));
-  };
-
-  const handlecloseModal = () => {
+  const handlecloseModal = (isCancel: boolean = false) => {
     document.body.style.overflowY = "scroll";
+    if (isCancel) {
+      back();
+      return;
+    }
     setShowModal("");
   };
 

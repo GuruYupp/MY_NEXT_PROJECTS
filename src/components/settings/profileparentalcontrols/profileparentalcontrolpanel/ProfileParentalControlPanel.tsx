@@ -13,14 +13,7 @@ import { getotpModalType } from "@/components/Getotp/getotptypes";
 import { updateProfile } from "@/redux/feature/userSlice/userSlice";
 import { ModalType } from "@/components/modals/modaltypes";
 import appConfig from "@/app.config";
-interface ProfileParentalControlPanelProps {
-  toggle?: boolean;
-  default_open?: boolean;
-  isActive: boolean;
-  setActiveIndex: (index: number) => void;
-  panelIndex: number;
-  profileId: subprofileInterface["profileId"];
-}
+import { ProfileParentalControlPanelProps } from "../../settingstypes";
 
 const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
   toggle = true,

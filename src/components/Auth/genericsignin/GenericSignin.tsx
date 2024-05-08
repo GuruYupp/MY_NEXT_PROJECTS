@@ -39,7 +39,7 @@ const GenericSignIn: FC = () => {
     defaultValues: {
       password: "",
       email: "",
-      number: "",
+      mobile: "",
     },
   });
 
@@ -91,7 +91,7 @@ const GenericSignIn: FC = () => {
   };
 
   const onSubmit: SubmitHandler<SingnInFormType> = async (formData) => {
-    const { email, number, password } = formData;
+    const { email, mobile, password } = formData;
     let payload = {
       // eslint-disable-next-line camelcase
       login_key: password,
@@ -106,7 +106,7 @@ const GenericSignIn: FC = () => {
       payload.login_id = email;
     } else {
       // eslint-disable-next-line camelcase
-      payload.login_id = `91-${number}`;
+      payload.login_id = `91-${mobile}`;
     }
     signIn(payload);
   };

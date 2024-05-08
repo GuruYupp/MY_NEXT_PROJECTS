@@ -1,11 +1,12 @@
 import { getData } from "@/services/data.manager";
 import { responseInterface, streamDataIterface } from "@/shared";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type fetchStreamDataParams = {
   params: {
     path: string;
     stream_type?: string;
+    pin?: string;
   };
 };
 
@@ -48,6 +49,20 @@ const streamSlice = createSlice({
     resetstreamSlice: () => {
       return initialState;
     },
+    updateStreamData: (state, action: PayloadAction<responseInterface>) => {
+      const { payload } = action;
+      if (payload.status == true) {
+        state.response = payload.response;
+      } else {
+        if (payload.error) {
+          state.error = payload.error;
+        }
+        if (payload.pageAttributes) {
+          state.pageAttributes = payload.pageAttributes;
+        }
+      }
+      state.streamapiloading = "succeeded";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -74,6 +89,6 @@ const streamSlice = createSlice({
   },
 });
 
-export const { resetstreamSlice } = streamSlice.actions;
+export const { resetstreamSlice, updateStreamData } = streamSlice.actions;
 
 export default streamSlice.reducer;

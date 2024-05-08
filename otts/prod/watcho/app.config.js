@@ -41,8 +41,14 @@ const appConfig = {
   header: {
     partners: true,
     languages: true,
-    topheader: true,
+    topheader: {
+   show:true,
+   postionfixed:true
+ },
     signup:false,
+    helpandsupport:true,
+    faq:true,
+    signout:true,
   },
   signin: {
     primary: "mobile", //email (or) mobile
@@ -71,6 +77,7 @@ const appConfig = {
     showDeleteButtonAndroid: true,
     changePasswordSupport: true,
     userSettings: true,
+    profileandparentalcontrol:true,
     activeScreenandDevices: {
       activeDevices: false,
       activeScreens: false,
@@ -79,6 +86,9 @@ const appConfig = {
   search: {
     apiversion: "v3",
   },
+  parentalconrolpin:{
+    forgotpin:true
+  }
 };
 
 export default appConfig;

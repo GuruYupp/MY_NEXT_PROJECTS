@@ -16,7 +16,7 @@ const DeskTopHeader: FC<DesktoHeaderPropsInterface> = (props) => {
         moveheaderTop === true ? styles.move_top : ""
       }`}
     >
-      {appConfig.header.topheader === true && <HeaderTop />}
+      {appConfig.header.topheader.show === true && <HeaderTop />}
       <HeaderBottom menus={menus} headerGradient={headerGradient} />
     </div>
   );

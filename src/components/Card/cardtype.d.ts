@@ -1,5 +1,5 @@
 import { cardInterface, templateType } from "@/shared";
-import { ReactNode, RefCallback, SyntheticEvent } from "react";
+import { CSSProperties, ReactNode, RefCallback, SyntheticEvent } from "react";
 type cardElemetType = cardInterface["hover"]["elements"][0];
 type cardMarkersType = cardInterface["display"]["markers"][0];
 type cardDisplayType = cardInterface["display"];
@@ -15,10 +15,12 @@ export interface cardPropsInterface {
   showShareButton?: cardElemetType;
   seekMarker?: cardMarkersType;
   leftOverTimeMarker?: cardMarkersType;
-  handleLikeButton?: (e: SyntheticEvent) => void;
-  handleRemoveContinueWatching?: (e: SyntheticEvent) => void;
+  badgeMarker?: cardMarkersType;
+  handleLikeButton: (e: SyntheticEvent) => void;
+  handleRemoveContinueWatching: (e: SyntheticEvent) => void;
+  getStylesFromMarkers: (marker: cardMarkersType) => CSSProperties;
   setcardImageRef: RefCallback<HTMLDivElement | null>;
-  sectionCode?: string;
+  sectionCode: string;
 }
 
 export interface RootCardPropsInterface {

@@ -27,7 +27,10 @@ const appConfig = {
   header: {
     partners: false,
     languages: true,
-    topheader: true,
+    topheader: {
+   show:true,
+   postionfixed:true
+ },
   },
   signin: {
     primary: "mobile", //email (or) mobile

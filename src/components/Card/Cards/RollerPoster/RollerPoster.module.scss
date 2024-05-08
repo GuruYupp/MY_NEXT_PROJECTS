@@ -24,6 +24,15 @@
       right: 6px;
       background: none;
     }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0px 10px;
+      font-size: 12px;
+      border-radius: 0 0 0 4px;
+    }
   }
 
   .bottom {

@@ -18,7 +18,11 @@ function Header() {
     const handleScroll = () => {
       if (window.scrollY > 250) {
         setheaderGradient(false);
-        if (appConfig.header.topheader === true) setmoveheaderTop(true);
+        if (
+          appConfig.header.topheader.show &&
+          !appConfig.header.topheader.postionfixed
+        )
+          setmoveheaderTop(true);
       } else {
         if (
           banners.length === 0 &&
@@ -33,7 +37,11 @@ function Header() {
         } else {
           setheaderGradient(true);
         }
-        if (appConfig.header.topheader === true) setmoveheaderTop(false);
+        if (
+          appConfig.header.topheader.show &&
+          !appConfig.header.topheader.postionfixed
+        )
+          setmoveheaderTop(false);
       }
     };
     // console.log(asPath);

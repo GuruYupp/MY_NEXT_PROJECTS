@@ -1,5 +1,6 @@
 import { cardDimentionsForResponsive, debunceFunction } from "@/utils";
 import {
+  CSSProperties,
   ComponentType,
   MutableRefObject,
   RefCallback,
@@ -19,7 +20,11 @@ import {
 } from "@/redux/feature/pageSlice/pageSlice";
 import { ModalType } from "../modals/modaltypes";
 import Template from "../templates/Template";
-import { RootCardPropsInterface, cardPropsInterface } from "./cardtype";
+import {
+  RootCardPropsInterface,
+  cardMarkersType,
+  cardPropsInterface,
+} from "./cardtype";
 import CardLinkWrapper from "./CardLinkWrapper";
 import { dispayInterface as genericpopupdispayInterface } from "../Genericmodal/genericmodaltype";
 import GenericModal from "../Genericmodal/GenericModal";
@@ -27,7 +32,7 @@ import useGetCardProps from "./useCardProps";
 
 function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
   function CardWrapper(props: RootCardPropsInterface) {
-    const { cardDetails, sectionCode } = props;
+    const { cardDetails, sectionCode = "" } = props;
     const { cardType, target, template } = cardDetails;
 
     const cardDisplaydetails = useGetCardProps(props);
@@ -119,11 +124,25 @@ function CardHOC(CardComponent: ComponentType<cardPropsInterface>) {
       }
     };
 
+    const getStylesFromMarkers: (marker: cardMarkersType) => CSSProperties = (
+      marker,
+    ) => {
+      let styles: CSSProperties = {};
+      if (marker.bgColor) {
+        styles.backgroundColor = `#${marker.bgColor}`;
+      }
+      if (marker.textColor) {
+        styles.color = `#${marker.textColor}`;
+      }
+      return styles;
+    };
+
     let allcardProps: cardPropsInterface = {
       ...cardDisplaydetails,
       setcardImageRef,
       handleRemoveContinueWatching,
       handleLikeButton,
+      getStylesFromMarkers,
       sectionCode,
     };
 

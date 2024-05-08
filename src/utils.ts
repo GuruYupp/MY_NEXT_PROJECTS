@@ -619,8 +619,8 @@ export function cardCountForSectionSlick(cardType: string): Settings {
           {
             breakpoint: 1650,
             settings: {
-              slidesToShow: 8,
-              slidesToScroll: 8,
+              slidesToShow: 7,
+              slidesToScroll: 7,
             },
           },
           {

@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { ParentalControlpinModalpropsInterface } from "./parentalcontrolpintype";
 import styles from "./ParentalControlPin.module.scss";
 import appConfig from "@/app.config";
@@ -10,15 +10,21 @@ import { createPortal } from "react-dom";
 import Modal from "../modals/Modal";
 import Getotp from "../Getotp/Getotp";
 import { getotpModalType } from "../Getotp/getotptypes";
+import { getData } from "@/services/data.manager";
+// import { getData } from "@/services/data.manager";
 
 const ParentalControlPin: FC<ParentalControlpinModalpropsInterface> = (
   props,
 ) => {
-  const { closeModal, profileData, sendDatatoComponent, pinerrMsg } = props;
+  const { closeModal, profileData, sendDatatoComponent } = props;
 
   const { localLang } = useAppSelector((state) => state.localization);
+  const { info } = useAppSelector((state) => state.pageData.response);
+
   const [showModal, setShowModal] = useState<ModalType>("");
   const [otpModal, setOtpModal] = useState<getotpModalType>("");
+  const [pinerrMsg, setPinerrMsg] = useState<string>("");
+
   const { handleSubmit } = useForm({
     mode: "onChange",
   });
@@ -29,9 +35,9 @@ const ParentalControlPin: FC<ParentalControlpinModalpropsInterface> = (
     setPin(pin);
   }, []);
 
-  const onSubmit = () => {
-    if (sendDatatoComponent) {
-      sendDatatoComponent({ from: "parentalcontrolpin", data: pin });
+  const onSubmit: SubmitHandler<{}> = () => {
+    if (pin) {
+      getStreamByPin(pin);
     }
   };
 
@@ -53,13 +59,36 @@ const ParentalControlPin: FC<ParentalControlpinModalpropsInterface> = (
     setShowModal("");
   };
 
+  const getStreamByPin = async (pin: string) => {
+    let params = {
+      path: info.path || "",
+      // eslint-disable-next-line camelcase
+      pin,
+    };
+    const streamapiresponse = await getData(
+      "/service/api/v1/page/stream",
+      params,
+    );
+    if (streamapiresponse.status) {
+      if (sendDatatoComponent) {
+        sendDatatoComponent({
+          from: "parentalcontrolpin",
+          data: streamapiresponse,
+        });
+      }
+      closeModal();
+    } else {
+      setPinerrMsg(streamapiresponse.error?.message || "");
+    }
+  };
+
   return (
     <>
       <div className={`${styles.parental_contron_pin_container}`}>
         <div className={`${styles.parental_contron_pin_container_inner}`}>
           <span
             className={`${styles.parental_contron_pin_close}`}
-            onClick={closeModal}
+            onClick={() => closeModal(true)}
           >
             <img
               alt="close"
@@ -85,20 +114,22 @@ const ParentalControlPin: FC<ParentalControlpinModalpropsInterface> = (
                   {pinerrMsg}
                 </span>
               )}
-              <div className={`${styles.forgot_link_div}`}>
-                <span
-                  className={`${styles.forgot_text}`}
-                  onClick={handleForgotLink}
-                >
-                  {localLang["FORGOT_PIN"]}
-                </span>
-              </div>
+              {appConfig.parentalconrolpin.forgotpin && (
+                <div className={`${styles.forgot_link_div}`}>
+                  <span
+                    className={`${styles.forgot_text}`}
+                    onClick={handleForgotLink}
+                  >
+                    {localLang["FORGOT_PIN"]}
+                  </span>
+                </div>
+              )}
             </div>
             <div className={`${styles.parental_contron_pin_footer}`}>
               <div className={`${styles.parental_contron_pin_footer_btns}`}>
                 <button
                   className={`${styles.btn}`}
-                  onClick={closeModal}
+                  onClick={() => closeModal(true)}
                   type="button"
                 >
                   Cancel

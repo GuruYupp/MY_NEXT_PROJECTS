@@ -1,14 +1,6 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, useState } from "react";
 import styles from "./Panel.module.scss";
-interface PanelPropsInterface {
-  title?: string;
-  toggle?: boolean;
-  defaultopen?: boolean;
-  render: () => ReactNode;
-  headerrightbutton?: {
-    text: string;
-  };
-}
+import { PanelPropsInterface } from "../settingstypes";
 
 const Panel: FC<PanelPropsInterface> = ({
   title,

@@ -1,14 +1,7 @@
 import { FC } from "react";
-
 import styles from "./GenericAccountDetailsRow.module.scss";
+import { GenericAccountDetailsRowprops } from "../../settingstypes";
 
-interface GenericAccountDetailsRowprops {
-  heading1?: string;
-  heading2?: string;
-  actionbtntext?: string;
-  details?: { label: string; value: string };
-  actionbtnhandle?: (...args: any) => void;
-}
 const GenericAccountDetailsRow: FC<GenericAccountDetailsRowprops> = ({
   heading1,
   heading2,

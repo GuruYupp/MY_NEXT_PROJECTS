@@ -14,11 +14,13 @@ import { default as clientCookie } from "js-cookie";
 import { createPortal } from "react-dom";
 import Modal from "@/components/modals/Modal";
 import ProfilePin from "@/components/profilepin/ProfilePin";
+import appConfig from "@/app.config";
 export default function ProfileMenus() {
   const { systemFeatures, systemConfigs } = useAppSelector(
     (state) => state.configs,
   );
   const { userDetails, activeProfile } = useAppSelector((state) => state.user);
+  const { localLang } = useAppSelector((state) => state.localization);
   const [showModal, setShowModal] = useState<ModalType>("");
 
   const [selectedProfile, setSelectedProfile] = useState<subprofileInterface>(
@@ -140,25 +142,33 @@ export default function ProfileMenus() {
         <ul>
           <li>
             <Link href={`/${systemConfigs?.configs?.favouritesTargetPath}`}>
-              My WatchList
+              {localLang["HEADER_FAVOURITES_TEXT"]}
             </Link>
           </li>
           <li>
-            <Link href={"/settings"}>Account Settings</Link>
+            <Link href={"/settings"} prefetch={true}>
+              {localLang["HEADER_ACCOUNT_SETTINGS"]}
+            </Link>
           </li>
           {systemConfigs?.configs?.myPurchasesTargetPathWeb && (
             <li>
               <Link
                 href={`/${systemConfigs?.configs?.myPurchasesTargetPathWeb}`}
               >
-                My Purchases
+                {localLang["HEADER_MY_PURCHASES"]}
               </Link>
             </li>
           )}
           <li className={`${styles.divider}`}></li>
-          <li onClick={LoadHelpCenter}>Help & Support</li>
-          <li onClick={goToFaq}>FAQ</li>
-          <li onClick={handleSignout}>Sign Out</li>
+          {appConfig.header.helpandsupport && (
+            <li onClick={LoadHelpCenter}>{localLang["HEADER_HELP_SUPPORT"]}</li>
+          )}
+          {appConfig.header.faq && (
+            <li onClick={goToFaq}>{localLang["HEADER_FAQ"]}</li>
+          )}
+          {appConfig.header.signout && (
+            <li onClick={handleSignout}>{localLang["SIGN_OUT"]}</li>
+          )}
         </ul>
         {systemFeatures?.userprofiles?.fields?.is_userprofiles_supported ===
           "true" && (
