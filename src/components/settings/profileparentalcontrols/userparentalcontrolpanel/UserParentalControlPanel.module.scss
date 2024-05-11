@@ -1,0 +1,91 @@
+@import "@/_var.scss";
+.pannel {
+  position: relative;
+
+  .pannel_inner {
+    padding: 20px 0;
+    position: relative;
+    cursor: pointer;
+    border-bottom: 1px solid #383838;
+    margin: 0 5px;
+    display: flex;
+    align-items: center;
+    @include breakpoint(mobile) {
+      padding: 16px 10px;
+      margin: 0;
+    }
+    &.show_arrow {
+      &::after {
+        content: "";
+        border: solid #fff;
+        border-width: 0 3px 3px 0;
+        display: inline-block;
+        padding: 4px;
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        transition: all 0.5s ease-in-out;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        top: 22px;
+        opacity: 0.65;
+      }
+    }
+    .img_container {
+      width: 45px;
+      height: 45px;
+      img {
+        height: 100%;
+        width: 100%;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+      }
+    }
+    .info_container {
+      flex: 1;
+      margin-left: 15px;
+      @include breakpoint(laptop) {
+        margin-left: 20px;
+      }
+      .profile_name {
+        font-size: 16px;
+        color: #fff;
+        margin-bottom: 4px;
+        font-weight: 400;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        @include breakpoint(tablet) {
+          font-size: 15px;
+        }
+        @include breakpoint(mobile) {
+          font-size: 14px;
+        }
+      }
+      .maturity {
+        font-size: 13px;
+        color: #fff;
+        opacity: 0.65;
+      }
+    }
+  }
+
+  .pannel_data_container {
+    overflow: hidden;
+    height: 0px;
+    transition: height 338ms;
+  }
+
+  &.expand {
+    .pannel_inner {
+      &.show_arrow {
+        &::after {
+          top: 28px;
+          transform: rotate(-135deg);
+          -webkit-transform: rotate(-135deg);
+        }
+      }
+    }
+  }
+}

@@ -3,10 +3,11 @@ import styles from "./MobileRatings.module.scss";
 import Modal from "@/components/modals/Modal";
 import BottomRatings from "./BottomRatings/BottomRatings";
 import { createPortal } from "react-dom";
-import { MobileRatingsInterface } from "../viewRestrictiontypes";
 import { ModalType } from "@/components/modals/modaltypes";
+import { MobileRatingsInterface } from "../ratingstype";
+import RatingsHOC from "../RatingsHOC";
 
-const MobileRatings: FC<MobileRatingsInterface> = (props) => {
+const MobileRatingsWrapped: FC<MobileRatingsInterface> = (props) => {
   const [showModal, setShowModal] = useState<ModalType>("");
   const handleClick = () => {
     setShowModal("mobileratings");
@@ -40,4 +41,5 @@ const MobileRatings: FC<MobileRatingsInterface> = (props) => {
   );
 };
 
+const MobileRatings = RatingsHOC(MobileRatingsWrapped);
 export default MobileRatings;

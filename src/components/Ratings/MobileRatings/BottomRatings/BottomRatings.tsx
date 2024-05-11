@@ -1,7 +1,7 @@
 import styles from "./BottomRatings.module.scss";
 import appConfig from "@/app.config";
-import { BottomRatingsInterface } from "../../viewRestrictiontypes";
 import { FC } from "react";
+import { BottomRatingsInterface } from "../../ratingstype";
 
 const BottomRatings: FC<BottomRatingsInterface> = (props) => {
   const {

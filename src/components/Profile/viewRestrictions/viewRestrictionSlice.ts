@@ -1,45 +1,19 @@
 import { getData } from "@/services/data.manager";
-import { profileRatingType } from "@/shared";
 import { createAction, createReducer } from "@reduxjs/toolkit";
-import { viewRestrictionInterface } from "./viewRestrictiontypes";
+import { ViewRestrictionSliceInterface } from "./viewRestrictiontypes";
 
-let initialState: viewRestrictionInterface = {
-  profileRationgs: [],
-  profileRationgsstatus: "idle",
-  activeProfileRatingIndex: -1,
-  activeProfileRating: {
-    name: "",
-    priority: -1,
-    displayCode: "",
-    description: "",
-    pinRequiredRatings: "",
-    id: -1,
-    imageUrl: "",
-  },
+let initialState: ViewRestrictionSliceInterface = {
   blockedContentstatus: "idle",
   blockedContents: [],
   queryContentstatus: "idle",
   queryContents: [],
 };
 
-export const profileRationgsPending = createAction(
-  "fetchprofileRationgs/pending",
-);
-export const profileRationgsFulfiled = createAction<profileRatingType[]>(
-  "fetchprofileRationgs/fulfilled",
-);
-export const profileRationgsRejected = createAction<any>(
-  "fetchprofileRationgs/rejected",
-);
-export const setActiveprofileRatingsIndex = createAction<number>(
-  "setActiveprofileRatingsIndex",
-);
-
 export const blockedContentsPending = createAction(
   "fetchblockedContents/pending",
 );
 export const blockedContentsFulfiled = createAction<
-  viewRestrictionInterface["blockedContents"]
+  ViewRestrictionSliceInterface["blockedContents"]
 >("fetchblockedContents/fulfilled");
 export const blockedContentsRejected = createAction<any>(
   "fetchblockedContents/rejected",
@@ -55,7 +29,7 @@ export const removeblockedContent = createAction<string>(
 
 export const queryContentsPending = createAction("fetchContents/pending");
 export const queryContentsFulfiled = createAction<
-  viewRestrictionInterface["queryContents"]
+  ViewRestrictionSliceInterface["queryContents"]
 >("fetchContents/fulfilled");
 export const queryContentsRejected = createAction<any>(
   "fetchContents/rejected",
@@ -64,27 +38,6 @@ export const queryContentsEmpty = createAction("querycontents/empty");
 
 const viewRestrictionReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(profileRationgsPending, (state) => {
-      state.profileRationgsstatus = "pending";
-    })
-    .addCase(profileRationgsFulfiled, (state, action) => {
-      console.log(action.payload);
-      state.profileRationgs = action.payload.sort(
-        (a, b) => a.priority - b.priority,
-      );
-      state.profileRationgsstatus = "fulfilled";
-    })
-    .addCase(profileRationgsRejected, (state) => {
-      state.profileRationgsstatus = "rejected";
-    })
-    .addCase(setActiveprofileRatingsIndex, (state, action) => {
-      state.profileRationgs.map((rating, index) => {
-        if (rating.id === action.payload) {
-          state.activeProfileRatingIndex = index;
-          state.activeProfileRating = rating;
-        }
-      });
-    })
     .addCase(blockedContentsPending, (state) => {
       state.blockedContentstatus = "pending";
     })
@@ -136,11 +89,6 @@ const viewRestrictionReducer = createReducer(initialState, (builder) => {
       state.queryContents = [];
     });
 });
-
-export const fetchProfileRatings = async () => {
-  let response = await getData("/service/api/v1/get/parental/ratings");
-  return response;
-};
 
 export const fetchblockedContents = async (params: { profileId: number }) => {
   let response = await getData("service/api/v1/get/blocked/items", params);

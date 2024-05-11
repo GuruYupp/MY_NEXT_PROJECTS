@@ -1,7 +1,9 @@
 import React, { FC } from "react";
-import { DesktopRatingsInterface } from "../viewRestrictiontypes";
 import styles from "./DesktopRatings.module.scss";
-const DesktopRatings: FC<DesktopRatingsInterface> = (props) => {
+import { DesktopRatingsInterface } from "../ratingstype";
+import RatingsHOC from "../RatingsHOC";
+
+const DesktopRatingsWrapped: FC<DesktopRatingsInterface> = (props) => {
   const { profileRationgs, ratingClick, activeProfileRatingIndex } = props;
   const getratingState = (
     index: number,
@@ -48,4 +50,5 @@ const DesktopRatings: FC<DesktopRatingsInterface> = (props) => {
   );
 };
 
+const DesktopRatings = RatingsHOC(DesktopRatingsWrapped);
 export default DesktopRatings;

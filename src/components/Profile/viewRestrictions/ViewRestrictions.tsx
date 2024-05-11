@@ -5,11 +5,6 @@ import { getAbsolutPath } from "@/utils";
 
 import { useCallback, useEffect, useReducer, useState } from "react";
 import viewRestrictionReducer, {
-  fetchProfileRatings,
-  profileRationgsPending,
-  profileRationgsFulfiled,
-  profileRationgsRejected,
-  setActiveprofileRatingsIndex,
   blockedContentsPending,
   fetchblockedContents,
   blockedContentsFulfiled,
@@ -22,14 +17,15 @@ import viewRestrictionReducer, {
   addblockedContent,
   removeblockedContent,
 } from "./viewRestrictionSlice";
-import { profileRatingType } from "@/shared";
-import DesktopRatings from "./DesktopRatings/DesktopRatings";
+
 import TitleRestrictions from "./TitleRestrictions/TitleRestrictions";
-import MobileRatings from "./MobileRatings/MobileRatings";
-import { viewRestrictionInterface } from "./viewRestrictiontypes";
+
 import { postData } from "@/services/data.manager";
 import { resetViewRestrictions } from "@/redux/feature/restrictionSlice/restrictionSlice";
 import appConfig from "@/app.config";
+import { ViewRestrictionSliceInterface } from "./viewRestrictiontypes";
+import Ratings from "@/components/Ratings/Ratings";
+import { RatingsSliceInterface } from "@/components/Ratings/ratingstype";
 
 function ViewRestrictions() {
   const { query, back } = useRouter();
@@ -38,14 +34,16 @@ function ViewRestrictions() {
   );
   const dispatch = useAppDispatch();
   const { userDetails } = useAppSelector((state) => state.user);
+  const { userprofiles } = useAppSelector(
+    (state) => state.configs.systemFeatures,
+  );
   const [cstate, cdispatch] = useReducer(
     viewRestrictionReducer,
     viewRestrictionReducer.getInitialState(),
   );
 
-  const [ratingsbarType, setRatingsbarType] = useState<
-    "desktop" | "mobile" | ""
-  >();
+  const [activeProfileRating, setActiveProfileRating] =
+    useState<RatingsSliceInterface["activeProfileRating"]>();
 
   const defaultprofileimg =
     "https://d2ivesio5kogrp.cloudfront.net/static/watcho/images/profile-pic1.svg";
@@ -58,30 +56,14 @@ function ViewRestrictions() {
     : defaultprofileimg;
 
   useEffect(() => {
-    cdispatch(profileRationgsPending());
     cdispatch(blockedContentsPending());
     let unmount = false;
-    fetchProfileRatings()
-      .then((response) => {
-        if (response.status === true) {
-          const ratings = response.response
-            ?.parentalRatings as profileRatingType[];
-          if (unmount === false) {
-            cdispatch(profileRationgsFulfiled(ratings));
-            cdispatch(
-              setActiveprofileRatingsIndex(Profile?.profileRatingId || -1),
-            );
-          }
-        }
-      })
-      .catch((err) => {
-        cdispatch(profileRationgsRejected(err as any));
-      });
+
     fetchblockedContents({ profileId: Profile?.profileId || -1 })
       .then((response) => {
         if (response.status === true) {
           const blockedContents = response.response
-            .data as viewRestrictionInterface["blockedContents"];
+            .data as ViewRestrictionSliceInterface["blockedContents"];
           if (unmount === false) {
             cdispatch(blockedContentsFulfiled(blockedContents));
             console.log(blockedContents);
@@ -92,29 +74,10 @@ function ViewRestrictions() {
         cdispatch(blockedContentsRejected(err as any));
       });
 
-    showRatingsInDevice();
-    window.addEventListener("resize", handleresizeEvent);
     return () => {
       unmount = true;
-      window.removeEventListener("resize", handleresizeEvent);
       dispatch(resetViewRestrictions());
     };
-  }, []);
-
-  const handleresizeEvent = () => {
-    showRatingsInDevice();
-  };
-
-  const showRatingsInDevice = () => {
-    if (window.innerWidth <= 760) {
-      setRatingsbarType("mobile");
-    } else if (window.innerWidth > 760) {
-      setRatingsbarType("desktop");
-    }
-  };
-
-  const handleRatingClick = useCallback((id: number) => {
-    cdispatch(setActiveprofileRatingsIndex(id));
   }, []);
 
   const handleSearchQuery = useCallback((query: string) => {
@@ -128,7 +91,7 @@ function ViewRestrictions() {
       .then((response) => {
         if (response.status === true) {
           let contents = response.response
-            ?.data as viewRestrictionInterface["queryContents"];
+            ?.data as ViewRestrictionSliceInterface["queryContents"];
           cdispatch(queryContentsFulfiled(contents));
         }
       })
@@ -148,6 +111,13 @@ function ViewRestrictions() {
     cdispatch(removeblockedContent(id));
   }, []);
 
+  const handleRatingsonChange = useCallback(
+    (activeProfileRating: RatingsSliceInterface["activeProfileRating"]) => {
+      setActiveProfileRating(activeProfileRating);
+    },
+    [activeProfileRating],
+  );
+
   if (enableRestrictionpage === false) {
     back();
   }
@@ -166,16 +136,21 @@ function ViewRestrictions() {
   };
 
   const handleSavebtn = () => {
-    const { activeProfileRating, blockedContents } = cstate;
+    //activeProfileRating
+    const { blockedContents } = cstate;
     let blockedItems: { category: string; itemIds: string }[] = [];
     blockedContents.map(({ category, itemsMap }) => {
       blockedItems.push({ category, itemIds: Object.keys(itemsMap).join(",") });
     });
+    let context =
+      userprofiles?.fields?.is_userprofiles_supported === "true"
+        ? "user_profiles"
+        : "userprofiles";
     let payload = {
       blockedItems,
-      context: "userprofiles",
+      context,
       profileId: Profile?.profileId,
-      ratingsId: activeProfileRating.id,
+      ratingsId: activeProfileRating?.id,
       token: apivalidtoken,
     };
     updateviewRestrictions(payload);
@@ -205,21 +180,12 @@ function ViewRestrictions() {
             <p className={`${styles.subheading}`}>
               Only show titles of rated{" "}
               <span className={`${styles.rating}`}>
-                '{cstate.activeProfileRating.displayCode || " A and Below "}'
+                '{activeProfileRating?.displayCode || " A and Below "}'
               </span>{" "}
               for this profile.
             </p>
 
-            {ratingsbarType === "desktop" && (
-              <DesktopRatings {...cstate} ratingClick={handleRatingClick} />
-            )}
-            {ratingsbarType === "mobile" && Profile && (
-              <MobileRatings
-                Profile={Profile}
-                ratingClick={handleRatingClick}
-                {...cstate}
-              />
-            )}
+            <Ratings ratingsonChange={handleRatingsonChange} />
 
             <div className={`${styles.restrictionContainer}`}>
               <p className={`${styles.heading}`}>

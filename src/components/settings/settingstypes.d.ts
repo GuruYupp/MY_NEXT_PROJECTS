@@ -11,8 +11,17 @@ export interface ProfileParentalControlPanelProps {
   profileId: subprofileInterface["profileId"];
 }
 
+export type UserProfileParentalControlPanelProps = Omit<
+  ProfileParentalControlPanelProps,
+  "profileId"
+>;
+
 export interface ProfileParentalControlDataProps {
-  controlType: "Language" | "Viewing Restrictions" | "Profile & Video Lock";
+  controlType:
+    | "Language"
+    | "Viewing Restrictions"
+    | "Profile & Video Lock"
+    | "Parental Controls";
   contentData: string;
   actionText?: string;
   clickHandler?: (arg: ProfileParentalControlDataProps["controlType"]) => void;

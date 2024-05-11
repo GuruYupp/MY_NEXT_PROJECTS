@@ -36,7 +36,14 @@ const ProfileParentalControls: FC = () => {
             profileId={profile.profileId}
           />
         ))}
-      {!isProfileSettingsEnabled() && <UserParentalControlPanel />}
+      {!isProfileSettingsEnabled() && (
+        <UserParentalControlPanel
+          isActive={true}
+          setActiveIndex={setActiveIndex}
+          toggle={false}
+          panelIndex={0}
+        />
+      )}
     </div>
   );
 };

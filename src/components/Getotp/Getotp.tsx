@@ -52,6 +52,16 @@ let Getotpheadings = {
       heading2: "Enter OTP to edit profile lock xxx’s Profile",
     },
   },
+  "Parental Controls": {
+    default: {
+      heading1: "Parental Controls",
+      heading2: "Enter your password to edit Parental Controls for xxx’s",
+    },
+    inputenable: {
+      heading1: "Profile Lock",
+      heading2: "Enter otp to edit Parental Controls for xxx’s",
+    },
+  },
 };
 
 interface otpForm {
@@ -101,7 +111,16 @@ function Getotp(props: getotpModalpropsInterface) {
     };
     postData("service/api/auth/get/otp", payload).then((data) => {
       if (data.status === true) {
+        setToggleInput(!toggleInput);
         setSuccessText("OTP sent to your Registered mobile number");
+      } else if (data.status === false) {
+        if (data.error?.message) {
+          setSuccessText("");
+          setErrorText(data.error?.message || "");
+          errortexttimer.current = setTimeout(() => {
+            setErrorText("");
+          }, 2000);
+        }
       }
     });
   };
@@ -139,7 +158,8 @@ function Getotp(props: getotpModalpropsInterface) {
         push(`/profiles/view-restrictions/${profileData?.profileId}`);
       } else if (
         type === "Profile & Video Lock" ||
-        type === "Forgot Profile & Video Lock"
+        type === "Forgot Profile & Video Lock" ||
+        type === "Parental Controls"
       ) {
         closeModal();
         dispatch(
@@ -249,12 +269,12 @@ function Getotp(props: getotpModalpropsInterface) {
                     {successText}
                   </span>
                 )}
-                {errorText && (
-                  <span className={`${styles.otp_msg} ${styles.failmsg}`}>
-                    {errorText}
-                  </span>
-                )}
               </>
+            )}
+            {errorText && (
+              <span className={`${styles.otp_msg} ${styles.failmsg}`}>
+                {errorText}
+              </span>
             )}
           </div>
           <div className={`${styles.get_otp_footer}`}>
@@ -270,7 +290,6 @@ function Getotp(props: getotpModalpropsInterface) {
                 <button
                   className={`${styles.btn}`}
                   onClick={() => {
-                    setToggleInput(!toggleInput);
                     getOtp();
                   }}
                   type="button"

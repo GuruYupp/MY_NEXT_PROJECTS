@@ -27,7 +27,9 @@ function Modal(props: ModalPropsInterface) {
           <div className={`${style.template_modal}`}>{render(modalType)}</div>
         );
       case "getotp":
-        return <div className={`${style.otp_modal}`}>{render(modalType)}</div>;
+        return (
+          <div className={`${style.generic_modal}`}>{render(modalType)}</div>
+        );
       case "signout":
         return (
           <div className={`${style.template_modal}`}>{render(modalType)}</div>

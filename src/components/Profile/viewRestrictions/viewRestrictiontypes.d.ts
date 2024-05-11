@@ -1,12 +1,8 @@
-import { profileRatingType, subprofileInterface } from "@/shared";
+import { profileRatingType } from "@/shared";
 
-export interface viewRestrictionInterface {
-  profileRationgsstatus: "pending" | "idle" | "fulfilled" | "rejected";
+export interface ViewRestrictionSliceInterface {
   blockedContentstatus: "pending" | "idle" | "fulfilled" | "rejected";
   queryContentstatus: "pending" | "idle" | "fulfilled" | "rejected";
-  profileRationgs: profileRatingType[];
-  activeProfileRatingIndex: number;
-  activeProfileRating: profileRatingType;
   blockedContents: { category: string; itemsMap: { [key: string]: string } }[];
   queryContents: {
     code: string;
@@ -17,23 +13,8 @@ export interface viewRestrictionInterface {
   }[];
 }
 
-export interface DesktopRatingsInterface
-  extends Partial<viewRestrictionInterface> {
-  ratingClick: (
-    args: viewRestrictionInterface["activeProfileRatingIndex"],
-  ) => void;
-}
-
-export interface MobileRatingsInterface extends DesktopRatingsInterface {
-  Profile: subprofileInterface;
-}
-
-export interface BottomRatingsInterface extends MobileRatingsInterface {
-  closeModal: () => void;
-}
-
 export interface TitleRestrictionsInterface
-  extends Partial<viewRestrictionInterface> {
+  extends Partial<ViewRestrictionSliceInterface> {
   handleSearch: (query: string) => void;
   handleSuggestion: (arg: {
     id: string;

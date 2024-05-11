@@ -2,7 +2,7 @@ import React, { FC, useRef, memo } from "react";
 import styles from "./TitleRestrictions.module.scss";
 import {
   TitleRestrictionsInterface,
-  viewRestrictionInterface,
+  ViewRestrictionSliceInterface,
 } from "../viewRestrictiontypes";
 import appConfig from "@/app.config";
 import { debunceFunction } from "@/utils";
@@ -24,7 +24,7 @@ const TitleRestrictions: FC<TitleRestrictionsInterface> = (props) => {
   };
 
   const suggestionClick = (
-    suggestion: viewRestrictionInterface["queryContents"][0],
+    suggestion: ViewRestrictionSliceInterface["queryContents"][0],
   ) => {
     handleSuggestion({
       id: suggestion.id,

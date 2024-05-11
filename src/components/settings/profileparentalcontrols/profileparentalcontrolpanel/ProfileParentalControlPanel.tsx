@@ -1,8 +1,7 @@
 import { FC, useMemo, useRef, useState } from "react";
 import styles from "./ProfileParentalControlPanel.module.scss";
-import { subprofileInterface } from "@/shared";
 import { getAbsolutPath } from "@/utils";
-import ProfileParentalControlData from "./profileparentalcontroldata/ProfileParentalControlData";
+import ProfileParentalControlData from "../profileparentalcontroldata/ProfileParentalControlData";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Modal from "@/components/modals/Modal";
 import { postData } from "@/services/data.manager";
@@ -13,7 +12,10 @@ import { getotpModalType } from "@/components/Getotp/getotptypes";
 import { updateProfile } from "@/redux/feature/userSlice/userSlice";
 import { ModalType } from "@/components/modals/modaltypes";
 import appConfig from "@/app.config";
-import { ProfileParentalControlPanelProps } from "../../settingstypes";
+import {
+  ProfileParentalControlDataProps,
+  ProfileParentalControlPanelProps,
+} from "../../settingstypes";
 
 const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
   toggle = true,
@@ -68,7 +70,7 @@ const ProfileParentalControlPanel: FC<ProfileParentalControlPanelProps> = ({
   };
 
   const actionHandler = (
-    handlerType: "Language" | "Viewing Restrictions" | "Profile & Video Lock",
+    handlerType: ProfileParentalControlDataProps["controlType"],
   ) => {
     switch (handlerType) {
       case "Language":

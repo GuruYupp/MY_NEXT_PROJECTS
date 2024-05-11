@@ -7,7 +7,7 @@ const UserSettings: FC = () => {
     setshowQuality(!showquality);
     e.stopPropagation();
   };
-  console.log(showquality, "---");
+
   return (
     <div className={`${styles.user_settings_container}`}>
       <div className={`${styles.settings_inner}`}>
