@@ -1,14 +1,14 @@
 const appConfig = {
   endPoints: {
-      "location": "https://vesta-api.revlet.net",
-      "api": "https://vesta-api.revlet.net",
-      "search": "https://vesta-api.revlet.net",
-      "pgURL": "https://vesta-api.revlet.net",
-      "guideURL": "https://vesta-api.revlet.net",
-      "heURL": "https://vesta-api.revlet.net",
-      "otpURL": "https://vesta-api.revlet.net",
-      "tenantCode": "vesta",
-      "product": "vesta",
+    location: "https://vesta-api.revlet.net",
+    api: "https://vesta-api.revlet.net",
+    search: "https://vesta-api.revlet.net",
+    pgURL: "https://vesta-api.revlet.net",
+    guideURL: "https://vesta-api.revlet.net",
+    heURL: "https://vesta-api.revlet.net",
+    otpURL: "https://vesta-api.revlet.net",
+    tenantCode: "vesta",
+    product: "vesta",
   },
   cloudpath: "https://d2ivesio5kogrp.cloudfront.net/static/vesta",
   bannerImgpath: "https://d229kpbsb5jevy.cloudfront.net/vesta/",
@@ -19,26 +19,26 @@ const appConfig = {
   staticImagesPath:
     "https://d2ivesio5kogrp.cloudfront.net/static/vesta/images/",
   tvguideChannelsImgPath: "https://d388d59m61mm0v.cloudfront.net/optimized",
-  videosuggestionDefaultImg:"",
-  systemconfigsApi:"/service/api/v1/system/config",
+  videosuggestionDefaultImg: "",
+  systemconfigsApi: "/service/api/v1/system/config",
   namePattern: /^[A-Za-z0-9]+$/,
   authMobilePattern: /^[0-9]{10}$/,
   authEmailPattern:
     /^[a-zA-Z0-9_.-]+@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
   supportmail: "",
-  appDefaultLanguage:"en",
-  localelangs:["en"],
+  appDefaultLanguage: "en",
+  localelangs: ["en"],
   header: {
     partners: false,
     languages: true,
     topheader: {
-      show:false,
-      postionfixed:true
- },
-    signup:true,
-    helpandsupport:true,
-    faq:false,
-    signout:true,
+      show: false,
+      postionfixed: true,
+    },
+    signup: true,
+    helpandsupport: true,
+    faq: false,
+    signout: true,
   },
   signin: {
     primary: "mobile", //email (or) mobile
@@ -67,7 +67,7 @@ const appConfig = {
     showDeleteButtonAndroid: true,
     changePasswordSupport: true,
     userSettings: true,
-    profileandparentalcontrol:true,
+    profileandparentalcontrol: true,
     activeScreenandDevices: {
       activeDevices: true,
       activeScreens: true,
@@ -76,9 +76,9 @@ const appConfig = {
   search: {
     apiversion: "v1",
   },
-  parentalconrolpin:{
-    forgotpin:false
-  }
+  parentalconrolpin: {
+    forgotpin: false,
+  },
 };
 
 export default appConfig;

@@ -1,0 +1,196 @@
+@import "@/_var.scss";
+
+.parenatal_container {
+  .inner {
+    width: 100%;
+    max-width: 720px;
+    display: block;
+    overflow: hidden;
+    margin: 150px auto;
+    .header {
+      font-size: 32px;
+      color: #efefef;
+      font-weight: 400;
+      border-bottom: 1px solid #555;
+      padding-bottom: 20px;
+      margin: 0;
+
+      @include breakpoint(mac) {
+        font-size: 30px;
+        padding-bottom: 24px;
+      }
+
+      @include breakpoint(laptop) {
+        font-size: 28px;
+        padding-bottom: 20px;
+      }
+
+      @include breakpoint(mobile) {
+        font-size: 20px;
+        position: fixed;
+        top: 0px;
+        background-color: #222;
+        width: 100%;
+        margin: 0px;
+        padding: 0px 25px;
+        height: 56px;
+        line-height: 56px;
+        border: none;
+      }
+
+      @include breakpoint(mobile-big-land) {
+        font-size: 19px;
+      }
+
+      @include breakpoint(mobile-small) {
+        font-size: 18px;
+      }
+
+      @include breakpoint(mobile-common-land) {
+        font-size: 17px;
+      }
+
+      .back_icon {
+        display: none;
+        @include breakpoint(mobile) {
+          display: inline-block;
+          vertical-align: middle;
+          height: 24px;
+          width: 24px;
+          margin-right: 15px;
+        }
+      }
+    }
+
+    .body {
+      border-bottom: 1px solid #555;
+      padding: 30px 0 0;
+      display: flex;
+
+      @include breakpoint(mobile) {
+        flex-direction: column;
+        border: none;
+      }
+
+      .left {
+        width: 160px;
+        margin-right: 20px;
+        @include breakpoint(mobile) {
+          margin: 20px auto 40px;
+          width: 100px;
+        }
+
+        .profile_icon {
+          width: 160px;
+          height: 160px;
+          border-radius: 50%;
+          background: transparent;
+          float: left;
+          border-radius: 6px;
+          -moz-border-radius: 6px;
+          -webkit-border-radius: 6px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+          }
+          @include breakpoint(mobile) {
+            height: 100px;
+            width: 100px;
+          }
+        }
+      }
+
+      .right {
+        width: calc(100% - 200px);
+        padding-left: 40px;
+        @include breakpoint(mobile) {
+          width: 100%;
+          padding: 20px;
+        }
+
+        .ratings_container {
+          border-bottom: 1px solid #555;
+        }
+        .videopin_container {
+          padding: 28px 0px 34px;
+        }
+        .heading {
+          font-size: 18px;
+          color: #fff;
+          font-weight: 700;
+          line-height: 1.2;
+          margin-bottom: 0.5rem;
+          @include breakpoint(mobile) {
+            font-size: 14px;
+            opacity: 0.85;
+          }
+        }
+
+        .subheading {
+          font-size: 14px;
+          color: #adadad;
+
+          .rating {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            opacity: 0.5;
+          }
+        }
+
+        .restrictionContainer {
+          padding: 28px 0 34px;
+          @include breakpoint(mobile) {
+            border-bottom: 1px solid #383838;
+          }
+          .heading {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+            @include breakpoint(mobile) {
+              font-size: 14px;
+              opacity: 0.85;
+            }
+          }
+          .subheading {
+            font-size: 14px;
+            color: #adadad;
+          }
+        }
+      }
+    }
+    .btns {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+      text-align: center;
+      font-size: 16px;
+      padding-top: 18px;
+      .btn {
+        padding: 10px 0;
+        border: none;
+        background: hsla(0, 0%, 100%, 0.15);
+        width: 160px;
+        text-align: center;
+        color: #fff;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        position: relative;
+        margin: 0 8px;
+        height: 44px;
+        &.save_btn {
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+}

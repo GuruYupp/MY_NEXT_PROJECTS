@@ -4,3 +4,7 @@ export type getotpModalType =
   | "Forgot Profile & Video Lock"
   | "Parental Controls"
   | "";
+
+export type getotpHeadingsType = {
+  [key: string]: { [key: string]: { [key: string]: string } };
+};

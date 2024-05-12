@@ -14,6 +14,7 @@
     "watcho:prod": "gulp --tenant=watcho --env=prod && next dev",
     "reeldrama:prod": "gulp --tenant=reeldrama --env=prod && next dev",
     "aastha:prod": "gulp --tenant=aastha --env=prod && next dev",
+    "ustvnow:prod": "gulp --tenant=ustvnow --env=prod && next dev",
     "aastha:beta": "gulp --tenant=aastha --env=beta && next dev",
     "build": "gulp --tenant=watcho --env=prod && next build",
     "herogotv:build:prod": "gulp --tenant=herogotv --env=prod && next build",

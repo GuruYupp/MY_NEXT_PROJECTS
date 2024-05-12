@@ -29,6 +29,10 @@ const NPColor = () => {
       return "#c30";
     case "vesta":
       return "ff2363";
+    case "lynktelecom":
+      return "#00c234";
+    case "ustvnow":
+      return "#029bde";
     default:
       return "#ffff";
   }

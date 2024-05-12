@@ -50,7 +50,8 @@ const UserParentalControlPanel: FC<UserProfileParentalControlPanelProps> = (
   ) => {
     switch (handlerType) {
       case "Parental Controls":
-        handleOtp("");
+        handleOtp("Parental Controls");
+        break;
       default:
         break;
     }
@@ -83,7 +84,7 @@ const UserParentalControlPanel: FC<UserProfileParentalControlPanelProps> = (
       >
         <div
           className={`${styles.pannel_inner} ${
-            toggle ? styles.show_arrow : styles.hide_arrow
+            toggle ? styles.show_arrow : ""
           }`}
         >
           <div className={`${styles.img_container} `}>

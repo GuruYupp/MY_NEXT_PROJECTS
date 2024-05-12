@@ -1,3 +1,4 @@
+import ParentalControl from "@/components/ParentalControl/ParentalControl";
 import ChangePassword from "@/components/changepassword/ChangePassword";
 import EditProfile from "@/components/editprofile/EditProfile";
 import ForgotPassword from "@/components/forgotpassword/ForgotPassword";
@@ -16,6 +17,11 @@ function MiscLayout(): JSX.Element {
       {asPath === "/settings/edit-profile" && (
         <div style={{ minHeight: "80vh" }}>
           <EditProfile />
+        </div>
+      )}
+      {asPath === "/settings/parental-profile" && (
+        <div style={{ minHeight: "80vh" }}>
+          <ParentalControl />
         </div>
       )}
       {asPath == "/change-password" && (

@@ -48,6 +48,10 @@ module.exports = {
         destination: '/misc/misc',
       },
       {
+        source: '/settings/parental-profile',
+        destination: '/misc/misc',
+      },
+      {
         source: '/change-password',
         destination: '/misc/misc',
       },

@@ -8,7 +8,7 @@ import { ModalType } from "../modals/modaltypes";
 import { getAbsolutPath } from "@/utils";
 import { useRouter } from "next/router";
 import { enableRestrictionpage } from "@/redux/feature/restrictionSlice/restrictionSlice";
-import { getotpModalType } from "./getotptypes";
+import { getotpHeadingsType, getotpModalType } from "./getotptypes";
 import appConfig from "@/app.config";
 
 interface getotpModalpropsInterface {
@@ -19,7 +19,7 @@ interface getotpModalpropsInterface {
   isPasswordOtp: boolean;
 }
 
-let Getotpheadings = {
+let Getotpheadings: getotpHeadingsType = {
   "Viewing Restrictions": {
     default: {
       heading1: "Get OTP To edit Viewing Restrictions",
@@ -55,11 +55,11 @@ let Getotpheadings = {
   "Parental Controls": {
     default: {
       heading1: "Parental Controls",
-      heading2: "Enter your password to edit Parental Controls for xxx’s",
+      heading2: "Enter your password to edit Parental Controls",
     },
     inputenable: {
-      heading1: "Profile Lock",
-      heading2: "Enter otp to edit Parental Controls for xxx’s",
+      heading1: "Parental Controls",
+      heading2: "Enter your password to edit Parental Controls",
     },
   },
 };
@@ -150,24 +150,27 @@ function Getotp(props: getotpModalpropsInterface) {
         }, 1000);
       }
     } else {
+      closeModal();
+      dispatch(
+        enableRestrictionpage({ token: otpvalidresponse.response.token }),
+      );
       if (type === "Viewing Restrictions") {
-        closeModal();
-        dispatch(
-          enableRestrictionpage({ token: otpvalidresponse.response.token }),
-        );
         push(`/profiles/view-restrictions/${profileData?.profileId}`);
+      } else if (type === "Parental Controls") {
+        push(`/settings/parental-profile`);
       } else if (
         type === "Profile & Video Lock" ||
-        type === "Forgot Profile & Video Lock" ||
-        type === "Parental Controls"
+        type === "Forgot Profile & Video Lock"
       ) {
-        closeModal();
-        dispatch(
-          enableRestrictionpage({ token: otpvalidresponse.response.token }),
-        );
         push(`/profiles/profile-lock/${profileData?.profileId}`);
       }
     }
+  };
+
+  const getText = (key: string) => {
+    if (!type) return "";
+    let headingType = toggleInput ? "inputenable" : "default";
+    return Getotpheadings[type][headingType][key];
   };
 
   return (
@@ -193,83 +196,60 @@ function Getotp(props: getotpModalpropsInterface) {
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className={`${styles.get_otp_body}`}>
-            {!toggleInput && (
-              <>
-                {" "}
-                <p className={`${styles.heading}`}>
-                  {type && Getotpheadings[type].default.heading1}
-                </p>
-                <p className={`${styles.sub_heading}`}>
-                  {type &&
-                    Getotpheadings[type].default.heading2.replace(
-                      "xxx",
-                      profileData?.name || "xxx",
-                    )}
-                </p>
-              </>
-            )}
+            <p className={`${styles.heading}`}>{getText("heading1")}</p>
+            <p className={`${styles.sub_heading}`}>
+              {getText("heading2").replace("xxx", profileData?.name || "xxx")}
+            </p>
             {toggleInput && (
-              <>
-                <p className={`${styles.heading}`}>
-                  {type && Getotpheadings[type].inputenable.heading1}
-                </p>
-                <p className={`${styles.sub_heading}`}>
-                  {type &&
-                    Getotpheadings[type].inputenable.heading2
-                      .replace("xxx", profileData?.name || "xxx")
-                      .replace("OTP", isPasswordOtp ? "your password" : "OTP")}
-                </p>
-
-                <div className={`${styles.otp_input_container}`}>
-                  <input
-                    type="password"
-                    {...rest}
-                    ref={(e) => {
-                      ref(e);
-                      otpRef.current = e;
-                    }}
-                    className={`${styles.otp_input}`}
-                    placeholder={isPasswordOtp ? "Password" : "OTP"}
-                  />
-                  <span
-                    className={`${styles.otp_input_toggel}`}
-                    onClick={() => {
-                      if (otpRef.current && otpRef.current.type === "text") {
-                        otpRef.current.type = "password";
-                        setShowHideText("SHOW");
-                      } else if (
-                        otpRef.current &&
-                        otpRef.current.type === "password"
-                      ) {
-                        otpRef.current.type = "text";
-                        setShowHideText("HIDE");
-                      }
-                    }}
-                  >
-                    {showhideText}
-                  </span>
-                  {formState.errors.otp?.type === "required" && (
-                    <span className={`${styles.otp_msg} ${styles.error}`}>
-                      {isPasswordOtp ? "Password" : "OTP"} required
-                    </span>
-                  )}
-                  {formState.errors.otp?.type === "minLength" && (
-                    <span className={`${styles.otp_msg} ${styles.error}`}>
-                      {isPasswordOtp ? "Password" : "OTP"} isn't long enough
-                    </span>
-                  )}
-                  {formState.errors.otp?.type === "maxLength" && (
-                    <span className={`${styles.otp_msg} ${styles.error}`}>
-                      {isPasswordOtp ? "Password" : "OTP"} is long
-                    </span>
-                  )}
-                </div>
-                {successText && (
-                  <span className={`${styles.otp_msg} ${styles.success}`}>
-                    {successText}
+              <div className={`${styles.otp_input_container}`}>
+                <input
+                  type="password"
+                  {...rest}
+                  ref={(e) => {
+                    ref(e);
+                    otpRef.current = e;
+                  }}
+                  className={`${styles.otp_input}`}
+                  placeholder={isPasswordOtp ? "Password" : "OTP"}
+                />
+                <span
+                  className={`${styles.otp_input_toggel}`}
+                  onClick={() => {
+                    if (otpRef.current && otpRef.current.type === "text") {
+                      otpRef.current.type = "password";
+                      setShowHideText("SHOW");
+                    } else if (
+                      otpRef.current &&
+                      otpRef.current.type === "password"
+                    ) {
+                      otpRef.current.type = "text";
+                      setShowHideText("HIDE");
+                    }
+                  }}
+                >
+                  {showhideText}
+                </span>
+                {formState.errors.otp?.type === "required" && (
+                  <span className={`${styles.otp_msg} ${styles.error}`}>
+                    {isPasswordOtp ? "Password" : "OTP"} required
                   </span>
                 )}
-              </>
+                {formState.errors.otp?.type === "minLength" && (
+                  <span className={`${styles.otp_msg} ${styles.error}`}>
+                    {isPasswordOtp ? "Password" : "OTP"} isn't long enough
+                  </span>
+                )}
+                {formState.errors.otp?.type === "maxLength" && (
+                  <span className={`${styles.otp_msg} ${styles.error}`}>
+                    {isPasswordOtp ? "Password" : "OTP"} is long
+                  </span>
+                )}
+              </div>
+            )}
+            {successText && (
+              <span className={`${styles.otp_msg} ${styles.success}`}>
+                {successText}
+              </span>
             )}
             {errorText && (
               <span className={`${styles.otp_msg} ${styles.failmsg}`}>

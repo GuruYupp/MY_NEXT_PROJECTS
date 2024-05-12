@@ -21,16 +21,16 @@ function LinkWrapper({
   return menu.subMenus.length === 0 ? (
     <Link href={targetpath}>{children}</Link>
   ) : (
-    <span className={`${styles.more_menu}`}>{children}</span>
+    <span className={`${styles.more_menu} ${styles.menu}`}>{children}</span>
   );
 }
 
 function SubMenu({ submenus }: { submenus: menuInterface[] }) {
   return (
-    <div className={`${styles.submenus}`}>
+    <div className={`${styles.menu} ${styles.submenus}`}>
       {submenus.map((menu, index) => (
         <LinkWrapper menu={menu} key={index}>
-          <div className={`${styles.submenu}`}>
+          <div className={`${styles.menu}`}>
             <span>{menu.displayText}</span>
           </div>
           {menu.subMenus.length > 0 && <SubMenu submenus={menu.subMenus} />}
@@ -62,26 +62,24 @@ export default function Menu({ menu }: props) {
     checkPathinsubmenu()
       ? true
       : false;
-  const [showsubMenu, setShowSubMenu] = useState<boolean>(false);
+  // const [showsubMenu, setShowSubMenu] = useState<boolean>(false);
 
-  const handleMouseEnter = () => {
-    setShowSubMenu(true);
-  };
-  const handleMouseLeave = () => {
-    setShowSubMenu(false);
-  };
+  // const handleMouseEnter = () => {
+  //   setShowSubMenu(true);
+  // };
+  // const handleMouseLeave = () => {
+  //   setShowSubMenu(false);
+  // };
 
   return (
     <LinkWrapper menu={menu}>
       <div
         className={`${styles.menu} ` + (isActive ? styles.active : "")}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        // onMouseEnter={handleMouseEnter}
+        // onMouseLeave={handleMouseLeave}
       >
         <span className={`${styles.displayText} `}>{menu.displayText}</span>
-        {menu.subMenus.length > 0 && showsubMenu && (
-          <SubMenu submenus={menu.subMenus} />
-        )}
+        {menu.subMenus.length > 0 && <SubMenu submenus={menu.subMenus} />}
       </div>
     </LinkWrapper>
   );

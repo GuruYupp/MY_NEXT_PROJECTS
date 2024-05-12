@@ -62,7 +62,7 @@ export const fetchProfileRatings = async () => {
 };
 
 export const fetchUserProfileRationgs = async () => {
-  let response = await getData("/service/api/v1/get/user/parental/ratings");
+  let response = await getData("/service/api/v1/get/user/parental/rating");
   return response;
 };
 

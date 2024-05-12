@@ -1,12 +1,12 @@
 const appConfig = {
   endPoints: {
-   "location": "https://tsat-testapi.revlet.net",
-   "api": "https://tsat-testapi.revlet.net",
-   "search": "https://tsat-testapi.revlet.net",
-   "guideURL": "https://tsat-testapi.revlet.net",
-   "tenantCode": "aastha",
-   "product": "aastha",
-   "isSupported": true
+    location: "https://tsat-testapi.revlet.net",
+    api: "https://tsat-testapi.revlet.net",
+    search: "https://tsat-testapi.revlet.net",
+    guideURL: "https://tsat-testapi.revlet.net",
+    tenantCode: "aastha",
+    product: "aastha",
+    isSupported: true,
   },
   cloudpath: "https://d2ivesio5kogrp.cloudfront.net/static/aastha",
   bannerImgpath: "https://d229kpbsb5jevy.cloudfront.net/aastha/",
@@ -17,7 +17,7 @@ const appConfig = {
   staticImagesPath:
     "https://d2ivesio5kogrp.cloudfront.net/static/aastha/images/",
   tvguideChannelsImgPath: "https://d388d59m61mm0v.cloudfront.net/optimized",
-  systemconfigsApi:"/service/api/v1/system/config",
+  systemconfigsApi: "/service/api/v1/system/config",
   namePattern: /^[A-Za-z0-9]+$/,
   authMobilePattern: /^[0-9]{10}$/,
   authEmailPattern:
@@ -27,9 +27,9 @@ const appConfig = {
     partners: false,
     languages: false,
     topheader: {
-   show:true,
-   postionfixed:true
- },
+      show: true,
+      postionfixed: true,
+    },
   },
   signin: {
     primary: "mobile", //email (or) mobile

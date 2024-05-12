@@ -2,7 +2,6 @@
 
 .menus {
   margin-left: 20px;
-
   .menu {
     width: fit-content;
     text-align: center;
@@ -19,80 +18,56 @@
       font-size: 14px;
     }
 
-    .submenus {
-      position: absolute;
-      left: 0;
-      top: 100%;
-      background-color: $secondary-color;
-      display: flex;
-      flex-direction: column;
-
-      a {
-        line-height: normal;
-        height: fit-content;
-        text-align: left;
-
-        .submenu {
-          font-size: 14px;
-          color: #ffffffbf;
-          display: inline-block;
-          position: relative;
-          padding: 10px 20px;
+    &.more_menu {
+      &::after {
+        content: "";
+        width: 0;
+        height: 0;
+        border: solid #fff;
+        border-width: 0 2px 2px 0;
+        position: absolute;
+        bottom: 28px;
+        right: 0px;
+        transition: all 0.5s;
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(45deg);
+        padding: 3px;
+        opacity: 0.65;
+      }
+      &:hover {
+        .menu {
+          opacity: 1;
+          &:hover > .submenus {
+            display: flex;
+            flex-direction: column;
+          }
+        }
+        &::after {
+          transform: rotate(-135deg);
+          -webkit-transform: rotate(-135deg);
         }
       }
-
-      .submenu {
-        font-size: 14px;
-        color: #ffffffbf;
-        display: inline-block;
-        position: relative;
-        padding: 10px 20px;
-      }
-
-      &.show {
-        display: block;
-      }
-
-      &.hide {
-        display: none;
-      }
     }
 
-    &.active {
-      border-bottom: 2px solid $primary-color;
-      color: #fff;
-      opacity: 1;
-    }
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  .more_menu {
-    position: relative;
-    display: inline-block;
-    &::after {
-      content: "";
-      width: 0;
-      height: 0;
-      border: solid #fff;
-      border-width: 0 2px 2px 0;
+    .submenus {
       position: absolute;
-      bottom: 28px;
-      right: 0px;
-      transition: all 0.5s;
-      transform: rotate(-45deg);
-      -webkit-transform: rotate(45deg);
-      padding: 3px;
-      opacity: 0.65;
+      left: 50%;
+      top: 90%;
+      background-color: $secondary-color;
+      display: none;
+      flex-direction: column;
+      width: max-content;
+      min-height: 62px;
+      line-height: 62px;
+      height: auto;
+      z-index: 1;
+      box-shadow:
+        rgba(0, 0, 0, 0.19) 0px 10px 20px,
+        rgba(0, 0, 0, 0.23) 0px 6px 6px;
     }
+
     &:hover {
-      &::after {
-        opacity: 1;
-        transform: rotate(-135deg);
-        -webkit-transform: rotate(-135deg);
-      }
+      opacity: 1;
     }
   }
 }
