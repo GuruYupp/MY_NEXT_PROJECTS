@@ -60,7 +60,7 @@ export default function Player() {
         streamStatus.isParentControlled === false
       ) {
         // eslint-disable-next-line camelcase
-        params.stream_type = "trailer";
+        // params.stream_type = "trailer";
       }
       dispatch(resetstreamSlice());
       dispatch(fetchStreamData({ params }));
