@@ -1,5 +1,5 @@
 import { getData } from "@/services/data.manager";
-import { responseInterface, streamDataIterface } from "@/shared";
+import { responseInterface, streamDataInterface } from "@/shared";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 type fetchStreamDataParams = {
@@ -23,7 +23,19 @@ export const fetchStreamData = createAsyncThunk<
   return result;
 });
 
-let initialState: streamDataIterface = {
+export const fetchNextStreamData = createAsyncThunk<
+  responseInterface,
+  { path: string; count: number }
+>("fetchnextstream", async (args, thunkAPI) => {
+  const result = await getData(
+    "service/api/v1/next/videos",
+    args,
+    thunkAPI.signal,
+  );
+  return result;
+});
+
+let initialState: streamDataInterface = {
   streamapiloading: "idle",
   response: {
     analyticsInfo: {
@@ -40,6 +52,9 @@ let initialState: streamDataIterface = {
   },
   error: {},
   pageAttributes: undefined,
+  nextvideoInfo: {
+    nextvideoDataloading: "idle",
+  },
 };
 
 const streamSlice = createSlice({
@@ -85,6 +100,21 @@ const streamSlice = createSlice({
       })
       .addCase(fetchStreamData.rejected, (state) => {
         state.streamapiloading = "failed";
+      })
+      .addCase(fetchNextStreamData.fulfilled, (state, action) => {
+        const { payload } = action;
+        state.nextvideoInfo.nextvideoDataloading = "succeeded";
+        if (payload.status == true) {
+          state.nextvideoInfo.nextvideoData = payload.response;
+        } else {
+          state.nextvideoInfo.errorResponse = payload;
+        }
+      })
+      .addCase(fetchNextStreamData.pending, (state) => {
+        state.nextvideoInfo.nextvideoDataloading = "pending";
+      })
+      .addCase(fetchNextStreamData.rejected, (state) => {
+        state.nextvideoInfo.nextvideoDataloading = "failed";
       });
   },
 });

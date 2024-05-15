@@ -10,7 +10,7 @@ import { VideoSuggestionsProps } from "../playertypes";
 
 function VideoSuggestions(props: VideoSuggestionsProps) {
   const { suggestionHeight } = props;
-  let { tabsInfo, sections } = useAppSelector(
+  let { tabsInfo, sections, info } = useAppSelector(
     (state) => state.pageData.response,
   );
 
@@ -134,7 +134,11 @@ function VideoSuggestions(props: VideoSuggestionsProps) {
             section?.section.sectionInfo.code === activeTab
           ) {
             return section?.section.sectionData.data.map((cardData, index) => {
-              return <SuggestionCard key={index} cardDetails={cardData} />;
+              return (
+                cardData.target.path !== info.path && (
+                  <SuggestionCard key={index} cardDetails={cardData} />
+                )
+              );
             });
           }
         })}

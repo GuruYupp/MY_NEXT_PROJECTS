@@ -104,6 +104,8 @@ export interface pageAttributesInterface {
   showOnPlayer?: string;
   nextButtonTitle?: string;
   episodeSeqNo?: string;
+  introEndTime?: string;
+  introStartTime?: string;
 }
 
 export interface cardInterface {
@@ -479,7 +481,7 @@ export interface streamStatusInterface {
   trailerStreamStatus?: boolean;
 }
 
-export interface streamDataIterface {
+export interface streamDataInterface {
   streamapiloading: "idle" | "pending" | "succeeded" | "failed";
   response: {
     analyticsInfo?: {
@@ -507,6 +509,11 @@ export interface streamDataIterface {
         [key: string]: string;
       }
     | undefined;
+  nextvideoInfo: {
+    nextvideoDataloading: "idle" | "pending" | "succeeded" | "failed";
+    nextvideoData?: sectionInterface["section"]["sectionData"];
+    errorResponse?: responseInterface;
+  };
 }
 
 //guide interfaces....

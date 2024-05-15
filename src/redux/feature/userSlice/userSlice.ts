@@ -45,7 +45,7 @@ const userSlice = createSlice({
         state.isLoggedin = true;
         let userdetailstr = getFromlocalStorage("userDetails");
         let userdetail = userdetailstr && JSON.parse(userdetailstr);
-        if (userdetailstr) {
+        if (userdetail) {
           state.userDetails = userdetail;
         } else {
           state.userDetails = initialState.userDetails;
@@ -127,11 +127,16 @@ const userSlice = createSlice({
         state.activeProfile = { ...state.activeProfile, ...payload.properties };
       }
 
-      localStorage.setItem("userDetails", JSON.stringify(state.userDetails));
-      localStorage.setItem(
-        "activeProfile",
-        JSON.stringify(state.activeProfile),
-      );
+      if (state.userDetails) {
+        localStorage.setItem("userDetails", JSON.stringify(state.userDetails));
+      }
+
+      if (state.activeProfile) {
+        localStorage.setItem(
+          "activeProfile",
+          JSON.stringify(state.activeProfile),
+        );
+      }
     },
   },
   extraReducers: (builder) => {

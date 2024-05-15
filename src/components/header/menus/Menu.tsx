@@ -30,7 +30,7 @@ function SubMenu({ submenus }: { submenus: menuInterface[] }) {
     <div className={`${styles.menu} ${styles.submenus}`}>
       {submenus.map((menu, index) => (
         <LinkWrapper menu={menu} key={index}>
-          <div className={`${styles.menu}`}>
+          <div className={`${styles.menu} ${styles.submenu}`}>
             <span>{menu.displayText}</span>
           </div>
           {menu.subMenus.length > 0 && <SubMenu submenus={menu.subMenus} />}

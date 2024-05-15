@@ -47,6 +47,9 @@ const DetailsActionButton: FC<DetailsActionButtonPropsType> = (props) => {
       );
       if (deeplinkResponse.status === true) {
         let deeplinkUrl = deeplinkResponse.response.url;
+        if (!deeplinkUrl) {
+          deeplinkUrl = deeplinkResponse.response.contentCode;
+        }
         console.log(deeplinkUrl);
         if (deeplinkUrl) {
           window.open(deeplinkUrl);

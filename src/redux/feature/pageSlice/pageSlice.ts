@@ -161,12 +161,15 @@ const pageSlice = createSlice({
         if (state.response.info.pageType === "player") {
           if (state.response.tabsInfo.showTabs === false) {
             state.response.sections.map((section) => {
-              if (section.section.sectionInfo.code === "recommendations") {
+              if (
+                section.section.sectionInfo.code === "recommendations" ||
+                section.section.sectionInfo.code.includes("myreco")
+              ) {
                 let tab: pageTabInterface = {
-                  code: "recommendations",
+                  code: section.section.sectionInfo.code,
                   infiniteScroll: false,
                   title: section.section.sectionInfo.name,
-                  sectionCodes: ["recommendations"],
+                  sectionCodes: [section.section.sectionInfo.code],
                 };
                 state.response.tabsInfo.showTabs = true;
                 state.response.tabsInfo.tabs.push(tab);

@@ -76,6 +76,11 @@ const appConfig = {
   parentalconrolpin: {
     forgotpin: false,
   },
+  player:{
+    startover:true,
+    skipintro:true,
+    nextepisode:true,
+  }
 };
 
 export default appConfig;

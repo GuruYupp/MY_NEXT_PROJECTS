@@ -7,10 +7,12 @@ import { createPortal } from "react-dom";
 import Modal from "@/components/modals/Modal";
 import ParentalControlPin from "@/components/ParentalControlPin/ParentalControlPin";
 import {
+  fetchNextStreamData,
   resetstreamSlice,
   updateStreamData,
 } from "@/redux/feature/streamSlice/streamSlice";
 import { useRouter } from "next/router";
+import VideoplayerService from "./VideoplayerService";
 
 function VideoPlayer(props: VideoPlayerPropsInterface) {
   const { setSuggestionHeight } = props;
@@ -18,25 +20,37 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
     response: { streams },
     error,
   } = useAppSelector((state) => state.streamData);
+  const { response } = useAppSelector((state) => state.pageData);
   const { activeProfile } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState<ModalType>("");
   const playerRef = useRef<HTMLDivElement>(null);
   const playerparentref = useRef<HTMLDivElement>(null);
+  const playerInstanceRef = useRef<any>(null);
   const { back } = useRouter();
+
   useEffect(() => {
     let playerOBj: any;
     if (playerRef.current && typeof window !== undefined) {
       if (streams && streams.length > 0) {
+        if (
+          response?.info?.attributes?.showNextButton === "true" &&
+          response.info.path
+        ) {
+          dispatch(fetchNextStreamData({ path: response.info.path, count: 1 }));
+        }
         if (window.jwplayer) {
           let playlist = getPlayList();
-          playerOBj = window.jwplayer(playerRef.current).setup({
+          playerOBj = window.jwplayer(playerRef.current);
+          playerInstanceRef.current = playerOBj;
+          playerOBj.setup({
             playlist: playlist,
             muted: true,
-            floating: {
-              dismissible: true,
-            },
+            // floating: {
+            //   dismissible: true,
+            // },
           });
+
           playerOBj.on("ready", function () {
             if (playerparentref.current) {
               setSuggestionHeight(playerparentref.current.clientHeight + 200);
@@ -53,6 +67,7 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
     return () => {
       if (playerOBj !== undefined) {
         playerOBj.remove();
+        // playerInstanceRef.current = undefined;
       }
     };
   }, [streams]);
@@ -113,9 +128,11 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
   return (
     <>
       <div ref={playerparentref}>
-        <div ref={playerRef}>
-          {streams?.length === 0 && <PlayerOverlay {...props} />}
-        </div>
+        <VideoplayerService ref={playerInstanceRef}>
+          <div ref={playerRef}>
+            {streams?.length === 0 && <PlayerOverlay {...props} />}
+          </div>
+        </VideoplayerService>
       </div>
       {showModal &&
         createPortal(

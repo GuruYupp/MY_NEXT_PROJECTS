@@ -150,8 +150,6 @@ export const setSSO = async function (ssoparams: SSOParamsType | undefined) {
   if (userInfo.status === true) {
     localStorage.setItem("userDetails", JSON.stringify(userInfo.response));
   }
-
-  console.log(decodedParams);
 };
 
 export const Init = async (ssoparams: SSOParamsType | undefined) => {

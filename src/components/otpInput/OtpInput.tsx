@@ -16,7 +16,7 @@ const OtpInput: FC<OtpInputInterfaceProps> = (props) => {
     setPin,
     autoFocus = false,
     inputType = "text",
-    placeholder = "false",
+    placeholder = "",
   } = props;
 
   const handleOnChange = (pin: string) => {
