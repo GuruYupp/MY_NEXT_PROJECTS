@@ -12,7 +12,7 @@ import {
   updateStreamData,
 } from "@/redux/feature/streamSlice/streamSlice";
 import { useRouter } from "next/router";
-import VideoplayerService from "./VideoplayerService";
+import VideoplayerService from "./VideoplayeruiUtil";
 
 function VideoPlayer(props: VideoPlayerPropsInterface) {
   const { setSuggestionHeight } = props;
@@ -42,6 +42,7 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
         if (window.jwplayer) {
           let playlist = getPlayList();
           playerOBj = window.jwplayer(playerRef.current);
+          console.log(playerOBj);
           playerInstanceRef.current = playerOBj;
           playerOBj.setup({
             playlist: playlist,

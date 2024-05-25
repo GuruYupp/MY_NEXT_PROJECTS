@@ -13,6 +13,7 @@ const Banner: FC<bannerpropsType> = (props) => {
   const { banner, SlideIndex, activeSlideIndex, pauseSlider, playSlider } =
     props;
   const playerRef = useRef<HTMLDivElement>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
   const playerInstance = useRef<typeof window.jwplayer>();
   const [showplayer, setShowPlayer] = useState<boolean>(false);
   const [enablePreview, setenablePreview] = useState<boolean>(false);
@@ -61,6 +62,10 @@ const Banner: FC<bannerpropsType> = (props) => {
         }
       }
     }
+    if (bannerRef.current) {
+      const width = bannerRef.current.clientWidth;
+      bannerRef.current.style.height = `${width * 0.4375}px`;
+    }
     return () => {
       window.removeEventListener("resize", setPreview);
       if (playerOBj !== undefined) {
@@ -99,7 +104,7 @@ const Banner: FC<bannerpropsType> = (props) => {
     }
   }
   return (
-    <div className={styles.imageContainer}>
+    <div className={styles.imageContainer} ref={bannerRef}>
       <img src={`${getAbsolutPath(banner.imageUrl)}`} alt="" />
       {enablePreview && banner.params?.streamUrl && (
         <div

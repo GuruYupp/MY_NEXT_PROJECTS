@@ -36,6 +36,8 @@ const appConfig = {
     helpandsupport: false,
     faq: false,
     signout: true,
+    becomeourpartner:false,
+    aboutus:false
   },
   signin: {
     primary: "mobile", //email (or) mobile

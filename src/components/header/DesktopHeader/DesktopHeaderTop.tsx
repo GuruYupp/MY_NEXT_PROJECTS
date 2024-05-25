@@ -100,18 +100,33 @@ function HeaderTop(): JSX.Element {
             </div>
           )}
 
-          <div className={`${styles.content}`}>
-            {" "}
-            {localLang.ABOUT_US || "About Us"}{" "}
-          </div>
+          {appConfig.header.aboutus && (
+            <div className={`${styles.content}`}>
+              {" "}
+              {localLang.ABOUT_US || "About Us"}{" "}
+            </div>
+          )}
 
-          {/* <div className={`${styles.content}`}>
-            <img
-              src={`${appConfig.cloudpath}/images/header-about.svg`}
-              alt=""
-            />
-            <span className={`${styles.text}`}>Help & support</span>
-          </div> */}
+          {appConfig.header.helpandsupport && (
+            <div className={`${styles.content}`}>
+              <img
+                src={`${appConfig.cloudpath}/images/header-about.svg`}
+                alt=""
+              />
+              <span className={`${styles.text}`}>Help & support</span>
+            </div>
+          )}
+
+          {appConfig.header.becomeourpartner && (
+            <div className={`${styles.content}`}>
+              <img
+                src={`${appConfig.cloudpath}/images/handshake-icon.svg`}
+                alt=""
+              />
+              <span className={`${styles.text}`}>Become our partner</span>
+            </div>
+          )}
+
           {appConfig.supportmail && (
             <div className={`${styles.content}`}>
               <img

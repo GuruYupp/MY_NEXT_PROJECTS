@@ -23,7 +23,7 @@ const VideoplayerServicewithRef: ForwardRefRenderFunction<
   PropsWithChildren
 > = (props, PlayerRef) => {
   const { response } = useAppSelector((state) => state.streamData);
-  const [initialPlaying, setInitialPlaying] = useState<boolean>(true);
+  // const [initialPlaying, setInitialPlaying] = useState<boolean>(true);
   const router = useRouter();
   useEffect(() => {
     if ((PlayerRef as any)?.current) {
@@ -72,62 +72,58 @@ const VideoplayerServicewithRef: ForwardRefRenderFunction<
   };
 
   const setPlayerListeners = () => {
-    (PlayerRef as any)?.current?.on("play", function () {
-      if (initialPlaying) {
-        ChangeRewindIcon();
-        let forwardIcon: JQuery<HTMLElement> | undefined = getForwardIcon();
-        if (forwardIcon) {
-          forwardIcon.on("click", function (this) {
-            handleFastForward();
+    (PlayerRef as any)?.current?.once("ready", function () {
+      ChangeRewindIcon();
+      let forwardIcon: JQuery<HTMLElement> | undefined = getForwardIcon();
+      if (forwardIcon) {
+        forwardIcon.on("click", function (this) {
+          handleFastForward();
+        });
+      }
+
+      if (appConfig.player.startover) {
+        let startOverButton: JQuery<HTMLElement> | undefined = createButton(
+          "startover",
+          "Start Over",
+        );
+        if (startOverButton) {
+          startOverButton.on("click", function () {
+            handleStartOver();
           });
         }
+      }
 
-        if (appConfig.player.startover) {
-          let startOverButton: JQuery<HTMLElement> | undefined = createButton(
-            "startover",
-            "Start Over",
-          );
-          if (startOverButton) {
-            startOverButton.on("click", function () {
-              handleStartOver();
-            });
-          }
+      let nextEpisodeButton: JQuery<HTMLElement> | undefined;
+
+      if (
+        appConfig.player.nextepisode &&
+        response?.pageAttributes?.showNextButton === "true"
+      ) {
+        nextEpisodeButton = createButton(
+          "nextepisode",
+          response?.pageAttributes?.nextButtonTitle || "Next Episode",
+        );
+        if (nextEpisodeButton) {
+          nextEpisodeButton.on("click", function () {
+            handleNextEpisode();
+          });
         }
+      }
 
-        let nextEpisodeButton: JQuery<HTMLElement> | undefined;
-
-        if (
-          appConfig.player.nextepisode &&
-          response?.pageAttributes?.showNextButton === "true"
-        ) {
-          nextEpisodeButton = createButton(
-            "nextepisode",
-            response?.pageAttributes?.nextButtonTitle || "Next Episode",
-          );
-          if (nextEpisodeButton) {
-            nextEpisodeButton.on("click", function () {
-              handleNextEpisode();
-            });
-          }
+      if (
+        appConfig.player.skipintro &&
+        Number(response?.pageAttributes?.introStartTime) <
+          Number(response?.pageAttributes?.introEndTime)
+      ) {
+        let skipIntroButton: JQuery<HTMLElement> | undefined = createButton(
+          "skipintro",
+          "Skip Intro",
+        );
+        if (skipIntroButton) {
+          skipIntroButton.on("click", function () {
+            handleSkipIntro();
+          });
         }
-
-        if (
-          appConfig.player.skipintro &&
-          Number(response?.pageAttributes?.introStartTime) <
-            Number(response?.pageAttributes?.introEndTime)
-        ) {
-          let skipIntroButton: JQuery<HTMLElement> | undefined = createButton(
-            "skipintro",
-            "Skip Intro",
-          );
-          if (skipIntroButton) {
-            skipIntroButton.on("click", function () {
-              handleSkipIntro();
-            });
-          }
-        }
-
-        setInitialPlaying(false);
       }
     });
 
@@ -154,11 +150,6 @@ const VideoplayerServicewithRef: ForwardRefRenderFunction<
         togglePlayerButton("skipintro", "show");
       }
     });
-
-    //   (PlayerRef as any)?.current?.on("all", function (data) {
-    //     // console.log(PlayerRef.current.getState())
-    //     console.log(data)
-    // })
   };
 
   return <>{props.children}</>;
