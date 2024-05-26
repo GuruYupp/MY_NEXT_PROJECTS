@@ -11,6 +11,7 @@ import ExpandsPoster from "./ExpandsPoster/ExpandsPoster";
 import ExpandRollerPoster from "./ExpandRollerPoster/ExpandRollerPoster";
 import PromoPoster from "./PromoPoster/PromoPoster";
 import ExpandActionPoster from "./ExpandActionPoster/ExpandActionPoster";
+import LivePoster from "./LivePoster/LivePoster";
 
 function getCardComponent(cardType: typeofcardType) {
   switch (cardType) {
@@ -38,6 +39,8 @@ function getCardComponent(cardType: typeofcardType) {
       return PromoPoster;
     case "expand_action_poster":
       return ExpandActionPoster;
+    case "live_poster":
+      return LivePoster;
     default:
       return OverlayPoster;
   }

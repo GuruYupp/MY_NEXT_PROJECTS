@@ -6,6 +6,7 @@ import {
   resetPagestate,
 } from "@/redux/feature/pageSlice/pageSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { killSession } from "@/services/data.manager";
 
 function useGetPage() {
   const { asPath } = useRouter();
@@ -32,11 +33,7 @@ function useGetPage() {
         .unwrap()
         .then((response) => {
           if (response?.status == false && response?.error?.code == 401) {
-            clientCookie.remove("boxId");
-            clientCookie.remove("tenantCode");
-            clientCookie.remove("sessionId");
-            clientCookie.remove("isLoggedin");
-            window.location.reload();
+            killSession();
           }
           return response;
         })

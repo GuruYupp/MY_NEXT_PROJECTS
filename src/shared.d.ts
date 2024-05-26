@@ -72,6 +72,7 @@ export type typeofcardType =
   | "expand_poster"
   | "content_poster"
   | "circle_poster"
+  | "live_poster"
   | "expand_roller_poster"
   | "roller_poster"
   | "square_poster"

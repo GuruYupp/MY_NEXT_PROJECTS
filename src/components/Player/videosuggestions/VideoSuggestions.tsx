@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { fetchSections } from "@/redux/feature/pageSlice/pageSlice";
 import { useRouter } from "next/router";
 import { VideoSuggestionsProps } from "../playertypes";
+import { killSession } from "@/services/data.manager";
 
 function VideoSuggestions(props: VideoSuggestionsProps) {
   const { suggestionHeight } = props;
@@ -74,11 +75,7 @@ function VideoSuggestions(props: VideoSuggestionsProps) {
             result.response?.status == false &&
             result.response?.error?.code == 401
           ) {
-            clientCookie.remove("boxId");
-            clientCookie.remove("tenantCode");
-            clientCookie.remove("sessionId");
-            clientCookie.remove("isLoggedin");
-            window.location.reload();
+            killSession();
           }
         })
         .catch((err) => {

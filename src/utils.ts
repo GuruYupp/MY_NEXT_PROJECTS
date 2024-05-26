@@ -136,6 +136,7 @@ export function cardDimentionsForResponsive(cardType: string): {
   // 3:4 === 1.5 ==> 0.66
   // 16:9 ==== 0.5625 ==> (1.75-1.76)
   // largeCards === 16:9 ==> (1.75 - 1.76)
+  //4:3 === 0.75
   // windowWidth = window.innerWidth;
   if (
     cardType == "overlay_poster" ||
@@ -369,6 +370,28 @@ export function cardDimentionsForResponsive(cardType: string): {
       gridCound: 1,
       cardRatio: 0.5625,
     };
+  } else if (cardType == "live_poster") {
+    if (windowWidth <= 320) {
+      return { cardCount: 2, gridCound: 2, cardRatio: 0.75 };
+    } else if (windowWidth <= 380) {
+      return { cardCount: 2.14, gridCound: 2, cardRatio: 0.75 };
+    } else if (windowWidth <= 425) {
+      return { cardCount: 2.14, gridCound: 2, cardRatio: 0.75 };
+    } else if (windowWidth <= 480) {
+      return { cardCount: 2.14, gridCound: 2, cardRatio: 0.75 };
+    } else if (windowWidth <= 576) {
+      return { cardCount: 2.38, gridCound: 2, cardRatio: 0.75 };
+    } else if (windowWidth <= 767) {
+      return { cardCount: 2.77, gridCound: 3, cardRatio: 0.75 };
+    } else if (windowWidth <= 1024) {
+      return { cardCount: 3, gridCound: 3, cardRatio: 0.75 };
+    } else if (windowWidth <= 1300) {
+      return { cardCount: 4, gridCound: 4, cardRatio: 0.75 };
+    } else if (windowWidth <= 1650) {
+      return { cardCount: 5, gridCound: 5, cardRatio: 0.75 };
+    } else {
+      return { cardCount: 6, gridCound: 6, cardRatio: 0.75 };
+    }
   } else {
     if (windowWidth <= 425) {
       return { cardCount: 2.14, gridCound: 2, cardRatio: 0.5625 };
@@ -765,6 +788,76 @@ export function cardCountForSectionSlick(cardType: string): Settings {
       return {
         slidesToShow: 1,
         slidesToScroll: 1,
+      };
+    case "live_poster":
+      return {
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        responsive: [
+          {
+            breakpoint: 1650,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 5,
+            },
+          },
+          {
+            breakpoint: 1300,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 4,
+            },
+          },
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 576,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 380,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+          {
+            breakpoint: 320,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+            },
+          },
+        ],
       };
     default:
       return {
