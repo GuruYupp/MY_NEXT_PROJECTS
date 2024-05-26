@@ -102,3 +102,12 @@ export async function getSearchapis(url: string, params: any = {}) {
   });
   return axiosResponse.data;
 }
+
+export const killSession = () => {
+  localStorage.clear();
+  clientCookie.remove("boxId");
+  clientCookie.remove("tenantCode");
+  clientCookie.remove("sessionId");
+  clientCookie.remove("isLoggedin");
+  window.location.reload();
+};

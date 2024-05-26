@@ -1,18 +1,24 @@
 const appConfig = {
   endPoints: {
-    location: "https://teleupapi.revlet.net",
-    api: "https://teleupapi.revlet.net",
-    search: "https://teleupapi.revlet.net",
+    // location: "https://teleupapi.revlet.net",
+    // api: "https://teleupapi.revlet.net",
+    // search: "https://teleupapi.revlet.net",
+    // tenantCode: "ustvnow",
+    // product: "ustvnow",
+    // isSupported: true,
+    location: "https://uat-teleupapi.revlet.net",
+    api: "https://uat-teleupapi.revlet.net",
+    search: "https://uat-teleupapi.revlet.net",
     tenantCode: "ustvnow",
     product: "ustvnow",
-    isSupported: true,
+    isSupported: true
   },
   cloudpath: "https://d2ivesio5kogrp.cloudfront.net/static/teleup",
   bannerImgpath: "https://d229kpbsb5jevy.cloudfront.net/teleup/",
   headerIconpath:
     "https://d2ivesio5kogrp.cloudfront.net/static/ustv/images/logo_with_tagline.png",
   cardDefaultImage:
-    "https://d2ivesio5kogrp.cloudfront.net/static/teleup/images/default-details.png",
+    "https://d2ivesio5kogrp.cloudfront.net/static/ustv/images/default-movie-poster.png",
   staticImagesPath:
     "https://d2ivesio5kogrp.cloudfront.net/static/teleup/images/",
   tvguideChannelsImgPath: "https://d388d59m61mm0v.cloudfront.net/optimized",

@@ -1,4 +1,4 @@
-import { getData } from "@/services/data.manager";
+import { getData, killSession } from "@/services/data.manager";
 import {
   plansInterface,
   responseInterface,
@@ -154,6 +154,10 @@ const userSlice = createSlice({
               "userDetails",
               JSON.stringify(state.userDetails),
             );
+          }
+        } else {
+          if (payload.error?.code === -1000) {
+            killSession();
           }
         }
       })
