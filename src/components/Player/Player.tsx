@@ -1,4 +1,4 @@
-import VideoPlayer from "./videoplayer/Videoplayer";
+// import VideoPlayer from "./videoplayer/Videoplayer";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -12,6 +12,8 @@ import {
 import { getPlayerpageMeta } from "./playermeta";
 import appConfig from "@/app.config";
 import SlickSection from "../Sections/SlickSection/SlickSection";
+import dynamic from "next/dynamic";
+const VideoPlayer = dynamic(() => import("./videoplayer/Videoplayer"));
 
 export default function Player() {
   const { asPath } = useRouter();

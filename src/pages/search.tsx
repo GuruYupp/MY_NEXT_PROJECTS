@@ -3,7 +3,7 @@ import { seoInterface } from "@/shared";
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
 import GenericLayout from "@/layouts/GenericLayout";
-import { ContentPageWrapper } from "@/layouts/DynamicLayout";
+
 import appConfig from "@/app.config";
 import { Suspense, lazy } from "react";
 // import Layout from "@/layouts/Layout";

@@ -1,8 +1,10 @@
 import Seodata from "@/components/seodata/seodata";
 import { seoInterface } from "@/shared";
 import { GetServerSideProps } from "next";
-import DynamicLayout from "@/layouts/DynamicLayout";
+// import DynamicLayout from "@/layouts/DynamicLayout";
 import ErrorBoundary from "@/Errorboundary";
+import dynamic from "next/dynamic";
+const DynamicLayout = dynamic(() => import("@/layouts/DynamicLayout"));
 // import Layout from "@/layouts/Layout";
 
 export default function DynamicPage({ seodata }: { seodata: seoInterface }) {

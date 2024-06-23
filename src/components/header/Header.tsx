@@ -2,8 +2,12 @@ import { memo, useEffect, useState } from "react";
 import { useAppSelector } from "@/redux/hooks";
 import { useRouter } from "next/router";
 import appConfig from "@/app.config";
-import DeskTopHeader from "./DesktopHeader/DesktopHeader";
-import MobileHeader from "./MobileHeader/MobileHeader";
+// import DeskTopHeader from "./DesktopHeader/DesktopHeader";
+// import MobileHeader from "./MobileHeader/MobileHeader";
+
+import dynamic from "next/dynamic";
+const DeskTopHeader = dynamic(() => import("./DesktopHeader/DesktopHeader"));
+const MobileHeader = dynamic(() => import("./MobileHeader/MobileHeader"));
 
 function Header() {
   const { banners, info } = useAppSelector((state) => state.pageData.response);

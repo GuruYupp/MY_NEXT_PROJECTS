@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import {
   ProfileParentalControlDataProps,
   UserProfileParentalControlPanelProps,
@@ -69,7 +69,7 @@ const UserParentalControlPanel: FC<UserProfileParentalControlPanelProps> = (
   };
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
-    const { from, data } = Modaldata;
+    const { from } = Modaldata;
     switch (from) {
       default:
         break;

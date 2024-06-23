@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/router";
-import { default as clientCookie } from "js-cookie";
+
 import {
   fetchPagedata,
   resetPagestate,
