@@ -48,7 +48,7 @@ const UpdateDetails: FC<UpdatedetailsPropsType> = (props) => {
         context: "update_mobile",
         message: `One Time Passcode (OTP) has been sent to your mobile ******${newnumber.slice(6)}`,
         verification: "mobile",
-        number: `91-${newnumber}`,
+        mobile: `91-${newnumber}`,
       });
     }
   };

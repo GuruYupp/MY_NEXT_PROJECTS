@@ -85,18 +85,18 @@ export default function MobileMenus({
 }: props): JSX.Element {
   const { asPath } = useRouter();
 
-  const checkPathinsubmenu = (menu: menuInterface) => {
-    if (menu.subMenus.length === 0) return false;
-    let path = asPath.split("/")[1];
-    if (path) {
-      let pathFound = false;
-      menu.subMenus.forEach((menu: menuInterface) => {
-        if (menu.targetPath === activeMobileMenu?.targetPath) pathFound = true;
-      });
-      return pathFound;
-    }
-    return false;
-  };
+  // const checkPathinsubmenu = (menu: menuInterface) => {
+  //   if (menu.subMenus.length === 0) return false;
+  //   let path = asPath.split("/")[1];
+  //   if (path) {
+  //     let pathFound = false;
+  //     menu.subMenus.forEach((menu: menuInterface) => {
+  //       if (menu.targetPath === activeMobileMenu?.targetPath) pathFound = true;
+  //     });
+  //     return pathFound;
+  //   }
+  //   return false;
+  // };
 
   const getPathsubmenu = (menu: menuInterface) => {
     let path = asPath.split("/")[1] || "home";

@@ -25,7 +25,7 @@ export default function CreateUserProfile() {
   const [profileImg, setprofileImg] = useState<string>(defaultprofileimg);
   const [showToast, setShowToast] = useState<boolean>(false);
   const [toastmsg, setToastMsg] = useState<string>("");
-  const [pinerrmsg, setPinerrmsg] = useState<string>("");
+  const [pinerrmsg, _setPinerrmsg] = useState<string>("");
   const toastTimer = useRef<ReturnType<typeof setTimeout>>();
   const { userDetails } = useAppSelector((state) => state.user);
   const masterProfile =

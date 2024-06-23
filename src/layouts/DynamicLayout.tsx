@@ -9,7 +9,6 @@ import NetworkDetails from "@/components/network-details/NetworkDetails";
 import DetailsPage from "@/components/Details/Details";
 import { useAppSelector } from "@/redux/hooks";
 import Player from "@/components/Player/Player";
-// import Search from '@/components/Searchv3/search';
 
 export function ContentPageWrapper(props: { children: ReactNode }) {
   const { children } = props;

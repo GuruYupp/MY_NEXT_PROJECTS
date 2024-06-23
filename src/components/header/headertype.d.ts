@@ -1,5 +1,5 @@
 import { menuInterface } from "@/shared";
-import { addMenusAction } from "./headerSlice";
+// import { addMenusAction } from "./headerSlice";
 
 export interface MenusInitialStateInterface {
   menus: menuInterface[];
@@ -10,7 +10,7 @@ export interface MenusInitialStateInterface {
   mobileMenus: menuInterface[];
 }
 
-export type MenusActionTypes = ReturnType<typeof addMenusAction>;
+// export type MenusActionTypes = ReturnType<typeof addMenusAction>;
 interface HeadercommonPropsInterface {
   moveheaderTop: boolean;
   headerGradient: boolean;

@@ -13,6 +13,7 @@ import {
 } from "@/redux/feature/streamSlice/streamSlice";
 import { useRouter } from "next/router";
 import VideoplayerService from "./VideoplayeruiUtil";
+import Script from "next/script";
 
 function VideoPlayer(props: VideoPlayerPropsInterface) {
   const { setSuggestionHeight } = props;
@@ -128,6 +129,13 @@ function VideoPlayer(props: VideoPlayerPropsInterface) {
 
   return (
     <>
+      <Script
+        strategy="afterInteractive"
+        src="https://cdn.jwplayer.com/libraries/MAaRkUjT.js"
+        id="jw-player-script"
+      >
+        jwplayer.key = "jTL7dlu7ybUI5NZnDdVgb1laM8/Hj3ftIJ5Vqg==";
+      </Script>
       <div ref={playerparentref}>
         <VideoplayerService ref={playerInstanceRef}>
           <div ref={playerRef}>

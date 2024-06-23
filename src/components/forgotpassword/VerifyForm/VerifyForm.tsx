@@ -28,7 +28,7 @@ const VerifyForm: FC<verifyOTPPropsInterface> = (props) => {
 
   const [errormsg, setErrormsg] = useState<string>("");
   const errormsgtimer = useRef<ReturnType<typeof setTimeout>>();
-  const [verifyField, setVerifyField] = useState<"email" | "mobile" | "">(
+  const [verifyField, _setVerifyField] = useState<"email" | "mobile" | "">(
     otpauthentication?.fields?.forgot_password_identifier_type || "",
   );
   const [otpText, setOtpText] = useState<string>("");
@@ -213,7 +213,7 @@ const VerifyForm: FC<verifyOTPPropsInterface> = (props) => {
   };
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
-    const { from, data } = Modaldata;
+    const { from } = Modaldata;
     switch (from) {
       case "genericmodal":
         handlecloseModal();

@@ -189,7 +189,7 @@ const GenericSignup: FC = () => {
   };
 
   function getDataFromModal(Modaldata: { from: ModalType; data: any }) {
-    const { from, data } = Modaldata;
+    const { from } = Modaldata;
     switch (from) {
       case "otpverify":
         setuserLoggedin();

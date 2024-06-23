@@ -3,7 +3,6 @@ import React, {
   PropsWithChildren,
   forwardRef,
   useEffect,
-  useState,
 } from "react";
 import {
   ChangeRewindIcon,

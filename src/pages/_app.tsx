@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Head from "next/head";
 import { Provider } from "react-redux";
 import Store from "@/redux/store";
-import Script from "next/script";
+// import Script from "next/script";
 import NextNProgress from "nextjs-progressbar";
 import Layout from "@/layouts/Layout";
 import appConfig from "@/app.config";
@@ -53,13 +53,6 @@ export default function App({ Component, pageProps }: AppProps) {
           name="viewport"
         ></meta>
       </Head>
-      <Script
-        strategy="afterInteractive"
-        src="https://cdn.jwplayer.com/libraries/MAaRkUjT.js"
-        id="jw-player-script"
-      >
-        jwplayer.key = "jTL7dlu7ybUI5NZnDdVgb1laM8/Hj3ftIJ5Vqg==";
-      </Script>
       <Provider store={Store}>
         <Layout>
           <Component {...pageProps} />

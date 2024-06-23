@@ -1,6 +1,10 @@
 import { GetServerSideProps } from "next";
 import ErrorBoundary from "@/Errorboundary";
-import GenericSignup from "@/components/Auth/genericsignup/GenericSigninup";
+// import GenericSignup from "@/components/Auth/genericsignup/GenericSigninup";
+import dynamic from "next/dynamic";
+const GenericSignup = dynamic(
+  () => import("@/components/Auth/genericsignup/GenericSigninup"),
+);
 
 export default function SignupPage(): JSX.Element {
   return (

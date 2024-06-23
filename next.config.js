@@ -1,4 +1,8 @@
-module.exports = {
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: true,
+})
+
+module.exports = withBundleAnalyzer({
   reactStrictMode: false,
   basePath: '',
   async rewrites() {
@@ -72,4 +76,4 @@ module.exports = {
   //   // !! WARN !!
   //   // ignoreBuildErrors: true,
   // },
-};
+});

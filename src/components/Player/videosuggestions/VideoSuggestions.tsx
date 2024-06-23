@@ -1,7 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import styles from "./VideoSuggestions.module.scss";
 import Slider, { Settings } from "react-slick";
-import { default as clientCookie } from "js-cookie";
 import SuggestionCard from "./suggestioncard/SuggestionCard";
 import { useEffect, useRef, useState } from "react";
 import { fetchSections } from "@/redux/feature/pageSlice/pageSlice";
